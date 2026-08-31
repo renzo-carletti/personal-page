@@ -18,21 +18,51 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   </div>
 
   <div class="hero__constellation" aria-hidden="true">
-    <svg viewBox="0 0 220 120" fill="none" stroke="rgba(255, 209, 102, 0.5)" stroke-width="1">
+    <svg viewBox="0 0 220 120" fill="none" stroke="rgba(232, 182, 76, 0.55)" stroke-width="1">
       <path d="M24 96 L78 34 L138 48 L190 18" />
-      <circle cx="24" cy="96" r="3" fill="#ffd166" />
-      <circle cx="78" cy="34" r="3" fill="#fff3cf" />
-      <circle cx="138" cy="48" r="3" fill="#ffd166" />
-      <circle cx="190" cy="18" r="3" fill="#fff3cf" />
+      <circle cx="24" cy="96" r="3" fill="#e8b64c" />
+      <circle cx="78" cy="34" r="3" fill="#fff6e0" />
+      <circle cx="138" cy="48" r="3" fill="#e8b64c" />
+      <circle cx="190" cy="18" r="3" fill="#fff6e0" />
     </svg>
   </div>
 
-  <div class="hero__airship" aria-hidden="true">
-    <svg viewBox="0 0 130 70" fill="none">
-      <ellipse cx="65" cy="22" rx="40" ry="16" stroke="rgba(255, 209, 102, 0.55)" stroke-width="1.4" fill="rgba(255, 209, 102, 0.08)" />
-      <path d="M44 34 L86 34 L78 52 L52 52 Z" stroke="rgba(255, 209, 102, 0.55)" stroke-width="1.4" fill="rgba(255, 177, 39, 0.1)" />
-      <path d="M52 52 L78 52 L78 58 L52 58 Z" fill="rgba(255, 177, 39, 0.5)" />
-      <path d="M78 34 L102 30 L86 44 Z" stroke="rgba(255, 209, 102, 0.5)" stroke-width="1.2" fill="rgba(255, 177, 39, 0.12)" />
+  <div class="hero__crystal" aria-hidden="true">
+    <svg viewBox="0 0 100 120">
+      <path d="M50 2 L60 22 L82 44 L72 78 L50 112 L28 78 L18 44 L40 22 Z" fill="url(#cry1)" stroke="#e8b64c" stroke-width="1.4" stroke-linejoin="round" />
+      <path d="M50 2 L40 22 L18 44 L50 50 Z" fill="url(#cry2)" />
+      <path d="M50 2 L60 22 L82 44 L50 50 Z" fill="url(#cry3)" />
+      <path d="M18 44 L50 50 L28 78 Z" fill="url(#cry4)" />
+      <path d="M82 44 L50 50 L72 78 Z" fill="url(#cry5)" />
+      <path d="M50 50 L28 78 L50 112 Z" fill="url(#cry6)" />
+      <path d="M50 50 L72 78 L50 112 Z" fill="url(#cry1)" opacity="0.85" />
+      <defs>
+        <linearGradient id="cry1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#c98f26" />
+          <stop offset="0.55" stop-color="#f8d46a" />
+          <stop offset="1" stop-color="#7a4a10" />
+        </linearGradient>
+        <linearGradient id="cry2" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#5a3209" />
+          <stop offset="1" stop-color="#c98f26" />
+        </linearGradient>
+        <linearGradient id="cry3" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fff6d0" />
+          <stop offset="1" stop-color="#e8b64c" />
+        </linearGradient>
+        <linearGradient id="cry4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#c98f26" />
+          <stop offset="1" stop-color="#7a4a10" />
+        </linearGradient>
+        <linearGradient id="cry5" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f8d46a" />
+          <stop offset="1" stop-color="#a06a18" />
+        </linearGradient>
+        <linearGradient id="cry6" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e8b64c" />
+          <stop offset="1" stop-color="#5a3209" />
+        </linearGradient>
+      </defs>
     </svg>
   </div>
 
@@ -387,62 +417,32 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     to { transform: rotate(360deg); }
   }
 
-  /* Constellation (Outer Wilds sky) */
-  .hero__constellation {
+  /* FF9 garnet crystal */
+  .hero__crystal {
     display: none;
     position: absolute;
-    right: clamp(1rem, 22vw, 20rem);
-    top: 4vh;
-    width: clamp(120px, 14vw, 190px);
+    left: clamp(1rem, 6vw, 5rem);
+    bottom: 24vh;
+    width: clamp(46px, 5vw, 64px);
     z-index: 1;
-    opacity: 0.9;
+    filter: drop-shadow(0 0 14px rgba(248, 212, 106, 0.45));
+    animation: crystal-bob 7s ease-in-out infinite;
   }
 
-  html[data-theme='fun'] .hero__constellation {
+  html[data-theme='fun'] .hero__crystal {
     display: block !important;
   }
 
-  .hero__constellation circle {
-    animation: spark-float 6s ease-in-out infinite;
-  }
-
-  .hero__constellation circle:nth-child(2) {
-    animation-delay: 1.6s;
-  }
-
-  .hero__constellation circle:nth-child(3) {
-    animation-delay: 2.9s;
-  }
-
-  .hero__constellation circle:nth-child(4) {
-    animation-delay: 4.1s;
-  }
-
-  /* FF9 airship drifting across the sky */
-  .hero__airship {
-    display: none;
-    position: absolute;
-    top: 6vh;
-    left: -170px;
-    width: clamp(90px, 9vw, 130px);
-    z-index: 1;
-    animation: airship-fly 46s linear infinite;
-  }
-
-  html[data-theme='fun'] .hero__airship {
-    display: block !important;
-  }
-
-  @keyframes airship-fly {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(100vw + 340px)); }
+  @keyframes crystal-bob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
   }
 
   @media (max-width: 720px), (max-height: 720px) {
     .hero__spark,
     .hero__ow,
     .hero__constellation,
-    .hero__airship {
+    .hero__crystal {
       display: none !important;
     }
   }
@@ -450,7 +450,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   @media (max-width: 1000px) {
     .hero__ow,
     .hero__constellation,
-    .hero__airship {
+    .hero__crystal {
       display: none !important;
     }
   }

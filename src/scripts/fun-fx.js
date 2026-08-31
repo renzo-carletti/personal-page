@@ -34,17 +34,6 @@ export async function initFunFx() {
         onEnter: () => glow.play(),
       });
     });
-
-    const name = document.querySelector('[data-fun-fx="hero"]');
-    if (name) {
-      gsap.to(name, {
-        textShadow: '0 0 36px rgba(255, 209, 102, 0.55), 0 0 80px rgba(255, 159, 67, 0.35)',
-        duration: 2.2,
-        yoyo: true,
-        repeat: -1,
-        ease: 'sine.inOut',
-      });
-    }
   });
 }
 

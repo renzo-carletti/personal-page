@@ -10,6 +10,7 @@ function buildStarfield() {
   const canvas = document.createElement('canvas');
   canvas.className = 'fx-starfield';
   const c2d = canvas.getContext('2d');
+  const planet = document.querySelector('.fx-planet');
   const stars = [];
   const embers = [];
   let w = 0;
@@ -78,6 +79,9 @@ function buildStarfield() {
   const onMouse = (e) => {
     mx = e.clientX / w - 0.5;
     my = e.clientY / h - 0.5;
+    if (planet) {
+      planet.style.transform = `translate(${mx * -26}px, ${my * -18}px)`;
+    }
   };
 
   resize();

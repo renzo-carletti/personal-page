@@ -17,6 +17,25 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     </div>
   </div>
 
+  <div class="hero__constellation" aria-hidden="true">
+    <svg viewBox="0 0 220 120" fill="none" stroke="rgba(255, 209, 102, 0.5)" stroke-width="1">
+      <path d="M24 96 L78 34 L138 48 L190 18" />
+      <circle cx="24" cy="96" r="3" fill="#ffd166" />
+      <circle cx="78" cy="34" r="3" fill="#fff3cf" />
+      <circle cx="138" cy="48" r="3" fill="#ffd166" />
+      <circle cx="190" cy="18" r="3" fill="#fff3cf" />
+    </svg>
+  </div>
+
+  <div class="hero__airship" aria-hidden="true">
+    <svg viewBox="0 0 130 70" fill="none">
+      <ellipse cx="65" cy="22" rx="40" ry="16" stroke="rgba(255, 209, 102, 0.55)" stroke-width="1.4" fill="rgba(255, 209, 102, 0.08)" />
+      <path d="M44 34 L86 34 L78 52 L52 52 Z" stroke="rgba(255, 209, 102, 0.55)" stroke-width="1.4" fill="rgba(255, 177, 39, 0.1)" />
+      <path d="M52 52 L78 52 L78 58 L52 58 Z" fill="rgba(255, 177, 39, 0.5)" />
+      <path d="M78 34 L102 30 L86 44 Z" stroke="rgba(255, 209, 102, 0.5)" stroke-width="1.2" fill="rgba(255, 177, 39, 0.12)" />
+    </svg>
+  </div>
+
   <div class="container hero__inner">
     <p class="hero__hello reveal" style="--d:.05s" data-i18n="hero.hello">Hi, I'm</p>
     <h1 class="hero__name reveal" data-fun-fx="hero" style="--d:.15s">
@@ -368,15 +387,70 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     to { transform: rotate(360deg); }
   }
 
+  /* Constellation (Outer Wilds sky) */
+  .hero__constellation {
+    display: none;
+    position: absolute;
+    right: clamp(1rem, 22vw, 20rem);
+    top: 4vh;
+    width: clamp(120px, 14vw, 190px);
+    z-index: 1;
+    opacity: 0.9;
+  }
+
+  html[data-theme='fun'] .hero__constellation {
+    display: block !important;
+  }
+
+  .hero__constellation circle {
+    animation: spark-float 6s ease-in-out infinite;
+  }
+
+  .hero__constellation circle:nth-child(2) {
+    animation-delay: 1.6s;
+  }
+
+  .hero__constellation circle:nth-child(3) {
+    animation-delay: 2.9s;
+  }
+
+  .hero__constellation circle:nth-child(4) {
+    animation-delay: 4.1s;
+  }
+
+  /* FF9 airship drifting across the sky */
+  .hero__airship {
+    display: none;
+    position: absolute;
+    top: 6vh;
+    left: -170px;
+    width: clamp(90px, 9vw, 130px);
+    z-index: 1;
+    animation: airship-fly 46s linear infinite;
+  }
+
+  html[data-theme='fun'] .hero__airship {
+    display: block !important;
+  }
+
+  @keyframes airship-fly {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 340px)); }
+  }
+
   @media (max-width: 720px), (max-height: 720px) {
     .hero__spark,
-    .hero__ow {
+    .hero__ow,
+    .hero__constellation,
+    .hero__airship {
       display: none !important;
     }
   }
 
   @media (max-width: 1000px) {
-    .hero__ow {
+    .hero__ow,
+    .hero__constellation,
+    .hero__airship {
       display: none !important;
     }
   }

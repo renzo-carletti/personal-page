@@ -101,7 +101,7 @@ function buildStarfield() {
   };
 }
 
-function buildJourney(gsap, ScrollTrigger, confetti) {
+function buildJourney(gsap, ScrollTrigger) {
   const wrap = document.createElement('div');
   wrap.className = 'fx-journey';
   wrap.innerHTML = '<span class="fx-journey__fill"></span><span class="fx-journey__star"></span>';
@@ -109,7 +109,6 @@ function buildJourney(gsap, ScrollTrigger, confetti) {
 
   const fill = wrap.querySelector('.fx-journey__fill');
   const star = wrap.querySelector('.fx-journey__star');
-  let lastStep = 0;
 
   const st = ScrollTrigger.create({
     start: 0,
@@ -118,20 +117,6 @@ function buildJourney(gsap, ScrollTrigger, confetti) {
       const p = self.progress;
       fill.style.transform = `scaleX(${p})`;
       star.style.left = `calc(${p * 100}% - 4.5px)`;
-      const step = Math.floor(p * 4) + 1;
-      if (step !== lastStep && p < 0.995) {
-        lastStep = step;
-        confetti({
-          particleCount: 26,
-          spread: 55,
-          startVelocity: 18,
-          ticks: 80,
-          origin: { x: p, y: 0.15 },
-          colors: ['#ffd166', '#ffb627', '#fff3cf', '#ff9f43'],
-          scalar: 0.9,
-          disableForReducedMotion: true,
-        });
-      }
     },
   });
 
@@ -147,14 +132,15 @@ function buildJourney(gsap, ScrollTrigger, confetti) {
 function buildTilt(gsap) {
   const cards = gsap.utils.toArray('.work__card, .about__card, .workflow__card, .arch');
   const fns = cards.map((card) => {
-    const rx = gsap.quickTo(card, 'rotationX', { duration: 0.55, ease: 'power2.out' });
-    const ry = gsap.quickTo(card, 'rotationY', { duration: 0.55, ease: 'power2.out' });
+    gsap.set(card, { transformPerspective: 800 });
+    const rx = gsap.quickTo(card, 'rotationX', { duration: 0.5, ease: 'power2.out' });
+    const ry = gsap.quickTo(card, 'rotationY', { duration: 0.5, ease: 'power2.out' });
     const move = (e) => {
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
-      ry(px * 6);
-      rx(-py * 6);
+      ry(px * 12);
+      rx(-py * 12);
     };
     const leave = () => {
       rx(0);
@@ -215,11 +201,10 @@ export async function initGameFx() {
   if (ctx || typeof window === 'undefined' || !gates()) return;
   const { gsap } = await import('gsap');
   const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-  const confetti = (await import('canvas-confetti')).default;
   gsap.registerPlugin(ScrollTrigger);
 
   const star = buildStarfield();
-  const journey = buildJourney(gsap, ScrollTrigger, confetti);
+  const journey = buildJourney(gsap, ScrollTrigger);
   const tiltFns = buildTilt(gsap);
   const bootStop = buildBoot();
 

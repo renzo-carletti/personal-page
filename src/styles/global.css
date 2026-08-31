@@ -396,6 +396,21 @@ button {
   box-shadow: 0 0 0 1px rgba(247, 237, 207, 0.05), inset 0 0 0 1px rgba(247, 237, 207, 0.04);
 }
 
+:root[data-theme='fun'] .work__card:hover,
+:root[data-theme='fun'] .work__card--featured:hover,
+:root[data-theme='fun'] .timeline__card:hover,
+:root[data-theme='fun'] .workflow__card:hover,
+:root[data-theme='fun'] .about__card:hover {
+  box-shadow: 0 18px 44px -26px rgba(255, 177, 39, 0.35);
+  border-color: color-mix(in srgb, var(--accent-2) 35%, var(--glass-border));
+}
+
+:root[data-theme='fun'] .work__card--featured {
+  background:
+    linear-gradient(var(--glass-strong), var(--glass-strong)) padding-box,
+    linear-gradient(120deg, color-mix(in srgb, var(--accent-2) 40%, transparent), color-mix(in srgb, var(--accent-1) 40%, transparent)) border-box;
+}
+
 @media (max-width: 720px) {
   .fx-boot__text {
     font-size: 0.82rem;
@@ -563,7 +578,9 @@ html.low-power .nav.scrolled {
     transition: none;
   }
   .hero__spark,
-  .hero__ow {
+  .hero__ow,
+  .hero__constellation,
+  .hero__airship {
     animation: none;
   }
   :root[data-theme='fun'] .hero__name,

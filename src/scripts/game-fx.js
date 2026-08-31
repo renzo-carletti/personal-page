@@ -3,8 +3,10 @@ let bootDone = false;
 
 const gates = () =>
   typeof window !== 'undefined' &&
-  !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
-  window.matchMedia('(min-width: 721px)').matches;
+  !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const isDesktop = () =>
+  typeof window !== 'undefined' && window.matchMedia('(min-width: 721px)').matches;
 
 function buildStarfield() {
   const canvas = document.createElement('canvas');
@@ -199,22 +201,25 @@ function buildBoot() {
 
 export async function initGameFx() {
   if (ctx || typeof window === 'undefined' || !gates()) return;
-  const { gsap } = await import('gsap');
-  const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-  gsap.registerPlugin(ScrollTrigger);
-
-  const star = buildStarfield();
-  const journey = buildJourney(gsap, ScrollTrigger);
-  const tiltFns = buildTilt(gsap);
   const bootStop = buildBoot();
-
-  ctx = { star, journey, tiltFns, bootStop, gsap };
+  let star = null;
+  let journey = null;
+  let tiltFns = [];
+  if (isDesktop()) {
+    const { gsap } = await import('gsap');
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+    gsap.registerPlugin(ScrollTrigger);
+    star = buildStarfield();
+    journey = buildJourney(gsap, ScrollTrigger);
+    tiltFns = buildTilt(gsap);
+  }
+  ctx = { star, journey, tiltFns, bootStop };
 }
 
 export function destroyGameFx() {
   if (!ctx) return;
-  ctx.star.stop();
-  ctx.journey.stop();
+  if (ctx.star) ctx.star.stop();
+  if (ctx.journey) ctx.journey.stop();
   ctx.tiltFns.forEach((f) => f());
   ctx.bootStop();
   ctx = null;

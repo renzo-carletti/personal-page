@@ -296,9 +296,11 @@ button {
 :root[data-theme='fun'] .hero__name {
   font-family: var(--font-script);
   font-weight: 400;
-  font-size: clamp(3.4rem, 9vw, 6.4rem);
-  line-height: 1.06;
-  letter-spacing: 0.01em;
+  font-size: clamp(3.2rem, 8.5vw, 5.8rem);
+  line-height: 1.4;
+  letter-spacing: 0.015em;
+  padding-block: 0.12em;
+  overflow: visible;
   text-shadow: 0 3px 26px rgba(255, 209, 102, 0.22);
   animation: fun-shimmer 12s linear infinite;
 }

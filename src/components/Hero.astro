@@ -470,6 +470,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   let roleIndex = 0;
   let roleChar = 0;
   let deleting = false;
+  let typeTimer = null;
   const el = document.getElementById('role-rotator');
 
   function type() {
@@ -479,24 +480,25 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       el.textContent = current.slice(0, roleChar);
       if (roleChar === current.length) {
         deleting = true;
-        setTimeout(type, 2000);
+        typeTimer = setTimeout(type, 2000);
         return;
       }
-      setTimeout(type, 55 + Math.random() * 40);
+      typeTimer = setTimeout(type, 55 + Math.random() * 40);
     } else {
       roleChar--;
       el.textContent = current.slice(0, roleChar);
       if (roleChar === 0) {
         deleting = false;
         roleIndex = (roleIndex + 1) % roles.length;
-        setTimeout(type, 400);
+        typeTimer = setTimeout(type, 400);
         return;
       }
-      setTimeout(type, 30);
+      typeTimer = setTimeout(type, 30);
     }
   }
 
   function restartTyping() {
+    clearTimeout(typeTimer);
     roleIndex = 0;
     roleChar = 0;
     deleting = false;
@@ -510,7 +512,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
   if (!reducedMotion) type();
 
-  window.addEventListener('i18n:changed', () => {
+  document.addEventListener('i18n:changed', () => {
     roles = JSON.parse(el.dataset.roles);
     restartTyping();
   });

@@ -133,8 +133,8 @@ function buildTilt(gsap) {
   const cards = gsap.utils.toArray('.work__card, .about__card, .workflow__card, .arch');
   const fns = cards.map((card) => {
     gsap.set(card, { transformPerspective: 800 });
-    const rx = gsap.quickTo(card, 'rotationX', { duration: 0.5, ease: 'power2.out' });
-    const ry = gsap.quickTo(card, 'rotationY', { duration: 0.5, ease: 'power2.out' });
+    const rx = gsap.quickTo(card, 'rotationX', { duration: 0.15, ease: 'power1.out' });
+    const ry = gsap.quickTo(card, 'rotationY', { duration: 0.15, ease: 'power1.out' });
     const move = (e) => {
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;

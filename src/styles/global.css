@@ -53,6 +53,8 @@
   --font-script: 'Pinyon Script', 'Cormorant Garamond', cursive;
   --font-note: 'Caveat', 'Segoe Print', cursive;
   --font-body: 'Crimson Text', Georgia, serif;
+  --font-sans: 'Crimson Text', Georgia, serif;
+  --font-mono: 'Cormorant Garamond', Georgia, serif;
 }
 
 :root[data-theme='fun'] body,

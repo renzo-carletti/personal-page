@@ -3,7 +3,7 @@ export const defaultLang = 'en';
 
 export const translations = {
   en: {
-    'meta.title': 'Renzo Carletti — Decoupled Drupal & React Engineer',
+    'meta.title': 'Renzo Carletti · Decoupled Drupal & React Engineer',
     'nav.about': 'About',
     'nav.experience': 'Experience',
     'nav.skills': 'Skills',
@@ -15,7 +15,7 @@ export const translations = {
     'hero.hello': "Hi, I'm",
     'hero.open': 'Open to work',
     'hero.summary':
-      'Mid-Senior Full-Stack Developer with 5+ years engineering high-performance web applications and modernizing legacy systems. Specialist in headless CMS architectures (Drupal + React) and REST API development, translating complex business needs into scalable systems — while bridging technical and non-technical stakeholders.',
+      'Full-stack developer with 5+ years building fast web apps and modernizing legacy systems. I work mainly with headless CMS setups (Drupal plus React) and REST APIs. I like turning complex business needs into systems that actually scale, and I speak both technical and non-technical so teams stay on the same page.',
     'hero.letstalk': "Let's talk",
     'hero.download': 'Download CV',
     'hero.stats.load': 'load time reduction',
@@ -28,13 +28,13 @@ export const translations = {
       'Decoupled Drupal & React Engineer',
       'Headless CMS Architect',
       'REST API Specialist',
-      'DevOps-Minded Developer',
+      'Developer with a DevOps mindset',
     ],
     'about.kicker': '// about',
     'about.title': 'The engineer behind the stack',
     'about.who': 'Who I am',
     'about.whoText':
-      'My work sits at the intersection of content systems and fast, modern frontends — turning rigid, monolithic CMS platforms into decoupled, scalable, API-driven products.',
+      'My work sits at the intersection of content systems and fast, modern frontends. I take rigid, monolithic CMS platforms and turn them into decoupled, scalable, API-driven products.',
     'about.highlights.0': '5+ years building high-performance web apps',
     'about.highlights.1': 'Led Drupal-to-headless CMS transformation',
     'about.highlights.2': '30% faster load times, 40% lower infra costs',
@@ -48,7 +48,7 @@ export const translations = {
     'about.edu.1.school': 'Centenario High School',
     'about.edu.1.degree': 'High School Diploma: Economics',
     'about.edu.1.detail': 'Minor: Economics and Administration',
-    'about.edu.1.period': '2011 — 2015',
+    'about.edu.1.period': '2011 to 2015',
     'about.lang.title': 'Languages',
     'about.lang.0.level': 'Native',
     'about.lang.1.level': 'Fluent · Professional Working Proficiency',
@@ -70,7 +70,7 @@ export const translations = {
     'exp.1.role': 'Full-Stack Developer (Drupal + React)',
     'exp.1.meta': 'Remote',
     'exp.1.b0':
-      'Led the transformation of a monolithic CMS into a high-performance headless architecture with React, REST APIs and OAuth2 — 30% faster load times and 40% lower infrastructure costs.',
+      'Led the transformation of a monolithic CMS into a high-performance headless architecture with React, REST APIs and OAuth2. Result: 30% faster load times and 40% lower infrastructure costs.',
     'exp.1.b1':
       'Developed and optimized high-frequency REST endpoints and secure OAuth2 flows for robust data security and fast front/back communication.',
     'exp.1.b2':
@@ -88,7 +88,7 @@ export const translations = {
     'exp.2.b2':
       'Stabilized core infrastructure, cutting system downtime by 25% through proactive debugging and server optimization.',
     'exp.2.b3':
-      'Engineered an automated course subscription platform on Moodle REST APIs — 1,100+ new enrollments in its first month.',
+      'Built an automated course subscription platform on Moodle REST APIs. It drove 1,100+ new enrollments in its first month.',
     'exp.2.b4':
       'Led technical mentorship and training, guiding the team on Drupal best practices and project lifecycle management.',
     'skills.kicker': '// toolkit',
@@ -101,7 +101,7 @@ export const translations = {
       'Run open-source models locally (Llama 3 / OpenCode via Ollama) so client and government code never leaves a secure environment.',
     'workflow.card2.title': 'AI-accelerated delivery',
     'workflow.card2.desc':
-      'Cursor and coding agents draft scaffolding, migrations and tests — cutting delivery cycles without cutting quality.',
+      'Cursor and coding agents draft scaffolding, migrations and tests. I cut delivery cycles without cutting quality.',
     'workflow.card3.title': 'Human-reviewed, always',
     'workflow.card3.desc': 'AI proposes. I own it: review, refactor and ship production-grade code.',
     'workflow.arch.title': 'Decoupled by design',
@@ -111,7 +111,7 @@ export const translations = {
     'workflow.arch.react': 'React Frontend',
     'workflow.arch.reactSub': 'dynamic UI · fast loads',
     'workflow.arch.why':
-      'Headless = content teams publish independently while the frontend ships faster — 30% load-time gains, independent scaling.',
+      'Headless lets content teams publish independently while the frontend ships faster. 30% load-time gains and independent scaling.',
     'work.kicker': '// selected work',
     'work.title': 'Live projects',
     'work.visit': 'Visit site',
@@ -120,7 +120,7 @@ export const translations = {
     'case.solution': 'Solution',
     'case.impact': 'Impact',
     'case.0.problem':
-      'No unified enrollment path across platforms — manual, faculty-by-faculty processes and slow digital certification.',
+      'There was no unified enrollment path across platforms. Processes were manual, faculty by faculty, and digital certification was slow.',
     'case.0.solution':
       'Architected Drupal Commerce + Moodle REST integration with a 5-step self-enrollment flow and automated digital certification.',
     'case.0.impact':
@@ -130,15 +130,15 @@ export const translations = {
     'case.1.solution':
       'Built a career finder with pre-inscription workflows, orientation tools and downloadable academic offers on Drupal.',
     'case.1.impact':
-      'A clear, guided first step for every applicant — less friction, fewer support tickets during inscription season.',
+      'A clear, guided first step for every applicant. Less friction and fewer support tickets during inscription season.',
     'case.2.problem':
       'Drupal 8 codebase with content sprawl, unstable upgrades and a migration to Drupal 10 ahead.',
     'case.2.solution':
-      'Led the Drupal 8 → 10 migration with content remodeling and Paragraphs, plus ongoing consulting support.',
+      'Led the Drupal 8 to 10 migration with content remodeling and Paragraphs, plus ongoing consulting support.',
     'case.2.impact':
       'A stable, modern editorial platform for one of the largest city governments in the region.',
     'case.3.problem':
-      'Legacy codebase with little standardization — high maintenance cost and hard to extend safely.',
+      'A legacy codebase with little standardization. High maintenance cost and hard to extend safely.',
     'case.3.solution':
       'Refactored the project applying modern patterns, cleaner structure and maintainable practices.',
     'case.3.impact':
@@ -159,7 +159,7 @@ export const translations = {
     'work.2.name': 'Buenos Aires Ciudad',
     'work.2.tagline': 'City government portal',
     'work.2.desc':
-      'Drupal 8 → 10 migration for the City of Buenos Aires: content remodeling, Paragraphs, bug fixing and ongoing support as Drupal consultant via CyS.',
+      'Drupal 8 to 10 migration for the City of Buenos Aires: content remodeling, Paragraphs, bug fixing and ongoing support as Drupal consultant via CyS.',
     'work.2.metric': '',
     'work.3.name': 'Club San Jorge',
     'work.3.tagline': 'Legacy modernization',
@@ -178,8 +178,8 @@ export const translations = {
     'certs.2': 'JavaScript',
     'certs.3': 'Web Development',
     'certs.4': 'Git Version Control',
-    'certs.5': 'Java Programming — Level 1',
-    'certs.6': 'English — Advanced',
+    'certs.5': 'Java Programming, Level 1',
+    'certs.6': 'English, Advanced',
     'contact.kicker': '// contact',
     'contact.title': "Let's build something fast together",
     'contact.text':
@@ -198,11 +198,10 @@ export const translations = {
     'contact.submit': 'Send message',
     'contact.copy': 'Copy message',
     'contact.sending': 'Sending...',
-    'contact.success': 'Message sent — I reply soon. Thanks for reaching out!',
+    'contact.success': 'Message sent. I reply soon. Thanks for reaching out!',
     'contact.copied': 'Message copied to clipboard.',
     'contact.copyFail': 'Could not copy automatically. Select the text and copy manually.',
-    'contact.hint':
-      'Messages go straight to my inbox — no account or sign-up needed.',
+    'contact.hint': 'Messages go straight to my inbox. No account or sign-up needed.',
     'contact.book': 'Prefer to book directly? Open my 15-minute call calendar.',
     'contact.opening':
       'Opening your email client... if nothing happened, email me directly at ',
@@ -212,7 +211,7 @@ export const translations = {
   },
 
   es: {
-    'meta.title': 'Renzo Carletti — Ingeniero Drupal & React desacoplado',
+    'meta.title': 'Renzo Carletti · Ingeniero Drupal & React desacoplado',
     'nav.about': 'Sobre mí',
     'nav.experience': 'Experiencia',
     'nav.skills': 'Habilidades',
@@ -224,7 +223,7 @@ export const translations = {
     'hero.hello': 'Hola, soy',
     'hero.open': 'Abierto a oportunidades',
     'hero.summary':
-      'Desarrollador Full-Stack mid-senior con más de 5 años de experiencia creando aplicaciones web de alto rendimiento y modernizando sistemas legados. Especialista en arquitecturas CMS headless (Drupal + React) y desarrollo de APIs REST, transformando necesidades de negocio complejas en sistemas escalables — y conectando equipos técnicos y no técnicos.',
+      'Desarrollador full-stack con más de 5 años de experiencia creando aplicaciones web rápidas y modernizando sistemas legados. Trabajo sobre todo con arquitecturas CMS headless (Drupal + React) y APIs REST. Me gusta convertir necesidades de negocio complejas en sistemas que realmente escalan, y hablo tanto con gente técnica como no técnica para que los equipos estén en la misma página.',
     'hero.letstalk': 'Hablemos',
     'hero.download': 'Descargar CV',
     'hero.stats.load': 'reducción de tiempo de carga',
@@ -243,7 +242,7 @@ export const translations = {
     'about.title': 'El ingeniero detrás del stack',
     'about.who': 'Quién soy',
     'about.whoText':
-      'Mi trabajo está en la intersección entre sistemas de contenido y frontends modernos y rápidos — convirtiendo plataformas CMS monolíticas y rígidas en productos desacoplados, escalables y basados en APIs.',
+      'Mi trabajo está en la intersección entre sistemas de contenido y frontends modernos y rápidos. Tomo plataformas CMS monolíticas y rígidas y las convierto en productos desacoplados, escalables y basados en APIs.',
     'about.highlights.0': '5+ años construyendo apps web de alto rendimiento',
     'about.highlights.1': 'Lideré la transformación a CMS headless desde Drupal',
     'about.highlights.2': '30% menos tiempo de carga, 40% menos costos de infra',
@@ -257,7 +256,7 @@ export const translations = {
     'about.edu.1.school': 'Escuela Secundaria Centenario',
     'about.edu.1.degree': 'Bachiller en Economía',
     'about.edu.1.detail': 'Minor: Economía y Administración',
-    'about.edu.1.period': '2011 — 2015',
+    'about.edu.1.period': '2011 a 2015',
     'about.lang.title': 'Idiomas',
     'about.lang.0.level': 'Nativo',
     'about.lang.1.level': 'Fluido · Nivel profesional de trabajo',
@@ -279,7 +278,7 @@ export const translations = {
     'exp.1.role': 'Full-Stack Developer (Drupal + React)',
     'exp.1.meta': 'Remoto',
     'exp.1.b0':
-      'Lideré la transformación de un CMS monolítico a una arquitectura headless de alto rendimiento con React, APIs REST y OAuth2 — 30% menos tiempo de carga y 40% menos costos de infraestructura.',
+      'Lideré la transformación de un CMS monolítico a una arquitectura headless de alto rendimiento con React, APIs REST y OAuth2. Resultado: 30% menos tiempo de carga y 40% menos costos de infraestructura.',
     'exp.1.b1':
       'Desarrollé y optimicé endpoints REST de alta frecuencia y flujos seguros de OAuth2 para una seguridad de datos robusta y comunicación rápida entre frontend y backend.',
     'exp.1.b2':
@@ -297,7 +296,7 @@ export const translations = {
     'exp.2.b2':
       'Estabilicé la infraestructura crítica, reduciendo el tiempo de inactividad un 25% mediante debugging proactivo y optimización de servidores.',
     'exp.2.b3':
-      'Construí una plataforma automatizada de suscripción a cursos con Moodle REST APIs — 1,100+ inscripciones nuevas en su primer mes.',
+      'Construí una plataforma automatizada de suscripción a cursos con Moodle REST APIs. Sumó 1,100+ inscripciones nuevas en su primer mes.',
     'exp.2.b4':
       'Lideré mentorías y capacitaciones técnicas, guiando al equipo en mejores prácticas de Drupal y gestión del ciclo de vida del proyecto.',
     'skills.kicker': '// herramientas',
@@ -310,7 +309,7 @@ export const translations = {
       'Ejecuto modelos de código abierto (Llama 3 / OpenCode) de forma local con Ollama para que el código de clientes y gobiernos nunca salga de un entorno seguro.',
     'workflow.card2.title': 'Entrega acelerada con IA',
     'workflow.card2.desc':
-      'Cursor y agentes de código redactan scaffolding, migraciones y tests — acortando ciclos de entrega sin sacrificar calidad.',
+      'Cursor y agentes de código redactan scaffolding, migraciones y tests. Yo recorto los ciclos de entrega sin sacrificar calidad.',
     'workflow.card3.title': 'Siempre revisado por humanos',
     'workflow.card3.desc': 'La IA propone. Yo lo hago mío: reviso, refactorizo y entrego código de producción.',
     'workflow.arch.title': 'Desacoplado por diseño',
@@ -320,7 +319,7 @@ export const translations = {
     'workflow.arch.react': 'Frontend React',
     'workflow.arch.reactSub': 'UI dinámica · carga rápida',
     'workflow.arch.why':
-      'Headless = los equipos de contenido publican de forma independiente mientras el frontend avanza más rápido — 30% menos tiempo de carga, escalado independiente.',
+      'Headless hace que los equipos de contenido publiquen de forma independiente mientras el frontend avanza más rápido. 30% menos tiempo de carga y escalado independiente.',
     'work.kicker': '// trabajo seleccionado',
     'work.title': 'Proyectos en vivo',
     'work.visit': 'Ver sitio',
@@ -329,7 +328,7 @@ export const translations = {
     'case.solution': 'Solución',
     'case.impact': 'Impacto',
     'case.0.problem':
-      'Sin un camino de inscripción unificado entre plataformas — procesos manuales facultad por facultad y certificación digital lenta.',
+      'No había un camino de inscripción unificado entre plataformas. Los procesos eran manuales, facultad por facultad, y la certificación digital era lenta.',
     'case.0.solution':
       'Diseñé una integración Drupal Commerce + Moodle REST con auto-inscripción en 5 pasos y certificación digital automatizada.',
     'case.0.impact':
@@ -339,7 +338,7 @@ export const translations = {
     'case.1.solution':
       'Construí un buscador de carreras con flujos de pre-inscripción, herramientas de orientación y oferta académica descargable en Drupal.',
     'case.1.impact':
-      'Un primer paso claro y guiado para cada postulante — menos fricción y menos tickets de soporte en temporada de inscripciones.',
+      'Un primer paso claro y guiado para cada postulante. Menos fricción y menos tickets de soporte en temporada de inscripciones.',
     'case.2.problem':
       'Código Drupal 8 con contenido disperso, upgrades inestables y una migración a Drupal 10 por delante.',
     'case.2.solution':
@@ -347,7 +346,7 @@ export const translations = {
     'case.2.impact':
       'Una plataforma editorial estable y moderna para uno de los gobiernos urbanos más grandes de la región.',
     'case.3.problem':
-      'Código legado con poca estandarización — alto costo de mantenimiento y difícil de extender de forma segura.',
+      'Código legado con poca estandarización. Alto costo de mantenimiento y difícil de extender de forma segura.',
     'case.3.solution':
       'Refactoricé el proyecto aplicando patrones modernos, estructura más limpia y prácticas mantenibles.',
     'case.3.impact':
@@ -387,8 +386,8 @@ export const translations = {
     'certs.2': 'JavaScript',
     'certs.3': 'Desarrollo Web',
     'certs.4': 'Control de Versiones con Git',
-    'certs.5': 'Programación Java — Nivel 1',
-    'certs.6': 'Inglés — Avanzado',
+    'certs.5': 'Programación Java, Nivel 1',
+    'certs.6': 'Inglés, Avanzado',
     'contact.kicker': '// contacto',
     'contact.title': 'Construyamos algo rápido juntos',
     'contact.text':
@@ -407,11 +406,11 @@ export const translations = {
     'contact.submit': 'Enviar mensaje',
     'contact.copy': 'Copiar mensaje',
     'contact.sending': 'Enviando...',
-    'contact.success': 'Mensaje enviado — respondo pronto. ¡Gracias por escribir!',
+    'contact.success': 'Mensaje enviado. Respondo pronto. ¡Gracias por escribir!',
     'contact.copied': 'Mensaje copiado al portapapeles.',
     'contact.copyFail': 'No se pudo copiar automáticamente. Seleccioná el texto y copialo manualmente.',
     'contact.hint':
-      'Los mensajes llegan directo a mi bandeja de entrada — sin cuenta ni registro.',
+      'Los mensajes llegan directo a mi bandeja de entrada. Sin cuenta ni registro.',
     'contact.book': '¿Preferís agendar directo? Abrí mi calendario de charla de 15 minutos.',
     'contact.opening':
       'Abriendo tu cliente de correo... si no pasa nada, escribime directamente a ',

@@ -19,7 +19,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/',
   github: 'https://github.com/Pipoku',
   summary:
-    'Mid-Senior Full-Stack Developer with 5+ years engineering high-performance web applications and modernizing legacy systems. Specialist in headless CMS architectures (Drupal + React) and REST API development, translating complex business needs into scalable systems — while bridging technical and non-technical stakeholders.',
+    'Full-stack developer with 5+ years building fast web apps and modernizing legacy systems. I work mainly with headless CMS setups (Drupal plus React) and REST APIs. I like turning complex business needs into systems that actually scale, and I speak both technical and non-technical so teams stay on the same page.',
   highlights: [
     '5+ years building high-performance web apps',
     'Led Drupal-to-headless CMS transformation',
@@ -48,7 +48,7 @@ export const projects = [
     metric: '1,100+ enrollments in its first month',
     featured: true,
     case: {
-      problem: 'No unified enrollment path across platforms — manual, faculty-by-faculty processes and slow digital certification.',
+      problem: 'There was no unified enrollment path across platforms. Processes were manual, faculty by faculty, and digital certification was slow.',
       solution: 'Architected Drupal Commerce + Moodle REST integration with a 5-step self-enrollment flow and automated digital certification.',
       impact: '1,100+ enrollments in the first month and certificates issued automatically, cutting admin work and time-to-enroll.',
     },
@@ -65,7 +65,7 @@ export const projects = [
     case: {
       problem: 'Future students had no single place to discover careers across 4 faculties and 16 localities or pre-enroll online.',
       solution: 'Built a career finder with pre-inscription workflows, orientation tools and downloadable academic offers on Drupal.',
-      impact: 'A clear, guided first step for every applicant — less friction, fewer support tickets during inscription season.',
+      impact: 'A clear, guided first step for every applicant. Less friction and fewer support tickets during inscription season.',
     },
   },
   {
@@ -93,7 +93,7 @@ export const projects = [
     metric: null,
     featured: false,
     case: {
-      problem: 'Legacy codebase with little standardization — high maintenance cost and hard to extend safely.',
+      problem: 'A legacy codebase with little standardization. High maintenance cost and hard to extend safely.',
       solution: 'Refactored the project applying modern patterns, cleaner structure and maintainable practices.',
       impact: 'A codebase the client can extend with confidence and lower ongoing maintenance cost.',
     },
@@ -104,7 +104,7 @@ export const experience = [
   {
     company: 'CyS Informática',
     role: 'Specialized Drupal Consultant',
-    period: '02/2026 — 04/2026',
+    period: '02/2026 · 04/2026',
     meta: 'Remote · Contract',
     bullets: [
       'Architected Drupal 10 content governance via role-based access control (RBAC), aligning business rules across dev, staging and production.',
@@ -116,10 +116,10 @@ export const experience = [
   {
     company: 'Activarte',
     role: 'Full-Stack Developer (Drupal + React)',
-    period: '2023 — 2026',
+    period: '2023 · 2026',
     meta: 'Remote',
     bullets: [
-      'Led the transformation of a monolithic CMS into a high-performance headless architecture with React, REST APIs and OAuth2 — 30% faster load times and 40% lower infrastructure costs.',
+      'Led the transformation of a monolithic CMS into a high-performance headless architecture with React, REST APIs and OAuth2. Result: 30% faster load times and 40% lower infrastructure costs.',
       'Developed and optimized high-frequency REST endpoints and secure OAuth2 flows for robust data security and fast front/back communication.',
       'Delivered dynamic, performant UIs by building custom React components consuming complex JSON:API payloads.',
       'Accelerated delivery managing Agile sprints in Jira and collaborating via cross-functional code reviews on Bitbucket.',
@@ -127,15 +127,15 @@ export const experience = [
     ],
   },
   {
-    company: 'UADER — Rectorado',
+    company: 'UADER Rectorado',
     role: 'Drupal / Moodle Developer',
-    period: '2021 — Present',
+    period: '2021 · Present',
     meta: 'Part-time · Flexible/Hybrid',
     bullets: [
       'Directed end-to-end development of three mission-critical university web portals serving 57,000+ active users and 786,000+ events with high availability.',
       'Automated high-volume admin workflows with ECA and custom Drupal modules, reducing manual tasks by 80% and minimizing human error.',
       'Stabilized core infrastructure, cutting system downtime by 25% through proactive debugging and server optimization.',
-      'Engineered an automated course subscription platform on Moodle REST APIs — 1,100+ new enrollments in its first month.',
+      'Built an automated course subscription platform on Moodle REST APIs. It drove 1,100+ new enrollments in its first month.',
       'Led technical mentorship and training, guiding the team on Drupal best practices and project lifecycle management.',
     ],
   },
@@ -170,8 +170,8 @@ export const certifications = [
   { name: 'JavaScript', issuer: 'Coder House', date: 'Jun 2023' },
   { name: 'Web Development', issuer: 'Coder House', date: 'Mar 2023' },
   { name: 'Git Version Control', issuer: 'Gugler', date: 'Jan 2023' },
-  { name: 'Java Programming — Level 1', issuer: 'Gugler', date: 'Jul 2020' },
-  { name: 'English — Advanced', issuer: 'Advance', date: 'Dec 2014' },
+  { name: 'Java Programming, Level 1', issuer: 'Gugler', date: 'Jul 2020' },
+  { name: 'English, Advanced', issuer: 'Advance', date: 'Dec 2014' },
 ];
 
 export const education = [
@@ -185,7 +185,7 @@ export const education = [
     school: 'Centenario High School',
     degree: 'High School Diploma: Economics',
     detail: 'Minor: Economics and Administration',
-    period: '2011 — 2015',
+    period: '2011 · 2015',
   },
 ];
 

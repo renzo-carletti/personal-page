@@ -7,7 +7,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import { profile } from '../data/cv.js';
 
-const { title = 'Renzo Carletti — Decoupled Drupal & React Engineer' } = Astro.props;
+const { title = 'Renzo Carletti · Decoupled Drupal & React Engineer' } = Astro.props;
 
 const siteUrl = (Astro.site ?? 'https://renzocarletti.dev').href.replace(/\/$/, '');
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
@@ -74,7 +74,7 @@ const schema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Renzo Emiliano Carletti — Decoupled Drupal + React expert. Headless CMS architect, JSON:API & OAuth2 specialist. 5+ years shipping high-performance web applications." />
+    <meta name="description" content="Renzo Emiliano Carletti, Decoupled Drupal + React expert. Headless CMS architect, JSON:API & OAuth2 specialist. 5+ years shipping high-performance web applications." />
     <meta name="keywords" content="Decoupled Drupal Expert, Headless CMS, React Developer, JSON:API, OAuth2, REST APIs, Drupal 10/11, Moodle, PHP, Symfony, DevOps, Web Performance, Argentina" />
     <meta name="author" content="Renzo Emiliano Carletti" />
     <meta name="generator" content={Astro.generator} />

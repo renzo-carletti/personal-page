@@ -52,6 +52,25 @@
   --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-script: 'Pinyon Script', 'Cormorant Garamond', cursive;
   --font-note: 'Caveat', 'Segoe Print', cursive;
+  --font-body: 'Crimson Text', Georgia, serif;
+}
+
+:root[data-theme='fun'] body,
+:root[data-theme='fun'] .hero__desc,
+:root[data-theme='fun'] .about__card p,
+:root[data-theme='fun'] .work__desc,
+:root[data-theme='fun'] .timeline__bullets li,
+:root[data-theme='fun'] .workflow__card p,
+:root[data-theme='fun'] .arch__why,
+:root[data-theme='fun'] .contact__text {
+  font-family: var(--font-body);
+}
+
+:root[data-theme='fun'] .nav__links a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
 }
 
 /* ---------- Reset ---------- */
@@ -432,48 +451,7 @@ button {
   visibility: hidden;
 }
 
-/* Outer Wilds background planet (fixed, visible on scroll) */
-.fx-planet {
-  display: none;
-  position: fixed;
-  right: -16vw;
-  top: 4vh;
-  width: min(72vmax, 900px);
-  aspect-ratio: 1;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 28%, #ffb26b 0%, #e8734a 24%, #b9553a 52%, #7a3228 74%, #4a1d18 88%, transparent 89%);
-}
-
-:root[data-theme='fun'] .fx-planet {
-  display: block;
-}
-
-.fx-planet::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 62% 58%, rgba(90, 35, 28, 0.5) 0 12%, transparent 13%),
-    radial-gradient(circle at 40% 70%, rgba(90, 35, 28, 0.45) 0 8%, transparent 9%),
-    radial-gradient(circle at 34% 24%, rgba(255, 214, 150, 0.5) 0 9%, transparent 11%),
-    radial-gradient(circle at 70% 30%, rgba(40, 15, 12, 0.6) 0 3%, transparent 4%),
-    radial-gradient(circle at 25% 55%, rgba(40, 15, 12, 0.55) 0 2.5%, transparent 3.5%);
-}
-
-.fx-planet::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 176, 107, 0.5), rgba(255, 176, 107, 0) 62%);
-  filter: blur(34px);
-  transform: scale(1.18);
-  z-index: -1;
-}
-
+/* Outer Wilds background planet removed per feedback */
 :root[data-theme='fun'] .glass {
   border-color: rgba(232, 182, 76, 0.3);
   box-shadow: inset 0 0 0 1px rgba(232, 182, 76, 0.12), 0 0 0 1px rgba(232, 182, 76, 0.06);
@@ -498,17 +476,12 @@ button {
   .fx-boot__text {
     font-size: 1.1rem;
   }
-  .fx-planet {
-    width: 120vmax;
-    right: -60vw;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fx-boot,
   .fx-journey,
-  .fx-starfield,
-  .fx-planet {
+  .fx-starfield {
     display: none !important;
   }
 }

@@ -186,15 +186,15 @@ function buildBoot() {
         clearInterval(iv);
         done();
       }
-    }, 24);
+    }, 34);
   };
 
   type(p1, lines[0], () => setTimeout(() => type(p2, lines[1], () => {
     setTimeout(() => {
       boot.classList.add('fx-boot--done');
-      setTimeout(() => boot.remove(), 950);
-    }, 700);
-  }), 260));
+      setTimeout(() => boot.remove(), 1100);
+    }, 2800);
+  }), 400));
 
   return () => boot.remove();
 }

@@ -434,8 +434,8 @@ button {
 
 .fx-boot__text {
   font-family: var(--font-note), var(--font-mono);
-  font-size: clamp(1.4rem, 3.4vw, 2rem);
-  line-height: 1.35;
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  line-height: 1.45;
   color: #ffd166;
   text-shadow: 0 0 14px rgba(232, 182, 76, 0.5);
   text-align: center;
@@ -443,7 +443,7 @@ button {
 }
 
 .fx-boot__text p {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.7rem;
 }
 
 .fx-boot__text p:last-child {
@@ -486,7 +486,7 @@ button {
 
 @media (max-width: 720px) {
   .fx-boot__text {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
   }
 }
 

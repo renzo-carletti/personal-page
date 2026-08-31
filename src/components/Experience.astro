@@ -73,12 +73,14 @@ import { experience } from '../data/cv.js';
     background: var(--bg);
     border: 2px solid var(--accent-2);
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-2) 25%, transparent);
+    cursor: pointer;
   }
 
   .timeline__card {
     padding: 1.4rem 1.8rem;
     transition: transform 0.3s var(--ease), border-color 0.3s, background 0.3s;
     overflow: hidden;
+    cursor: pointer;
   }
 
   .timeline__card:hover {
@@ -173,3 +175,14 @@ import { experience } from '../data/cv.js';
     font-family: var(--font-mono);
   }
 </style>
+
+<script>
+  const items = document.querySelectorAll('.timeline__item');
+  items.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('summary') || e.target.closest('a')) return;
+      const card = item.querySelector('details.timeline__card');
+      if (card) card.open = !card.open;
+    });
+  });
+</script>

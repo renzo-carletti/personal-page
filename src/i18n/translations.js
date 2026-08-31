@@ -15,7 +15,7 @@ export const translations = {
     'hero.hello': "Hi, I'm",
     'hero.open': 'Open to work',
     'hero.summary':
-      'Full-stack developer with 5+ years building fast web apps and modernizing legacy systems. I work mainly with headless CMS setups (Drupal plus React) and REST APIs. I like turning complex business needs into systems that actually scale, and I speak both technical and non-technical so teams stay on the same page.',
+      'Senior Full-Stack Developer with over 5 years of experience building high-performance web applications and modernizing legacy systems. I specialize in headless CMS architectures that integrate Drupal with React and Vue.js, and in building solid REST and GraphQL APIs. I put a lot of focus on requirement analysis to turn complex business needs into scalable architectures, with a proven record of cutting infrastructure costs, optimizing backend performance and keeping multi-environment deployments stable. I also bridge the gap between technical and non-technical stakeholders.',
     'hero.letstalk': "Let's talk",
     'hero.download': 'Download CV',
     'hero.stats.load': 'load time reduction',
@@ -27,7 +27,7 @@ export const translations = {
     roles: [
       'Decoupled Drupal & React Engineer',
       'Headless CMS Architect',
-      'REST API Specialist',
+      'REST & GraphQL API Specialist',
       'Developer with a DevOps mindset',
     ],
     'about.kicker': '// about',
@@ -60,37 +60,53 @@ export const translations = {
     'exp.0.role': 'Specialized Drupal Consultant',
     'exp.0.meta': 'Remote · Contract',
     'exp.0.b0':
-      'Architected Drupal 10 content governance via role-based access control (RBAC), aligning business rules across dev, staging and production.',
+      'Contributed to the modernization and maintenance of corporate platforms, executing critical migrations, secure content management and stable multi-environment releases.',
     'exp.0.b1':
-      'Engineered JSON:API integrations and complex publishing workflows to secure unpublished content and improve data integrity.',
+      'Executed comprehensive content adaptation during a Drupal 8 to Drupal 10 migration, resolving synchronization conflicts and implementing code requirements across both versions.',
     'exp.0.b2':
-      'Resolved configuration drift and dependency conflicts by standardizing environment management with Composer, DDEV and Drush.',
+      'Led the resolution of high-priority critical incidents, ensuring operational continuity through emergency support. Owned complex system blockers that escalated beyond the original team, securing platform uptime.',
     'exp.0.b3':
-      'Audited and refactored custom and contributed modules, cutting technical debt and boosting maintainability.',
+      'Architected and stabilized Drupal 10 content governance with role-based access control (RBAC), aligning business rules across dev, staging and production.',
+    'exp.0.b4':
+      'Engineered JSON:API integrations and complex publishing workflows to secure unpublished content and improve data integrity.',
+    'exp.0.b5':
+      'Resolved configuration drift and dependency conflicts by standardizing environment management with Composer, DDEV and Drush.',
+    'exp.0.b6':
+      'Audited and refactored custom and contributed Drupal modules, significantly reducing technical debt.',
     'exp.1.role': 'Full-Stack Developer (Drupal + React)',
     'exp.1.meta': 'Remote',
     'exp.1.b0':
-      'Led the transformation of a monolithic CMS into a high-performance headless architecture with React, REST APIs and OAuth2. Result: 30% faster load times and 40% lower infrastructure costs.',
+      'Architected a Drupal to headless CMS transformation using React, REST APIs and OAuth2, delivering a secure, scalable full-stack application.',
     'exp.1.b1':
-      'Developed and optimized high-frequency REST endpoints and secure OAuth2 flows for robust data security and fast front/back communication.',
+      'Led the transformation of a monolithic CMS into a high-performance headless architecture. Result: 30% faster load times and 40% lower infrastructure costs.',
     'exp.1.b2':
-      'Delivered dynamic, performant UIs by building custom React components consuming complex JSON:API payloads.',
+      'Developed and optimized high-frequency REST endpoints and secure OAuth2 flows for robust data security and efficient front and back-end communication.',
     'exp.1.b3':
-      'Accelerated delivery managing Agile sprints in Jira and collaborating via cross-functional code reviews on Bitbucket.',
+      'Built dynamic, performant UIs by creating custom React components that consume complex JSON:API payloads.',
     'exp.1.b4':
-      'Mentored team members, keeping code quality high across the whole development lifecycle.',
+      'Accelerated delivery managing Agile sprints in Jira and collaborating via cross-functional code reviews on Bitbucket.',
+    'exp.1.b5':
+      'Provided technical guidance and mentorship to team members, keeping code quality high across the development lifecycle.',
     'exp.2.role': 'Drupal / Moodle Developer',
-    'exp.2.meta': 'Part-time · Flexible/Hybrid',
+    'exp.2.meta': 'Part-time · In-office',
     'exp.2.b0':
-      'Directed end-to-end development of three mission-critical university web portals serving 57,000+ active users and 786,000+ events with high availability.',
+      'Direct university web projects with Drupal and Moodle REST APIs, improving student services and streamlining administrative workflows. I act as the main link between academic, administrative and government stakeholders, turning requirements into technical solutions.',
     'exp.2.b1':
-      'Automated high-volume admin workflows with ECA and custom Drupal modules, reducing manual tasks by 80% and minimizing human error.',
+      'Leading the migration of a legacy monolithic Drupal project to a high-performance headless architecture with React and GraphQL, optimizing data querying and transfer.',
     'exp.2.b2':
-      'Stabilized core infrastructure, cutting system downtime by 25% through proactive debugging and server optimization.',
+      'Directing the end-to-end development of a new internal university project from scratch with Vue.js, building modern, interactive and scalable interfaces.',
     'exp.2.b3':
-      'Built an automated course subscription platform on Moodle REST APIs. It drove 1,100+ new enrollments in its first month.',
+      'Directed end-to-end development of three mission-critical university portals, scaling infrastructure for 57,000+ active users and 786,000+ events with high availability and optimal load times.',
     'exp.2.b4':
-      'Led technical mentorship and training, guiding the team on Drupal best practices and project lifecycle management.',
+      'Automated high-volume admin workflows with ECA and custom Drupal modules, reducing manual tasks by 80% and minimizing human error.',
+    'exp.2.b5':
+      'Stabilized core infrastructure, fixing recurring bottlenecks and cutting downtime by 25% through proactive debugging and server optimization.',
+    'exp.2.b6':
+      'Built and launched an automated course subscription platform on Moodle REST APIs, processing 1,100+ new enrollments in its first month.',
+    'exp.2.b7':
+      'Lead technical mentorship and training, guiding the team on Drupal best practices and project lifecycle management.',
+    'exp.2.b8':
+      'Architecting a custom multi-agent AI orchestrator that automates software development lifecycles, assigning specialized roles to LLMs to optimize code generation, review and deployment.',
     'skills.kicker': '// toolkit',
     'skills.title': 'What I work with',
     'workflow.kicker': '// workflow',
@@ -169,8 +185,9 @@ export const translations = {
     'skills.g0': 'Languages & Frameworks',
     'skills.g1': 'CMS & Ecosystem',
     'skills.g2': 'Web Dev & Performance',
-    'skills.g3': 'DevOps & Infrastructure',
+    'skills.g3': 'Databases & Tools',
     'skills.g4': 'Security & Methodologies',
+    'skills.g5': 'AI & Development Workflows',
     'certs.kicker': '// certifications',
     'certs.title': 'Proof of the grind',
     'certs.0': 'Diploma in DevOps Engineering',
@@ -223,7 +240,7 @@ export const translations = {
     'hero.hello': 'Hola, soy',
     'hero.open': 'Abierto a oportunidades',
     'hero.summary':
-      'Desarrollador full-stack con más de 5 años de experiencia creando aplicaciones web rápidas y modernizando sistemas legados. Trabajo sobre todo con arquitecturas CMS headless (Drupal + React) y APIs REST. Me gusta convertir necesidades de negocio complejas en sistemas que realmente escalan, y hablo tanto con gente técnica como no técnica para que los equipos estén en la misma página.',
+      'Desarrollador full-stack senior con más de 5 años de experiencia construyendo aplicaciones web de alto rendimiento y modernizando sistemas legados. Me especializo en arquitecturas CMS headless que integran Drupal con React y Vue.js, y en APIs REST y GraphQL sólidas. Le pongo mucho foco al análisis de requerimientos para convertir necesidades de negocio complejas en arquitecturas escalables, con un historial de reducción de costos de infraestructura, optimización de rendimiento backend y despliegues estables en múltiples entornos. También hago de puente entre lo técnico y lo no técnico.',
     'hero.letstalk': 'Hablemos',
     'hero.download': 'Descargar CV',
     'hero.stats.load': 'reducción de tiempo de carga',
@@ -235,7 +252,7 @@ export const translations = {
     roles: [
       'Ingeniero Drupal & React desacoplado',
       'Arquitecto de CMS Headless',
-      'Especialista en APIs REST',
+      'Especialista en APIs REST y GraphQL',
       'Desarrollador con mentalidad DevOps',
     ],
     'about.kicker': '// sobre mí',
@@ -268,37 +285,53 @@ export const translations = {
     'exp.0.role': 'Consultor Especializado en Drupal',
     'exp.0.meta': 'Remoto · Contrato',
     'exp.0.b0':
-      'Arquitecturé la gobernanza de contenido en Drupal 10 mediante control de acceso basado en roles (RBAC), alineando las reglas de negocio entre desarrollo, staging y producción.',
+      'Contribuí a la modernización y mantenimiento de plataformas corporativas, ejecutando migraciones críticas, gestión segura de contenido y releases estables en múltiples entornos.',
     'exp.0.b1':
-      'Diseñé integraciones JSON:API y flujos de publicación complejos para proteger contenido no publicado y mejorar la integridad de los datos.',
+      'Ejecuté una adaptación integral de contenido durante una migración de Drupal 8 a Drupal 10, resolviendo conflictos de sincronización e implementando requerimientos de código en ambas versiones.',
     'exp.0.b2':
-      'Resolví desvíos de configuración y conflictos de dependencias estandarizando la gestión de entornos con Composer, DDEV y Drush.',
+      'Lideré la resolución de incidentes críticos de alta prioridad, asegurando continuidad operativa con soporte de emergencia. Me hice cargo de bloqueos complejos del sistema que excedían el alcance del equipo original, garantizando el uptime de la plataforma.',
     'exp.0.b3':
-      'Audité y refactoricé módulos propios y contribuidos, reduciendo deuda técnica y mejorando la mantenibilidad.',
+      'Arquitecturé y estabilicé la gobernanza de contenido en Drupal 10 con control de acceso basado en roles (RBAC), alineando reglas de negocio entre desarrollo, staging y producción.',
+    'exp.0.b4':
+      'Diseñé integraciones JSON:API y flujos de publicación complejos para proteger contenido no publicado y mejorar la integridad de los datos.',
+    'exp.0.b5':
+      'Resolví desvíos de configuración y conflictos de dependencias estandarizando la gestión de entornos con Composer, DDEV y Drush.',
+    'exp.0.b6':
+      'Audité y refactoricé módulos Drupal propios y contribuidos, reduciendo significativamente la deuda técnica.',
     'exp.1.role': 'Full-Stack Developer (Drupal + React)',
     'exp.1.meta': 'Remoto',
     'exp.1.b0':
-      'Lideré la transformación de un CMS monolítico a una arquitectura headless de alto rendimiento con React, APIs REST y OAuth2. Resultado: 30% menos tiempo de carga y 40% menos costos de infraestructura.',
+      'Arquitecturé una transformación de Drupal a CMS headless con React, APIs REST y OAuth2, entregando una aplicación full-stack segura y escalable.',
     'exp.1.b1':
-      'Desarrollé y optimicé endpoints REST de alta frecuencia y flujos seguros de OAuth2 para una seguridad de datos robusta y comunicación rápida entre frontend y backend.',
+      'Lideré la transformación de un CMS monolítico a una arquitectura headless de alto rendimiento. Resultado: 30% menos tiempo de carga y 40% menos costos de infraestructura.',
     'exp.1.b2':
-      'Entregué interfaces dinámicas y performantes construyendo componentes React propios que consumen payloads complejos de JSON:API.',
+      'Desarrollé y optimicé endpoints REST de alta frecuencia y flujos seguros de OAuth2 para una seguridad de datos robusta y comunicación eficiente entre frontend y backend.',
     'exp.1.b3':
-      'Aceleré la entrega gestionando sprints ágiles en Jira y colaborando con code reviews cross-funcionales en Bitbucket.',
+      'Construí interfaces dinámicas y performantes creando componentes React propios que consumen payloads complejos de JSON:API.',
     'exp.1.b4':
-      'Mentoreé a integrantes del equipo, manteniendo la calidad de código en todo el ciclo de desarrollo.',
+      'Aceleré la entrega gestionando sprints ágiles en Jira y colaborando con code reviews cross-funcionales en Bitbucket.',
+    'exp.1.b5':
+      'Brindé guía técnica y mentoría a los integrantes del equipo, manteniendo la calidad de código en todo el ciclo de desarrollo.',
     'exp.2.role': 'Desarrollador Drupal / Moodle',
-    'exp.2.meta': 'Part-time · Flexible/Híbrido',
+    'exp.2.meta': 'Part-time · En oficina',
     'exp.2.b0':
-      'Dirigí el desarrollo integral de tres portales web universitarios críticos con 57,000+ usuarios activos y 786,000+ eventos procesados, con alta disponibilidad.',
+      'Dirijo proyectos web universitarios con Drupal y Moodle REST APIs, mejorando los servicios estudiantiles y agilizando los flujos administrativos. Soy el nexo principal entre stakeholders académicos, administrativos y gubernamentales, convirtiendo requerimientos en soluciones técnicas.',
     'exp.2.b1':
-      'Automaticé flujos administrativos de alto volumen con ECA y módulos Drupal propios, reduciendo un 80% las tareas manuales y minimizando errores humanos.',
+      'Lidero la migración de un proyecto Drupal monolítico legado a una arquitectura headless de alto rendimiento con React y GraphQL, optimizando la consulta y transferencia de datos.',
     'exp.2.b2':
-      'Estabilicé la infraestructura crítica, reduciendo el tiempo de inactividad un 25% mediante debugging proactivo y optimización de servidores.',
+      'Dirijo el desarrollo integral de un nuevo proyecto interno universitario desde cero con Vue.js, construyendo interfaces modernas, interactivas y escalables.',
     'exp.2.b3':
-      'Construí una plataforma automatizada de suscripción a cursos con Moodle REST APIs. Sumó 1,100+ inscripciones nuevas en su primer mes.',
+      'Dirigí el desarrollo integral de tres portales universitarios críticos, escalando infraestructura para 57,000+ usuarios activos y 786,000+ eventos con alta disponibilidad y tiempos de carga óptimos.',
     'exp.2.b4':
-      'Lideré mentorías y capacitaciones técnicas, guiando al equipo en mejores prácticas de Drupal y gestión del ciclo de vida del proyecto.',
+      'Automaticé flujos administrativos de alto volumen con ECA y módulos Drupal propios, reduciendo las tareas manuales un 80% y minimizando el error humano.',
+    'exp.2.b5':
+      'Estabilicé la infraestructura crítica, resolviendo cuellos de botella recurrentes y reduciendo el tiempo de inactividad un 25% con debugging proactivo y optimización de servidores.',
+    'exp.2.b6':
+      'Construí y lancé una plataforma automatizada de suscripción a cursos con Moodle REST APIs, procesando 1,100+ inscripciones nuevas en su primer mes.',
+    'exp.2.b7':
+      'Lidero mentorías y capacitaciones técnicas, guiando al equipo en mejores prácticas de Drupal y gestión del ciclo de vida del proyecto.',
+    'exp.2.b8':
+      'Arquitecturando un orquestador de IA multi-agente propio que automatiza los ciclos de desarrollo de software, asignando roles especializados a los LLMs para optimizar la generación, revisión y despliegue de código.',
     'skills.kicker': '// herramientas',
     'skills.title': 'Con qué trabajo',
     'workflow.kicker': '// flujo de trabajo',
@@ -377,8 +410,9 @@ export const translations = {
     'skills.g0': 'Lenguajes y Frameworks',
     'skills.g1': 'CMS y Ecosistema',
     'skills.g2': 'Desarrollo Web y Performance',
-    'skills.g3': 'DevOps e Infraestructura',
+    'skills.g3': 'Bases de Datos y Herramientas',
     'skills.g4': 'Seguridad y Metodologías',
+    'skills.g5': 'IA y Flujos de Desarrollo',
     'certs.kicker': '// certificaciones',
     'certs.title': 'Prueba del trabajo constante',
     'certs.0': 'Diplomatura en Ingeniería DevOps',
@@ -387,7 +421,7 @@ export const translations = {
     'certs.3': 'Desarrollo Web',
     'certs.4': 'Control de Versiones con Git',
     'certs.5': 'Programación Java, Nivel 1',
-    'certs.6': 'Inglés, Avanzado',
+    'certs.6': 'Inglés, Avanzado (Fluidez conversacional y escrita)',
     'contact.kicker': '// contacto',
     'contact.title': 'Construyamos algo rápido juntos',
     'contact.text':

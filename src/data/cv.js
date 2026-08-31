@@ -10,8 +10,8 @@ export const profile = {
   roles: [
     'Decoupled Drupal & React Engineer',
     'Headless CMS Architect',
-    'REST API Specialist',
-    'DevOps-Minded Developer',
+    'REST & GraphQL API Specialist',
+    'Developer with a DevOps mindset',
   ],
   location: 'Paraná, Entre Ríos, AR',
   email: 'renzocarletti@hotmail.com',
@@ -19,7 +19,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/',
   github: 'https://github.com/Pipoku',
   summary:
-    'Full-stack developer with 5+ years building fast web apps and modernizing legacy systems. I work mainly with headless CMS setups (Drupal plus React) and REST APIs. I like turning complex business needs into systems that actually scale, and I speak both technical and non-technical so teams stay on the same page.',
+    'Senior Full-Stack Developer with over 5 years of experience building high-performance web applications and modernizing legacy systems. I specialize in headless CMS architectures that integrate Drupal with React and Vue.js, and in building solid REST and GraphQL APIs. I put a lot of focus on requirement analysis to turn complex business needs into scalable architectures, with a proven record of cutting infrastructure costs, optimizing backend performance and keeping multi-environment deployments stable. I also bridge the gap between technical and non-technical stakeholders.',
   highlights: [
     '5+ years building high-performance web apps',
     'Led Drupal-to-headless CMS transformation',
@@ -104,13 +104,16 @@ export const experience = [
   {
     company: 'CyS Informática',
     role: 'Specialized Drupal Consultant',
-    period: '02/2026 · 04/2026',
+    period: '03/2026 · 04/2026',
     meta: 'Remote · Contract',
     bullets: [
-      'Architected Drupal 10 content governance via role-based access control (RBAC), aligning business rules across dev, staging and production.',
+      'Contributed to the modernization and maintenance of corporate platforms, executing critical migrations, secure content management and stable multi-environment releases.',
+      'Executed comprehensive content adaptation during a Drupal 8 to Drupal 10 migration, resolving synchronization conflicts and implementing code requirements across both versions.',
+      'Led the resolution of high-priority critical incidents, ensuring operational continuity through emergency support. Owned complex system blockers that escalated beyond the original team, securing platform uptime.',
+      'Architected and stabilized Drupal 10 content governance with role-based access control (RBAC), aligning business rules across dev, staging and production.',
       'Engineered JSON:API integrations and complex publishing workflows to secure unpublished content and improve data integrity.',
       'Resolved configuration drift and dependency conflicts by standardizing environment management with Composer, DDEV and Drush.',
-      'Audited and refactored custom and contributed modules, cutting technical debt and boosting maintainability.',
+      'Audited and refactored custom and contributed Drupal modules, significantly reducing technical debt.',
     ],
   },
   {
@@ -119,24 +122,29 @@ export const experience = [
     period: '2023 · 2026',
     meta: 'Remote',
     bullets: [
-      'Led the transformation of a monolithic CMS into a high-performance headless architecture with React, REST APIs and OAuth2. Result: 30% faster load times and 40% lower infrastructure costs.',
-      'Developed and optimized high-frequency REST endpoints and secure OAuth2 flows for robust data security and fast front/back communication.',
-      'Delivered dynamic, performant UIs by building custom React components consuming complex JSON:API payloads.',
+      'Architected a Drupal to headless CMS transformation using React, REST APIs and OAuth2, delivering a secure, scalable full-stack application.',
+      'Led the transformation of a monolithic CMS into a high-performance headless architecture. Result: 30% faster load times and 40% lower infrastructure costs.',
+      'Developed and optimized high-frequency REST endpoints and secure OAuth2 flows for robust data security and efficient front and back-end communication.',
+      'Built dynamic, performant UIs by creating custom React components that consume complex JSON:API payloads.',
       'Accelerated delivery managing Agile sprints in Jira and collaborating via cross-functional code reviews on Bitbucket.',
-      'Mentored team members, keeping code quality high across the whole development lifecycle.',
+      'Provided technical guidance and mentorship to team members, keeping code quality high across the development lifecycle.',
     ],
   },
   {
     company: 'UADER Rectorado',
     role: 'Drupal / Moodle Developer',
     period: '2021 · Present',
-    meta: 'Part-time · Flexible/Hybrid',
+    meta: 'Part-time · In-office',
     bullets: [
-      'Directed end-to-end development of three mission-critical university web portals serving 57,000+ active users and 786,000+ events with high availability.',
+      'Direct university web projects with Drupal and Moodle REST APIs, improving student services and streamlining administrative workflows. I act as the main link between academic, administrative and government stakeholders, turning requirements into technical solutions.',
+      'Leading the migration of a legacy monolithic Drupal project to a high-performance headless architecture with React and GraphQL, optimizing data querying and transfer.',
+      'Directing the end-to-end development of a new internal university project from scratch with Vue.js, building modern, interactive and scalable interfaces.',
+      'Directed end-to-end development of three mission-critical university portals, scaling infrastructure for 57,000+ active users and 786,000+ events with high availability and optimal load times.',
       'Automated high-volume admin workflows with ECA and custom Drupal modules, reducing manual tasks by 80% and minimizing human error.',
-      'Stabilized core infrastructure, cutting system downtime by 25% through proactive debugging and server optimization.',
-      'Built an automated course subscription platform on Moodle REST APIs. It drove 1,100+ new enrollments in its first month.',
-      'Led technical mentorship and training, guiding the team on Drupal best practices and project lifecycle management.',
+      'Stabilized core infrastructure, fixing recurring bottlenecks and cutting downtime by 25% through proactive debugging and server optimization.',
+      'Built and launched an automated course subscription platform on Moodle REST APIs, processing 1,100+ new enrollments in its first month.',
+      'Lead technical mentorship and training, guiding the team on Drupal best practices and project lifecycle management.',
+      'Architecting a custom multi-agent AI orchestrator that automates software development lifecycles, assigning specialized roles to LLMs to optimize code generation, review and deployment.',
     ],
   },
 ];
@@ -144,7 +152,7 @@ export const experience = [
 export const skills = [
   {
     group: 'Languages & Frameworks',
-    items: ['React.js', 'PHP', 'JavaScript (ES6+)', 'Java', 'Symfony', 'jQuery', 'Bootstrap', 'Sass', 'HTML5', 'CSS3', 'SQL'],
+    items: ['React.js', 'Vue.js', 'PHP', 'JavaScript (ES6+)', 'Java', 'Symfony', 'jQuery', 'Bootstrap', 'Sass', 'HTML5', 'CSS3', 'SQL'],
   },
   {
     group: 'CMS & Ecosystem',
@@ -152,15 +160,19 @@ export const skills = [
   },
   {
     group: 'Web Dev & Performance',
-    items: ['Web Optimization', 'JSON:API', 'RESTful APIs', 'OAuth2', 'Xdebug', 'Chrome DevTools'],
+    items: ['RESTful APIs', 'GraphQL', 'JSON:API', 'OAuth2', 'Web Optimization', 'Debugging (Xdebug, Chrome DevTools)'],
   },
   {
-    group: 'DevOps & Infrastructure',
-    items: ['CI/CD', 'Docker', 'Kubernetes', 'AWS', 'MySQL', 'PostgreSQL', 'Pantheon', 'Composer', 'DDEV', 'Drush', 'Git', 'GitHub', 'GitLab', 'Bitbucket', 'VPN', 'SSH'],
+    group: 'Databases & Tools',
+    items: ['MySQL', 'PostgreSQL', 'CI/CD', 'Pantheon', 'Composer', 'DDEV', 'Drush', 'Git', 'GitHub', 'GitLab', 'Bitbucket', 'VPN', 'SSH', 'Docker', 'Kubernetes', 'AWS'],
   },
   {
     group: 'Security & Methodologies',
     items: ['OWASP Principles', 'Secure Authentication', 'Agile (Scrum, Kanban)', 'Jira'],
+  },
+  {
+    group: 'AI & Development Workflows',
+    items: ['Multi-Agent System Orchestration', 'AI-assisted Workflows (Cursor, Ollama / Local LLMs)', 'Prompt Engineering'],
   },
 ];
 
@@ -171,7 +183,7 @@ export const certifications = [
   { name: 'Web Development', issuer: 'Coder House', date: 'Mar 2023' },
   { name: 'Git Version Control', issuer: 'Gugler', date: 'Jan 2023' },
   { name: 'Java Programming, Level 1', issuer: 'Gugler', date: 'Jul 2020' },
-  { name: 'English, Advanced', issuer: 'Advance', date: 'Dec 2014' },
+  { name: 'English, Advanced (Conversational and Written Fluency)', issuer: 'Advance', date: 'Dec 2014' },
 ];
 
 export const education = [

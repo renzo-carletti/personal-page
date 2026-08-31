@@ -27,24 +27,24 @@
   --container: 1080px;
 }
 
-/* ---------- Fun theme (cozy farming / video game) ---------- */
+/* ---------- Fun theme (FF9 / Outer Wilds storybook voyage) ---------- */
 :root[data-theme='fun'] {
-  --bg: #0b1713;
-  --bg-elevated: #11211a;
-  --text: #f6efdd;
-  --muted: #c3cfa9;
-  --faint: #a4b28b;
+  --bg: #0b1524;
+  --bg-elevated: #0f1e36;
+  --text: #f7edcf;
+  --muted: #b9c6d8;
+  --faint: #93a4bd;
 
-  --accent-1: #ffa62b;
-  --accent-2: #ffd93d;
-  --accent-3: #8fce4e;
-  --accent-1-solid: #a0500f;
-  --accent-grad-solid: linear-gradient(120deg, #b3541e, #3f7d1e);
+  --accent-1: #ffb627;
+  --accent-2: #ffd166;
+  --accent-3: #6fd4c0;
+  --accent-1-solid: #c77f1a;
+  --accent-grad-solid: linear-gradient(120deg, #ffb627, #ff6b6b);
 
-  --glass: rgba(255, 244, 214, 0.06);
-  --glass-strong: rgba(255, 244, 214, 0.09);
-  --glass-border: rgba(255, 244, 214, 0.14);
-  --glass-hover: rgba(255, 244, 214, 0.1);
+  --glass: rgba(247, 237, 207, 0.055);
+  --glass-strong: rgba(247, 237, 207, 0.09);
+  --glass-border: rgba(247, 237, 207, 0.14);
+  --glass-hover: rgba(247, 237, 207, 0.1);
 
   --radius: 1.6rem;
   --radius-sm: 0.9rem;
@@ -257,19 +257,19 @@ button {
   opacity: 0.22;
 }
 
-/* Fun theme: candy text effects */
+/* Fun theme: storybook title effect */
 :root[data-theme='fun'] .hero__name,
 :root[data-theme='fun'] .section-head h2 {
-  background: linear-gradient(110deg, #ffd93d, #ff9f43, #ff6ec7, #7cffb2, #54c6ff, #ffd93d);
-  background-size: 300% 100%;
+  background: linear-gradient(110deg, #fff3cf, #ffd166, #ffb627, #ff9f43, #fff3cf);
+  background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: fun-shimmer 7s linear infinite;
+  animation: fun-shimmer 11s linear infinite;
 }
 
 :root[data-theme='fun'] .hero__name {
-  animation: fun-shimmer 7s linear infinite, fun-breathe 4.5s ease-in-out infinite;
+  animation: fun-shimmer 11s linear infinite, fun-breathe 5s ease-in-out infinite;
 }
 
 :root[data-theme='fun'] .hero__role,
@@ -292,6 +292,122 @@ button {
 
 @keyframes fun-breathe {
   50% { transform: scale(1.02); }
+}
+
+/* ---------- Fun theme: storybook voyage FX (FF9 / Outer Wilds) ---------- */
+.fx-starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+:root[data-theme='fun'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  pointer-events: none;
+  background: radial-gradient(ellipse 130% 100% at 50% 20%, transparent 45%, rgba(4, 8, 18, 0.55) 100%);
+}
+
+.fx-journey {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 61;
+  pointer-events: none;
+}
+
+.fx-journey__fill {
+  display: block;
+  height: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #ffd166, #ffb627, #ff9f43);
+  box-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
+}
+
+.fx-journey__star {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff3cf;
+  box-shadow: 0 0 12px 3px rgba(255, 209, 102, 0.75);
+}
+
+.fx-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: radial-gradient(ellipse 120% 90% at 50% 40%, #0f1e36 0%, #060b16 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.9s ease, visibility 0s linear 0.9s;
+}
+
+.fx-boot__text {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 2.2vw, 1.2rem);
+  color: #ffd166;
+  text-shadow: 0 0 14px rgba(255, 177, 39, 0.55);
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.fx-boot__text p {
+  margin-bottom: 0.6rem;
+}
+
+.fx-boot__text p:last-child {
+  color: #fff3cf;
+}
+
+.fx-boot--done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+:root[data-theme='fun'] .section-head .kicker {
+  position: relative;
+  padding-left: 1.1rem;
+  letter-spacing: 0.16em;
+  color: #ffd166;
+}
+
+:root[data-theme='fun'] .section-head .kicker::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.6rem;
+  color: #ff9f43;
+  text-shadow: 0 0 8px rgba(255, 159, 67, 0.7);
+}
+
+:root[data-theme='fun'] .glass {
+  box-shadow: 0 0 0 1px rgba(247, 237, 207, 0.05), inset 0 0 0 1px rgba(247, 237, 207, 0.04);
+}
+
+@media (max-width: 720px) {
+  .fx-boot__text {
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-boot,
+  .fx-journey,
+  .fx-starfield {
+    display: none !important;
+  }
 }
 
 @keyframes drift-1 {

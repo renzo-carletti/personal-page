@@ -299,6 +299,7 @@ const links = [
 <script>
   import { setLang } from '../scripts/i18n.js';
   import { initFunFx, destroyFunFx } from '../scripts/fun-fx.js';
+  import { initGameFx, destroyGameFx } from '../scripts/game-fx.js';
 
   const header = document.querySelector('.nav');
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 24);
@@ -358,6 +359,8 @@ const links = [
     });
     if (fun) initFunFx();
     else destroyFunFx();
+    if (fun) initGameFx();
+    else destroyGameFx();
   }
   setTheme(localStorage.getItem(THEME_KEY) === 'fun');
   themeBtns.forEach((b) => b.addEventListener('click', () => setTheme(!isFun())));

@@ -38,8 +38,8 @@ export async function initFunFx() {
     const name = document.querySelector('[data-fun-fx="hero"]');
     if (name) {
       gsap.to(name, {
-        textShadow: '0 0 36px rgba(255, 217, 61, 0.7), 0 0 80px rgba(255, 111, 199, 0.4)',
-        duration: 1.8,
+        textShadow: '0 0 36px rgba(255, 209, 102, 0.55), 0 0 80px rgba(255, 159, 67, 0.35)',
+        duration: 2.2,
         yoyo: true,
         repeat: -1,
         ease: 'sine.inOut',

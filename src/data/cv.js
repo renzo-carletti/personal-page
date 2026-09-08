@@ -174,6 +174,10 @@ export const skills = [
     group: 'AI & Development Workflows',
     items: ['Multi-Agent System Orchestration', 'AI-assisted Workflows (Cursor, Ollama / Local LLMs)', 'Prompt Engineering'],
   },
+  {
+    group: 'Professional Qualities',
+    items: ['Impeccable'],
+  },
 ];
 
 export const certifications = [

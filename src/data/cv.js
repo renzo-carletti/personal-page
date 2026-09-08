@@ -160,7 +160,7 @@ export const skills = [
   },
   {
     group: 'Web Dev & Performance',
-    items: ['RESTful APIs', 'GraphQL', 'JSON:API', 'OAuth2', 'Web Optimization', 'Debugging (Xdebug, Chrome DevTools)', 'Three.js (img2threejs.io)'],
+    items: ['RESTful APIs', 'GraphQL', 'JSON:API', 'OAuth2', 'Web Optimization', 'Debugging (Xdebug, Chrome DevTools)'],
   },
   {
     group: 'Databases & Tools',
@@ -173,10 +173,6 @@ export const skills = [
   {
     group: 'AI & Development Workflows',
     items: ['Multi-Agent System Orchestration', 'AI-assisted Workflows (Cursor, Ollama / Local LLMs)', 'Prompt Engineering'],
-  },
-  {
-    group: 'Professional Qualities',
-    items: ['Impeccable'],
   },
 ];
 

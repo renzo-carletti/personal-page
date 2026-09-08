@@ -11,6 +11,7 @@ const year = new Date().getFullYear();
     </p>
     <p class="footer__tag">
       <span data-i18n="footer.tag">Crafted with Astro, Three.js & a lot of </span><span class="footer__heart" data-i18n="footer.word">coffee.</span>
+      <span class="footer__sig" aria-hidden="true">Renzo</span>
     </p>
     <div class="footer__links">
       <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -53,6 +54,19 @@ const year = new Date().getFullYear();
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;
+  }
+
+  .footer__sig {
+    display: none;
+    font-family: var(--font-note), 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--accent-2);
+    margin-left: 0.6rem;
+    vertical-align: -0.18em;
+  }
+
+  :root[data-theme='fun'] .footer__sig {
+    display: inline;
   }
 
   .footer__links {

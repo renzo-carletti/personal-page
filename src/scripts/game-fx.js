@@ -163,38 +163,43 @@ function buildBoot() {
   bootDone = true;
   const es = (document.documentElement.lang || 'en').toLowerCase().startsWith('es');
   const lines = es
-    ? ['Un viaje comienza con un solo paso…', 'Cada página deja una huella en el mapa.']
-    : ['Every journey begins with a single step…', 'Every page leaves a mark on the map.'];
+    ? ['Drupal: módulos cargados', 'React: capa lista', 'JSON:API · OAuth2: conectado', 'Bienvenido, viajero.']
+    : ['Drupal: modules loaded', 'React: layer ready', 'JSON:API · OAuth2: connected', 'Welcome, traveler.'];
 
   const boot = document.createElement('div');
   boot.className = 'fx-boot';
   const text = document.createElement('div');
   text.className = 'fx-boot__text';
+  const cursor = document.createElement('span');
+  cursor.className = 'fx-boot__cursor';
   boot.appendChild(text);
+  boot.appendChild(cursor);
   document.body.appendChild(boot);
 
-  const p1 = document.createElement('p');
-  const p2 = document.createElement('p');
-  text.appendChild(p1);
-  text.appendChild(p2);
-
-  const type = (el, str, done) => {
+  let line = 0;
+  const typeLine = () => {
+    if (line >= lines.length) {
+      cursor.remove();
+      setTimeout(() => {
+        boot.classList.add('fx-boot--done');
+        setTimeout(() => boot.remove(), 1100);
+      }, 3000);
+      return;
+    }
+    const p = document.createElement('p');
+    text.appendChild(p);
+    const str = lines[line];
     let i = 0;
     const iv = setInterval(() => {
-      el.textContent = str.slice(0, ++i);
+      p.textContent = str.slice(0, ++i);
       if (i >= str.length) {
         clearInterval(iv);
-        done();
+        line++;
+        setTimeout(typeLine, 320);
       }
-    }, 34);
+    }, 26);
   };
-
-  type(p1, lines[0], () => setTimeout(() => type(p2, lines[1], () => {
-    setTimeout(() => {
-      boot.classList.add('fx-boot--done');
-      setTimeout(() => boot.remove(), 1100);
-    }, 2800);
-  }), 400));
+  setTimeout(typeLine, 350);
 
   return () => boot.remove();
 }

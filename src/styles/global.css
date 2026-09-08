@@ -27,6 +27,48 @@
   --container: 1080px;
 }
 
+/* ---------- Scrollbar (themed) ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 130, 160, 0.5) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 130, 160, 0.45);
+  border-radius: 999px;
+  border: 2px solid rgba(5, 6, 15, 0.85);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 130, 160, 0.65);
+}
+
+:root[data-theme='fun'] {
+  scrollbar-color: #c79a3e rgba(10, 14, 26, 0.6);
+}
+
+:root[data-theme='fun'] ::-webkit-scrollbar-track {
+  background: rgba(10, 14, 26, 0.6);
+}
+
+:root[data-theme='fun'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #e8b64c, #b38a34);
+  border: 2px solid rgba(10, 14, 26, 0.9);
+}
+
+:root[data-theme='fun'] ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd166, #c79a3e);
+}
+
 /* ---------- Fun theme (FF9 stage + Outer Wilds cosmos) ---------- */
 :root[data-theme='fun'] {
   --bg: #070c18;
@@ -89,6 +131,22 @@
 
 :root[data-theme='fun'] .hero__role {
   font-size: clamp(1.2rem, 2.9vw, 1.55rem);
+}
+
+:root[data-theme='fun'] ::selection {
+  background: rgba(232, 182, 76, 0.35);
+  color: #fff6e0;
+}
+
+:root[data-theme='fun'] :focus-visible {
+  outline: 2px solid #e8b64c;
+  outline-offset: 2px;
+}
+
+:root[data-theme='fun'] .back-to-top {
+  border-color: rgba(232, 182, 76, 0.5);
+  color: #ffd166;
+  background: rgba(13, 23, 48, 0.85);
 }
 
 :root[data-theme='fun'] .nav__links a {

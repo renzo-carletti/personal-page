@@ -138,6 +138,42 @@ export async function mount() {
 
   scene.add(group);
 
+  const viviMat = new THREE.MeshStandardMaterial({ color: 0x2a2a33, roughness: 0.9 });
+  const viviDark = new THREE.MeshStandardMaterial({ color: 0x141419, roughness: 0.85 });
+  const glowMat = new THREE.MeshStandardMaterial({ color: 0xffd94f, emissive: 0xffb020, emissiveIntensity: 1.1 });
+
+  const vivi = new THREE.Group();
+  const vBody = new THREE.Mesh(new THREE.SphereGeometry(0.3, 24, 20), viviMat);
+  vBody.position.y = -0.15;
+  vivi.add(vBody);
+  const vCloak = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.5, 12), viviMat);
+  vCloak.position.y = -0.3;
+  vCloak.rotation.x = Math.PI;
+  vivi.add(vCloak);
+  const vHat = new THREE.Mesh(new THREE.ConeGeometry(0.32, 0.74, 16), viviDark);
+  vHat.position.y = 0.44;
+  vivi.add(vHat);
+  const vBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.045, 20), viviDark);
+  vBrim.position.y = 0.15;
+  vivi.add(vBrim);
+  const vEyeG = new THREE.SphereGeometry(0.045, 12, 10);
+  const vE1 = new THREE.Mesh(vEyeG, glowMat);
+  vE1.position.set(-0.09, 0.11, 0.34);
+  vivi.add(vE1);
+  const vE2 = new THREE.Mesh(vEyeG, glowMat);
+  vE2.position.set(0.09, 0.11, 0.34);
+  vivi.add(vE2);
+  const vStaff = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.9, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.8 }));
+  vStaff.position.set(0.36, -0.5, 0);
+  vStaff.rotation.z = 0.25;
+  vivi.add(vStaff);
+  const vOrb = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 10), glowMat);
+  vOrb.position.set(0.5, -0.08, 0);
+  vivi.add(vOrb);
+  vivi.position.set(-1.75, -0.55, 0);
+  vivi.scale.setScalar(0.55);
+  scene.add(vivi);
+
   let mx = 0;
   let my = 0;
   const onMouse = (e) => {
@@ -153,6 +189,9 @@ export async function mount() {
     group.rotation.y = Math.sin(t * 0.3) * 0.14 + mx * 0.35;
     group.rotation.z = Math.sin(t * 0.45) * 0.02 + my * 0.12;
     propeller.rotation.z = t * 2.4;
+    vivi.position.y = -0.55 + Math.sin(t * 1.1 + 1) * 0.09;
+    vivi.rotation.z = Math.sin(t * 0.7) * 0.06;
+    vivi.rotation.y = mx * 0.3;
     renderer.render(scene, camera);
   });
 

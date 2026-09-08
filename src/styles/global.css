@@ -66,14 +66,29 @@
 :root[data-theme='fun'] .arch__why,
 :root[data-theme='fun'] .contact__text {
   font-family: var(--font-body);
-  font-size: 1.14rem;
+  font-size: 1.2rem;
 }
 
 :root[data-theme='fun'] .work__card h3,
 :root[data-theme='fun'] .workflow__card h3,
 :root[data-theme='fun'] .about__card h3,
 :root[data-theme='fun'] .timeline__role {
-  font-size: 1.2rem;
+  font-size: 1.28rem;
+}
+
+:root[data-theme='fun'] .work__tag,
+:root[data-theme='fun'] .skills__tag,
+:root[data-theme='fun'] .work__metric,
+:root[data-theme='fun'] .timeline__period,
+:root[data-theme='fun'] .timeline__meta,
+:root[data-theme='fun'] .arch__node-sub,
+:root[data-theme='fun'] .about__lang-level,
+:root[data-theme='fun'] .contact__label {
+  font-size: 0.98rem;
+}
+
+:root[data-theme='fun'] .hero__role {
+  font-size: clamp(1.2rem, 2.9vw, 1.55rem);
 }
 
 :root[data-theme='fun'] .nav__links a {

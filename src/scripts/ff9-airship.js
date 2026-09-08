@@ -32,13 +32,16 @@ export async function mount() {
   camera.position.set(0, 0.2, 8);
   camera.lookAt(0, 0.1, 0);
 
-  scene.add(new THREE.AmbientLight(0xfff2d8, 0.65));
-  const dir = new THREE.DirectionalLight(0xffe0b0, 1.7);
+  scene.add(new THREE.AmbientLight(0xfff2d8, 0.7));
+  const dir = new THREE.DirectionalLight(0xffe0b0, 1.6);
   dir.position.set(3, 5, 5);
   scene.add(dir);
-  const warm = new THREE.PointLight(0xffb050, 1.5, 24);
+  const warm = new THREE.PointLight(0xffb050, 1.4, 24);
   warm.position.set(0, 2.4, 2);
   scene.add(warm);
+  const front = new THREE.PointLight(0xffd9a0, 1.1, 14);
+  front.position.set(-2.5, 0.5, 3.5);
+  scene.add(front);
 
   const cream = new THREE.MeshStandardMaterial({ color: 0xf2e2bd, emissive: 0x6a4a1a, emissiveIntensity: 0.18, roughness: 0.55 });
   const gold = new THREE.MeshStandardMaterial({ color: 0xd8a94f, emissive: 0x4a3008, emissiveIntensity: 0.28, roughness: 0.5 });
@@ -113,72 +116,62 @@ export async function mount() {
 
   scene.add(group);
 
-  const viviMat = new THREE.MeshStandardMaterial({ color: 0x2c2c36, roughness: 0.9 });
-  const viviDark = new THREE.MeshStandardMaterial({ color: 0x12121a, roughness: 0.85 });
-  const glowMat = new THREE.MeshStandardMaterial({ color: 0xffd94f, emissive: 0xffb020, emissiveIntensity: 1.4 });
+  const viviMat = new THREE.MeshStandardMaterial({ color: 0x4a3a2e, roughness: 0.85 });
+  const viviDark = new THREE.MeshStandardMaterial({ color: 0x2a1f28, roughness: 0.8 });
+  const glowMat = new THREE.MeshStandardMaterial({ color: 0xffd94f, emissive: 0xffb020, emissiveIntensity: 1.6 });
 
   const vivi = new THREE.Group();
-  const vBody = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 20), viviMat);
-  vBody.position.y = -0.2;
+  const vBody = new THREE.Mesh(new THREE.SphereGeometry(0.5, 24, 20), viviMat);
+  vBody.position.y = -0.22;
   vivi.add(vBody);
-  const vCloak = new THREE.Mesh(new THREE.ConeGeometry(0.48, 0.6, 12), viviMat);
-  vCloak.position.y = -0.42;
+  const vCloak = new THREE.Mesh(new THREE.ConeGeometry(0.56, 0.68, 12), viviMat);
+  vCloak.position.y = -0.5;
   vCloak.rotation.x = Math.PI;
   vivi.add(vCloak);
-  const vHat = new THREE.Mesh(new THREE.ConeGeometry(0.46, 1.05, 16), viviDark);
-  vHat.position.y = 0.6;
+  const vHat = new THREE.Mesh(new THREE.ConeGeometry(0.52, 1.15, 16), viviDark);
+  vHat.position.y = 0.68;
   vivi.add(vHat);
-  const vBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.64, 0.64, 0.06, 20), viviDark);
-  vBrim.position.y = 0.2;
+  const vBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.06, 20), viviDark);
+  vBrim.position.y = 0.24;
   vivi.add(vBrim);
-  const vEyeG = new THREE.SphereGeometry(0.065, 14, 12);
+  const vEyeG = new THREE.SphereGeometry(0.085, 14, 12);
   const vE1 = new THREE.Mesh(vEyeG, glowMat);
-  vE1.position.set(-0.13, 0.15, 0.48);
+  vE1.position.set(-0.16, 0.18, 0.54);
   vivi.add(vE1);
   const vE2 = new THREE.Mesh(vEyeG, glowMat);
-  vE2.position.set(0.13, 0.15, 0.48);
+  vE2.position.set(0.16, 0.18, 0.54);
   vivi.add(vE2);
-  const vStaff = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 1.2, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.8 }));
-  vStaff.position.set(0.5, -0.62, 0);
+  const vStaff = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.3, 6), new THREE.MeshStandardMaterial({ color: 0x5a4226, roughness: 0.8 }));
+  vStaff.position.set(0.6, -0.7, 0);
   vStaff.rotation.z = 0.3;
   vivi.add(vStaff);
-  const vOrb = new THREE.Mesh(new THREE.SphereGeometry(0.09, 14, 12), glowMat);
-  vOrb.position.set(0.68, -0.1, 0);
+  const vOrb = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 12), glowMat);
+  vOrb.position.set(0.82, -0.1, 0);
   vivi.add(vOrb);
-  vivi.position.set(-1.95, -0.7, 0);
-  vivi.scale.setScalar(0.85);
+  vivi.position.set(-1.5, -0.45, 0.7);
+  vivi.scale.setScalar(1.2);
   scene.add(vivi);
-
-  let mx = 0;
-  let my = 0;
-  const onMouse = (e) => {
-    mx = e.clientX / window.innerWidth - 0.5;
-    my = e.clientY / window.innerHeight - 0.5;
-  };
-  window.addEventListener('mousemove', onMouse);
 
   const clock = new THREE.Clock();
   renderer.setAnimationLoop(() => {
     const t = clock.getElapsedTime();
     group.position.y = Math.sin(t * 0.8) * 0.1;
-    group.rotation.y = Math.sin(t * 0.3) * 0.14 + mx * 0.35;
-    group.rotation.z = Math.sin(t * 0.45) * 0.02 + my * 0.12;
+    group.rotation.y = Math.sin(t * 0.3) * 0.14;
+    group.rotation.z = Math.sin(t * 0.45) * 0.02;
     propeller.rotation.z = t * 2.4;
-    vivi.position.y = -0.7 + Math.sin(t * 1.1 + 1) * 0.11;
-    vivi.rotation.z = Math.sin(t * 0.7) * 0.06;
-    vivi.rotation.y = mx * 0.3;
+    vivi.position.y = -0.45 + Math.sin(t * 1.1 + 1) * 0.11;
+    vivi.rotation.z = Math.sin(t * 0.7) * 0.05;
     renderer.render(scene, camera);
   });
 
   const onResize = () => size();
   window.addEventListener('resize', onResize);
 
-  state = { renderer, onMouse, onResize };
+  state = { renderer, onResize };
 }
 
 export function unmount() {
   if (!state) return;
-  window.removeEventListener('mousemove', state.onMouse);
   window.removeEventListener('resize', state.onResize);
   state.renderer.setAnimationLoop(null);
   state.renderer.dispose();

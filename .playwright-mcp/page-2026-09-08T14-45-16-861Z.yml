@@ -1,0 +1,404 @@
+- generic [active] [ref=f7e1]:
+  - link "Skip to content" [ref=f7e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f7e3]:
+    - navigation "Primary" [ref=f7e5]:
+      - link "Sobre mí" [ref=f7e6] [cursor=pointer]:
+        - /url: "#about"
+      - link "Experiencia" [ref=f7e7] [cursor=pointer]:
+        - /url: "#experience"
+      - link "Proyectos" [ref=f7e8] [cursor=pointer]:
+        - /url: "#work"
+      - link "Habilidades" [ref=f7e9] [cursor=pointer]:
+        - /url: "#skills"
+      - link "Certificaciones" [ref=f7e10] [cursor=pointer]:
+        - /url: "#certifications"
+      - link "Contacto" [ref=f7e11] [cursor=pointer]:
+        - /url: "#contact"
+      - group "Language and appearance" [ref=f7e12]:
+        - button "Switch to English" [ref=f7e13] [cursor=pointer]: EN
+        - button "Cambiar a español" [pressed] [ref=f7e14] [cursor=pointer]: ES
+        - button "Cambiar a tema divertido" [pressed] [ref=f7e15] [cursor=pointer]
+        - button "Toggle black and white mode" [ref=f7e19] [cursor=pointer]: ◐
+      - link "Descargar CV" [ref=f7e20] [cursor=pointer]:
+        - /url: /personal-page/cv.pdf
+  - main [ref=f7e21]:
+    - generic [ref=f7e22]:
+      - generic [ref=f7e40]:
+        - paragraph [ref=f7e41]: Hola, soy
+        - heading "Renzo Carletti" [level=1] [ref=f7e42]
+        - paragraph [ref=f7e43]:
+          - generic [ref=f7e44]: "$ whoami:"
+          - generic [ref=f7e45]: In
+          - generic [aria-hidden] [ref=f7e46]: ▍
+        - paragraph [ref=f7e47]: Desarrollador full-stack senior con más de 5 años de experiencia construyendo aplicaciones web de alto rendimiento y modernizando sistemas legados. Me especializo en arquitecturas CMS headless que integran Drupal con React y Vue.js, y en APIs REST y GraphQL sólidas. Le pongo mucho foco al análisis de requerimientos para convertir necesidades de negocio complejas en arquitecturas escalables, con un historial de reducción de costos de infraestructura, optimización de rendimiento backend y despliegues estables en múltiples entornos. También hago de puente entre lo técnico y lo no técnico.
+        - generic [ref=f7e48]:
+          - link "Hablemos" [ref=f7e49] [cursor=pointer]:
+            - /url: "#contact"
+          - link "Descargar CV" [ref=f7e50] [cursor=pointer]:
+            - /url: /personal-page/cv.pdf
+        - generic [ref=f7e51]:
+          - generic [ref=f7e52]: Bilingüe · EN / ES
+          - generic [ref=f7e53]: Abierto a oportunidades
+          - link "LinkedIn" [ref=f7e56] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/
+          - link "Email" [ref=f7e57] [cursor=pointer]:
+            - /url: renzocarletti@hotmail.com
+          - link "GitHub" [ref=f7e58] [cursor=pointer]:
+            - /url: https://github.com/Pipoku
+      - generic [ref=f7e59]:
+        - generic [ref=f7e60]:
+          - generic [ref=f7e61]: 0%
+          - generic [ref=f7e62]: reducción de tiempo de carga
+        - generic [ref=f7e63]:
+          - generic [ref=f7e64]: 0%
+          - generic [ref=f7e65]: costos de infraestructura
+        - generic [ref=f7e66]:
+          - generic [ref=f7e67]: 0K+
+          - generic [ref=f7e68]: usuarios activos
+        - generic [ref=f7e69]:
+          - generic [ref=f7e70]: 0K+
+          - generic [ref=f7e71]: eventos procesados
+        - generic [ref=f7e72]:
+          - generic [ref=f7e73]: 0%
+          - generic [ref=f7e74]: tareas manuales automatizadas
+        - generic [ref=f7e75]:
+          - generic [ref=f7e76]: 0+
+          - generic [ref=f7e77]: años de experiencia
+      - link "Scroll to about" [ref=f7e78] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=f7e81]:
+      - generic [ref=f7e82]:
+        - generic [ref=f7e83]: // sobre mí
+        - heading "El ingeniero detrás del stack" [level=2] [ref=f7e84]
+      - generic [ref=f7e85]:
+        - generic [ref=f7e86]:
+          - heading "Quién soy" [level=3] [ref=f7e87]
+          - paragraph [ref=f7e88]: Desarrollador full-stack senior con más de 5 años de experiencia construyendo aplicaciones web de alto rendimiento y modernizando sistemas legados. Me especializo en arquitecturas CMS headless que integran Drupal con React y Vue.js, y en APIs REST y GraphQL sólidas. Le pongo mucho foco al análisis de requerimientos para convertir necesidades de negocio complejas en arquitecturas escalables, con un historial de reducción de costos de infraestructura, optimización de rendimiento backend y despliegues estables en múltiples entornos. También hago de puente entre lo técnico y lo no técnico.
+          - paragraph [ref=f7e89]: Mi trabajo está en la intersección entre sistemas de contenido y frontends modernos y rápidos. Tomo plataformas CMS monolíticas y rígidas y las convierto en productos desacoplados, escalables y basados en APIs.
+        - generic [ref=f7e90]:
+          - heading "Destacados" [level=3] [ref=f7e91]
+          - list [ref=f7e92]:
+            - listitem [ref=f7e93]: ▸ 5+ años construyendo apps web de alto rendimiento
+            - listitem [ref=f7e94]: ▸ Lideré la transformación a CMS headless desde Drupal
+            - listitem [ref=f7e95]: ▸ 30% menos tiempo de carga, 40% menos costos de infra
+            - listitem [ref=f7e96]: ▸ 57,000+ usuarios activos en portales universitarios
+        - generic [ref=f7e97]:
+          - heading "Educación" [level=3] [ref=f7e98]
+          - list [ref=f7e99]:
+            - listitem [ref=f7e100]:
+              - generic [ref=f7e101]: Universidad Autónoma de Entre Ríos
+              - generic [ref=f7e102]: Tecnicatura en Sistemas de Información
+              - generic [ref=f7e103]: "Minor: Analista de Sistemas de Información"
+              - generic [ref=f7e104]: Graduado 2025
+            - listitem [ref=f7e105]:
+              - generic [ref=f7e106]: Escuela Secundaria Centenario
+              - generic [ref=f7e107]: Bachiller en Economía
+              - generic [ref=f7e108]: "Minor: Economía y Administración"
+              - generic [ref=f7e109]: 2011 a 2015
+        - generic [ref=f7e110]:
+          - heading "Idiomas" [level=3] [ref=f7e111]
+          - list [ref=f7e112]:
+            - listitem [ref=f7e113]:
+              - generic [ref=f7e114]: Spanish
+              - generic [ref=f7e115]: Nativo
+            - listitem [ref=f7e116]:
+              - generic [ref=f7e117]: English
+              - generic [ref=f7e118]: Fluido · Nivel profesional de trabajo
+          - heading "Actualmente" [level=3] [ref=f7e119]
+          - paragraph [ref=f7e120]: Desarrollador Drupal/Moodle en UADER · abierto a oportunidades remotas de Drupal + React
+    - generic [ref=f7e121]:
+      - generic [ref=f7e122]:
+        - generic [ref=f7e123]: // experiencia
+        - heading "Dónde he estado construyendo" [level=2] [ref=f7e124]
+      - generic [ref=f7e125]:
+        - article [ref=f7e126]:
+          - generic [aria-hidden] [ref=f7e127] [cursor=pointer]
+          - group [ref=f7e128] [cursor=pointer]:
+            - generic "Consultor Especializado en Drupal CyS Informática · Remoto · Contrato 03/2026 · 04/2026" [ref=f7e129]:
+              - generic [ref=f7e130]:
+                - heading "Consultor Especializado en Drupal" [level=3] [ref=f7e131]
+                - paragraph [ref=f7e132]: CyS Informática · Remoto · Contrato
+              - generic [ref=f7e133]: 03/2026 · 04/2026
+            - list [ref=f7e138]:
+              - listitem [ref=f7e139]: ▸ Contribuí a la modernización y mantenimiento de plataformas corporativas, ejecutando migraciones críticas, gestión segura de contenido y releases estables en múltiples entornos.
+              - listitem [ref=f7e140]: ▸ Ejecuté una adaptación integral de contenido durante una migración de Drupal 8 a Drupal 10, resolviendo conflictos de sincronización e implementando requerimientos de código en ambas versiones.
+              - listitem [ref=f7e141]: ▸ Lideré la resolución de incidentes críticos de alta prioridad, asegurando continuidad operativa con soporte de emergencia. Me hice cargo de bloqueos complejos del sistema que excedían el alcance del equipo original, garantizando el uptime de la plataforma.
+              - listitem [ref=f7e142]: ▸ Arquitecturé y estabilicé la gobernanza de contenido en Drupal 10 con control de acceso basado en roles (RBAC), alineando reglas de negocio entre desarrollo, staging y producción.
+              - listitem [ref=f7e143]: ▸ Diseñé integraciones JSON:API y flujos de publicación complejos para proteger contenido no publicado y mejorar la integridad de los datos.
+              - listitem [ref=f7e144]: ▸ Resolví desvíos de configuración y conflictos de dependencias estandarizando la gestión de entornos con Composer, DDEV y Drush.
+              - listitem [ref=f7e145]: ▸ Audité y refactoricé módulos Drupal propios y contribuidos, reduciendo significativamente la deuda técnica.
+        - article [ref=f7e146]:
+          - generic [aria-hidden] [ref=f7e147] [cursor=pointer]
+          - group [ref=f7e148] [cursor=pointer]:
+            - generic "Full-Stack Developer (Drupal + React) Activarte · Remoto 2023 · 2026" [ref=f7e149]:
+              - generic [ref=f7e150]:
+                - heading "Full-Stack Developer (Drupal + React)" [level=3] [ref=f7e151]
+                - paragraph [ref=f7e152]: Activarte · Remoto
+              - generic [ref=f7e153]: 2023 · 2026
+            - text: ▸ ▸ ▸ ▸ ▸ ▸
+        - article [ref=f7e158]:
+          - generic [aria-hidden] [ref=f7e159] [cursor=pointer]
+          - group [ref=f7e160] [cursor=pointer]:
+            - generic "Desarrollador Drupal / Moodle UADER Rectorado · Part-time · En oficina 2021 · Present" [ref=f7e161]:
+              - generic [ref=f7e162]:
+                - heading "Desarrollador Drupal / Moodle" [level=3] [ref=f7e163]
+                - paragraph [ref=f7e164]: UADER Rectorado · Part-time · En oficina
+              - generic [ref=f7e165]: 2021 · Present
+            - text: ▸ ▸ ▸ ▸ ▸ ▸ ▸ ▸ ▸
+    - generic [ref=f7e170]:
+      - generic [ref=f7e171]:
+        - generic [ref=f7e172]: // trabajo seleccionado
+        - heading "Proyectos en vivo" [level=2] [ref=f7e173]
+      - generic [ref=f7e174]:
+        - article [ref=f7e175]:
+          - generic [ref=f7e177]:
+            - generic [ref=f7e178]: Lo construí todo
+            - heading "e-UADER" [level=3] [ref=f7e179]
+            - paragraph [ref=f7e180]: Plataforma e-learning de UADER
+          - paragraph [ref=f7e181]: "Portal de aprendizaje en línea: catálogo de cursos y diplomaturas, auto-inscripción en 5 pasos, integración Drupal Commerce + Moodle REST y certificación digital automática (estatal o universitaria)."
+          - generic [ref=f7e182]:
+            - generic [ref=f7e183]:
+              - generic [ref=f7e184]: Drupal
+              - generic [ref=f7e185]: Moodle
+              - generic [ref=f7e186]: REST APIs
+              - generic [ref=f7e187]: Commerce
+            - generic [ref=f7e188]: 1,100+ inscripciones en el primer mes
+          - generic [ref=f7e189]:
+            - link "Ver sitio" [ref=f7e190] [cursor=pointer]:
+              - /url: https://e.uader.edu.ar/
+            - button "Caso de estudio" [ref=f7e194] [cursor=pointer]
+        - article [ref=f7e199]:
+          - generic [ref=f7e201]:
+            - generic [ref=f7e202]: Lo construí todo
+            - heading "Ingresantes UADER" [level=3] [ref=f7e203]
+            - paragraph [ref=f7e204]: La primera puerta para futuros estudiantes
+          - paragraph [ref=f7e205]: "Portal para aspirantes: buscador de carreras en 4 facultades y 16 localidades, flujos de pre-inscripción, herramientas de orientación y oferta académica descargable."
+          - generic [ref=f7e206]:
+            - generic [ref=f7e207]:
+              - generic [ref=f7e208]: Drupal
+              - generic [ref=f7e209]: Paragraphs
+              - generic [ref=f7e210]: Views
+            - generic [ref=f7e211]: 4 facultades · 16 localidades
+          - generic [ref=f7e212]:
+            - link "Ver sitio" [ref=f7e213] [cursor=pointer]:
+              - /url: https://ingresantes.uader.edu.ar/
+            - button "Caso de estudio" [ref=f7e217] [cursor=pointer]
+        - article [ref=f7e222]:
+          - generic [ref=f7e224]:
+            - generic [ref=f7e225]: Consultor Drupal
+            - heading "Ciudad de Buenos Aires" [level=3] [ref=f7e226]
+            - paragraph [ref=f7e227]: Portal del gobierno de la ciudad
+          - paragraph [ref=f7e228]: "Migración Drupal 8 → 10 para la Ciudad de Buenos Aires: remodelación de contenido, Paragraphs, corrección de bugs y soporte continuo como consultor Drupal vía CyS."
+          - generic [ref=f7e230]:
+            - generic [ref=f7e231]: Drupal 8→10
+            - generic [ref=f7e232]: Paragraphs
+          - generic [ref=f7e233]:
+            - link "Ver sitio" [ref=f7e234] [cursor=pointer]:
+              - /url: https://buenosaires.gob.ar/inicio/
+            - button "Caso de estudio" [ref=f7e238] [cursor=pointer]
+        - article [ref=f7e243]:
+          - generic [ref=f7e245]:
+            - generic [ref=f7e246]: Modernización
+            - heading "Club San Jorge" [level=3] [ref=f7e247]
+            - paragraph [ref=f7e248]: Modernización de proyecto legado
+          - paragraph [ref=f7e249]: "Refiné un proyecto legado con poca estandarización: apliqué patrones modernos, estructura más limpia y prácticas mantenibles."
+          - generic [ref=f7e251]:
+            - generic [ref=f7e252]: PHP
+            - generic [ref=f7e253]: Legacy → Modern
+          - generic [ref=f7e254]:
+            - link "Ver sitio" [ref=f7e255] [cursor=pointer]:
+              - /url: https://clubsanjorge.com.ar/
+            - button "Caso de estudio" [ref=f7e259] [cursor=pointer]
+    - generic [ref=f7e264]:
+      - generic [ref=f7e265]:
+        - generic [ref=f7e266]: // flujo de trabajo
+        - heading "Cómo construyo" [level=2] [ref=f7e267]
+        - paragraph [ref=f7e268]: Potenciado con IA, pero con propiedad humana.
+      - generic [ref=f7e269]:
+        - generic [ref=f7e270]:
+          - generic [ref=f7e271]:
+            - heading "IA local segura" [level=3] [ref=f7e276]
+            - paragraph [ref=f7e277]: Ejecuto modelos de código abierto (Llama 3 / OpenCode) de forma local con Ollama para que el código de clientes y gobiernos nunca salga de un entorno seguro.
+          - generic [ref=f7e278]:
+            - heading "Entrega acelerada con IA" [level=3] [ref=f7e282]
+            - paragraph [ref=f7e283]: Cursor y agentes de código redactan scaffolding, migraciones y tests. Yo recorto los ciclos de entrega sin sacrificar calidad.
+          - generic [ref=f7e284]:
+            - heading "Siempre revisado por humanos" [level=3] [ref=f7e288]
+            - paragraph [ref=f7e289]: "La IA propone. Yo lo hago mío: reviso, refactorizo y entrego código de producción."
+        - generic [ref=f7e290]:
+          - heading "Desacoplado por diseño" [level=3] [ref=f7e291]
+          - generic "Decoupled architecture diagram" [ref=f7e292]:
+            - generic [ref=f7e293]:
+              - generic [ref=f7e294]: Drupal CMS
+              - generic [ref=f7e295]: modelo de contenido · RBAC · flujos
+            - generic [ref=f7e296]: JSON:API · OAuth2
+            - generic [ref=f7e300]:
+              - generic [ref=f7e301]: Frontend React
+              - generic [ref=f7e302]: UI dinámica · carga rápida
+          - paragraph [ref=f7e303]: Headless hace que los equipos de contenido publiquen de forma independiente mientras el frontend avanza más rápido. 30% menos tiempo de carga y escalado independiente.
+    - generic [ref=f7e304]:
+      - generic [ref=f7e305]:
+        - generic [ref=f7e306]: // herramientas
+        - heading "Con qué trabajo" [level=2] [ref=f7e307]
+      - generic [ref=f7e308]:
+        - generic [ref=f7e309]:
+          - heading "Lenguajes y Frameworks" [level=3] [ref=f7e310]
+          - generic [ref=f7e311]:
+            - generic [ref=f7e312]: React.js
+            - generic [ref=f7e313]: Vue.js
+            - generic [ref=f7e314]: PHP
+            - generic [ref=f7e315]: JavaScript (ES6+)
+            - generic [ref=f7e316]: Java
+            - generic [ref=f7e317]: Symfony
+            - generic [ref=f7e318]: jQuery
+            - generic [ref=f7e319]: Bootstrap
+            - generic [ref=f7e320]: Sass
+            - generic [ref=f7e321]: HTML5
+            - generic [ref=f7e322]: CSS3
+            - generic [ref=f7e323]: SQL
+        - generic [ref=f7e324]:
+          - heading "CMS y Ecosistema" [level=3] [ref=f7e325]
+          - generic [ref=f7e326]:
+            - generic [ref=f7e327]: Drupal 9/10/11
+            - generic [ref=f7e328]: Theming
+            - generic [ref=f7e329]: Custom Modules
+            - generic [ref=f7e330]: Hooks
+            - generic [ref=f7e331]: Entity API
+            - generic [ref=f7e332]: Configuration Management
+            - generic [ref=f7e333]: Commerce
+            - generic [ref=f7e334]: ECA
+            - generic [ref=f7e335]: Moodle
+        - generic [ref=f7e336]:
+          - heading "Desarrollo Web y Performance" [level=3] [ref=f7e337]
+          - generic [ref=f7e338]:
+            - generic [ref=f7e339]: RESTful APIs
+            - generic [ref=f7e340]: GraphQL
+            - generic [ref=f7e341]: JSON:API
+            - generic [ref=f7e342]: OAuth2
+            - generic [ref=f7e343]: Web Optimization
+            - generic [ref=f7e344]: Debugging (Xdebug, Chrome DevTools)
+        - generic [ref=f7e345]:
+          - heading "Bases de Datos y Herramientas" [level=3] [ref=f7e346]
+          - generic [ref=f7e347]:
+            - generic [ref=f7e348]: MySQL
+            - generic [ref=f7e349]: PostgreSQL
+            - generic [ref=f7e350]: CI/CD
+            - generic [ref=f7e351]: Pantheon
+            - generic [ref=f7e352]: Composer
+            - generic [ref=f7e353]: DDEV
+            - generic [ref=f7e354]: Drush
+            - generic [ref=f7e355]: Git
+            - generic [ref=f7e356]: GitHub
+            - generic [ref=f7e357]: GitLab
+            - generic [ref=f7e358]: Bitbucket
+            - generic [ref=f7e359]: VPN
+            - generic [ref=f7e360]: SSH
+            - generic [ref=f7e361]: Docker
+            - generic [ref=f7e362]: Kubernetes
+            - generic [ref=f7e363]: AWS
+        - generic [ref=f7e364]:
+          - heading "Seguridad y Metodologías" [level=3] [ref=f7e365]
+          - generic [ref=f7e366]:
+            - generic [ref=f7e367]: OWASP Principles
+            - generic [ref=f7e368]: Secure Authentication
+            - generic [ref=f7e369]: Agile (Scrum, Kanban)
+            - generic [ref=f7e370]: Jira
+        - generic [ref=f7e371]:
+          - heading "IA y Flujos de Desarrollo" [level=3] [ref=f7e372]
+          - generic [ref=f7e373]:
+            - generic [ref=f7e374]: Multi-Agent System Orchestration
+            - generic [ref=f7e375]: AI-assisted Workflows (Cursor, Ollama / Local LLMs)
+            - generic [ref=f7e376]: Prompt Engineering
+    - generic [ref=f7e377]:
+      - generic [ref=f7e378]:
+        - generic [ref=f7e379]: // certificaciones
+        - heading "Prueba del trabajo constante" [level=2] [ref=f7e380]
+      - generic [ref=f7e381]:
+        - generic [ref=f7e382]:
+          - generic [ref=f7e387]:
+            - heading "Diplomatura en Ingeniería DevOps" [level=3] [ref=f7e388]
+            - paragraph [ref=f7e389]: Mundos E
+          - generic [ref=f7e390]: Apr 2025
+        - generic [ref=f7e391]:
+          - generic [ref=f7e396]:
+            - heading "React.js" [level=3] [ref=f7e397]
+            - paragraph [ref=f7e398]: Coder House
+          - generic [ref=f7e399]: Jun 2023
+        - generic [ref=f7e400]:
+          - generic [ref=f7e405]:
+            - heading "JavaScript" [level=3] [ref=f7e406]
+            - paragraph [ref=f7e407]: Coder House
+          - generic [ref=f7e408]: Jun 2023
+        - generic [ref=f7e409]:
+          - generic [ref=f7e414]:
+            - heading "Desarrollo Web" [level=3] [ref=f7e415]
+            - paragraph [ref=f7e416]: Coder House
+          - generic [ref=f7e417]: Mar 2023
+        - generic [ref=f7e418]:
+          - generic [ref=f7e423]:
+            - heading "Control de Versiones con Git" [level=3] [ref=f7e424]
+            - paragraph [ref=f7e425]: Gugler
+          - generic [ref=f7e426]: Jan 2023
+        - generic [ref=f7e427]:
+          - generic [ref=f7e432]:
+            - heading "Programación Java, Nivel 1" [level=3] [ref=f7e433]
+            - paragraph [ref=f7e434]: Gugler
+          - generic [ref=f7e435]: Jul 2020
+        - generic [ref=f7e436]:
+          - generic [ref=f7e441]:
+            - heading "Inglés, Avanzado (Fluidez conversacional y escrita)" [level=3] [ref=f7e442]
+            - paragraph [ref=f7e443]: Advance
+          - generic [ref=f7e444]: Dec 2014
+    - generic [ref=f7e446]:
+      - generic [ref=f7e447]:
+        - text: // contacto
+        - heading "Construyamos algo rápido juntos" [level=2] [ref=f7e448]
+        - paragraph [ref=f7e449]: ¿Tenés un proyecto de CMS headless, una plataforma legada para modernizar, o simplemente ganas de hablar de Drupal, React y APIs? Mi inbox está abierto.
+        - generic [ref=f7e450]:
+          - link "Email renzocarletti@hotmail.com" [ref=f7e451] [cursor=pointer]:
+            - /url: mailto:renzocarletti@hotmail.com
+            - generic [ref=f7e452]: Email
+            - generic [ref=f7e453]: renzocarletti@hotmail.com
+          - link "LinkedIn in/renzo-emiliano-carletti" [ref=f7e454] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/
+            - generic [ref=f7e455]: LinkedIn
+            - generic [ref=f7e456]: in/renzo-emiliano-carletti
+          - link "Teléfono +54 9 343 4295 881" [ref=f7e457] [cursor=pointer]:
+            - /url: tel:+5493434295881
+            - generic [ref=f7e458]: Teléfono
+            - generic [ref=f7e459]: +54 9 343 4295 881
+        - link "Descargar CV" [ref=f7e460] [cursor=pointer]:
+          - /url: /personal-page/cv.pdf
+      - generic [ref=f7e461]:
+        - generic [ref=f7e462]:
+          - generic [ref=f7e463]: Nombre
+          - textbox "Nombre" [ref=f7e464]:
+            - /placeholder: Tu nombre
+        - generic [ref=f7e465]:
+          - generic [ref=f7e466]: Email
+          - textbox "Email" [ref=f7e467]:
+            - /placeholder: tu@empresa.com
+        - generic [ref=f7e468]:
+          - generic [ref=f7e469]: Asunto
+          - textbox "Asunto" [ref=f7e470]:
+            - /placeholder: ¿De qué se trata?
+        - generic [ref=f7e471]:
+          - generic [ref=f7e472]: Mensaje
+          - textbox "Mensaje" [ref=f7e473]:
+            - /placeholder: Contame sobre tu proyecto...
+        - button "Enviar mensaje" [ref=f7e475] [cursor=pointer]
+        - status [ref=f7e476]: Los mensajes llegan directo a mi bandeja de entrada. Sin cuenta ni registro.
+    - generic [ref=f7e478]:
+      - paragraph [ref=f7e479]: © 2026 Renzo Emiliano Carletti
+      - paragraph [ref=f7e480]: Hecho con Astro, WebGL personalizado y mucho café. Renzo
+      - generic [ref=f7e481]:
+        - link "LinkedIn" [ref=f7e482] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/
+        - link "GitHub" [ref=f7e483] [cursor=pointer]:
+          - /url: https://github.com/Pipoku
+        - link "Email" [ref=f7e484] [cursor=pointer]:
+          - /url: renzocarletti@hotmail.com
+        - link "CV" [ref=f7e485] [cursor=pointer]:
+          - /url: /personal-page/cv.pdf
+  - button "Back to top"

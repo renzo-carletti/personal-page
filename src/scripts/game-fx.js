@@ -209,7 +209,6 @@ export async function initGameFx() {
   let star = null;
   let journey = null;
   let tiltFns = [];
-  let airship = null;
   if (isDesktop()) {
     const { gsap } = await import('gsap');
     const { ScrollTrigger } = await import('gsap/ScrollTrigger');
@@ -217,11 +216,8 @@ export async function initGameFx() {
     star = buildStarfield();
     journey = buildJourney(gsap, ScrollTrigger);
     tiltFns = buildTilt(gsap);
-    const air = await import('./ff9-airship.js');
-    await air.mount();
-    airship = air.unmount;
   }
-  ctx = { star, journey, tiltFns, airship, bootStop };
+  ctx = { star, journey, tiltFns, bootStop };
 }
 
 export function destroyGameFx() {
@@ -229,7 +225,6 @@ export function destroyGameFx() {
   if (ctx.star) ctx.star.stop();
   if (ctx.journey) ctx.journey.stop();
   ctx.tiltFns.forEach((f) => f());
-  if (ctx.airship) ctx.airship();
   ctx.bootStop();
   ctx = null;
 }

@@ -12,6 +12,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <div class="hero__ow" aria-hidden="true">
     <div class="hero__planet">
       <span class="hero__planet-body"></span>
+      <span class="hero__planet-texture"></span>
       <span class="hero__planet-ring"></span>
       <span class="hero__planet-moon"></span>
     </div>
@@ -374,8 +375,35 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     inset: 10%;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 32% 30%, #9ad66f 0%, #3f8f4e 42%, #1e5a36 100%);
-    box-shadow: 0 0 18px rgba(90, 200, 120, 0.28);
+      radial-gradient(circle at 30% 26%, #a9e07a 0%, #5aa94f 26%, #2f7a3c 52%, #17452b 74%, #0c241a 86%, #08160f 90%);
+    box-shadow:
+      0 0 24px rgba(90, 200, 120, 0.3),
+      inset -10px -12px 26px rgba(0, 0, 0, 0.5),
+      inset 6px 6px 14px rgba(255, 240, 200, 0.12);
+  }
+
+  .hero__planet-texture {
+    position: absolute;
+    inset: 10%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 62% 58%, rgba(6, 22, 14, 0.55) 0 7%, transparent 8%),
+      radial-gradient(circle at 40% 72%, rgba(6, 22, 14, 0.5) 0 5%, transparent 6%),
+      radial-gradient(circle at 70% 32%, rgba(6, 22, 14, 0.45) 0 4%, transparent 5%),
+      radial-gradient(circle at 24% 46%, rgba(6, 22, 14, 0.5) 0 3.5%, transparent 4.5%),
+      radial-gradient(circle at 50% 40%, rgba(226, 255, 214, 0.18) 0 9%, transparent 12%),
+      radial-gradient(circle at 30% 30%, rgba(255, 230, 190, 0.25) 0 6%, transparent 9%);
+    filter: blur(0.4px);
+  }
+
+  .hero__planet::before {
+    content: '';
+    position: absolute;
+    inset: -4%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 214, 150, 0.35), rgba(120, 220, 150, 0.12) 45%, transparent 68%);
+    filter: blur(8px);
+    z-index: -1;
   }
 
   .hero__planet-ring {

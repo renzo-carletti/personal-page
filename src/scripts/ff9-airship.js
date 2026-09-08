@@ -28,83 +28,111 @@ export async function mount() {
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-  camera.position.set(0, 0.15, 6.4);
-  camera.lookAt(0, 0.15, 0);
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+  camera.position.set(0, 0.1, 7);
+  camera.lookAt(0, 0, 0);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-  const dir = new THREE.DirectionalLight(0xffe0b0, 1.6);
-  dir.position.set(3, 4, 5);
+  scene.add(new THREE.AmbientLight(0xfff2d8, 0.6));
+  const dir = new THREE.DirectionalLight(0xffe0b0, 1.7);
+  dir.position.set(3, 5, 5);
   scene.add(dir);
-  const warm = new THREE.PointLight(0xffb050, 1.4, 20);
-  warm.position.set(0, 1.3, 1.2);
+  const warm = new THREE.PointLight(0xffb050, 1.5, 20);
+  warm.position.set(0, 2, 1.5);
   scene.add(warm);
 
   const group = new THREE.Group();
+  const cream = new THREE.MeshStandardMaterial({ color: 0xf0e0b8, emissive: 0x6a4a1a, emissiveIntensity: 0.2, roughness: 0.55 });
+  const gold = new THREE.MeshStandardMaterial({ color: 0xd8a94f, emissive: 0x4a3008, emissiveIntensity: 0.25, roughness: 0.5 });
+  const mahogany = new THREE.MeshStandardMaterial({ color: 0x6a4226, roughness: 0.85 });
+  const redCurtain = new THREE.MeshStandardMaterial({ color: 0x9c1f2c, emissive: 0x3a080c, emissiveIntensity: 0.35, roughness: 0.7 });
 
-  const balloon = new THREE.Mesh(
-    new THREE.SphereGeometry(1.35, 32, 24),
-    new THREE.MeshStandardMaterial({ color: 0xf2e2bd, emissive: 0x6a4a1a, emissiveIntensity: 0.22, roughness: 0.55 })
-  );
-  balloon.scale.set(1, 0.82, 1);
-  balloon.position.y = 0.9;
+  const balloon = new THREE.Mesh(new THREE.SphereGeometry(1.5, 40, 28), cream);
+  balloon.scale.set(1, 0.84, 1);
+  balloon.position.y = 1.7;
   group.add(balloon);
 
-  const rib = (ry) => {
-    const m = new THREE.Mesh(new THREE.TorusGeometry(1.37, 0.026, 8, 44), new THREE.MeshStandardMaterial({ color: 0xb07a3a, roughness: 0.7 }));
-    m.scale.set(1, 0.82, 1);
-    m.rotation.y = ry;
-    m.position.y = 0.9;
+  const redBand = (y) => {
+    const m = new THREE.Mesh(new THREE.TorusGeometry(1.52, 0.1, 12, 48), redCurtain);
+    m.scale.set(1, 0.84, 1);
+    m.rotation.x = Math.PI / 2;
+    m.position.y = y;
     return m;
   };
-  group.add(rib(0));
-  group.add(rib(Math.PI / 3));
-  group.add(rib((2 * Math.PI) / 3));
+  group.add(redBand(1.35));
+  group.add(redBand(2.05));
 
-  const band = new THREE.Mesh(new THREE.TorusGeometry(1.38, 0.085, 10, 44), new THREE.MeshStandardMaterial({ color: 0xc94f3d, emissive: 0x5a1a10, emissiveIntensity: 0.3, roughness: 0.6 }));
-  band.scale.set(1, 0.82, 1);
-  band.rotation.x = Math.PI / 2;
-  band.position.y = 0.9;
-  group.add(band);
+  const chateau = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.6, 0.85), cream);
+  chateau.position.y = 0.62;
+  group.add(chateau);
 
-  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.34, 0.07, 0.95), new THREE.MeshStandardMaterial({ color: 0x8a5a30, roughness: 0.8 }));
-  deck.position.y = -0.28;
+  const tower = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.55), cream);
+  tower.position.y = 1.27;
+  group.add(tower);
+
+  const spire = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.5, 4), gold);
+  spire.position.y = 1.82;
+  group.add(spire);
+
+  const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.4, 6), gold);
+  mast.position.set(0, 2.1, -0.45);
+  group.add(mast);
+
+  const pennant = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.5, 3), redCurtain);
+  pennant.position.set(0, 2.55, -0.45);
+  pennant.rotation.z = Math.PI;
+  group.add(pennant);
+
+  const hull = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 1.15, 0.95, 4), mahogany);
+  hull.rotation.y = Math.PI / 4;
+  hull.position.y = -0.25;
+  group.add(hull);
+
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.08, 1.0), new THREE.MeshStandardMaterial({ color: 0x8a5a30, roughness: 0.8 }));
+  deck.position.y = -0.08;
   group.add(deck);
 
-  const gondola = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.42, 0.68), new THREE.MeshStandardMaterial({ color: 0x7a4a28, roughness: 0.85 }));
-  gondola.position.y = -0.55;
-  group.add(gondola);
+  const curtain = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.5, 0.12), redCurtain);
+  curtain.position.set(0, -0.35, 0.55);
+  group.add(curtain);
 
-  const finH = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.95, 4), new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.85 }));
-  finH.scale.set(1, 1, 0.16);
-  finH.position.set(0, -0.1, -1.4);
+  const goldTrim = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.05, 0.14), gold);
+  goldTrim.position.set(0, -0.09, 0.56);
+  group.add(goldTrim);
+
+  const goldBand = new THREE.Mesh(new THREE.BoxGeometry(1.14, 0.05, 0.94), gold);
+  goldBand.position.y = -0.82;
+  group.add(goldBand);
+
+  const finH = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.9, 4), mahogany);
+  finH.scale.set(1, 1, 0.14);
+  finH.position.set(0, -0.1, -1.15);
   finH.rotation.x = Math.PI;
   group.add(finH);
 
-  const finL = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.95, 4), new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.85 }));
-  finL.scale.set(0.14, 1, 1);
-  finL.position.set(-0.42, -0.35, -1.4);
-  finL.rotation.z = -0.4;
+  const finL = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.9, 4), mahogany);
+  finL.scale.set(0.12, 1, 1);
+  finL.position.set(-0.55, -0.5, -1.15);
+  finL.rotation.z = -0.5;
   group.add(finL);
 
   const finR = finL.clone();
-  finR.position.x = 0.42;
-  finR.rotation.z = 0.4;
+  finR.position.x = 0.55;
+  finR.rotation.z = 0.5;
   group.add(finR);
 
   const propeller = new THREE.Group();
   for (const [rx, ry] of [[0, 0], [Math.PI / 2, 0]]) {
-    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.5, 0.02), new THREE.MeshStandardMaterial({ color: 0xd8a94f, roughness: 0.6 }));
+    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.55, 0.02), gold);
     blade.rotation.x = rx;
     propeller.add(blade);
   }
-  propeller.position.set(0, -0.35, -1.62);
+  propeller.position.set(0, -0.5, -1.35);
   group.add(propeller);
 
-  for (const [x, z] of [[-0.62, 0.25], [0.62, 0.25], [-0.5, -0.5], [0.5, -0.5]]) {
-    const rope = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 1.4, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.9 }));
-    rope.position.set(x, 0.22, z);
-    rope.rotation.z = x > 0 ? 0.14 : -0.14;
+  for (const [x, z] of [[-0.6, 0.3], [0.6, 0.3], [-0.5, -0.4], [0.5, -0.4]]) {
+    const rope = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 1.1, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.9 }));
+    rope.position.set(x, 1.12, z);
+    rope.rotation.z = x > 0 ? 0.12 : -0.12;
     group.add(rope);
   }
 
@@ -121,10 +149,10 @@ export async function mount() {
   const clock = new THREE.Clock();
   renderer.setAnimationLoop(() => {
     const t = clock.getElapsedTime();
-    group.position.y = Math.sin(t * 0.9) * 0.12;
-    group.rotation.y = Math.sin(t * 0.35) * 0.16 + mx * 0.4;
-    group.rotation.z = Math.sin(t * 0.5) * 0.03 + my * 0.14;
-    propeller.rotation.z = t * 2.2;
+    group.position.y = Math.sin(t * 0.8) * 0.1;
+    group.rotation.y = Math.sin(t * 0.3) * 0.14 + mx * 0.35;
+    group.rotation.z = Math.sin(t * 0.45) * 0.02 + my * 0.12;
+    propeller.rotation.z = t * 2.4;
     renderer.render(scene, camera);
   });
 

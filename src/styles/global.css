@@ -66,13 +66,20 @@
 :root[data-theme='fun'] .arch__why,
 :root[data-theme='fun'] .contact__text {
   font-family: var(--font-body);
-  font-size: 1.06rem;
+  font-size: 1.14rem;
+}
+
+:root[data-theme='fun'] .work__card h3,
+:root[data-theme='fun'] .workflow__card h3,
+:root[data-theme='fun'] .about__card h3,
+:root[data-theme='fun'] .timeline__role {
+  font-size: 1.2rem;
 }
 
 :root[data-theme='fun'] .nav__links a {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.02rem;
+  font-size: 1.08rem;
   letter-spacing: 0.01em;
 }
 
@@ -323,6 +330,7 @@ button {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: 0.015em;
+  font-size: clamp(2.3rem, 4.6vw, 3.4rem);
 }
 
 :root[data-theme='fun'] .hero__role,
@@ -481,6 +489,28 @@ button {
 
 @keyframes boot-blink {
   50% { opacity: 0; }
+}
+
+.fx-airship {
+  position: absolute;
+  left: clamp(1rem, 4.5vw, 4.5rem);
+  top: 4vh;
+  width: clamp(140px, 15vw, 220px);
+  aspect-ratio: 1;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 1000px) {
+  .fx-airship {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-airship {
+    display: none;
+  }
 }
 
 /* Outer Wilds background planet removed per feedback */

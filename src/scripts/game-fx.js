@@ -173,13 +173,12 @@ function buildBoot() {
   const cursor = document.createElement('span');
   cursor.className = 'fx-boot__cursor';
   boot.appendChild(text);
-  boot.appendChild(cursor);
   document.body.appendChild(boot);
 
   let line = 0;
   const typeLine = () => {
     if (line >= lines.length) {
-      cursor.remove();
+      text.appendChild(cursor);
       setTimeout(() => {
         boot.classList.add('fx-boot--done');
         setTimeout(() => boot.remove(), 1100);

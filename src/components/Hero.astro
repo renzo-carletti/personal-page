@@ -352,9 +352,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   .hero__ow {
     display: none;
     position: absolute;
-    right: clamp(1rem, 8vw, 7rem);
-    top: 13vh;
-    width: clamp(70px, 7vw, 92px);
+    right: clamp(1rem, 7vw, 6rem);
+    top: 12vh;
+    width: clamp(92px, 9vw, 124px);
     aspect-ratio: 1;
     z-index: 1;
   }
@@ -375,11 +375,12 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     inset: 10%;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 30% 26%, #a9e07a 0%, #5aa94f 26%, #2f7a3c 52%, #17452b 74%, #0c241a 86%, #08160f 90%);
+      radial-gradient(circle at 30% 26%, #b2e88a 0%, #63b255 24%, #33854a 48%, #1b5336 70%, #0e2c1f 84%, #0a1c12 89%);
     box-shadow:
-      0 0 24px rgba(90, 200, 120, 0.3),
-      inset -10px -12px 26px rgba(0, 0, 0, 0.5),
-      inset 6px 6px 14px rgba(255, 240, 200, 0.12);
+      0 0 30px rgba(100, 210, 140, 0.38),
+      0 0 60px rgba(70, 160, 120, 0.18),
+      inset -12px -14px 30px rgba(0, 0, 0, 0.55),
+      inset 7px 7px 16px rgba(255, 242, 205, 0.14);
   }
 
   .hero__planet-texture {
@@ -387,31 +388,33 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     inset: 10%;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 62% 58%, rgba(6, 22, 14, 0.55) 0 7%, transparent 8%),
-      radial-gradient(circle at 40% 72%, rgba(6, 22, 14, 0.5) 0 5%, transparent 6%),
-      radial-gradient(circle at 70% 32%, rgba(6, 22, 14, 0.45) 0 4%, transparent 5%),
-      radial-gradient(circle at 24% 46%, rgba(6, 22, 14, 0.5) 0 3.5%, transparent 4.5%),
-      radial-gradient(circle at 50% 40%, rgba(226, 255, 214, 0.18) 0 9%, transparent 12%),
-      radial-gradient(circle at 30% 30%, rgba(255, 230, 190, 0.25) 0 6%, transparent 9%);
-    filter: blur(0.4px);
+      radial-gradient(circle at 60% 56%, rgba(5, 20, 12, 0.6) 0 8%, transparent 9%),
+      radial-gradient(circle at 38% 70%, rgba(5, 20, 12, 0.55) 0 6%, transparent 7%),
+      radial-gradient(circle at 72% 30%, rgba(5, 20, 12, 0.5) 0 4.5%, transparent 5.5%),
+      radial-gradient(circle at 22% 44%, rgba(5, 20, 12, 0.55) 0 4%, transparent 5%),
+      radial-gradient(circle at 48% 38%, rgba(230, 255, 218, 0.22) 0 10%, transparent 13%),
+      radial-gradient(circle at 66% 62%, rgba(255, 236, 200, 0.16) 0 7%, transparent 10%),
+      radial-gradient(circle at 32% 30%, rgba(210, 255, 190, 0.28) 0 5%, transparent 8%);
+    filter: blur(0.5px);
   }
 
   .hero__planet::before {
     content: '';
     position: absolute;
-    inset: -4%;
+    inset: -6%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 214, 150, 0.35), rgba(120, 220, 150, 0.12) 45%, transparent 68%);
-    filter: blur(8px);
+    background: radial-gradient(circle, rgba(255, 220, 160, 0.4), rgba(130, 220, 160, 0.16) 42%, transparent 66%);
+    filter: blur(10px);
     z-index: -1;
   }
 
   .hero__planet-ring {
     position: absolute;
-    inset: 22% -14% 22% -14%;
+    inset: 22% -16% 22% -16%;
     border-radius: 50%;
-    border: 3px solid rgba(240, 220, 170, 0.8);
+    border: 4px solid rgba(245, 228, 185, 0.85);
     transform: rotate(-24deg) scaleX(0.62);
+    box-shadow: 0 0 8px rgba(245, 228, 185, 0.4);
   }
 
   .hero__planet-moon {

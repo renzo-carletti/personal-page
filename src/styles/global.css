@@ -508,9 +508,9 @@ button {
 
 .fx-airship {
   position: absolute;
-  left: clamp(1rem, 4.5vw, 4.5rem);
-  top: 4vh;
-  width: clamp(140px, 15vw, 220px);
+  left: clamp(1rem, 3vw, 3rem);
+  top: 3vh;
+  width: clamp(260px, 24vw, 340px);
   aspect-ratio: 1;
   z-index: 1;
   pointer-events: none;

@@ -18,7 +18,7 @@ export async function mount() {
   }
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const size = () => {
-    const w = canvas.clientWidth || 220;
+    const w = canvas.clientWidth || 280;
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(w * dpr);
     renderer.setSize(w, w, false);
@@ -29,149 +29,124 @@ export async function mount() {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-  camera.position.set(0, 0.1, 7);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, 0.2, 8);
+  camera.lookAt(0, 0.1, 0);
 
-  scene.add(new THREE.AmbientLight(0xfff2d8, 0.6));
+  scene.add(new THREE.AmbientLight(0xfff2d8, 0.65));
   const dir = new THREE.DirectionalLight(0xffe0b0, 1.7);
   dir.position.set(3, 5, 5);
   scene.add(dir);
-  const warm = new THREE.PointLight(0xffb050, 1.5, 20);
-  warm.position.set(0, 2, 1.5);
+  const warm = new THREE.PointLight(0xffb050, 1.5, 24);
+  warm.position.set(0, 2.4, 2);
   scene.add(warm);
 
-  const group = new THREE.Group();
-  const cream = new THREE.MeshStandardMaterial({ color: 0xf0e0b8, emissive: 0x6a4a1a, emissiveIntensity: 0.2, roughness: 0.55 });
-  const gold = new THREE.MeshStandardMaterial({ color: 0xd8a94f, emissive: 0x4a3008, emissiveIntensity: 0.25, roughness: 0.5 });
+  const cream = new THREE.MeshStandardMaterial({ color: 0xf2e2bd, emissive: 0x6a4a1a, emissiveIntensity: 0.18, roughness: 0.55 });
+  const gold = new THREE.MeshStandardMaterial({ color: 0xd8a94f, emissive: 0x4a3008, emissiveIntensity: 0.28, roughness: 0.5 });
   const mahogany = new THREE.MeshStandardMaterial({ color: 0x6a4226, roughness: 0.85 });
   const redCurtain = new THREE.MeshStandardMaterial({ color: 0x9c1f2c, emissive: 0x3a080c, emissiveIntensity: 0.35, roughness: 0.7 });
 
-  const balloon = new THREE.Mesh(new THREE.SphereGeometry(1.5, 40, 28), cream);
-  balloon.scale.set(1, 0.84, 1);
-  balloon.position.y = 1.7;
+  const group = new THREE.Group();
+
+  const balloon = new THREE.Mesh(new THREE.SphereGeometry(1.6, 40, 28), cream);
+  balloon.scale.set(1, 0.85, 1);
+  balloon.position.y = 1.85;
   group.add(balloon);
 
-  const redBand = (y) => {
-    const m = new THREE.Mesh(new THREE.TorusGeometry(1.52, 0.1, 12, 48), redCurtain);
-    m.scale.set(1, 0.84, 1);
+  const redBand = (y, r) => {
+    const m = new THREE.Mesh(new THREE.TorusGeometry(r, 0.11, 12, 48), redCurtain);
+    m.scale.set(1, 0.85, 1);
     m.rotation.x = Math.PI / 2;
     m.position.y = y;
     return m;
   };
-  group.add(redBand(1.35));
-  group.add(redBand(2.05));
+  group.add(redBand(1.55, 1.62));
+  group.add(redBand(2.3, 1.6));
 
-  const chateau = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.6, 0.85), cream);
-  chateau.position.y = 0.62;
-  group.add(chateau);
-
-  const tower = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.55), cream);
-  tower.position.y = 1.27;
-  group.add(tower);
-
-  const spire = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.5, 4), gold);
-  spire.position.y = 1.82;
-  group.add(spire);
-
-  const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.4, 6), gold);
-  mast.position.set(0, 2.1, -0.45);
-  group.add(mast);
-
-  const pennant = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.5, 3), redCurtain);
-  pennant.position.set(0, 2.55, -0.45);
-  pennant.rotation.z = Math.PI;
-  group.add(pennant);
-
-  const hull = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 1.15, 0.95, 4), mahogany);
-  hull.rotation.y = Math.PI / 4;
-  hull.position.y = -0.25;
-  group.add(hull);
-
-  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.08, 1.0), new THREE.MeshStandardMaterial({ color: 0x8a5a30, roughness: 0.8 }));
-  deck.position.y = -0.08;
-  group.add(deck);
-
-  const curtain = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.5, 0.12), redCurtain);
-  curtain.position.set(0, -0.35, 0.55);
-  group.add(curtain);
-
-  const goldTrim = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.05, 0.14), gold);
-  goldTrim.position.set(0, -0.09, 0.56);
-  group.add(goldTrim);
-
-  const goldBand = new THREE.Mesh(new THREE.BoxGeometry(1.14, 0.05, 0.94), gold);
-  goldBand.position.y = -0.82;
+  const goldBand = new THREE.Mesh(new THREE.TorusGeometry(1.56, 0.045, 10, 48), gold);
+  goldBand.scale.set(1, 0.85, 1);
+  goldBand.rotation.x = Math.PI / 2;
+  goldBand.position.y = 1.92;
   group.add(goldBand);
 
-  const finH = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.9, 4), mahogany);
-  finH.scale.set(1, 1, 0.14);
-  finH.position.set(0, -0.1, -1.15);
-  finH.rotation.x = Math.PI;
-  group.add(finH);
+  const chateau = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.55, 0.9), cream);
+  chateau.position.y = 0.72;
+  group.add(chateau);
 
-  const finL = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.9, 4), mahogany);
-  finL.scale.set(0.12, 1, 1);
-  finL.position.set(-0.55, -0.5, -1.15);
-  finL.rotation.z = -0.5;
-  group.add(finL);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(0.85, 0.55, 4), gold);
+  roof.position.y = 1.27;
+  roof.rotation.y = Math.PI / 4;
+  group.add(roof);
 
-  const finR = finL.clone();
-  finR.position.x = 0.55;
-  finR.rotation.z = 0.5;
-  group.add(finR);
+  const windows = [];
+  for (const x of [-0.3, 0, 0.3]) {
+    const w = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.24, 0.05), gold);
+    w.position.set(x, 0.75, 0.47);
+    windows.push(w);
+    group.add(w);
+  }
+
+  const hull = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 1.3, 1.0, 4), mahogany);
+  hull.rotation.y = Math.PI / 4;
+  hull.position.y = -0.3;
+  group.add(hull);
+
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.08, 1.1), new THREE.MeshStandardMaterial({ color: 0x8a5a30, roughness: 0.8 }));
+  deck.position.y = -0.02;
+  group.add(deck);
+
+  const curtain = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.62, 0.14), redCurtain);
+  curtain.position.set(0, -0.35, 0.62);
+  group.add(curtain);
+
+  const trim = new THREE.Mesh(new THREE.BoxGeometry(1.12, 0.06, 0.16), gold);
+  trim.position.set(0, -0.04, 0.63);
+  group.add(trim);
 
   const propeller = new THREE.Group();
-  for (const [rx, ry] of [[0, 0], [Math.PI / 2, 0]]) {
-    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.55, 0.02), gold);
+  for (const rx of [0, Math.PI / 2]) {
+    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.6, 0.03), gold);
     blade.rotation.x = rx;
     propeller.add(blade);
   }
-  propeller.position.set(0, -0.5, -1.35);
+  propeller.position.set(0, -0.4, -1.2);
   group.add(propeller);
-
-  for (const [x, z] of [[-0.6, 0.3], [0.6, 0.3], [-0.5, -0.4], [0.5, -0.4]]) {
-    const rope = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 1.1, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.9 }));
-    rope.position.set(x, 1.12, z);
-    rope.rotation.z = x > 0 ? 0.12 : -0.12;
-    group.add(rope);
-  }
 
   scene.add(group);
 
-  const viviMat = new THREE.MeshStandardMaterial({ color: 0x2a2a33, roughness: 0.9 });
-  const viviDark = new THREE.MeshStandardMaterial({ color: 0x141419, roughness: 0.85 });
-  const glowMat = new THREE.MeshStandardMaterial({ color: 0xffd94f, emissive: 0xffb020, emissiveIntensity: 1.1 });
+  const viviMat = new THREE.MeshStandardMaterial({ color: 0x2c2c36, roughness: 0.9 });
+  const viviDark = new THREE.MeshStandardMaterial({ color: 0x12121a, roughness: 0.85 });
+  const glowMat = new THREE.MeshStandardMaterial({ color: 0xffd94f, emissive: 0xffb020, emissiveIntensity: 1.4 });
 
   const vivi = new THREE.Group();
-  const vBody = new THREE.Mesh(new THREE.SphereGeometry(0.3, 24, 20), viviMat);
-  vBody.position.y = -0.15;
+  const vBody = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 20), viviMat);
+  vBody.position.y = -0.2;
   vivi.add(vBody);
-  const vCloak = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.5, 12), viviMat);
-  vCloak.position.y = -0.3;
+  const vCloak = new THREE.Mesh(new THREE.ConeGeometry(0.48, 0.6, 12), viviMat);
+  vCloak.position.y = -0.42;
   vCloak.rotation.x = Math.PI;
   vivi.add(vCloak);
-  const vHat = new THREE.Mesh(new THREE.ConeGeometry(0.32, 0.74, 16), viviDark);
-  vHat.position.y = 0.44;
+  const vHat = new THREE.Mesh(new THREE.ConeGeometry(0.46, 1.05, 16), viviDark);
+  vHat.position.y = 0.6;
   vivi.add(vHat);
-  const vBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.045, 20), viviDark);
-  vBrim.position.y = 0.15;
+  const vBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.64, 0.64, 0.06, 20), viviDark);
+  vBrim.position.y = 0.2;
   vivi.add(vBrim);
-  const vEyeG = new THREE.SphereGeometry(0.045, 12, 10);
+  const vEyeG = new THREE.SphereGeometry(0.065, 14, 12);
   const vE1 = new THREE.Mesh(vEyeG, glowMat);
-  vE1.position.set(-0.09, 0.11, 0.34);
+  vE1.position.set(-0.13, 0.15, 0.48);
   vivi.add(vE1);
   const vE2 = new THREE.Mesh(vEyeG, glowMat);
-  vE2.position.set(0.09, 0.11, 0.34);
+  vE2.position.set(0.13, 0.15, 0.48);
   vivi.add(vE2);
-  const vStaff = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.9, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.8 }));
-  vStaff.position.set(0.36, -0.5, 0);
-  vStaff.rotation.z = 0.25;
+  const vStaff = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 1.2, 6), new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.8 }));
+  vStaff.position.set(0.5, -0.62, 0);
+  vStaff.rotation.z = 0.3;
   vivi.add(vStaff);
-  const vOrb = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 10), glowMat);
-  vOrb.position.set(0.5, -0.08, 0);
+  const vOrb = new THREE.Mesh(new THREE.SphereGeometry(0.09, 14, 12), glowMat);
+  vOrb.position.set(0.68, -0.1, 0);
   vivi.add(vOrb);
-  vivi.position.set(-1.75, -0.55, 0);
-  vivi.scale.setScalar(0.55);
+  vivi.position.set(-1.95, -0.7, 0);
+  vivi.scale.setScalar(0.85);
   scene.add(vivi);
 
   let mx = 0;
@@ -189,7 +164,7 @@ export async function mount() {
     group.rotation.y = Math.sin(t * 0.3) * 0.14 + mx * 0.35;
     group.rotation.z = Math.sin(t * 0.45) * 0.02 + my * 0.12;
     propeller.rotation.z = t * 2.4;
-    vivi.position.y = -0.55 + Math.sin(t * 1.1 + 1) * 0.09;
+    vivi.position.y = -0.7 + Math.sin(t * 1.1 + 1) * 0.11;
     vivi.rotation.z = Math.sin(t * 0.7) * 0.06;
     vivi.rotation.y = mx * 0.3;
     renderer.render(scene, camera);

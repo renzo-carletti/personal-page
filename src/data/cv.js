@@ -160,7 +160,7 @@ export const skills = [
   },
   {
     group: 'Web Dev & Performance',
-    items: ['RESTful APIs', 'GraphQL', 'JSON:API', 'OAuth2', 'Web Optimization', 'Debugging (Xdebug, Chrome DevTools)'],
+    items: ['RESTful APIs', 'GraphQL', 'JSON:API', 'OAuth2', 'Web Optimization', 'Debugging (Xdebug, Chrome DevTools)', 'Three.js (img2threejs.io)'],
   },
   {
     group: 'Databases & Tools',

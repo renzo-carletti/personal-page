@@ -429,16 +429,16 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   }
 
   @media (max-width: 720px), (max-height: 720px) {
-    .hero__spark,
-    .hero__ow,
-    .hero__crystal {
+    html[data-theme='fun'] .hero__spark,
+    html[data-theme='fun'] .hero__ow,
+    html[data-theme='fun'] .hero__crystal {
       display: none !important;
     }
   }
 
   @media (max-width: 1000px) {
-    .hero__ow,
-    .hero__crystal {
+    html[data-theme='fun'] .hero__ow,
+    html[data-theme='fun'] .hero__crystal {
       display: none !important;
     }
   }

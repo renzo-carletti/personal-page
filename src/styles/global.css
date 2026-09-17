@@ -149,6 +149,21 @@ html {
   background: rgba(13, 23, 48, 0.85);
 }
 
+:root[data-theme='fun'] .btn--primary {
+  color: #1a1003;
+  background: linear-gradient(120deg, #e8b64c, #e8734a);
+  box-shadow: 0 8px 26px -10px rgba(232, 182, 76, 0.5);
+}
+
+:root[data-theme='fun'] .btn--primary:hover {
+  box-shadow: 0 14px 34px -10px rgba(255, 209, 102, 0.55);
+}
+
+:root[data-theme='fun'] .nav__lang.active {
+  color: #1a1003;
+  background: linear-gradient(120deg, #e8b64c, #ffd166);
+}
+
 :root[data-theme='fun'] .nav__links a {
   font-family: var(--font-display);
   font-weight: 600;
@@ -758,7 +773,6 @@ html.low-power .nav.scrolled {
     transform: none;
     transition: none;
   }
-  .hero__spark,
   .hero__ow,
   .hero__constellation,
   .hero__crystal {

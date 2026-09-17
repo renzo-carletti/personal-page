@@ -70,9 +70,14 @@
 
   .workflow__grid {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     gap: 1.2rem;
     align-items: stretch;
+  }
+
+  .workflow__cards,
+  .arch {
+    min-width: 0;
   }
 
   .workflow__cards {
@@ -134,7 +139,7 @@
   }
 
   .arch__node {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -148,13 +153,11 @@
   .arch__node-title {
     font-weight: 700;
     font-size: 0.95rem;
-    white-space: nowrap;
   }
 
   .arch__node-sub {
     font-size: 0.72rem;
     color: var(--faint);
-    white-space: nowrap;
   }
 
   .arch__link {
@@ -198,7 +201,7 @@
     font-size: 0.75rem;
     color: var(--accent-2);
     text-align: center;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
   }
 
   .arch__why {
@@ -227,8 +230,14 @@
       flex-direction: column;
     }
     .arch__node {
+      flex: 0 0 auto;
       align-self: stretch;
       text-align: center;
+    }
+
+    .arch__node-title,
+    .arch__node-sub {
+      white-space: normal;
     }
     .arch__link {
       width: 100%;

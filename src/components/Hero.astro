@@ -305,6 +305,20 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     text-wrap: balance;
   }
 
+  html[data-theme='fun'] .hero__stat-value {
+    font-family: var(--font-display);
+    background: none;
+    -webkit-text-fill-color: #ffd166;
+    color: #ffd166;
+  }
+
+  html[data-theme='fun'] .hero__stat-label {
+    font-family: var(--font-body);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-size: 0.95rem;
+  }
+
   .hero__scroll {
     position: absolute;
     bottom: 1.2rem;

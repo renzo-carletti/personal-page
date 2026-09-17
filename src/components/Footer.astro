@@ -26,6 +26,7 @@ const year = new Date().getFullYear();
   .footer {
     border-top: 1px solid var(--glass-border);
     padding-block: 2rem;
+    padding-bottom: 5rem;
     margin-top: 2rem;
   }
 
@@ -85,5 +86,78 @@ const year = new Date().getFullYear();
   .footer__links a:hover {
     color: var(--accent-2);
     border-color: var(--accent-2);
+  }
+
+  @media (max-width: 600px) {
+    .footer__inner {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.9rem;
+    }
+    .footer__links {
+      gap: 1rem;
+    }
+  }
+
+  /* Storybook colophon */
+  :root[data-theme='fun'] .footer {
+    border-top: 1px solid rgba(232, 182, 76, 0.35);
+    position: relative;
+  }
+
+  :root[data-theme='fun'] .footer::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    transform: translateX(-50%) rotate(45deg);
+    background: #e8b64c;
+    box-shadow: 0 0 8px rgba(232, 182, 76, 0.75);
+  }
+
+  :root[data-theme='fun'] .footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.7rem;
+  }
+
+  :root[data-theme='fun'] .footer__name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  :root[data-theme='fun'] .footer__tag {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  :root[data-theme='fun'] .footer__heart {
+    background: linear-gradient(120deg, #ffd166, #e8734a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  :root[data-theme='fun'] .footer__sig {
+    font-size: 1.8rem;
+    margin-left: 0.5rem;
+  }
+
+  :root[data-theme='fun'] .footer__links {
+    gap: 1.4rem;
+    margin-top: 0.3rem;
+  }
+
+  :root[data-theme='fun'] .footer__links a {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
   }
 </style>

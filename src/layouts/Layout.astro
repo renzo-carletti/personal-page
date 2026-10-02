@@ -5,9 +5,10 @@ import jbLatin from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-la
 import jbLatinExt from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-ext-wght-normal.woff2?url';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
-import { profile } from '../data/cv.js';
+import { profile, t, translations } from '../data/content.js';
+const en = translations.en;
 
-const { title = 'Renzo Carletti · Decoupled Drupal & React Engineer' } = Astro.props;
+const { title = en['meta.title'] } = Astro.props;
 
 const siteUrl = (Astro.site ?? 'https://renzocarletti.dev').href.replace(/\/$/, '');
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
@@ -51,7 +52,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: profile.name,
-  jobTitle: profile.role,
+  jobTitle: t(profile.role),
   email: `mailto:${profile.email}`,
   telephone: profile.phone.replace(/\s/g, ''),
   address: {
@@ -74,17 +75,21 @@ const schema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Renzo Emiliano Carletti, Decoupled Drupal + React expert. Headless CMS architect, JSON:API & OAuth2 specialist. 5+ years shipping high-performance web applications." />
-    <meta name="keywords" content="Decoupled Drupal Expert, Headless CMS, React Developer, JSON:API, OAuth2, REST APIs, Drupal 10/11, Moodle, PHP, Symfony, DevOps, Web Performance, Argentina" />
+    <meta name="description" content={en['meta.description']} data-i18n="meta.description" data-i18n-attr="content" />
+    <meta name="keywords" content="Drupal developer, Drupal upgrades, Drupal migration, Decoupled Drupal, Headless CMS, React, JSON:API, REST APIs, GraphQL, Moodle, PHP, Argentina" />
     <meta name="author" content="Renzo Emiliano Carletti" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#05060f" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <script is:inline>
       try {
-        if (localStorage.getItem('rc-theme') === 'fun') document.documentElement.dataset.theme = 'fun';
+        const root = document.documentElement;
+        if (localStorage.getItem('rc-theme') === 'fun') root.dataset.theme = 'fun';
+        const scheme = localStorage.getItem('rc-scheme');
+        root.dataset.scheme = scheme === 'light' || scheme === 'dark' ? scheme : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        localStorage.removeItem('rc-bw');
         const low = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
-        if (low) document.documentElement.classList.add('low-power');
+        if (low) root.classList.add('low-power');
       } catch (e) {}
     </script>
     <link rel="icon" type="image/svg+xml" href={base + 'favicon.svg'} />
@@ -93,13 +98,13 @@ const schema = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content="Decoupled Drupal & React engineer. 5+ years building fast, scalable web applications." />
+    <meta property="og:description" content={en['meta.description']} />
     <meta property="og:image" content={`${siteUrl}/og.png`} />
     <meta property="og:site_name" content="Renzo Carletti" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={`${siteUrl}/og.png`} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content="Decoupled Drupal & React engineer. 5+ years building fast, scalable web applications." />
+    <meta name="twitter:description" content={en['meta.description']} />
 
     <title>{title}</title>
 

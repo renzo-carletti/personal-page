@@ -4,7 +4,7 @@ Single source of truth for the redesign. Phase 0 (audit) done on 2026-10-02. Ref
 
 ## Phases
 - [x] Phase 0: Audit + Style Brief
-- [ ] Phase 1: Content & architecture
+- [x] Phase 1: Content & architecture (2026-10-02; open: user regenerates cv.pdf)
 - [ ] Phase 2: Normal mode
 - [ ] Phase 3: Fun mode
 - [ ] Phase 4: Polish & quality
@@ -104,14 +104,27 @@ Clash + proposed unified direction (NEEDS CONFIRMATION before Phase 3):
 
 ### 5. Phase plan (adjusted)
 Phase 1 — Content & architecture
-- [ ] Merge cv.js + translations.js into `src/data/content.json` (EN/ES keyed per field) — one source, both modes.
-- [ ] Rewrite copy specific/plain; mark unverified numbers `TODO(verify)`.
-- [ ] Tokens: color, type scale, spacing, radius, border, shadow per mode in global.css.
-- [ ] Mode toggle refactor (keep `rc-theme`, aria-pressed, no reload, prefers-color-scheme for pro light/dark, reduced motion). Decide fate of B&W toggle.
-- [ ] Remove dead `hero-three.js`; drop duplicate root PDF from repo (ask).
+- [x] Merge cv.js + translations.js into `src/data/content.json` (EN/ES keyed per field) — one source, both modes. `src/data/content.js` exports data, `t(field, lang)` and the flat `translations` dict for runtime `data-i18n` swap; SSR text comes from the same dict.
+- [x] Rewrite copy specific/plain. Only verified numbers kept (5+ yrs, 57K+ users, 786K+ events, e-UADER 2,000+ users / 1,100+ certs). No TODO(verify) left. Skills: +PHPUnit, +Search API; no Solr/Behat.
+- [ ] `public/cv.pdf` still contains dropped claims (30%/40%/80%/25%, "1,100+ enrollments in first month", "Mid-Senior"). User must regenerate the PDF.
+- [x] Tokens in global.css: type scale, spacing, radius, border, shadow, motion, layout (shared) + color per mode (pro dark default, pro light `data-scheme="light"`, fun). Existing components still use old visuals; Phase 2 switches them to the scales.
+- [x] Mode toggle: B&W toggle removed (user, 2026-10-02). New pro light/dark toggle (`.nav__scheme`, key `rc-scheme`, follows `prefers-color-scheme` until user picks, set pre-paint in Layout, aria-pressed = dark, hidden in fun mode). `rc-theme` fun toggle unchanged. theme-color meta follows `--bg`.
+- [x] Old uncommitted FF9 planet/crystal WIP in Hero.astro/global.css discarded (user: only the new work matters).
+- [x] Root `CV Renzo Emiliano Carletti.pdf` removed (identical to public/cv.pdf).
+- [ ] `hero-three.js` is NOT dead: Hero.astro loads it with dynamic `import()` for the pro hero canvas. Phase 0 audit was wrong. Delete it in Phase 2 when the pro hero is rebuilt.
 Phase 2 — Normal mode: as brief (Drupal blue accent, editorial grid, case studies, Drupal block, print CSS, SVG icons, remove glass/aurora/gradients).
 Phase 3 — Fun mode: as brief, direction per confirmed decision; replace current FF9 storybook skin; drop GSAP if CSS suffices; assets in `/public/assets/fun/` (Astro serves from public; brief's `/assets/fun/`).
 Phase 4 — Polish & quality: as brief; README rewrite (GitHub Pages first).
 
 Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), drupal.org contributions/talks?, PHPUnit/Behat/Search API/Solr experience?, keep EN/ES?
 
+
+### 6. User answers (2026-10-02)
+- Metrics: only **57,000+ active users** and **786,000+ events** are true and measured. Drop "30% faster load" and "40% lower infra cost" (invented, not measured). True claim without numbers: upgraded sites for speed and performance, and added features for the different user roles of each project.
+- e-UADER (e.uader.edu.ar): **2,000+ registered users**, **1,100+ certificates issued** (true, current). Replaces "1,100+ enrollments in first month".
+- **5+ years** experience: true.
+- Drop "80% fewer manual tasks" and "25% less downtime" (not measured). True claim without numbers: added features that simplified the interfaces and workflows of each area using the projects, so staff finish common tasks faster.
+- drupal.org: has an account, no recent contributions. Work is mostly local projects and legacy upgrades, little contrib use. Do not claim contributions.
+- Testing/search: PHPUnit yes, Search API yes. Behat no. Solr no (do not claim).
+- Keep bilingual EN/ES.
+- Approved: delete `src/scripts/hero-three.js` and root `CV Renzo Emiliano Carletti.pdf` (Phase 1).

@@ -1,10 +1,22 @@
-/* ---------- Design tokens ---------- */
+/* ---------- Design tokens ----------
+   Scales are shared by every mode. Colors are set per mode:
+   pro dark (default), pro light (data-scheme="light"), fun (data-theme="fun").
+   Pre-paint script in Layout.astro sets both attributes. */
 :root {
+  color-scheme: dark;
+
+  /* Color: pro dark */
   --bg: #05060f;
   --bg-elevated: #0b0d1c;
   --text: #e8ebfa;
   --muted: #9aa3c4;
   --faint: #8a94b8;
+  --on-accent: #fff;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-soft: rgba(255, 255, 255, 0.028);
+  --scrim: rgba(5, 6, 15, 0.72);
+  --scrim-strong: rgba(5, 6, 15, 0.85);
+  --success: #7cf7b8;
 
   --accent-1: #7c6cff;
   --accent-2: #22d3ee;
@@ -14,17 +26,104 @@
 
   --glass: rgba(255, 255, 255, 0.05);
   --glass-strong: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border: var(--line);
   --glass-hover: rgba(255, 255, 255, 0.1);
 
-  --radius: 1.25rem;
-  --radius-sm: 0.75rem;
+  /* Type scale (fluid, ~1.25 ratio) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: clamp(1.2rem, 1.1rem + 0.5vw, 1.4rem);
+  --text-xl: clamp(1.45rem, 1.25rem + 1vw, 1.9rem);
+  --text-2xl: clamp(1.9rem, 1.5rem + 2vw, 2.8rem);
+  --text-3xl: clamp(2.6rem, 1.8rem + 4vw, 4.6rem);
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-body: 1.6;
+  --tracking-tight: -0.02em;
+  --tracking-caps: 0.14em;
 
+  /* Spacing (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6rem;
+
+  /* Radius */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.75rem;
+  --radius: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-1: 1px;
+  --border-2: 2px;
+  --border-4: 4px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px -8px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+
+  /* Fonts */
   --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 
+  /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.15s;
+  --dur-base: 0.25s;
+  --dur-slow: 0.8s;
+
+  /* Layout */
   --container: 1080px;
+  --gutter: 1.5rem;
+}
+
+/* Pro light. Accents darkened to keep 4.5:1 text contrast on the light bg. */
+:root[data-scheme='light']:not([data-theme='fun']) {
+  color-scheme: light;
+
+  --bg: #f6f7fb;
+  --bg-elevated: #ffffff;
+  --text: #141827;
+  --muted: #474f6b;
+  --faint: #5a6280;
+  --on-accent: #fff;
+  --line: rgba(20, 24, 39, 0.14);
+  --line-soft: rgba(20, 24, 39, 0.05);
+  --scrim: rgba(246, 247, 251, 0.8);
+  --scrim-strong: rgba(246, 247, 251, 0.94);
+  --success: #0f7a47;
+
+  --accent-1: #5847d6;
+  --accent-2: #0e7490;
+  --accent-3: #a21caf;
+  --accent-1-solid: #5847d6;
+  --accent-grad-solid: linear-gradient(120deg, #5847d6, #8a24b5);
+
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-strong: rgba(255, 255, 255, 0.85);
+  --glass-hover: rgba(255, 255, 255, 0.95);
+
+  --shadow-sm: 0 1px 2px rgba(20, 24, 39, 0.08);
+  --shadow-md: 0 8px 24px -10px rgba(20, 24, 39, 0.18);
+  --shadow-lg: 0 24px 60px -28px rgba(20, 24, 39, 0.28);
+}
+
+:root[data-scheme='light']:not([data-theme='fun']) .aurora__blob {
+  mix-blend-mode: multiply;
+  opacity: 0.12;
+}
+
+:root[data-scheme='light']:not([data-theme='fun']) .hero__canvas {
+  opacity: 0.55;
 }
 
 /* ---------- Scrollbar (themed) ---------- */
@@ -45,7 +144,7 @@ html {
 ::-webkit-scrollbar-thumb {
   background: rgba(120, 130, 160, 0.45);
   border-radius: 999px;
-  border: 2px solid rgba(5, 6, 15, 0.85);
+  border: 2px solid var(--bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -204,7 +303,7 @@ body {
   font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  line-height: var(--leading-body);
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
@@ -236,7 +335,7 @@ button {
 
 ::selection {
   background: color-mix(in srgb, var(--accent-1) 60%, transparent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -259,7 +358,7 @@ button {
   padding: 0.6rem 1.1rem;
   border-radius: 0.5rem;
   background: var(--accent-1-solid);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   font-size: 0.9rem;
   transform: translateY(-300%);
@@ -380,8 +479,8 @@ button {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
 }
@@ -628,7 +727,7 @@ button {
 .container {
   max-width: var(--container);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--gutter);
 }
 
 section {
@@ -695,7 +794,7 @@ section {
 
 .btn--primary {
   background: var(--accent-grad-solid);
-  color: #fff;
+  color: var(--on-accent);
   box-shadow: 0 8px 28px -8px color-mix(in srgb, var(--accent-1) 40%, transparent);
 }
 
@@ -729,15 +828,6 @@ section {
 .reveal.in {
   opacity: 1;
   transform: none;
-}
-
-/* ---------- Black & white mode ---------- */
-html.bw *:not(body):not(html) {
-  filter: grayscale(1) !important;
-}
-
-html.bw .aurora__blob {
-  opacity: 0.35;
 }
 
 /* ---------- Low-power mode (weak machines) ---------- */

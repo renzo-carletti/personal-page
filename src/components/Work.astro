@@ -1,11 +1,12 @@
 ---
-import { projects } from '../data/cv.js';
+import { projects, t, translations } from '../data/content.js';
+const en = translations.en;
 ---
 
 <section id="work" class="container">
   <div class="section-head reveal">
-    <span class="kicker" data-i18n="work.kicker">// selected work</span>
-    <h2 data-i18n="work.title" data-fun-fx="title">Live projects</h2>
+    <span class="kicker" data-i18n="work.kicker">{en['work.kicker']}</span>
+    <h2 data-i18n="work.title" data-fun-fx="title">{en['work.title']}</h2>
   </div>
 
   <div class="work__grid">
@@ -16,12 +17,12 @@ import { projects } from '../data/cv.js';
       >
         <div class="work__head">
           <div>
-            <span class="work__role" data-i18n={`work.role.${p.role}`}>{p.role}</span>
-            <h3 class="work__name" data-i18n={`work.${i}.name`}>{p.name}</h3>
-            <p class="work__tagline" data-i18n={`work.${i}.tagline`}>{p.tagline}</p>
+            <span class="work__role" data-i18n={`work.role.${p.role}`}>{en[`work.role.${p.role}`]}</span>
+            <h3 class="work__name" data-i18n={`work.${i}.name`}>{t(p.name)}</h3>
+            <p class="work__tagline" data-i18n={`work.${i}.tagline`}>{t(p.tagline)}</p>
           </div>
         </div>
-        <p class="work__desc" data-i18n={`work.${i}.desc`}>{p.desc}</p>
+        <p class="work__desc" data-i18n={`work.${i}.desc`}>{t(p.desc)}</p>
         <div class="work__foot">
           <div class="work__tags">
             {p.tech.map((tag) => (
@@ -29,18 +30,18 @@ import { projects } from '../data/cv.js';
             ))}
           </div>
           {p.metric && (
-            <span class="work__metric" data-i18n={`work.${i}.metric`}>{p.metric}</span>
+            <span class="work__metric" data-i18n={`work.${i}.metric`}>{t(p.metric)}</span>
           )}
         </div>
         <div class="work__actions">
           <a class="work__link" href={p.url} target="_blank" rel="noopener noreferrer">
-            <span data-i18n="work.visit">Visit site</span>
+            <span data-i18n="work.visit">{en['work.visit']}</span>
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M7 17L17 7M7 7h10v10" />
             </svg>
           </a>
           <button class="work__link" type="button" data-case={i}>
-            <span data-i18n="work.case">Case study</span>
+            <span data-i18n="work.case">{en['work.case']}</span>
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
@@ -54,21 +55,21 @@ import { projects } from '../data/cv.js';
   {projects.map((p, i) => (
     <dialog class="case-modal" id={`case-${i}`} aria-labelledby={`case-title-${i}`}>
       <div class="case-modal__head">
-        <h3 class="case-modal__title" id={`case-title-${i}`} data-i18n={`work.${i}.name`}>{p.name}</h3>
-        <button class="case-modal__close" type="button" data-close aria-label="Close">×</button>
+        <h3 class="case-modal__title" id={`case-title-${i}`} data-i18n={`work.${i}.name`}>{t(p.name)}</h3>
+        <button class="case-modal__close" type="button" data-close aria-label="Close" data-i18n="case.close" data-i18n-attr="aria-label">×</button>
       </div>
       <div class="case-modal__body">
         <div class="case-modal__block">
-          <h4 data-i18n="case.problem">Problem</h4>
-          <p data-i18n={`case.${i}.problem`}>{p.case.problem}</p>
+          <h4 data-i18n="case.problem">{en['case.problem']}</h4>
+          <p data-i18n={`case.${i}.problem`}>{t(p.case.problem)}</p>
         </div>
         <div class="case-modal__block">
-          <h4 data-i18n="case.solution">Solution</h4>
-          <p data-i18n={`case.${i}.solution`}>{p.case.solution}</p>
+          <h4 data-i18n="case.solution">{en['case.solution']}</h4>
+          <p data-i18n={`case.${i}.solution`}>{t(p.case.solution)}</p>
         </div>
         <div class="case-modal__block case-modal__block--impact">
-          <h4 data-i18n="case.impact">Impact</h4>
-          <p data-i18n={`case.${i}.impact`}>{p.case.impact}</p>
+          <h4 data-i18n="case.impact">{en['case.impact']}</h4>
+          <p data-i18n={`case.${i}.impact`}>{t(p.case.impact)}</p>
         </div>
       </div>
     </dialog>
@@ -243,7 +244,7 @@ import { projects } from '../data/cv.js';
   }
 
   .case-modal::backdrop {
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }

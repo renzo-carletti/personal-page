@@ -1,0 +1,383 @@
+{
+  "site": {
+    "web3FormsKey": "",
+    "booking": "",
+    "languages": ["en", "es"],
+    "defaultLang": "en"
+  },
+
+  "profile": {
+    "name": "Renzo Emiliano Carletti",
+    "firstName": "Renzo",
+    "lastName": "Carletti",
+    "location": "Paraná, Entre Ríos, AR",
+    "email": "renzocarletti@hotmail.com",
+    "phone": "+54 9 343 4295 881",
+    "linkedin": "https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/",
+    "linkedinLabel": "in/renzo-emiliano-carletti",
+    "github": "https://github.com/Pipoku",
+    "role": {
+      "en": "Drupal & React developer",
+      "es": "Desarrollador Drupal y React"
+    },
+    "roles": [
+      { "en": "Drupal & React developer", "es": "Desarrollador Drupal y React" },
+      { "en": "Drupal upgrades and migrations", "es": "Actualizaciones y migraciones Drupal" },
+      { "en": "REST, JSON:API and GraphQL integrations", "es": "Integraciones REST, JSON:API y GraphQL" }
+    ],
+    "summary": {
+      "en": "I build and maintain Drupal sites for universities and government, and connect them to React and Vue frontends through REST, JSON:API and GraphQL. Most of my work is upgrading legacy Drupal projects, making them faster, and adding the features each user role needs. Before I write code, I talk with the people who use the system, so the result fits how they work.",
+      "es": "Construyo y mantengo sitios Drupal para universidades y gobierno, y los conecto con frontends en React y Vue mediante REST, JSON:API y GraphQL. La mayor parte de mi trabajo es actualizar proyectos Drupal legados, hacerlos más rápidos y sumar las funciones que necesita cada rol de usuario. Antes de escribir código, hablo con quienes usan el sistema, para que el resultado se ajuste a cómo trabajan."
+    },
+    "about": {
+      "en": "I live in Paraná, Argentina, and work in Spanish and English. At UADER I am the link between academic staff, administrators and developers: I turn their requests into specs, build them, and support them after launch.",
+      "es": "Vivo en Paraná, Argentina, y trabajo en español e inglés. En UADER soy el nexo entre el personal académico, el administrativo y desarrollo: convierto sus pedidos en especificaciones, los construyo y les doy soporte después del lanzamiento."
+    },
+    "current": {
+      "en": "Drupal / Moodle developer at UADER · open to remote Drupal and React work",
+      "es": "Desarrollador Drupal / Moodle en UADER · abierto a trabajo remoto en Drupal y React"
+    },
+    "highlights": [
+      { "en": "5+ years building and upgrading Drupal sites", "es": "5+ años construyendo y actualizando sitios Drupal" },
+      { "en": "57,000+ active users and 786,000+ events on UADER portals", "es": "57.000+ usuarios activos y 786.000+ eventos en portales de UADER" },
+      { "en": "e-UADER: 2,000+ registered users, 1,100+ certificates issued", "es": "e-UADER: 2.000+ usuarios registrados, 1.100+ certificados emitidos" },
+      { "en": "Moved a monolithic Drupal site to a headless React frontend", "es": "Pasé un sitio Drupal monolítico a un frontend React headless" }
+    ]
+  },
+
+  "stats": [
+    { "id": "years", "value": 5, "suffix": "+", "label": { "en": "years of experience", "es": "años de experiencia" } },
+    { "id": "users", "value": 57, "suffix": "K+", "label": { "en": "active users on UADER portals", "es": "usuarios activos en portales de UADER" } },
+    { "id": "events", "value": 786, "suffix": "K+", "label": { "en": "events on UADER portals", "es": "eventos en portales de UADER" } },
+    { "id": "certs", "value": 1100, "suffix": "+", "label": { "en": "certificates issued by e-UADER", "es": "certificados emitidos por e-UADER" } }
+  ],
+
+  "projects": [
+    {
+      "name": { "en": "e-UADER", "es": "e-UADER" },
+      "url": "https://e.uader.edu.ar/",
+      "role": "full",
+      "featured": true,
+      "tech": ["Drupal", "Moodle", "REST APIs", "Commerce"],
+      "tagline": { "en": "UADER e-learning platform", "es": "Plataforma e-learning de UADER" },
+      "desc": {
+        "en": "Course and diploma catalog with 5-step self-enrollment. Drupal Commerce handles the purchase, Moodle's REST API creates the enrollment, and the site issues state or university certificates automatically.",
+        "es": "Catálogo de cursos y diplomaturas con auto-inscripción en 5 pasos. Drupal Commerce gestiona la compra, la API REST de Moodle crea la inscripción y el sitio emite certificados estatales o universitarios de forma automática."
+      },
+      "metric": { "en": "2,000+ users · 1,100+ certificates", "es": "2.000+ usuarios · 1.100+ certificados" },
+      "case": {
+        "problem": {
+          "en": "There was no single enrollment path. Each faculty enrolled students by hand, and digital certificates took a long time.",
+          "es": "No había un camino único de inscripción. Cada facultad inscribía a mano y los certificados digitales tardaban mucho."
+        },
+        "solution": {
+          "en": "Connected Drupal Commerce to Moodle through its REST API, with a 5-step self-enrollment flow and automatic digital certificates.",
+          "es": "Conecté Drupal Commerce con Moodle mediante su API REST, con un flujo de auto-inscripción en 5 pasos y certificados digitales automáticos."
+        },
+        "impact": {
+          "en": "2,000+ registered users and 1,100+ certificates issued so far, with no manual step to issue them.",
+          "es": "2.000+ usuarios registrados y 1.100+ certificados emitidos hasta hoy, sin pasos manuales para emitirlos."
+        }
+      }
+    },
+    {
+      "name": { "en": "Ingresantes UADER", "es": "Ingresantes UADER" },
+      "url": "https://ingresantes.uader.edu.ar/",
+      "role": "full",
+      "featured": true,
+      "tech": ["Drupal", "Paragraphs", "Views"],
+      "tagline": { "en": "Portal for prospective students", "es": "Portal para futuros estudiantes" },
+      "desc": {
+        "en": "Career finder across 4 faculties and 16 localities, pre-enrollment workflows, orientation tools and downloadable program guides.",
+        "es": "Buscador de carreras en 4 facultades y 16 localidades, flujos de pre-inscripción, herramientas de orientación y oferta académica descargable."
+      },
+      "metric": { "en": "4 faculties · 16 localities", "es": "4 facultades · 16 localidades" },
+      "case": {
+        "problem": {
+          "en": "Prospective students had no single place to find careers across 4 faculties and 16 localities, or to pre-enroll online.",
+          "es": "Los aspirantes no tenían un lugar único para encontrar carreras en 4 facultades y 16 localidades, ni para pre-inscribirse en línea."
+        },
+        "solution": {
+          "en": "Built a career finder in Drupal with pre-enrollment workflows, orientation tools and downloadable program guides.",
+          "es": "Construí en Drupal un buscador de carreras con flujos de pre-inscripción, herramientas de orientación y oferta académica descargable."
+        },
+        "impact": {
+          "en": "Applicants explore careers and start pre-enrollment in one guided place.",
+          "es": "Los aspirantes exploran carreras e inician la pre-inscripción en un solo lugar guiado."
+        }
+      }
+    },
+    {
+      "name": { "en": "Buenos Aires City", "es": "Ciudad de Buenos Aires" },
+      "url": "https://buenosaires.gob.ar/inicio/",
+      "role": "consultant",
+      "featured": false,
+      "tech": ["Drupal 8→10", "Paragraphs"],
+      "tagline": { "en": "City government portal", "es": "Portal del gobierno de la ciudad" },
+      "desc": {
+        "en": "Drupal 8 to 10 migration for the City of Buenos Aires: content remodeling, Paragraphs, bug fixes and support, as a Drupal consultant through CyS.",
+        "es": "Migración de Drupal 8 a 10 para la Ciudad de Buenos Aires: remodelación de contenido, Paragraphs, corrección de bugs y soporte, como consultor Drupal vía CyS."
+      },
+      "metric": null,
+      "case": {
+        "problem": {
+          "en": "A Drupal 8 codebase with scattered content and a Drupal 10 migration ahead.",
+          "es": "Código Drupal 8 con contenido disperso y una migración a Drupal 10 por delante."
+        },
+        "solution": {
+          "en": "Adapted content and Paragraphs for the Drupal 8 to 10 migration, fixed sync conflicts between both versions, and handled escalated incidents.",
+          "es": "Adapté contenido y Paragraphs para la migración de Drupal 8 a 10, resolví conflictos de sincronización entre ambas versiones y atendí incidentes escalados."
+        },
+        "impact": {
+          "en": "Content moved to Drupal 10 with a cleaner model for editors.",
+          "es": "El contenido pasó a Drupal 10 con un modelo más ordenado para los editores."
+        }
+      }
+    },
+    {
+      "name": { "en": "Club San Jorge", "es": "Club San Jorge" },
+      "url": "https://clubsanjorge.com.ar/",
+      "role": "modernization",
+      "featured": false,
+      "tech": ["PHP", "Legacy → Modern"],
+      "tagline": { "en": "Legacy modernization", "es": "Modernización de proyecto legado" },
+      "desc": {
+        "en": "Cleaned up a legacy PHP project with few conventions: modern patterns, clearer structure and maintainable practices.",
+        "es": "Ordené un proyecto PHP legado con pocas convenciones: patrones modernos, estructura más clara y prácticas mantenibles."
+      },
+      "metric": null,
+      "case": {
+        "problem": {
+          "en": "A legacy codebase with few conventions. Expensive to maintain and risky to change.",
+          "es": "Código legado con pocas convenciones. Caro de mantener y riesgoso de cambiar."
+        },
+        "solution": {
+          "en": "Refactored the project with modern patterns, a clearer structure and maintainable practices.",
+          "es": "Refactoricé el proyecto con patrones modernos, una estructura más clara y prácticas mantenibles."
+        },
+        "impact": {
+          "en": "Code the client can extend and maintain more easily.",
+          "es": "Un código que el cliente puede extender y mantener con más facilidad."
+        }
+      }
+    }
+  ],
+
+  "experience": [
+    {
+      "company": "CyS Informática",
+      "period": "03/2026 · 04/2026",
+      "role": { "en": "Drupal Consultant", "es": "Consultor Drupal" },
+      "meta": { "en": "Remote · Contract", "es": "Remoto · Contrato" },
+      "bullets": [
+        { "en": "Maintained and upgraded corporate Drupal platforms across dev, staging and production.", "es": "Mantuve y actualicé plataformas Drupal corporativas en desarrollo, staging y producción." },
+        { "en": "Adapted content during a Drupal 8 to 10 migration and fixed sync conflicts between both versions.", "es": "Adapté contenido durante una migración de Drupal 8 a 10 y resolví conflictos de sincronización entre ambas versiones." },
+        { "en": "Took over high-priority incidents escalated from the original team and kept the platform online.", "es": "Tomé incidentes de alta prioridad escalados desde el equipo original y mantuve la plataforma en línea." },
+        { "en": "Set up role-based access (RBAC) and publishing rules in Drupal 10, consistent across all environments.", "es": "Configuré control de acceso por roles (RBAC) y reglas de publicación en Drupal 10, iguales en todos los entornos." },
+        { "en": "Built JSON:API integrations and publishing workflows that keep unpublished content private.", "es": "Construí integraciones JSON:API y flujos de publicación que mantienen privado el contenido no publicado." },
+        { "en": "Fixed configuration drift and dependency conflicts by standardizing Composer, DDEV and Drush setups.", "es": "Resolví desvíos de configuración y conflictos de dependencias estandarizando Composer, DDEV y Drush." },
+        { "en": "Audited and refactored custom and contrib modules to reduce technical debt.", "es": "Audité y refactoricé módulos propios y contribuidos para reducir deuda técnica." }
+      ]
+    },
+    {
+      "company": "Activarte",
+      "period": "2023 · 2026",
+      "role": { "en": "Full-Stack Developer (Drupal + React)", "es": "Desarrollador Full-Stack (Drupal + React)" },
+      "meta": { "en": "Remote", "es": "Remoto" },
+      "bullets": [
+        { "en": "Moved a monolithic Drupal site to a headless setup: Drupal serves content over REST with OAuth2, React renders the frontend.", "es": "Pasé un sitio Drupal monolítico a una arquitectura headless: Drupal sirve el contenido por REST con OAuth2 y React renderiza el frontend." },
+        { "en": "Upgraded the site for speed and performance, and added features for each user role.", "es": "Actualicé el sitio para mejorar velocidad y rendimiento, y sumé funciones para cada rol de usuario." },
+        { "en": "Wrote the REST endpoints and OAuth2 flows between Drupal and the React frontend.", "es": "Escribí los endpoints REST y los flujos OAuth2 entre Drupal y el frontend React." },
+        { "en": "Built custom React components that consume JSON:API payloads.", "es": "Construí componentes React propios que consumen payloads de JSON:API." },
+        { "en": "Worked in Agile sprints in Jira, with code reviews on Bitbucket.", "es": "Trabajé en sprints ágiles en Jira, con code reviews en Bitbucket." },
+        { "en": "Mentored teammates on code quality and reviews.", "es": "Acompañé a compañeros del equipo en calidad de código y revisiones." }
+      ]
+    },
+    {
+      "company": "UADER Rectorado",
+      "period": "2021 · Present",
+      "role": { "en": "Drupal / Moodle Developer", "es": "Desarrollador Drupal / Moodle" },
+      "meta": { "en": "Part-time · On-site", "es": "Part-time · Presencial" },
+      "bullets": [
+        { "en": "Lead the university's web projects on Drupal and Moodle, and act as the main link between academic, administrative and government stakeholders.", "es": "Dirijo los proyectos web de la universidad en Drupal y Moodle, y soy el nexo principal entre áreas académicas, administrativas y de gobierno." },
+        { "en": "Built and maintain three university portals with 57,000+ active users and 786,000+ events.", "es": "Construí y mantengo tres portales universitarios con 57.000+ usuarios activos y 786.000+ eventos." },
+        { "en": "Built e-UADER, a course enrollment platform on Moodle's REST API: 2,000+ registered users and 1,100+ certificates issued.", "es": "Construí e-UADER, una plataforma de inscripción a cursos sobre la API REST de Moodle: 2.000+ usuarios registrados y 1.100+ certificados emitidos." },
+        { "en": "Added ECA automations and custom Drupal modules that simplify each area's interfaces and workflows, so staff finish common tasks faster.", "es": "Sumé automatizaciones con ECA y módulos Drupal propios que simplifican las interfaces y los flujos de cada área, para que el personal termine las tareas comunes más rápido." },
+        { "en": "Upgraded the sites for speed and performance, and fixed recurring server bottlenecks.", "es": "Actualicé los sitios para mejorar velocidad y rendimiento, y resolví cuellos de botella recurrentes del servidor." },
+        { "en": "Migrating a legacy Drupal monolith to a headless frontend with React and GraphQL.", "es": "Migro un Drupal monolítico legado a un frontend headless con React y GraphQL." },
+        { "en": "Building a new internal university app from scratch with Vue.js.", "es": "Desarrollo desde cero una nueva aplicación interna de la universidad con Vue.js." },
+        { "en": "Train the team on Drupal practices and project lifecycle.", "es": "Capacito al equipo en buenas prácticas de Drupal y ciclo de vida de proyectos." },
+        { "en": "Building a multi-agent AI orchestrator that gives LLMs separate roles for code generation, review and deployment.", "es": "Desarrollo un orquestador de IA multi-agente que asigna a los LLMs roles separados de generación, revisión y despliegue de código." }
+      ]
+    }
+  ],
+
+  "skills": [
+    {
+      "group": { "en": "Languages & Frameworks", "es": "Lenguajes y Frameworks" },
+      "items": ["PHP", "JavaScript (ES6+)", "React.js", "Vue.js", "Symfony", "Java", "SQL", "HTML5", "CSS3", "Sass", "Bootstrap", "jQuery"]
+    },
+    {
+      "group": { "en": "Drupal & CMS", "es": "Drupal y CMS" },
+      "items": ["Drupal 8/9/10/11", "Custom Modules", "Hooks", "Entity API", "Theming", "Configuration Management", "Search API", "Commerce", "ECA", "Moodle"]
+    },
+    {
+      "group": { "en": "APIs & Performance", "es": "APIs y Performance" },
+      "items": ["REST APIs", "JSON:API", "GraphQL", "OAuth2", "Web Performance", "Xdebug", "Chrome DevTools"]
+    },
+    {
+      "group": { "en": "Testing & Tools", "es": "Testing y Herramientas" },
+      "items": ["PHPUnit", "Composer", "DDEV", "Drush", "Git", "GitHub", "GitLab", "Bitbucket", "CI/CD", "Pantheon", "Docker", "Kubernetes", "AWS", "SSH", "MySQL", "PostgreSQL"]
+    },
+    {
+      "group": { "en": "Security & Process", "es": "Seguridad y Proceso" },
+      "items": ["OWASP", "Secure Authentication", "Scrum", "Kanban", "Jira"]
+    },
+    {
+      "group": { "en": "AI Tooling", "es": "Herramientas de IA" },
+      "items": ["Multi-agent orchestration", "Cursor", "Ollama / local LLMs", "Prompt engineering"]
+    }
+  ],
+
+  "certifications": [
+    { "name": { "en": "Diploma in DevOps Engineering", "es": "Diplomatura en Ingeniería DevOps" }, "issuer": "Mundos E", "date": "Apr 2025" },
+    { "name": { "en": "React.js", "es": "React.js" }, "issuer": "Coder House", "date": "Jun 2023" },
+    { "name": { "en": "JavaScript", "es": "JavaScript" }, "issuer": "Coder House", "date": "Jun 2023" },
+    { "name": { "en": "Web Development", "es": "Desarrollo Web" }, "issuer": "Coder House", "date": "Mar 2023" },
+    { "name": { "en": "Git Version Control", "es": "Control de versiones con Git" }, "issuer": "Gugler", "date": "Jan 2023" },
+    { "name": { "en": "Java Programming, Level 1", "es": "Programación Java, Nivel 1" }, "issuer": "Gugler", "date": "Jul 2020" },
+    { "name": { "en": "English, Advanced", "es": "Inglés, Avanzado" }, "issuer": "Advance", "date": "Dec 2014" }
+  ],
+
+  "education": [
+    {
+      "school": { "en": "Autonomous University of Entre Ríos", "es": "Universidad Autónoma de Entre Ríos" },
+      "degree": { "en": "Associate Degree: Information Systems", "es": "Tecnicatura en Sistemas de Información" },
+      "detail": { "en": "Minor: Information Systems Analyst", "es": "Orientación: Analista de Sistemas de Información" },
+      "period": { "en": "Graduated 2025", "es": "Egresado 2025" }
+    },
+    {
+      "school": { "en": "Centenario High School", "es": "Escuela Secundaria Centenario" },
+      "degree": { "en": "High School Diploma: Economics", "es": "Bachiller en Economía" },
+      "detail": { "en": "Minor: Economics and Administration", "es": "Orientación: Economía y Administración" },
+      "period": { "en": "2011 · 2015", "es": "2011 · 2015" }
+    }
+  ],
+
+  "languages": [
+    { "name": { "en": "Spanish", "es": "Español" }, "level": { "en": "Native", "es": "Nativo" } },
+    { "name": { "en": "English", "es": "Inglés" }, "level": { "en": "Fluent · Professional working proficiency", "es": "Fluido · Nivel profesional de trabajo" } }
+  ],
+
+  "ui": {
+    "meta.title": { "en": "Renzo Carletti · Drupal & React developer", "es": "Renzo Carletti · Desarrollador Drupal y React" },
+    "meta.description": {
+      "en": "Renzo Emiliano Carletti, Drupal and React developer in Paraná, Argentina. Drupal upgrades and migrations, headless builds with JSON:API, REST and GraphQL, Moodle integrations. 5+ years.",
+      "es": "Renzo Emiliano Carletti, desarrollador Drupal y React en Paraná, Argentina. Actualizaciones y migraciones Drupal, proyectos headless con JSON:API, REST y GraphQL, integraciones con Moodle. 5+ años."
+    },
+
+    "nav.about": { "en": "About", "es": "Sobre mí" },
+    "nav.experience": { "en": "Experience", "es": "Experiencia" },
+    "nav.work": { "en": "Work", "es": "Proyectos" },
+    "nav.skills": { "en": "Skills", "es": "Habilidades" },
+    "nav.certs": { "en": "Certifications", "es": "Certificaciones" },
+    "nav.contact": { "en": "Contact", "es": "Contacto" },
+    "nav.download": { "en": "Download CV", "es": "Descargar CV" },
+    "nav.theme": { "en": "Toggle fun theme", "es": "Cambiar a tema divertido" },
+    "nav.scheme": { "en": "Dark mode", "es": "Modo oscuro" },
+
+    "hero.hello": { "en": "Hi, I'm", "es": "Hola, soy" },
+    "hero.open": { "en": "Open to work", "es": "Disponible para trabajar" },
+    "hero.letstalk": { "en": "Let's talk", "es": "Hablemos" },
+    "hero.download": { "en": "Download CV", "es": "Descargar CV" },
+    "hero.bilingual": { "en": "Bilingual · EN / ES", "es": "Bilingüe · EN / ES" },
+
+    "about.kicker": { "en": "// about", "es": "// sobre mí" },
+    "about.title": { "en": "Drupal developer in Paraná, Argentina", "es": "Desarrollador Drupal en Paraná, Argentina" },
+    "about.who": { "en": "Who I am", "es": "Quién soy" },
+    "about.highlights-title": { "en": "Highlights", "es": "Destacados" },
+    "about.edu.title": { "en": "Education", "es": "Educación" },
+    "about.lang.title": { "en": "Languages", "es": "Idiomas" },
+    "about.current.title": { "en": "Currently", "es": "Actualmente" },
+
+    "exp.kicker": { "en": "// experience", "es": "// experiencia" },
+    "exp.title": { "en": "Where I've worked", "es": "Dónde trabajé" },
+
+    "work.kicker": { "en": "// selected work", "es": "// trabajo seleccionado" },
+    "work.title": { "en": "Live projects", "es": "Proyectos en producción" },
+    "work.visit": { "en": "Visit site", "es": "Ver sitio" },
+    "work.case": { "en": "Case study", "es": "Caso de estudio" },
+    "work.role.full": { "en": "Built end to end", "es": "Desarrollo completo" },
+    "work.role.consultant": { "en": "Drupal consultant", "es": "Consultor Drupal" },
+    "work.role.modernization": { "en": "Modernization", "es": "Modernización" },
+    "case.problem": { "en": "Problem", "es": "Problema" },
+    "case.solution": { "en": "Solution", "es": "Solución" },
+    "case.impact": { "en": "Result", "es": "Resultado" },
+    "case.close": { "en": "Close", "es": "Cerrar" },
+
+    "workflow.kicker": { "en": "// workflow", "es": "// flujo de trabajo" },
+    "workflow.title": { "en": "How I build", "es": "Cómo construyo" },
+    "workflow.sub": { "en": "I use AI tools. I review and own every change.", "es": "Uso herramientas de IA. Reviso y me hago cargo de cada cambio." },
+    "workflow.card1.title": { "en": "Local models", "es": "Modelos locales" },
+    "workflow.card1.desc": {
+      "en": "Open-source models run locally with Ollama, so client and government code stays in a controlled environment.",
+      "es": "Los modelos de código abierto corren localmente con Ollama, así el código de clientes y de gobierno queda en un entorno controlado."
+    },
+    "workflow.card2.title": { "en": "Faster first drafts", "es": "Primeros borradores más rápidos" },
+    "workflow.card2.desc": {
+      "en": "Cursor and coding agents draft scaffolding, migrations and tests. I spend my time on the parts that need judgment.",
+      "es": "Cursor y agentes de código preparan scaffolding, migraciones y tests. Yo dedico el tiempo a las partes que requieren criterio."
+    },
+    "workflow.card3.title": { "en": "Human review, always", "es": "Siempre con revisión humana" },
+    "workflow.card3.desc": {
+      "en": "AI proposes. I review, refactor and test before anything ships.",
+      "es": "La IA propone. Yo reviso, refactorizo y pruebo antes de publicar."
+    },
+    "workflow.arch.title": { "en": "Decoupled Drupal", "es": "Drupal desacoplado" },
+    "workflow.arch.drupal": { "en": "Drupal CMS", "es": "Drupal CMS" },
+    "workflow.arch.drupalSub": { "en": "content model · RBAC · workflows", "es": "modelo de contenido · RBAC · flujos" },
+    "workflow.arch.api": { "en": "JSON:API · OAuth2", "es": "JSON:API · OAuth2" },
+    "workflow.arch.react": { "en": "React frontend", "es": "Frontend React" },
+    "workflow.arch.reactSub": { "en": "components · client routing", "es": "componentes · ruteo en cliente" },
+    "workflow.arch.why": {
+      "en": "Editors keep publishing in Drupal while the React frontend ships on its own schedule. Each side deploys and scales separately.",
+      "es": "Los editores siguen publicando en Drupal mientras el frontend React se publica a su propio ritmo. Cada parte se despliega y escala por separado."
+    },
+
+    "skills.kicker": { "en": "// toolkit", "es": "// herramientas" },
+    "skills.title": { "en": "What I work with", "es": "Con qué trabajo" },
+
+    "certs.kicker": { "en": "// certifications", "es": "// certificaciones" },
+    "certs.title": { "en": "Courses and certifications", "es": "Cursos y certificaciones" },
+
+    "contact.kicker": { "en": "// contact", "es": "// contacto" },
+    "contact.title": { "en": "Get in touch", "es": "Escribime" },
+    "contact.text": {
+      "en": "Have a Drupal site to upgrade, a headless project, or a question about Drupal, React or APIs? Email me or use the form.",
+      "es": "¿Tenés un sitio Drupal para actualizar, un proyecto headless o una consulta sobre Drupal, React o APIs? Escribime por email o con el formulario."
+    },
+    "contact.email": { "en": "Email", "es": "Email" },
+    "contact.linkedin": { "en": "LinkedIn", "es": "LinkedIn" },
+    "contact.phone": { "en": "Phone", "es": "Teléfono" },
+    "contact.form.name": { "en": "Name", "es": "Nombre" },
+    "contact.form.email": { "en": "Email", "es": "Email" },
+    "contact.form.subject": { "en": "Subject", "es": "Asunto" },
+    "contact.form.message": { "en": "Message", "es": "Mensaje" },
+    "contact.form.namePh": { "en": "Your name", "es": "Tu nombre" },
+    "contact.form.emailPh": { "en": "you@company.com", "es": "tu@empresa.com" },
+    "contact.form.subjectPh": { "en": "What's this about?", "es": "¿De qué se trata?" },
+    "contact.form.messagePh": { "en": "Tell me about your project...", "es": "Contame sobre tu proyecto..." },
+    "contact.submit": { "en": "Send message", "es": "Enviar mensaje" },
+    "contact.copy": { "en": "Copy message", "es": "Copiar mensaje" },
+    "contact.sending": { "en": "Sending...", "es": "Enviando..." },
+    "contact.success": { "en": "Message sent. I'll reply soon. Thanks for writing!", "es": "Mensaje enviado. Respondo pronto. ¡Gracias por escribir!" },
+    "contact.copied": { "en": "Message copied to clipboard.", "es": "Mensaje copiado al portapapeles." },
+    "contact.copyFail": { "en": "Could not copy automatically. Select the text and copy it manually.", "es": "No se pudo copiar automáticamente. Seleccioná el texto y copialo manualmente." },
+    "contact.hint": { "en": "Messages go straight to my inbox. No account or sign-up needed.", "es": "Los mensajes llegan directo a mi bandeja de entrada. Sin cuenta ni registro." },
+    "contact.book": { "en": "Prefer to book directly? Open my 15-minute call calendar.", "es": "¿Preferís agendar directo? Abrí mi calendario de charlas de 15 minutos." },
+    "contact.opening": { "en": "Opening your email client... if nothing happened, email me directly at ", "es": "Abriendo tu cliente de correo... si no pasa nada, escribime directamente a " },
+
+    "footer.tag": { "en": "Built with Astro and a lot of ", "es": "Hecho con Astro y mucho " },
+    "footer.word": { "en": "coffee.", "es": "café." }
+  }
+}

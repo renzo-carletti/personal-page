@@ -1,58 +1,56 @@
 ---
-import { profile, education, languages } from '../data/cv.js';
+import { profile, education, languages, t, translations } from '../data/content.js';
+const en = translations.en;
 ---
 
 <section id="about" class="container">
   <div class="section-head reveal">
-    <span class="kicker" data-i18n="about.kicker">// about</span>
-    <h2 data-i18n="about.title" data-fun-fx="title">The engineer behind the stack</h2>
+    <span class="kicker" data-i18n="about.kicker">{en['about.kicker']}</span>
+    <h2 data-i18n="about.title" data-fun-fx="title">{en['about.title']}</h2>
   </div>
 
   <div class="about__grid">
     <div class="glass about__card reveal" style="--d:.1s">
-      <h3 class="about__card-title" data-i18n="about.who">Who I am</h3>
-      <p data-i18n="hero.summary">{profile.summary}</p>
-      <p data-i18n="about.whoText">
-        My work sits at the intersection of content systems and fast, modern frontends. I take rigid,
-        monolithic CMS platforms and turn them into decoupled, scalable, API-driven products.
-      </p>
+      <h3 class="about__card-title" data-i18n="about.who">{en['about.who']}</h3>
+      <p data-i18n="hero.summary">{t(profile.summary)}</p>
+      <p data-i18n="about.whoText">{t(profile.about)}</p>
     </div>
 
     <div class="glass about__card reveal" style="--d:.2s">
-      <h3 class="about__card-title" data-i18n="about.highlights-title">Highlights</h3>
+      <h3 class="about__card-title" data-i18n="about.highlights-title">{en['about.highlights-title']}</h3>
       <ul class="about__highlights">
         {profile.highlights.map((h, i) => (
-          <li data-i18n={`about.highlights.${i}`}>{h}</li>
+          <li data-i18n={`about.highlights.${i}`}>{t(h)}</li>
         ))}
       </ul>
     </div>
 
     <div class="glass about__card reveal" style="--d:.3s">
-      <h3 class="about__card-title" data-i18n="about.edu.title">Education</h3>
+      <h3 class="about__card-title" data-i18n="about.edu.title">{en['about.edu.title']}</h3>
       <ul class="about__edu">
         {education.map((e, i) => (
           <li>
-            <span class="about__edu-school" data-i18n={`about.edu.${i}.school`}>{e.school}</span>
-            <span class="about__edu-degree" data-i18n={`about.edu.${i}.degree`}>{e.degree}</span>
-            <span class="about__edu-meta" data-i18n={`about.edu.${i}.detail`}>{e.detail}</span>
-            <span class="about__edu-period" data-i18n={`about.edu.${i}.period`}>{e.period}</span>
+            <span class="about__edu-school" data-i18n={`about.edu.${i}.school`}>{t(e.school)}</span>
+            <span class="about__edu-degree" data-i18n={`about.edu.${i}.degree`}>{t(e.degree)}</span>
+            <span class="about__edu-meta" data-i18n={`about.edu.${i}.detail`}>{t(e.detail)}</span>
+            <span class="about__edu-period" data-i18n={`about.edu.${i}.period`}>{t(e.period)}</span>
           </li>
         ))}
       </ul>
     </div>
 
     <div class="glass about__card reveal" style="--d:.4s">
-      <h3 class="about__card-title" data-i18n="about.lang.title">Languages</h3>
+      <h3 class="about__card-title" data-i18n="about.lang.title">{en['about.lang.title']}</h3>
       <ul class="about__langs">
         {languages.map((l, i) => (
           <li>
-            <span class="about__lang-name">{l.name}</span>
-            <span class="about__lang-level" data-i18n={`about.lang.${i}.level`}>{l.level}</span>
+            <span class="about__lang-name" data-i18n={`about.lang.${i}.name`}>{t(l.name)}</span>
+            <span class="about__lang-level" data-i18n={`about.lang.${i}.level`}>{t(l.level)}</span>
           </li>
         ))}
       </ul>
-      <h3 class="about__card-title about__card-title--sub" data-i18n="about.current.title">Currently</h3>
-      <p class="about__now" data-i18n="about.current.text">Drupal/Moodle Developer at UADER · open to remote Drupal + React opportunities</p>
+      <h3 class="about__card-title about__card-title--sub" data-i18n="about.current.title">{en['about.current.title']}</h3>
+      <p class="about__now" data-i18n="about.current.text">{t(profile.current)}</p>
     </div>
   </div>
 </section>

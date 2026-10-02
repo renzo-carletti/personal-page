@@ -1,8 +1,13 @@
+---
+import { translations } from '../data/content.js';
+const en = translations.en;
+---
+
 <section id="workflow" class="container">
   <div class="section-head reveal">
-    <span class="kicker" data-i18n="workflow.kicker">// workflow</span>
-    <h2 data-i18n="workflow.title" data-fun-fx="title">How I build</h2>
-    <p class="workflow__sub reveal" style="--d:.08s" data-i18n="workflow.sub">AI-augmented, but human-owned.</p>
+    <span class="kicker" data-i18n="workflow.kicker">{en['workflow.kicker']}</span>
+    <h2 data-i18n="workflow.title" data-fun-fx="title">{en['workflow.title']}</h2>
+    <p class="workflow__sub reveal" style="--d:.08s" data-i18n="workflow.sub">{en['workflow.sub']}</p>
   </div>
 
   <div class="workflow__grid">
@@ -14,8 +19,8 @@
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
         </span>
-        <h3 data-i18n="workflow.card1.title">Secure local AI</h3>
-        <p data-i18n="workflow.card1.desc">Run LLMs locally (Ollama) so client and government code never leaves a secure environment.</p>
+        <h3 data-i18n="workflow.card1.title">{en['workflow.card1.title']}</h3>
+        <p data-i18n="workflow.card1.desc">{en['workflow.card1.desc']}</p>
       </div>
 
       <div class="glass workflow__card reveal" style="--d:.2s">
@@ -24,8 +29,8 @@
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
           </svg>
         </span>
-        <h3 data-i18n="workflow.card2.title">AI-accelerated delivery</h3>
-        <p data-i18n="workflow.card2.desc">Cursor and coding agents draft scaffolding, migrations and tests. I cut delivery cycles without cutting quality.</p>
+        <h3 data-i18n="workflow.card2.title">{en['workflow.card2.title']}</h3>
+        <p data-i18n="workflow.card2.desc">{en['workflow.card2.desc']}</p>
       </div>
 
       <div class="glass workflow__card reveal" style="--d:.3s">
@@ -34,28 +39,28 @@
             <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" />
           </svg>
         </span>
-        <h3 data-i18n="workflow.card3.title">Human-reviewed, always</h3>
-        <p data-i18n="workflow.card3.desc">AI proposes. I own it: review, refactor and ship production-grade code.</p>
+        <h3 data-i18n="workflow.card3.title">{en['workflow.card3.title']}</h3>
+        <p data-i18n="workflow.card3.desc">{en['workflow.card3.desc']}</p>
       </div>
     </div>
 
     <div class="glass arch reveal" style="--d:.2s">
-      <h3 class="arch__title" data-i18n="workflow.arch.title">Decoupled by design</h3>
+      <h3 class="arch__title" data-i18n="workflow.arch.title">{en['workflow.arch.title']}</h3>
       <div class="arch__diagram" aria-label="Decoupled architecture diagram">
         <div class="arch__node">
-          <span class="arch__node-title" data-i18n="workflow.arch.drupal">Drupal CMS</span>
-          <span class="arch__node-sub" data-i18n="workflow.arch.drupalSub">content model · RBAC · workflows</span>
+          <span class="arch__node-title" data-i18n="workflow.arch.drupal">{en['workflow.arch.drupal']}</span>
+          <span class="arch__node-sub" data-i18n="workflow.arch.drupalSub">{en['workflow.arch.drupalSub']}</span>
         </div>
         <div class="arch__link">
           <span class="arch__flow-line" aria-hidden="true"><span class="arch__flow"></span></span>
-          <span class="arch__link-label" data-i18n="workflow.arch.api">JSON:API · OAuth2</span>
+          <span class="arch__link-label" data-i18n="workflow.arch.api">{en['workflow.arch.api']}</span>
         </div>
         <div class="arch__node">
-          <span class="arch__node-title" data-i18n="workflow.arch.react">React Frontend</span>
-          <span class="arch__node-sub" data-i18n="workflow.arch.reactSub">dynamic UI · fast loads</span>
+          <span class="arch__node-title" data-i18n="workflow.arch.react">{en['workflow.arch.react']}</span>
+          <span class="arch__node-sub" data-i18n="workflow.arch.reactSub">{en['workflow.arch.reactSub']}</span>
         </div>
       </div>
-      <p class="arch__why" data-i18n="workflow.arch.why">Headless lets content teams publish independently while the frontend ships faster. 30% load-time gains and independent scaling.</p>
+      <p class="arch__why" data-i18n="workflow.arch.why">{en['workflow.arch.why']}</p>
     </div>
   </div>
 </section>

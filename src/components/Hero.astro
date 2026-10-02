@@ -1,5 +1,6 @@
 ---
-import { profile, stats, siteConfig } from '../data/cv.js';
+import { profile, stats, site as siteConfig, t, translations } from '../data/content.js';
+const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
@@ -55,17 +56,17 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   </div>
 
   <div class="container hero__inner">
-    <p class="hero__hello reveal" style="--d:.05s" data-i18n="hero.hello">Hi, I'm</p>
+    <p class="hero__hello reveal" style="--d:.05s" data-i18n="hero.hello">{en['hero.hello']}</p>
     <h1 class="hero__name reveal" data-fun-fx="hero" style="--d:.15s">
       Renzo
       <span class="hero__name-accent">Carletti</span>
     </h1>
     <p class="hero__role reveal" style="--d:.25s">
       <span class="hero__role-prefix">$ whoami:</span>
-      <span id="role-rotator" class="hero__role-text" data-i18n-roles data-roles={JSON.stringify(profile.roles)}>Decoupled Drupal & React Engineer</span>
+      <span id="role-rotator" class="hero__role-text" data-i18n-roles data-roles={JSON.stringify(profile.roles.map((r) => t(r)))}>{t(profile.role)}</span>
       <span class="hero__role-cursor" aria-hidden="true">▍</span>
     </p>
-    <p class="hero__desc reveal" style="--d:.35s" data-i18n="hero.summary">{profile.summary}</p>
+    <p class="hero__desc reveal" style="--d:.35s" data-i18n="hero.summary">{t(profile.summary)}</p>
 
     <div class="hero__actions reveal" style="--d:.45s">
       <a
@@ -74,15 +75,15 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
         target={siteConfig.booking ? '_blank' : undefined}
         rel={siteConfig.booking ? 'noopener noreferrer' : undefined}
         data-i18n="hero.letstalk"
-      >Let's talk</a>
-      <a class="btn btn--ghost" href={base + 'cv.pdf'} data-i18n="hero.download" download>Download CV</a>
+      >{en['hero.letstalk']}</a>
+      <a class="btn btn--ghost" href={base + 'cv.pdf'} data-i18n="hero.download" download>{en['hero.download']}</a>
     </div>
 
     <div class="hero__socials reveal" style="--d:.55s">
-      <span class="hero__bilingual" data-i18n="hero.bilingual">Bilingual · EN / ES</span>
-      <span class="hero__open"><span class="hero__open-dot" aria-hidden="true"></span><span data-i18n="hero.open">Open to work</span></span>
+      <span class="hero__bilingual" data-i18n="hero.bilingual">{en['hero.bilingual']}</span>
+      <span class="hero__open"><span class="hero__open-dot" aria-hidden="true"></span><span data-i18n="hero.open">{en['hero.open']}</span></span>
       <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-      <a href={profile.email} aria-label="Email">Email</a>
+      <a href={`mailto:${profile.email}`} aria-label="Email">Email</a>
       <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
     </div>
   </div>
@@ -90,8 +91,8 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <div class="hero__stats container reveal" style="--d:.65s">
     {stats.map((s, i) => (
       <div class="glass hero__stat" style={`--i:${i}`}>
-        <span class="hero__stat-value" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</span>
-        <span class="hero__stat-label" data-i18n={`hero.stats.${s.id}`}>{s.label}</span>
+        <span class="hero__stat-value" data-count={s.value} data-suffix={s.suffix}>{s.value.toLocaleString('en-US')}{s.suffix}</span>
+        <span class="hero__stat-label" data-i18n={`hero.stats.${s.id}`}>{t(s.label)}</span>
       </div>
     ))}
   </div>
@@ -141,7 +142,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.02;
-    background: linear-gradient(110deg, #fff 30%, color-mix(in srgb, var(--accent-1) 60%, #fff));
+    background: linear-gradient(110deg, var(--text) 30%, color-mix(in srgb, var(--accent-1) 60%, var(--text)));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -216,9 +217,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     padding: 0.4rem 0.9rem;
     border-radius: 999px;
     font-size: 0.78rem;
-    color: #7cf7b8;
-    background: rgba(124, 247, 184, 0.08);
-    border: 1px solid rgba(124, 247, 184, 0.25);
+    color: var(--success);
+    background: color-mix(in srgb, var(--success) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--success) 25%, transparent);
   }
 
   .hero__bilingual {
@@ -543,7 +544,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
   const counters = document.querySelectorAll('[data-count]');
   if (reducedMotion) {
-    counters.forEach((c) => (c.textContent = c.dataset.count + c.dataset.suffix));
+    counters.forEach((c) => (c.textContent = Number(c.dataset.count).toLocaleString('en-US') + c.dataset.suffix));
   } else {
     const io = new IntersectionObserver(
       (entries) => {
@@ -558,7 +559,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
           const tick = (now) => {
             const p = Math.min((now - start) / dur, 1);
             const eased = 1 - Math.pow(1 - p, 3);
-            el.textContent = Math.round(target * eased) + suffix;
+            el.textContent = Math.round(target * eased).toLocaleString('en-US') + suffix;
             if (p < 1) requestAnimationFrame(tick);
           };
           requestAnimationFrame(tick);

@@ -1,11 +1,12 @@
 ---
-import { experience } from '../data/cv.js';
+import { experience, t, translations } from '../data/content.js';
+const en = translations.en;
 ---
 
 <section id="experience" class="container">
   <div class="section-head reveal">
-    <span class="kicker" data-i18n="exp.kicker">// experience</span>
-    <h2 data-i18n="exp.title" data-fun-fx="title">Where I've been building</h2>
+    <span class="kicker" data-i18n="exp.kicker">{en['exp.kicker']}</span>
+    <h2 data-i18n="exp.title" data-fun-fx="title">{en['exp.title']}</h2>
   </div>
 
   <div class="timeline">
@@ -15,8 +16,8 @@ import { experience } from '../data/cv.js';
         <details class="glass timeline__card" open={i === 0}>
           <summary class="timeline__head">
             <div>
-              <h3 class="timeline__role" data-i18n={`exp.${i}.role`}>{job.role}</h3>
-              <p class="timeline__company">{job.company} · <span class="timeline__meta" data-i18n={`exp.${i}.meta`}>{job.meta}</span></p>
+              <h3 class="timeline__role" data-i18n={`exp.${i}.role`}>{t(job.role)}</h3>
+              <p class="timeline__company">{job.company} · <span class="timeline__meta" data-i18n={`exp.${i}.meta`}>{t(job.meta)}</span></p>
             </div>
             <div class="timeline__head-right">
               <span class="timeline__period">{job.period}</span>
@@ -29,7 +30,7 @@ import { experience } from '../data/cv.js';
           </summary>
           <ul class="timeline__bullets">
             {job.bullets.map((b, bi) => (
-              <li data-i18n={`exp.${i}.b${bi}`}>{b}</li>
+              <li data-i18n={`exp.${i}.b${bi}`}>{t(b)}</li>
             ))}
           </ul>
         </details>

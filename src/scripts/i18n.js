@@ -1,4 +1,4 @@
-import { translations, languages, defaultLang } from '../i18n/translations.js';
+import { translations, langs as languages, defaultLang } from '../data/content.js';
 
 const STORAGE_KEY = 'rc-lang';
 

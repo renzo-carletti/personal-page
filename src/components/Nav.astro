@@ -1,4 +1,6 @@
 ---
+import { translations } from '../data/content.js';
+const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const links = [
   { href: '#about', label: 'About', i18n: 'nav.about' },
@@ -30,9 +32,12 @@ const links = [
             <path d="M2 13h20" />
           </svg>
         </button>
-        <button id="bw-toggle" class="nav__bw" aria-pressed="false" aria-label="Toggle black and white mode" title="Black & white">◐</button>
+        <button class="nav__scheme" aria-pressed="false" data-i18n="nav.scheme" data-i18n-attr="aria-label" aria-label="{en['nav.scheme']}">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+        </button>
       </div>
-      <a class="nav__cta" href={base + 'cv.pdf'} data-i18n="nav.download" download>Download CV</a>
+      <a class="nav__cta" href={base + 'cv.pdf'} data-i18n="nav.download" download>{en['nav.download']}</a>
     </nav>
 
     <button class="nav__toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
@@ -58,9 +63,12 @@ const links = [
           <path d="M2 13h20" />
         </svg>
       </button>
-      <button id="bw-toggle-mobile" class="nav__bw" aria-pressed="false" aria-label="Toggle black and white mode">◐</button>
+      <button class="nav__scheme" aria-pressed="false" data-i18n="nav.scheme" data-i18n-attr="aria-label" aria-label="{en['nav.scheme']}">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+      </button>
     </div>
-    <a class="nav__cta" href={base + 'cv.pdf'} data-i18n="nav.download" download>Download CV</a>
+    <a class="nav__cta" href={base + 'cv.pdf'} data-i18n="nav.download" download>{en['nav.download']}</a>
   </div>
 </header>
 
@@ -76,7 +84,7 @@ const links = [
   }
 
   .nav.scrolled {
-    background: rgba(5, 6, 15, 0.72);
+    background: var(--scrim);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
     border-bottom-color: var(--glass-border);
@@ -113,7 +121,7 @@ const links = [
   }
 
   .nav__lang,
-  .nav__bw,
+  .nav__scheme,
   .nav__theme {
     font-family: var(--font-mono);
     font-size: 0.72rem;
@@ -124,12 +132,14 @@ const links = [
     transition: color 0.25s, background 0.25s;
   }
 
-  .nav__theme {
+  .nav__theme,
+  .nav__scheme {
     display: inline-flex;
     align-items: center;
   }
 
-  .nav__theme svg {
+  .nav__theme svg,
+  .nav__scheme svg {
     width: 14px;
     height: 14px;
   }
@@ -150,24 +160,31 @@ const links = [
     display: none;
   }
 
-  .nav__bw {
-    font-size: 0.9rem;
-    line-height: 1;
-    padding: 0.3rem 0.55rem;
+  /* Sun shows in dark scheme (switch to light), moon in light. Fun mode has its own palette. */
+  .nav__scheme .icon-moon,
+  html[data-scheme='light'] .nav__scheme .icon-sun {
+    display: none;
+  }
+
+  html[data-scheme='light'] .nav__scheme .icon-moon {
+    display: block;
+  }
+
+  html[data-theme='fun'] .nav__scheme {
+    display: none;
   }
 
   .nav__lang:hover,
-  .nav__bw:hover,
+  .nav__scheme:hover,
   .nav__theme:hover {
     color: var(--text);
   }
 
   .nav__lang.active {
-    color: #fff;
+    color: var(--on-accent);
     background: var(--accent-grad-solid);
   }
 
-  .nav__bw.active,
   .nav__theme.active {
     color: var(--text);
     background: var(--glass-hover);
@@ -253,7 +270,7 @@ const links = [
       flex-direction: column;
       gap: 0.4rem;
       padding: 1rem 1.5rem 1.4rem;
-      background: rgba(5, 6, 15, 0.85);
+      background: var(--scrim-strong);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--glass-border);
@@ -325,23 +342,40 @@ const links = [
     btn.addEventListener('click', () => setLang(btn.dataset.langBtn));
   });
 
-  const BW_KEY = 'rc-bw';
-  const bwBtns = document.querySelectorAll('.nav__bw');
-  function isBw() {
-    return document.documentElement.classList.contains('bw');
+  // Pro light/dark. An explicit choice is stored; otherwise follow the OS setting.
+  const SCHEME_KEY = 'rc-scheme';
+  const root = document.documentElement;
+  const schemeBtns = document.querySelectorAll('.nav__scheme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  function storedScheme() {
+    try {
+      const v = localStorage.getItem(SCHEME_KEY);
+      return v === 'light' || v === 'dark' ? v : null;
+    } catch {
+      return null;
+    }
   }
-  function setBw(on) {
-    localStorage.setItem(BW_KEY, on ? '1' : '0');
-    document.documentElement.classList.toggle('bw', on);
-    bwBtns.forEach((b) => {
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-pressed', String(on));
-    });
+  function applyScheme(scheme) {
+    root.dataset.scheme = scheme;
+    schemeBtns.forEach((b) => b.setAttribute('aria-pressed', String(scheme === 'dark')));
+    if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue('--bg').trim();
   }
-  setBw(localStorage.getItem(BW_KEY) === '1');
-  bwBtns.forEach((b) => b.addEventListener('click', () => setBw(!isBw())));
+  applyScheme(storedScheme() ?? (prefersLight.matches ? 'light' : 'dark'));
+  schemeBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      const next = root.dataset.scheme === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem(SCHEME_KEY, next);
+      } catch {}
+      applyScheme(next);
+    })
+  );
+  prefersLight.addEventListener('change', (e) => {
+    if (!storedScheme()) applyScheme(e.matches ? 'light' : 'dark');
+  });
   window.addEventListener('storage', (e) => {
-    if (e.key === BW_KEY) setBw(e.newValue === '1');
+    if (e.key === SCHEME_KEY) applyScheme(storedScheme() ?? (prefersLight.matches ? 'light' : 'dark'));
   });
 
   const THEME_KEY = 'rc-theme';
@@ -361,6 +395,7 @@ const links = [
     else destroyFunFx();
     if (fun) initGameFx();
     else destroyGameFx();
+    if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue('--bg').trim();
     if (fun && !document.getElementById('fx-fonts')) {
       const link = document.createElement('link');
       link.id = 'fx-fonts';

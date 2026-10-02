@@ -1,11 +1,12 @@
 ---
-import { certifications } from '../data/cv.js';
+import { certifications, t, translations } from '../data/content.js';
+const en = translations.en;
 ---
 
 <section id="certifications" class="container">
   <div class="section-head reveal">
-    <span class="kicker" data-i18n="certs.kicker">// certifications</span>
-    <h2 data-i18n="certs.title" data-fun-fx="title">Proof of the grind</h2>
+    <span class="kicker" data-i18n="certs.kicker">{en['certs.kicker']}</span>
+    <h2 data-i18n="certs.title" data-fun-fx="title">{en['certs.title']}</h2>
   </div>
 
   <div class="certs__grid">
@@ -18,7 +19,7 @@ import { certifications } from '../data/cv.js';
           </svg>
         </span>
         <div>
-          <h3 class="cert__name" data-i18n={`certs.${i}`}>{cert.name}</h3>
+          <h3 class="cert__name" data-i18n={`certs.${i}`}>{t(cert.name)}</h3>
           <p class="cert__issuer">{cert.issuer}</p>
         </div>
         <span class="cert__date">{cert.date}</span>

@@ -1,63 +1,54 @@
 ---
-import { profile, siteConfig } from '../data/cv.js';
+import { profile, site as siteConfig, translations } from '../data/content.js';
+const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <section id="contact" class="container">
   <div class="glass contact reveal">
     <div class="contact__info">
-      <span class="kicker" data-i18n="contact.kicker">// contact</span>
-      <h2 data-i18n="contact.title" data-fun-fx="title">Let's build something fast together</h2>
-      <p data-i18n="contact.text">
-        Got a headless CMS project, a legacy platform to modernize, or just want to talk shop about
-        Drupal, React and APIs? My inbox is open.
-      </p>
+      <span class="kicker" data-i18n="contact.kicker">{en['contact.kicker']}</span>
+      <h2 data-i18n="contact.title" data-fun-fx="title">{en['contact.title']}</h2>
+      <p data-i18n="contact.text">{en['contact.text']}</p>
       <div class="contact__links">
         <a href={`mailto:${profile.email}`} class="contact__link">
-          <span class="contact__link-label" data-i18n="contact.email">Email</span>
+          <span class="contact__link-label" data-i18n="contact.email">{en['contact.email']}</span>
           <span class="contact__link-value">{profile.email}</span>
         </a>
         <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="contact__link">
-          <span class="contact__link-label" data-i18n="contact.linkedin">LinkedIn</span>
-          <span class="contact__link-value">in/renzo-emiliano-carletti</span>
+          <span class="contact__link-label" data-i18n="contact.linkedin">{en['contact.linkedin']}</span>
+          <span class="contact__link-value">{profile.linkedinLabel}</span>
         </a>
         <a href={`tel:${profile.phone.replace(/\s/g, '')}`} class="contact__link">
-          <span class="contact__link-label" data-i18n="contact.phone">Phone</span>
+          <span class="contact__link-label" data-i18n="contact.phone">{en['contact.phone']}</span>
           <span class="contact__link-value">{profile.phone}</span>
         </a>
       </div>
-      <a class="btn btn--ghost" href={base + 'cv.pdf'} data-i18n="nav.download" download>Download CV</a>
+      <a class="btn btn--ghost" href={base + 'cv.pdf'} data-i18n="nav.download" download>{en['nav.download']}</a>
     </div>
 
     <form id="contact-form" class="contact__form" data-email={profile.email} data-form-key={siteConfig.web3FormsKey}>
       <label class="field">
-        <span data-i18n="contact.form.name">Name</span>
-        <input type="text" name="name" required placeholder="Your name" autocomplete="name" data-i18n-attr="placeholder" data-i18n="contact.form.namePh" />
-      </label>
+        <span data-i18n="contact.form.name">{en['contact.form.name']}</span>
+        <input type="text" name="name" required placeholder="Your name" autocomplete="name" data-i18n-attr="placeholder" data-i18n="contact.form.namePh" />{en['contact.form.namePh']}</label>
       <label class="field">
-        <span data-i18n="contact.form.email">Email</span>
-        <input type="email" name="email" required placeholder="you@company.com" autocomplete="email" data-i18n-attr="placeholder" data-i18n="contact.form.emailPh" />
-      </label>
+        <span data-i18n="contact.form.email">{en['contact.form.email']}</span>
+        <input type="email" name="email" required placeholder="you@company.com" autocomplete="email" data-i18n-attr="placeholder" data-i18n="contact.form.emailPh" />{en['contact.form.emailPh']}</label>
       <label class="field">
-        <span data-i18n="contact.form.subject">Subject</span>
-        <input type="text" name="subject" required placeholder="What's this about?" data-i18n-attr="placeholder" data-i18n="contact.form.subjectPh" />
-      </label>
+        <span data-i18n="contact.form.subject">{en['contact.form.subject']}</span>
+        <input type="text" name="subject" required placeholder="What's this about?" data-i18n-attr="placeholder" data-i18n="contact.form.subjectPh" />{en['contact.form.subjectPh']}</label>
       <label class="field">
-        <span data-i18n="contact.form.message">Message</span>
+        <span data-i18n="contact.form.message">{en['contact.form.message']}</span>
         <textarea name="message" rows="5" required placeholder="Tell me about your project..." data-i18n-attr="placeholder" data-i18n="contact.form.messagePh"></textarea>
       </label>
       <div class="contact__actions">
-        <button type="submit" class="btn btn--primary contact__submit" data-i18n="contact.submit">Send message</button>
-        <button type="button" id="copy-msg" class="btn btn--ghost contact__copy" hidden data-i18n="contact.copy">Copy message</button>
+        <button type="submit" class="btn btn--primary contact__submit" data-i18n="contact.submit">{en['contact.submit']}</button>
+        <button type="button" id="copy-msg" class="btn btn--ghost contact__copy" hidden data-i18n="contact.copy">{en['contact.copy']}</button>
       </div>
-      <p class="contact__hint" role="status" aria-live="polite" data-i18n="contact.hint">
-        Messages go straight to my inbox. No account or sign-up needed.
-      </p>
+      <p class="contact__hint" role="status" aria-live="polite" data-i18n="contact.hint">{en['contact.hint']}</p>
       {siteConfig.booking && (
         <p class="contact__book">
-          <a href={siteConfig.booking} target="_blank" rel="noopener noreferrer" data-i18n="contact.book">
-            Prefer to book directly? Open my 15-minute call calendar.
-          </a>
+          <a href={siteConfig.booking} target="_blank" rel="noopener noreferrer" data-i18n="contact.book">{en['contact.book']}</a>
         </p>
       )}
     </form>
@@ -198,7 +189,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 <script>
   import { currentLang } from '../scripts/i18n.js';
-  import { translations, defaultLang } from '../i18n/translations.js';
+  import { translations, defaultLang } from '../data/content.js';
 
   const form = document.getElementById('contact-form');
   const status = document.querySelector('.contact__hint');

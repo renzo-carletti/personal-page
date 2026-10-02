@@ -5,7 +5,7 @@ Single source of truth for the redesign. Phase 0 (audit) done on 2026-10-02. Ref
 ## Phases
 - [x] Phase 0: Audit + Style Brief
 - [x] Phase 1: Content & architecture (2026-10-02; open: user regenerates cv.pdf)
-- [ ] Phase 2: Normal mode
+- [x] Phase 2: Normal mode (2026-10-02; fun mode is a palette swap until Phase 3)
 - [ ] Phase 3: Fun mode
 - [ ] Phase 4: Polish & quality
 
@@ -111,8 +111,19 @@ Phase 1 — Content & architecture
 - [x] Mode toggle: B&W toggle removed (user, 2026-10-02). New pro light/dark toggle (`.nav__scheme`, key `rc-scheme`, follows `prefers-color-scheme` until user picks, set pre-paint in Layout, aria-pressed = dark, hidden in fun mode). `rc-theme` fun toggle unchanged. theme-color meta follows `--bg`.
 - [x] Old uncommitted FF9 planet/crystal WIP in Hero.astro/global.css discarded (user: only the new work matters).
 - [x] Root `CV Renzo Emiliano Carletti.pdf` removed (identical to public/cv.pdf).
-- [ ] `hero-three.js` is NOT dead: Hero.astro loads it with dynamic `import()` for the pro hero canvas. Phase 0 audit was wrong. Delete it in Phase 2 when the pro hero is rebuilt.
-Phase 2 — Normal mode: as brief (Drupal blue accent, editorial grid, case studies, Drupal block, print CSS, SVG icons, remove glass/aurora/gradients).
+- [x] `hero-three.js` deleted in Phase 2 with the old hero.
+Phase 2 — Normal mode
+- [x] Type: Newsreader (display serif, wght axis only, 58K) + Public Sans (text) + JetBrains Mono (labels/dates). Inter removed. Self-hosted, latin + latin-ext, display fonts preloaded. Body measure 68ch.
+- [x] Palette: neutral base + one accent, Drupal blue `#0678BE` (buttons) with `#5aaee8` (dark) / `#0567a6` (light) for text links. No gradients, glass, aurora, noise, scroll progress bar, reveal animations, count-ups or typing carousel.
+- [x] Layout: editorial 3/9 grid, numbered section labels sticky on the left, content on the right. Hero 8/4 with "quick facts" aside and verified numbers row.
+- [x] Sections: Intro (role + one-line tagline + summary) / 01 Selected work (Problem, What I did, Result, stack, link; all visible, modal removed) / 02 Experience (period column, 3 lead bullets + "More from this role" details) / 03 Drupal, in practice / 04 Skills (grouped lists, no tag cloud) / 05 Education and courses (degrees, languages, cert table) / 06 Contact (links + form).
+- [x] Drupal credibility block: 8 capabilities, each with where it was done (`content.json` → `drupal`). Only confirmed facts: no drupal.org contributions, Behat, Solr, Layout Builder or SDC claimed. Decoupled diagram + AI workflow note moved here (old Workflow cards and About section removed).
+- [x] Micro-details: link underline hovers, 2px focus rings, print stylesheet (one column, hides nav/form, opens details, prints external URLs; ~7 A4 pages), CV download in nav/hero/contact/footer, light/dark kept, Esc closes mobile menu.
+- [x] Icons: one inline SVG set in `src/components/Icon.astro` (24 grid, 1.75 stroke). Glyphs (×, ▍, ◐, $ whoami) removed.
+- [x] Fixes: contact form placeholder text leaking as visible text; labels now use `for`/`id`. Footer moved out of `<main>`. Numbers formatted per locale (1.100+ in ES). Experience period translated ("Actualidad").
+- [x] Removed: GSAP + `@fontsource-variable/inter` deps, `fun-fx.js`, `game-fx.js`, `reveal.js`, `hero-three.js`, About.astro, Workflow.astro. Certifications.astro renamed to Education.astro.
+- [ ] Fun mode is only a palette swap (Style Brief night/parchment/amber) on the normal layout until Phase 3.
+- [ ] Certification dates (`Apr 2025`) are still English-only.
 Phase 3 — Fun mode: as brief, direction per confirmed decision; replace current FF9 storybook skin; drop GSAP if CSS suffices; assets in `/public/assets/fun/` (Astro serves from public; brief's `/assets/fun/`).
 Phase 4 — Polish & quality: as brief; README rewrite (GitHub Pages first).
 

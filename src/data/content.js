@@ -2,7 +2,7 @@ import content from './content.json';
 
 export default content;
 
-export const { site, profile, stats, projects, experience, skills, certifications, education, languages } = content;
+export const { site, profile, stats, projects, experience, skills, drupal, certifications, education, languages } = content;
 export const { languages: langs, defaultLang } = site;
 
 // Pick one language from a bilingual field ({ en, es }); plain values pass through.
@@ -21,9 +21,13 @@ function buildDict(lang) {
 
   for (const [key, field] of Object.entries(content.ui)) put(key, field);
 
+  put('hero.role', profile.role);
+  put('hero.tagline', profile.tagline);
   put('hero.summary', profile.summary);
-  d.roles = profile.roles.map((r) => t(r, lang));
-  stats.forEach((s) => put(`hero.stats.${s.id}`, s.label));
+  stats.forEach((s) => {
+    put(`hero.stats.${s.id}`, s.label);
+    d[`hero.stats.${s.id}.value`] = s.value.toLocaleString(lang === 'es' ? 'es-AR' : 'en-US') + s.suffix;
+  });
 
   put('about.whoText', profile.about);
   put('about.current.text', profile.current);
@@ -39,12 +43,19 @@ function buildDict(lang) {
   experience.forEach((job, i) => {
     put(`exp.${i}.role`, job.role);
     put(`exp.${i}.meta`, job.meta);
+    put(`exp.${i}.period`, job.period);
     job.bullets.forEach((b, bi) => put(`exp.${i}.b${bi}`, b));
   });
 
   projects.forEach((p, i) => {
     for (const k of ['name', 'tagline', 'desc', 'metric']) put(`work.${i}.${k}`, p[k]);
     for (const k of ['problem', 'solution', 'impact']) put(`case.${i}.${k}`, p.case[k]);
+  });
+
+  put('drupal.versions', drupal.versions);
+  drupal.items.forEach((item, i) => {
+    put(`drupal.${i}.title`, item.title);
+    put(`drupal.${i}.proof`, item.proof);
   });
 
   skills.forEach((g, i) => put(`skills.g${i}`, g.group));

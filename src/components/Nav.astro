@@ -1,353 +1,269 @@
 ---
+import Icon from './Icon.astro';
 import { translations } from '../data/content.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const links = [
-  { href: '#about', label: 'About', i18n: 'nav.about' },
-  { href: '#experience', label: 'Experience', i18n: 'nav.experience' },
-  { href: '#work', label: 'Work', i18n: 'nav.work' },
-  { href: '#skills', label: 'Skills', i18n: 'nav.skills' },
-  { href: '#certifications', label: 'Certifications', i18n: 'nav.certs' },
-  { href: '#contact', label: 'Contact', i18n: 'nav.contact' },
+  { href: '#work', i18n: 'nav.work' },
+  { href: '#experience', i18n: 'nav.experience' },
+  { href: '#drupal', i18n: 'nav.drupal' },
+  { href: '#skills', i18n: 'nav.skills' },
+  { href: '#contact', i18n: 'nav.contact' },
 ];
 ---
 
 <header class="nav">
   <div class="container nav__inner">
-    <nav class="nav__links" aria-label="Primary">
-      {links.map((l, i) => (
-        <a href={l.href} data-i18n={l.i18n} style={`--i:${i}`}>{l.label}</a>
-      ))}
+    <a class="nav__brand" href="#top" aria-label={en['nav.home']} data-i18n="nav.home" data-i18n-attr="aria-label">
+      Renzo Carletti
+    </a>
+
+    <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+      <ul class="nav__links" role="list">
+        {links.map((l) => (
+          <li><a href={l.href} data-i18n={l.i18n}>{en[l.i18n]}</a></li>
+        ))}
+      </ul>
+
       <div class="nav__controls" role="group" aria-label="Language and appearance">
-        <button data-lang-btn="en" class="nav__lang" aria-pressed="false" aria-label="Switch to English">EN</button>
-        <button data-lang-btn="es" class="nav__lang" aria-pressed="false" aria-label="Cambiar a español">ES</button>
-        <button id="theme-toggle" class="nav__theme" aria-pressed="false" data-i18n="nav.theme" data-i18n-attr="aria-label" title="Fun mode">
-          <svg class="icon-fun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 12h4M8 10v4M15 12h.01M18 10h.01" />
-            <path d="M17.32 5H6.68A4.68 4.68 0 0 0 2 9.68c0 2.1 1.05 4.04 2.8 5.22l.7.5a1 1 0 0 1 .26 1.35l-.92 1.42a1.5 1.5 0 0 0 2.2 1.95l2.06-1.83a1.5 1.5 0 0 1 1.98 0l2.06 1.83a1.5 1.5 0 0 0 2.2-1.95l-.92-1.42a1 1 0 0 1 .26-1.35l.7-.5A5.68 5.68 0 0 0 22 9.68 4.68 4.68 0 0 0 17.32 5Z" />
-          </svg>
-          <svg class="icon-pro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2" y="7" width="20" height="14" rx="2" />
-            <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            <path d="M2 13h20" />
-          </svg>
+        <div class="nav__langs">
+          <button data-lang-btn="en" class="nav__lang" aria-pressed="false" aria-label="English">EN</button>
+          <button data-lang-btn="es" class="nav__lang" aria-pressed="false" aria-label="Español">ES</button>
+        </div>
+        <button class="nav__icon nav__scheme" aria-pressed="false" aria-label={en['nav.scheme']} data-i18n="nav.scheme" data-i18n-attr="aria-label">
+          <Icon name="moon" class="icon-moon" />
+          <Icon name="sun" class="icon-sun" />
         </button>
-        <button class="nav__scheme" aria-pressed="false" data-i18n="nav.scheme" data-i18n-attr="aria-label" aria-label="{en['nav.scheme']}">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+        <button class="nav__icon nav__theme" aria-pressed="false" aria-label={en['nav.theme']} data-i18n="nav.theme" data-i18n-attr="aria-label">
+          <Icon name="gamepad" />
         </button>
+        <a class="btn btn--primary nav__cv" href={base + 'cv.pdf'} download>
+          <Icon name="download" size={16} />
+          <span data-i18n="nav.download">{en['nav.download']}</span>
+        </a>
       </div>
-      <a class="nav__cta" href={base + 'cv.pdf'} data-i18n="nav.download" download>{en['nav.download']}</a>
     </nav>
 
-    <button class="nav__toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
+    <button class="nav__icon nav__toggle" aria-expanded="false" aria-controls="nav-menu">
+      <Icon name="menu" class="icon-open" />
+      <Icon name="close" class="icon-close" />
+      <span class="visually-hidden" data-i18n="nav.menu">{en['nav.menu']}</span>
     </button>
-  </div>
-
-  <div class="nav__mobile" id="mobile-menu">
-    {links.map((l) => (
-      <a href={l.href} data-i18n={l.i18n}>{l.label}</a>
-    ))}
-    <div class="nav__controls nav__controls--mobile" role="group" aria-label="Language and appearance">
-      <button data-lang-btn="en" class="nav__lang" aria-pressed="false" aria-label="Switch to English">EN</button>
-      <button data-lang-btn="es" class="nav__lang" aria-pressed="false" aria-label="Cambiar a español">ES</button>
-      <button id="theme-toggle-mobile" class="nav__theme" aria-pressed="false" data-i18n="nav.theme" data-i18n-attr="aria-label" title="Fun mode">
-        <svg class="icon-fun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M6 12h4M8 10v4M15 12h.01M18 10h.01" />
-          <path d="M17.32 5H6.68A4.68 4.68 0 0 0 2 9.68c0 2.1 1.05 4.04 2.8 5.22l.7.5a1 1 0 0 1 .26 1.35l-.92 1.42a1.5 1.5 0 0 0 2.2 1.95l2.06-1.83a1.5 1.5 0 0 1 1.98 0l2.06 1.83a1.5 1.5 0 0 0 2.2-1.95l-.92-1.42a1 1 0 0 1 .26-1.35l.7-.5A5.68 5.68 0 0 0 22 9.68 4.68 4.68 0 0 0 17.32 5Z" />
-        </svg>
-        <svg class="icon-pro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2" y="7" width="20" height="14" rx="2" />
-          <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-          <path d="M2 13h20" />
-        </svg>
-      </button>
-      <button class="nav__scheme" aria-pressed="false" data-i18n="nav.scheme" data-i18n-attr="aria-label" aria-label="{en['nav.scheme']}">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-      </button>
-    </div>
-    <a class="nav__cta" href={base + 'cv.pdf'} data-i18n="nav.download" download>{en['nav.download']}</a>
   </div>
 </header>
 
 <style>
   .nav {
-    position: fixed;
-    inset-inline: 0;
+    position: sticky;
     top: 0;
     z-index: 50;
-    padding-block: 0.9rem;
-    transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
-    border-bottom: 1px solid transparent;
+    height: var(--nav-h);
+    background: var(--bg);
+    border-bottom: var(--border-1) solid transparent;
+    transition: border-color var(--dur-base);
   }
 
   .nav.scrolled {
-    background: var(--scrim);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border-bottom-color: var(--glass-border);
+    border-bottom-color: var(--line);
   }
 
   .nav__inner {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-5);
+  }
+
+  .nav__brand {
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
   }
 
   .nav__links {
     display: flex;
-    align-items: center;
-    gap: 1.8rem;
+    gap: var(--space-5);
   }
 
   .nav__links a {
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     color: var(--muted);
-    font-weight: 500;
-    position: relative;
-    transition: color 0.25s;
+    text-decoration: none;
+    padding-block: var(--space-2);
+    border-bottom: var(--border-2) solid transparent;
+    transition: color var(--dur-fast), border-color var(--dur-fast);
+  }
+
+  .nav__links a:hover,
+  .nav__links a[aria-current='true'] {
+    color: var(--text);
+  }
+
+  .nav__links a[aria-current='true'] {
+    border-bottom-color: var(--accent);
   }
 
   .nav__controls {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.25rem;
-    border-radius: 999px;
-    border: 1px solid var(--glass-border);
-    background: var(--glass);
+    gap: var(--space-2);
   }
 
-  .nav__lang,
-  .nav__scheme,
-  .nav__theme {
+  .nav__langs {
+    display: flex;
+    border: var(--border-1) solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .nav__lang {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.35rem 0.6rem;
-    border-radius: 999px;
+    font-size: var(--text-xs);
+    min-width: 2.5rem;
+    min-height: 2.5rem;
     color: var(--muted);
-    transition: color 0.25s, background 0.25s;
   }
 
-  .nav__theme,
-  .nav__scheme {
-    display: inline-flex;
-    align-items: center;
+  .nav__lang[aria-pressed='true'] {
+    background: var(--text);
+    color: var(--bg);
   }
 
-  .nav__theme svg,
-  .nav__scheme svg {
-    width: 14px;
-    height: 14px;
+  .nav__icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    transition: color var(--dur-fast), background-color var(--dur-fast);
   }
 
-  .nav__theme .icon-fun {
+  .nav__icon:hover {
+    color: var(--text);
+    background: var(--accent-soft);
+  }
+
+  .nav__theme[aria-pressed='true'] {
+    color: var(--accent);
+  }
+
+  /* Icon shows the scheme you switch to. */
+  :global(:root[data-scheme='dark']) .nav__scheme :global(.icon-moon),
+  :global(:root[data-scheme='light']) .nav__scheme :global(.icon-sun) {
     display: none;
   }
 
-  .nav__theme .icon-pro {
-    display: block;
-  }
-
-  html[data-theme='fun'] .nav__theme .icon-fun {
-    display: block;
-  }
-
-  html[data-theme='fun'] .nav__theme .icon-pro {
+  :global(:root[data-theme='fun']) .nav__scheme {
     display: none;
-  }
-
-  /* Sun shows in dark scheme (switch to light), moon in light. Fun mode has its own palette. */
-  .nav__scheme .icon-moon,
-  html[data-scheme='light'] .nav__scheme .icon-sun {
-    display: none;
-  }
-
-  html[data-scheme='light'] .nav__scheme .icon-moon {
-    display: block;
-  }
-
-  html[data-theme='fun'] .nav__scheme {
-    display: none;
-  }
-
-  .nav__lang:hover,
-  .nav__scheme:hover,
-  .nav__theme:hover {
-    color: var(--text);
-  }
-
-  .nav__lang.active {
-    color: var(--on-accent);
-    background: var(--accent-grad-solid);
-  }
-
-  .nav__theme.active {
-    color: var(--text);
-    background: var(--glass-hover);
-  }
-
-  .nav__links a:not(.nav__cta)::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s var(--ease);
-  }
-
-  .nav__links a:not(.nav__cta):hover {
-    color: var(--text);
-  }
-
-  .nav__links a:not(.nav__cta):hover::after {
-    transform: scaleX(1);
-  }
-
-  .nav__links a.active {
-    color: var(--text);
-  }
-
-  .nav__links a.active::after {
-    transform: scaleX(1);
-  }
-
-  .nav__cta {
-    padding: 0.5rem 1.1rem;
-    border-radius: 999px;
-    border: 1px solid var(--glass-border);
-    background: var(--glass);
-    color: var(--text) !important;
-    transition: background 0.25s, transform 0.25s var(--ease);
-  }
-
-  .nav__cta:hover {
-    background: var(--glass-hover);
-    transform: translateY(-1px);
   }
 
   .nav__toggle {
     display: none;
-    flex-direction: column;
-    gap: 5px;
-    padding: 0.4rem;
   }
 
-  .nav__toggle span {
-    width: 22px;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--text);
-    transition: transform 0.3s var(--ease), opacity 0.3s;
-  }
-
-  .nav__toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav__toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
-  .nav__toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .nav__mobile {
+  .nav__toggle :global(.icon-close),
+  .nav__toggle[aria-expanded='true'] :global(.icon-open) {
     display: none;
   }
 
-  @media (max-width: 1100px) {
-    .nav__links { display: none; }
-    .nav__toggle { display: flex; }
+  .nav__toggle[aria-expanded='true'] :global(.icon-close) {
+    display: block;
+  }
 
-    .nav__mobile {
+  @media (max-width: 1000px) {
+    .nav__toggle {
+      display: grid;
+    }
+
+    .nav__menu {
+      display: none;
       position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      display: flex;
+      top: var(--nav-h);
+      inset-inline: 0;
       flex-direction: column;
-      gap: 0.4rem;
-      padding: 1rem 1.5rem 1.4rem;
-      background: var(--scrim-strong);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      pointer-events: none;
-      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s linear 0.3s;
+      align-items: stretch;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--gutter) var(--space-6);
+      background: var(--bg);
+      border-bottom: var(--border-1) solid var(--line);
+      box-shadow: var(--shadow-lg);
     }
 
-    .nav__mobile.open {
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      pointer-events: auto;
-      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    .nav__menu.open {
+      display: flex;
     }
 
-    .nav__mobile a {
-      padding: 0.7rem 0.5rem;
-      border-radius: var(--radius-sm);
-      color: var(--muted);
-      font-weight: 500;
+    .nav__links {
+      flex-direction: column;
+      gap: 0;
     }
 
-    .nav__mobile a:hover {
-      background: var(--glass);
-      color: var(--text);
+    .nav__links a {
+      display: block;
+      font-size: var(--text-md);
+      padding-block: var(--space-3);
+      border-bottom: var(--border-1) solid var(--line);
     }
 
-    .nav__mobile .nav__cta {
-      margin-top: 0.5rem;
-      text-align: center;
+    .nav__controls {
+      flex-wrap: wrap;
     }
 
-    .nav__controls--mobile {
-      margin-block: 0.6rem;
-      align-self: flex-start;
+    .nav__cv {
+      margin-left: auto;
     }
   }
 </style>
 
 <script>
   import { setLang } from '../scripts/i18n.js';
-  import { initFunFx, destroyFunFx } from '../scripts/fun-fx.js';
-  import { initGameFx, destroyGameFx } from '../scripts/game-fx.js';
 
+  const root = document.documentElement;
   const header = document.querySelector('.nav');
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 24);
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  // Mobile menu
   const toggle = document.querySelector('.nav__toggle');
-  const mobile = document.querySelector('.nav__mobile');
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    mobile.classList.toggle('open', !open);
-  });
-
-  mobile.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      mobile.classList.remove('open');
-    });
+  const menu = document.getElementById('nav-menu');
+  function setMenu(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.classList.toggle('open', open);
+  }
+  toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      toggle.focus();
+    }
   });
 
   document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
     btn.addEventListener('click', () => setLang(btn.dataset.langBtn));
   });
 
-  // Pro light/dark. An explicit choice is stored; otherwise follow the OS setting.
-  const SCHEME_KEY = 'rc-scheme';
-  const root = document.documentElement;
-  const schemeBtns = document.querySelectorAll('.nav__scheme');
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
   const themeColor = document.querySelector('meta[name="theme-color"]');
+  const syncThemeColor = () => {
+    if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue('--bg').trim();
+  };
+
+  // Light/dark. An explicit choice is stored; otherwise follow the OS setting.
+  const SCHEME_KEY = 'rc-scheme';
+  const schemeBtn = document.querySelector('.nav__scheme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
   function storedScheme() {
     try {
       const v = localStorage.getItem(SCHEME_KEY);
@@ -358,55 +274,48 @@ const links = [
   }
   function applyScheme(scheme) {
     root.dataset.scheme = scheme;
-    schemeBtns.forEach((b) => b.setAttribute('aria-pressed', String(scheme === 'dark')));
-    if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue('--bg').trim();
+    schemeBtn.setAttribute('aria-pressed', String(scheme === 'dark'));
+    syncThemeColor();
   }
   applyScheme(storedScheme() ?? (prefersLight.matches ? 'light' : 'dark'));
-  schemeBtns.forEach((b) =>
-    b.addEventListener('click', () => {
-      const next = root.dataset.scheme === 'dark' ? 'light' : 'dark';
-      try {
-        localStorage.setItem(SCHEME_KEY, next);
-      } catch {}
-      applyScheme(next);
-    })
-  );
+  schemeBtn.addEventListener('click', () => {
+    const next = root.dataset.scheme === 'dark' ? 'light' : 'dark';
+    try {
+      localStorage.setItem(SCHEME_KEY, next);
+    } catch {}
+    applyScheme(next);
+  });
   prefersLight.addEventListener('change', (e) => {
     if (!storedScheme()) applyScheme(e.matches ? 'light' : 'dark');
   });
-  window.addEventListener('storage', (e) => {
-    if (e.key === SCHEME_KEY) applyScheme(storedScheme() ?? (prefersLight.matches ? 'light' : 'dark'));
-  });
 
+  // Normal / fun mode.
   const THEME_KEY = 'rc-theme';
-  const themeBtns = document.querySelectorAll('.nav__theme');
-  function isFun() {
-    return document.documentElement.dataset.theme === 'fun';
+  const themeBtn = document.querySelector('.nav__theme');
+  function applyTheme(fun) {
+    if (fun) root.dataset.theme = 'fun';
+    else delete root.dataset.theme;
+    themeBtn.setAttribute('aria-pressed', String(fun));
+    syncThemeColor();
   }
-  function setTheme(fun) {
-    localStorage.setItem(THEME_KEY, fun ? 'fun' : 'pro');
-    if (fun) document.documentElement.dataset.theme = 'fun';
-    else delete document.documentElement.dataset.theme;
-    themeBtns.forEach((b) => {
-      b.classList.toggle('active', fun);
-      b.setAttribute('aria-pressed', String(fun));
-    });
-    if (fun) initFunFx();
-    else destroyFunFx();
-    if (fun) initGameFx();
-    else destroyGameFx();
-    if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue('--bg').trim();
-    if (fun && !document.getElementById('fx-fonts')) {
-      const link = document.createElement('link');
-      link.id = 'fx-fonts';
-      link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap';
-      document.head.appendChild(link);
+  function storedFun() {
+    try {
+      return localStorage.getItem(THEME_KEY) === 'fun';
+    } catch {
+      return false;
     }
   }
-  setTheme(localStorage.getItem(THEME_KEY) === 'fun');
-  themeBtns.forEach((b) => b.addEventListener('click', () => setTheme(!isFun())));
+  applyTheme(storedFun());
+  themeBtn.addEventListener('click', () => {
+    const fun = root.dataset.theme !== 'fun';
+    try {
+      localStorage.setItem(THEME_KEY, fun ? 'fun' : 'pro');
+    } catch {}
+    applyTheme(fun);
+  });
+
   window.addEventListener('storage', (e) => {
-    if (e.key === THEME_KEY) setTheme(e.newValue === 'fun');
+    if (e.key === SCHEME_KEY) applyScheme(storedScheme() ?? (prefersLight.matches ? 'light' : 'dark'));
+    if (e.key === THEME_KEY) applyTheme(e.newValue === 'fun');
   });
 </script>

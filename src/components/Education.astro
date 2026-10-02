@@ -1,0 +1,123 @@
+---
+import { certifications, education, languages, t, translations } from '../data/content.js';
+const en = translations.en;
+---
+
+<section id="education" class="section" aria-labelledby="edu-title">
+  <div class="container section__grid">
+    <header class="section__head">
+      <span class="section__num">05</span>
+      <h2 id="edu-title" class="section__title" data-i18n="edu.title">{en['edu.title']}</h2>
+    </header>
+
+    <div class="edu">
+      <div class="edu__col">
+        <h3 class="label" data-i18n="edu.degrees">{en['edu.degrees']}</h3>
+        <ul class="edu__list" role="list">
+          {education.map((e, i) => (
+            <li>
+              <strong data-i18n={`about.edu.${i}.degree`}>{t(e.degree)}</strong>
+              <span data-i18n={`about.edu.${i}.school`}>{t(e.school)}</span>
+              <span class="edu__meta">
+                <span data-i18n={`about.edu.${i}.detail`}>{t(e.detail)}</span> · <span data-i18n={`about.edu.${i}.period`}>{t(e.period)}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <h3 class="label edu__sub" data-i18n="edu.langs">{en['edu.langs']}</h3>
+        <ul class="edu__list" role="list">
+          {languages.map((l, i) => (
+            <li>
+              <strong data-i18n={`about.lang.${i}.name`}>{t(l.name)}</strong>
+              <span data-i18n={`about.lang.${i}.level`}>{t(l.level)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="edu__col">
+        <h3 class="label" data-i18n="certs.title">{en['certs.title']}</h3>
+        <table class="certs">
+          <tbody>
+            {certifications.map((cert, i) => (
+              <tr>
+                <th scope="row" data-i18n={`certs.${i}`}>{t(cert.name)}</th>
+                <td>{cert.issuer}</td>
+                <td class="certs__date">{cert.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .edu {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  @media (min-width: 1100px) {
+    .edu {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+  }
+
+  .edu__list {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .edu__list li {
+    display: grid;
+  }
+
+  .edu__list span {
+    color: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  .edu__list .edu__meta,
+  .edu__list .edu__meta span {
+    color: var(--faint);
+  }
+
+  .edu__sub {
+    margin-top: var(--space-6);
+  }
+
+  .certs {
+    width: 100%;
+    margin-top: var(--space-4);
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .certs th,
+  .certs td {
+    padding: var(--space-3) var(--space-3) var(--space-3) 0;
+    border-bottom: var(--border-1) solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .certs th {
+    font-weight: 500;
+  }
+
+  .certs td {
+    color: var(--muted);
+  }
+
+  .certs__date {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    text-align: right !important;
+    padding-right: 0 !important;
+  }
+</style>

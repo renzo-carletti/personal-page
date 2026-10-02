@@ -22,10 +22,6 @@ export function applyLang(lang) {
     else el.textContent = value;
   });
 
-  document.querySelectorAll('[data-i18n-roles]').forEach((el) => {
-    el.dataset.roles = JSON.stringify(dict['roles']);
-  });
-
   document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
     const active = btn.dataset.langBtn === lang;
     btn.classList.toggle('active', active);

@@ -1,189 +1,194 @@
 ---
+import Icon from './Icon.astro';
 import { profile, site as siteConfig, translations } from '../data/content.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const fields = [
+  { name: 'name', type: 'text', autocomplete: 'name' },
+  { name: 'email', type: 'email', autocomplete: 'email' },
+  { name: 'subject', type: 'text', autocomplete: 'off' },
+];
 ---
 
-<section id="contact" class="container">
-  <div class="glass contact reveal">
-    <div class="contact__info">
-      <span class="kicker" data-i18n="contact.kicker">{en['contact.kicker']}</span>
-      <h2 data-i18n="contact.title" data-fun-fx="title">{en['contact.title']}</h2>
-      <p data-i18n="contact.text">{en['contact.text']}</p>
-      <div class="contact__links">
-        <a href={`mailto:${profile.email}`} class="contact__link">
-          <span class="contact__link-label" data-i18n="contact.email">{en['contact.email']}</span>
-          <span class="contact__link-value">{profile.email}</span>
-        </a>
-        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="contact__link">
-          <span class="contact__link-label" data-i18n="contact.linkedin">{en['contact.linkedin']}</span>
-          <span class="contact__link-value">{profile.linkedinLabel}</span>
-        </a>
-        <a href={`tel:${profile.phone.replace(/\s/g, '')}`} class="contact__link">
-          <span class="contact__link-label" data-i18n="contact.phone">{en['contact.phone']}</span>
-          <span class="contact__link-value">{profile.phone}</span>
-        </a>
-      </div>
-      <a class="btn btn--ghost" href={base + 'cv.pdf'} data-i18n="nav.download" download>{en['nav.download']}</a>
-    </div>
+<section id="contact" class="section" aria-labelledby="contact-title">
+  <div class="container section__grid">
+    <header class="section__head">
+      <span class="section__num">06</span>
+      <h2 id="contact-title" class="section__title" data-i18n="contact.title">{en['contact.title']}</h2>
+    </header>
 
-    <form id="contact-form" class="contact__form" data-email={profile.email} data-form-key={siteConfig.web3FormsKey}>
-      <label class="field">
-        <span data-i18n="contact.form.name">{en['contact.form.name']}</span>
-        <input type="text" name="name" required placeholder="Your name" autocomplete="name" data-i18n-attr="placeholder" data-i18n="contact.form.namePh" />{en['contact.form.namePh']}</label>
-      <label class="field">
-        <span data-i18n="contact.form.email">{en['contact.form.email']}</span>
-        <input type="email" name="email" required placeholder="you@company.com" autocomplete="email" data-i18n-attr="placeholder" data-i18n="contact.form.emailPh" />{en['contact.form.emailPh']}</label>
-      <label class="field">
-        <span data-i18n="contact.form.subject">{en['contact.form.subject']}</span>
-        <input type="text" name="subject" required placeholder="What's this about?" data-i18n-attr="placeholder" data-i18n="contact.form.subjectPh" />{en['contact.form.subjectPh']}</label>
-      <label class="field">
-        <span data-i18n="contact.form.message">{en['contact.form.message']}</span>
-        <textarea name="message" rows="5" required placeholder="Tell me about your project..." data-i18n-attr="placeholder" data-i18n="contact.form.messagePh"></textarea>
-      </label>
-      <div class="contact__actions">
-        <button type="submit" class="btn btn--primary contact__submit" data-i18n="contact.submit">{en['contact.submit']}</button>
-        <button type="button" id="copy-msg" class="btn btn--ghost contact__copy" hidden data-i18n="contact.copy">{en['contact.copy']}</button>
+    <div class="contact">
+      <div class="contact__info">
+        <p class="contact__text" data-i18n="contact.text">{en['contact.text']}</p>
+        <ul class="contact__links" role="list">
+          <li>
+            <Icon name="mail" />
+            <span class="contact__label" data-i18n="contact.email">{en['contact.email']}</span>
+            <a class="link" href={`mailto:${profile.email}`}>{profile.email}</a>
+          </li>
+          <li>
+            <Icon name="linkedin" />
+            <span class="contact__label" data-i18n="contact.linkedin">{en['contact.linkedin']}</span>
+            <a class="link" href={profile.linkedin} target="_blank" rel="noopener noreferrer" data-print-url="false">{profile.linkedinLabel}</a>
+          </li>
+          <li>
+            <Icon name="github" />
+            <span class="contact__label">GitHub</span>
+            <a class="link" href={profile.github} target="_blank" rel="noopener noreferrer" data-print-url="false">{profile.github.replace('https://', '')}</a>
+          </li>
+          <li>
+            <Icon name="phone" />
+            <span class="contact__label" data-i18n="contact.phone">{en['contact.phone']}</span>
+            <a class="link" href={`tel:${profile.phone.replace(/\s/g, '')}`}>{profile.phone}</a>
+          </li>
+        </ul>
+        <a class="btn btn--ghost no-print" href={base + 'cv.pdf'} download>
+          <Icon name="download" size={16} />
+          <span data-i18n="nav.download">{en['nav.download']}</span>
+        </a>
       </div>
-      <p class="contact__hint" role="status" aria-live="polite" data-i18n="contact.hint">{en['contact.hint']}</p>
-      {siteConfig.booking && (
-        <p class="contact__book">
-          <a href={siteConfig.booking} target="_blank" rel="noopener noreferrer" data-i18n="contact.book">{en['contact.book']}</a>
-        </p>
-      )}
-    </form>
+
+      <form id="contact-form" class="contact__form" data-email={profile.email} data-form-key={siteConfig.web3FormsKey}>
+        {fields.map((f) => (
+          <div class="field">
+            <label for={`cf-${f.name}`} data-i18n={`contact.form.${f.name}`}>{en[`contact.form.${f.name}`]}</label>
+            <input
+              id={`cf-${f.name}`}
+              type={f.type}
+              name={f.name}
+              required
+              autocomplete={f.autocomplete}
+              placeholder={en[`contact.form.${f.name}Ph`]}
+              data-i18n={`contact.form.${f.name}Ph`}
+              data-i18n-attr="placeholder"
+            />
+          </div>
+        ))}
+        <div class="field">
+          <label for="cf-message" data-i18n="contact.form.message">{en['contact.form.message']}</label>
+          <textarea
+            id="cf-message"
+            name="message"
+            rows="5"
+            required
+            placeholder={en['contact.form.messagePh']}
+            data-i18n="contact.form.messagePh"
+            data-i18n-attr="placeholder"
+          ></textarea>
+        </div>
+        <div class="contact__actions">
+          <button type="submit" class="btn btn--primary" data-i18n="contact.submit">{en['contact.submit']}</button>
+          <button type="button" id="copy-msg" class="btn btn--ghost" hidden data-i18n="contact.copy">{en['contact.copy']}</button>
+        </div>
+        <p class="contact__hint" role="status" aria-live="polite" data-i18n="contact.hint">{en['contact.hint']}</p>
+        {siteConfig.booking && (
+          <p class="contact__book">
+            <a class="link" href={siteConfig.booking} target="_blank" rel="noopener noreferrer" data-i18n="contact.book">{en['contact.book']}</a>
+          </p>
+        )}
+      </form>
+    </div>
   </div>
 </section>
 
 <style>
   .contact {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    padding: 2.5rem;
+    gap: var(--space-7);
   }
 
-  .contact__info p {
-    color: var(--muted);
-    margin-top: 1rem;
-    max-width: 42ch;
+  @media (min-width: 1100px) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .contact__text {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    max-width: 36ch;
   }
 
   .contact__links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin: 1.8rem 0;
+    display: grid;
+    margin-block: var(--space-6);
   }
 
-  .contact__link {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.7rem 0.2rem;
-    border-bottom: 1px solid var(--glass-border);
-    transition: border-color 0.25s;
-  }
-
-  .contact__link:hover {
-    border-color: color-mix(in srgb, var(--accent-2) 50%, transparent);
-  }
-
-  .contact__link-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+  .contact__links li {
+    display: grid;
+    grid-template-columns: auto 6rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-bottom: var(--border-1) solid var(--line);
+    font-size: var(--text-sm);
     color: var(--faint);
   }
 
-  .contact__link-value {
-    font-size: 0.92rem;
-    color: var(--text);
-    word-break: break-word;
-    text-align: right;
+  .contact__links .link {
+    overflow-wrap: anywhere;
   }
 
   .contact__form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
   }
 
   .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+    display: grid;
+    gap: var(--space-1);
   }
 
-  .field span {
-    font-size: 0.8rem;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--faint);
+  .field label {
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .field input,
   .field textarea {
+    width: 100%;
     font: inherit;
     color: var(--text);
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
+    background: var(--surface);
+    border: var(--border-1) solid var(--line-strong);
     border-radius: var(--radius-sm);
-    padding: 0.8rem 1rem;
-    transition: border-color 0.25s, background 0.25s;
+    padding: var(--space-3) var(--space-4);
+    transition: border-color var(--dur-fast);
+  }
+
+  .field textarea {
     resize: vertical;
+    min-height: 8rem;
   }
 
-  .field input:focus,
-  .field textarea:focus {
-    outline: none;
-    border-color: var(--accent-2);
-    background: var(--glass-strong);
+  .field input:hover,
+  .field textarea:hover {
+    border-color: var(--faint);
   }
 
-  .contact__submit {
-    align-self: flex-start;
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 0;
+    border-color: transparent;
   }
 
   .contact__actions {
     display: flex;
-    align-items: center;
-    gap: 0.8rem;
     flex-wrap: wrap;
-    margin-top: 0.3rem;
+    gap: var(--space-3);
   }
 
-  .contact__copy[hidden] {
+  .contact__actions [hidden] {
     display: none;
   }
 
-  .contact__hint {
-    font-size: 0.78rem;
-    color: var(--faint);
-  }
-
+  .contact__hint,
   .contact__book {
-    margin-top: 0.6rem;
-    font-size: 0.82rem;
-  }
-
-  .contact__book a {
-    color: var(--accent-2);
-    border-bottom: 1px solid color-mix(in srgb, var(--accent-2) 40%, transparent);
-    transition: border-color 0.25s;
-  }
-
-  .contact__book a:hover {
-    border-color: var(--accent-2);
-  }
-
-  @media (max-width: 860px) {
-    .contact {
-      grid-template-columns: 1fr;
-      padding: 1.8rem;
-    }
+    font-size: var(--text-sm);
+    color: var(--muted);
   }
 </style>
 
@@ -205,6 +210,11 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     status.textContent = (t(key) ?? '') + extra;
   }
 
+  function openMail(subject, body) {
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus('contact.opening', email);
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -217,41 +227,25 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     const subject = `[Portfolio] ${subjectLine}`;
     const body = `Name: ${name}\nEmail: ${from}\n\n${message}`;
     lastBody = body;
-
     copyBtn.hidden = false;
 
-    if (formKey) {
-      setStatus('contact.sending');
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            access_key: formKey,
-            subject,
-            from_name: name,
-            from_email: from,
-            message,
-          }),
-        });
-        const json = await res.json();
-        if (json.success) {
-          setStatus('contact.success');
-          form.reset();
-          copyBtn.hidden = true;
-          return;
-        }
-        throw new Error(json.message || 'error');
-      } catch {
-        // fall back to email client
-        window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        setStatus('contact.opening', email);
-        return;
-      }
-    }
+    if (!formKey) return openMail(subject, body);
 
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setStatus('contact.opening', email);
+    setStatus('contact.sending');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: formKey, subject, from_name: name, from_email: from, message }),
+      });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.message || 'error');
+      setStatus('contact.success');
+      form.reset();
+      copyBtn.hidden = true;
+    } catch {
+      openMail(subject, body);
+    }
   });
 
   copyBtn.addEventListener('click', async () => {

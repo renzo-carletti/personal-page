@@ -1,4 +1,5 @@
 ---
+import SolarSystem from './fun/SolarSystem.astro';
 import { skills, t, translations } from '../data/content.js';
 const en = translations.en;
 ---
@@ -9,6 +10,7 @@ const en = translations.en;
       <span class="section__num">04</span>
       <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.skills">{en['fun.skills']}</span>
       <h2 id="skills-title" class="section__title" data-i18n="skills.title">{en['skills.title']}</h2>
+      <SolarSystem />
     </header>
 
     <dl class="skills">

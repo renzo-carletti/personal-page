@@ -3,6 +3,7 @@
 // that follows scroll progress (`--scroll`, set in scroll-ui.js).
 import PixelSprite from './PixelSprite.astro';
 import { airship } from './sprites.js';
+import QuantumMoon from './QuantumMoon.astro';
 
 function stars(count: number, seed: number, size: number) {
   let s = seed;
@@ -26,6 +27,14 @@ function stars(count: number, seed: number, size: number) {
     <rect class="fun-sky__twinkle" width="100%" height="100%" fill="url(#stars-b)" />
   </svg>
 </div>
+
+<!-- Achievement pop-up (fun-secrets.js) and the supernova flash (fun-play.js). -->
+<div class="fun-only toast" role="status" aria-live="polite">
+  <p class="toast__title"></p>
+  <p class="toast__text"></p>
+</div>
+<div class="fun-only nova-flash" aria-hidden="true"></div>
+<QuantumMoon />
 
 <div class="fun-only airship" aria-hidden="true">
   <PixelSprite sprite={airship} class="airship__sprite" />

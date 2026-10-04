@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import NomaiWall from './fun/NomaiWall.astro';
 import { drupal, t, translations } from '../data/content.js';
 const en = translations.en;
 ---
@@ -47,6 +48,8 @@ const en = translations.en;
           <h3 class="label" data-i18n="workflow.ai.title">{en['workflow.ai.title']}</h3>
           <p data-i18n="workflow.ai.text">{en['workflow.ai.text']}</p>
         </div>
+
+        <NomaiWall />
       </div>
     </div>
   </div>

@@ -1,0 +1,22 @@
+---
+// A tiny hearthian solar system: pixel sun, four planets on dotted orbits (CSS rotation).
+import PixelSprite from './PixelSprite.astro';
+import { planets, sun } from './sprites.js';
+const orbits = [
+  { planet: planets.forest, size: 46, period: 9 },
+  { planet: planets.sand, size: 72, period: 14 },
+  { planet: planets.rock, size: 98, period: 21 },
+  { planet: planets.gas, size: 126, period: 32 },
+];
+---
+
+<div class="fun-only solar" aria-hidden="true">
+  <PixelSprite sprite={sun} class="solar__sun" />
+  {orbits.map((o, i) => (
+    <span class="solar__orbit" style={`--d: ${o.size * 2}px; --t: ${o.period}s; --start: ${i * 97}deg`}>
+      <span class="solar__arm">
+        <PixelSprite sprite={o.planet} class="solar__planet" />
+      </span>
+    </span>
+  ))}
+</div>

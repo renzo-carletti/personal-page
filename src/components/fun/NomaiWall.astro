@@ -1,0 +1,16 @@
+---
+// Nomai writing on a wall: hover or click "translates" it (fun-play.js unlocks the secret).
+import { nomaiSpiral } from './nomai.js';
+import { translations } from '../../data/content.js';
+const en = translations.en;
+const d = nomaiSpiral(60, 60, 2.7, 2.4, 6);
+const d2 = nomaiSpiral(130, 82, 1.9, 2, 3);
+---
+
+<button class="fun-only nomai" type="button" aria-label={en['fun.nomai.label']} data-i18n="fun.nomai.label" data-i18n-attr="aria-label">
+  <svg class="nomai__glyph" viewBox="0 0 170 120" aria-hidden="true" focusable="false">
+    <path d={d} />
+    <path d={d2} />
+  </svg>
+  <span class="nomai__text" data-i18n="fun.nomai.text">{en['fun.nomai.text']}</span>
+</button>

@@ -1,0 +1,12 @@
+---
+// Moves to another section whenever it is out of view (fun-play.js). Click it while you can.
+import PixelSprite from './PixelSprite.astro';
+import { moon } from './sprites.js';
+import { translations } from '../../data/content.js';
+const en = translations.en;
+---
+
+<button class="fun-only qmoon" type="button" aria-label={en['fun.moon.label']} data-i18n="fun.moon.label" data-i18n-attr="aria-label">
+  <PixelSprite sprite={moon} class="qmoon__sprite" />
+  <span class="qmoon__say" aria-hidden="true" data-i18n="fun.moon.caught">{en['fun.moon.caught']}</span>
+</button>

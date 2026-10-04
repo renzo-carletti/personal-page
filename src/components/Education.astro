@@ -1,5 +1,8 @@
 ---
+import PixelSprite from './fun/PixelSprite.astro';
+import { chestClosed, chestOpen } from './fun/sprites.js';
 import { certifications, education, languages, t, translations } from '../data/content.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const en = translations.en;
 ---
 
@@ -9,6 +12,16 @@ const en = translations.en;
       <span class="section__num">05</span>
       <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.edu">{en['fun.edu']}</span>
       <h2 id="edu-title" class="section__title" data-i18n="edu.title">{en['edu.title']}</h2>
+      <div class="fun-only chest">
+        <button class="chest__btn" type="button" aria-label={en['fun.chest.label']} data-i18n="fun.chest.label" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="chest-loot">
+          <PixelSprite sprite={chestClosed} class="chest__closed" />
+          <PixelSprite sprite={chestOpen} class="chest__open" />
+        </button>
+        <p id="chest-loot" class="chest__loot" hidden>
+          <span data-i18n="fun.chest.got">{en['fun.chest.got']}</span>
+          <a class="link" href={base + 'renzo-carletti-cv.pdf'} download data-cv>CV (PDF)</a>
+        </p>
+      </div>
     </header>
 
     <div class="edu">

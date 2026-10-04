@@ -29,12 +29,13 @@ const sparks = Array.from({ length: 8 });
   <PixelSprite sprite={bolt} class="fun-scene__bolt" />
 </div>
 
-<!-- Each click casts the next spell: fire, blizzard, thunder (fun-play.js). -->
+<!-- Each click casts the next spell: Fire, Blizzard, Thunder, Bio (fun-play.js). -->
 <button class="fun-only vivi" type="button" aria-label={en['fun.vivi']} data-i18n="fun.vivi" data-i18n-attr="aria-label">
   <span class="vivi__bubble" aria-hidden="true">
     <span class="vivi__say vivi__say--fire" data-i18n="fun.cast">{en['fun.cast']}</span>
     <span class="vivi__say vivi__say--ice" data-i18n="fun.ice">{en['fun.ice']}</span>
     <span class="vivi__say vivi__say--bolt" data-i18n="fun.bolt">{en['fun.bolt']}</span>
+    <span class="vivi__say vivi__say--bio" data-i18n="fun.bio">{en['fun.bio']}</span>
   </span>
   <span class="vivi__sparks" aria-hidden="true">{sparks.map(() => <span />)}</span>
   <PixelSprite sprite={vivi} class="vivi__sprite" />

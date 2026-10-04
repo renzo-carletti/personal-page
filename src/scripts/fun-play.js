@@ -14,10 +14,10 @@ function play(el, cls, ms) {
   el._t = { ...el._t, [cls]: setTimeout(() => el.classList.remove(cls), ms) };
 }
 
-// ---------- Vivi: fire → blizzard → thunder ----------
+// ---------- Vivi: Fire → Blizzard → Thunder → Bio (FF9 names) ----------
 const vivi = document.querySelector('.vivi');
 const fx = document.querySelector('.fun-scene__fx');
-const spells = ['fire', 'ice', 'bolt'];
+const spells = ['fire', 'ice', 'bolt', 'bio'];
 const cast = new Set();
 let next = 0;
 vivi?.addEventListener('click', () => {

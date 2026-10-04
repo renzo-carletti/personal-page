@@ -531,11 +531,12 @@
 
   .vivi[data-spell='fire'] .vivi__say--fire,
   .vivi[data-spell='ice'] .vivi__say--ice,
-  .vivi[data-spell='bolt'] .vivi__say--bolt {
+  .vivi[data-spell='bolt'] .vivi__say--bolt,
+  .vivi[data-spell='bio'] .vivi__say--bio {
     display: inline;
   }
 
-  :is(.vivi.is-fire, .vivi.is-ice, .vivi.is-bolt) .vivi__bubble {
+  :is(.vivi.is-fire, .vivi.is-ice, .vivi.is-bolt, .vivi.is-bio) .vivi__bubble {
     animation: bubble 1.3s steps(4) forwards;
   }
 
@@ -585,6 +586,53 @@
   .vivi.is-bolt .vivi__sparks span {
     background: #fff4d6;
     animation: spark 0.5s steps(4) 0.25s forwards;
+  }
+
+  /* Bio: green poison bubbles wobble up and pop; the orb turns sickly green. */
+  .vivi.is-bio .vivi__bubble {
+    background: #a8c66c;
+  }
+
+  .vivi.is-bio .sprite-orb {
+    animation: none;
+    fill: #a8c66c;
+  }
+
+  .vivi.is-bio .vivi__sparks span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(168, 198, 108, 0.35);
+    box-shadow: inset 0 0 0 2px #a8c66c;
+    animation: bio 1.3s steps(8) forwards;
+  }
+
+  .vivi.is-bio .vivi__sparks span:nth-child(even) {
+    width: 6px;
+    height: 6px;
+    background: rgba(62, 142, 65, 0.4);
+    box-shadow: inset 0 0 0 2px #3e8e41;
+  }
+
+  @keyframes bio {
+    0% {
+      opacity: 0;
+      transform: translate(calc(var(--dx) * 0.3), 10px);
+    }
+    15% {
+      opacity: 1;
+    }
+    50% {
+      transform: translate(calc(var(--dx) * 0.6 + 6px), calc(var(--dy) * 0.5));
+    }
+    85% {
+      opacity: 1;
+      transform: translate(calc(var(--dx) * 0.8 - 6px), calc(var(--dy) * 0.9)) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(var(--dx) * 0.8 - 6px), var(--dy)) scale(1.8);
+    }
   }
 
   .fun-scene__fx {

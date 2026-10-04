@@ -8,8 +8,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <section id="top" class="hero container" aria-labelledby="hero-name">
-  <HeroScene />
-  <svg class="pro-only hero__ridges" viewBox="0 190 1440 230" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+  <svg class="pro-only hero__ridges" viewBox="0 196 1440 224" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <path class="hero__ridge" d={farRidge} />
     <path class="hero__ridge hero__ridge--accent" d={midRidge} />
     <path class="hero__ridge" d={hillLine(hill3)} />
@@ -30,7 +29,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
         <Icon name="mail" size={16} />
         <span data-i18n="hero.contact">{en['hero.contact']}</span>
       </a>
-      <a class="btn btn--ghost" href={base + 'cv.pdf'} download>
+      <a class="btn btn--ghost" href={base + 'cv.pdf'} download data-cv>
         <Icon name="download" size={16} />
         <span data-i18n="hero.download">{en['hero.download']}</span>
       </a>
@@ -68,6 +67,8 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       </div>
     ))}
   </dl>
+  <!-- Last in the DOM so Vivi comes after the hero actions in tab order. -->
+  <HeroScene />
 </section>
 
 <style>

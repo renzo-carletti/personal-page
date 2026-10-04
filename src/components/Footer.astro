@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
       <li><a class="link" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       <li><a class="link" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
       <li><a class="link" href={`mailto:${profile.email}`}>Email</a></li>
-      <li><a class="link" href={base + 'cv.pdf'} download>CV (PDF)</a></li>
+      <li><a class="link" href={base + 'cv.pdf'} download data-cv>CV (PDF)</a></li>
     </ul>
     <p class="fun-only footer__credit" data-i18n="fun.credit">{en['fun.credit']}</p>
   </div>

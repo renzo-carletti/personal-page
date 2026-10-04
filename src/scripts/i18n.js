@@ -12,7 +12,6 @@ export function applyLang(lang) {
   const dict = translations[lang] ?? translations[defaultLang];
 
   document.documentElement.lang = lang;
-  document.title = dict['meta.title'];
 
   document.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.dataset.i18n;
@@ -20,6 +19,11 @@ export function applyLang(lang) {
     const attr = el.dataset.i18nAttr;
     if (attr) el.setAttribute(attr, value);
     else el.textContent = value;
+  });
+
+  // CV download follows the page language.
+  document.querySelectorAll('[data-cv]').forEach((a) => {
+    a.href = a.href.replace(/cv(-es)?\.pdf$/, lang === 'es' ? 'cv-es.pdf' : 'cv.pdf');
   });
 
   document.querySelectorAll('[data-lang-btn]').forEach((btn) => {

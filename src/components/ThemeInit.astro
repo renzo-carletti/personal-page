@@ -1,0 +1,9 @@
+<!-- Applies stored fun mode and light/dark before first paint (no flash). -->
+<script is:inline>
+  try {
+    const root = document.documentElement;
+    if (localStorage.getItem('rc-theme') === 'fun') root.dataset.theme = 'fun';
+    const scheme = localStorage.getItem('rc-scheme');
+    root.dataset.scheme = scheme === 'light' || scheme === 'dark' ? scheme : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  } catch (e) {}
+</script>

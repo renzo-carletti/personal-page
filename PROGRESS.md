@@ -4,10 +4,10 @@ Single source of truth for the redesign. Phase 0 (audit) done on 2026-10-02. Ref
 
 ## Phases
 - [x] Phase 0: Audit + Style Brief
-- [x] Phase 1: Content & architecture (2026-10-02; open: user regenerates cv.pdf)
+- [x] Phase 1: Content & architecture (2026-10-02)
 - [x] Phase 2: Normal mode (2026-10-02; fun mode is a palette swap until Phase 3)
 - [x] Phase 3: Fun mode (2026-10-02)
-- [ ] Phase 4: Polish & quality
+- [x] Phase 4: Polish & quality (2026-10-04)
 
 ### 1. Project map
 - Stack: Astro 5.18 static site, `@astrojs/sitemap`, GSAP 3 (fun mode only), Fontsource Inter + JetBrains Mono (self-hosted, preloaded via inline @font-face).
@@ -106,7 +106,7 @@ Clash + proposed unified direction (NEEDS CONFIRMATION before Phase 3):
 Phase 1 — Content & architecture
 - [x] Merge cv.js + translations.js into `src/data/content.json` (EN/ES keyed per field) — one source, both modes. `src/data/content.js` exports data, `t(field, lang)` and the flat `translations` dict for runtime `data-i18n` swap; SSR text comes from the same dict.
 - [x] Rewrite copy specific/plain. Only verified numbers kept (5+ yrs, 57K+ users, 786K+ events, e-UADER 2,000+ users / 1,100+ certs). No TODO(verify) left. Skills: +PHPUnit, +Search API; no Solr/Behat.
-- [ ] `public/cv.pdf` still contains dropped claims (30%/40%/80%/25%, "1,100+ enrollments in first month", "Mid-Senior"). User must regenerate the PDF.
+- [x] (Closed in Phase 4: PDF now generated from the site.) `public/cv.pdf` still contained dropped claims (30%/40%/80%/25%, "1,100+ enrollments in first month", "Mid-Senior"). User must regenerate the PDF.
 - [x] Tokens in global.css: type scale, spacing, radius, border, shadow, motion, layout (shared) + color per mode (pro dark default, pro light `data-scheme="light"`, fun). Existing components still use old visuals; Phase 2 switches them to the scales.
 - [x] Mode toggle: B&W toggle removed (user, 2026-10-02). New pro light/dark toggle (`.nav__scheme`, key `rc-scheme`, follows `prefers-color-scheme` until user picks, set pre-paint in Layout, aria-pressed = dark, hidden in fun mode). `rc-theme` fun toggle unchanged. theme-color meta follows `--bg`.
 - [x] Old uncommitted FF9 planet/crystal WIP in Hero.astro/global.css discarded (user: only the new work matters).
@@ -123,7 +123,7 @@ Phase 2 — Normal mode
 - [x] Fixes: contact form placeholder text leaking as visible text; labels now use `for`/`id`. Footer moved out of `<main>`. Numbers formatted per locale (1.100+ in ES). Experience period translated ("Actualidad").
 - [x] Removed: GSAP + `@fontsource-variable/inter` deps, `fun-fx.js`, `game-fx.js`, `reveal.js`, `hero-three.js`, About.astro, Workflow.astro. Certifications.astro renamed to Education.astro.
 - [x] Fun mode is only a palette swap until Phase 3 (done in Phase 3).
-- [ ] Certification dates (`Apr 2025`) are still English-only.
+- [x] Certification dates localized in Phase 4.
 Phase 3 — Fun mode
 - [x] Approach: same markup and content as normal mode, reskinned by `src/styles/fun.css` (all rules under `@media screen` and `:root[data-theme='fun']`). Fun-only elements use `.fun-only` (display:none in normal mode and print). No GSAP, no extra JS deps.
 - [x] `astro.config.mjs`: `scopedStyleStrategy: 'where'` so theme overrides win over scoped component styles. Normal mode verified pixel-identical before/after (1440 and 390 full-page diff).
@@ -145,7 +145,17 @@ Phase 2b — Normal mode polish (2026-10-04, user: "looks kinda simple"; chose p
 - [x] Micro: primary button lift, arrow nudge on outbound links.
 - [x] Checked: normal dark/light 1440, ES 390, 320, 1000, fun 1440/390; no horizontal overflow.
 
-Phase 4 — Polish & quality: as brief; README rewrite (GitHub Pages first).
+Phase 4 — Polish & quality (2026-10-04)
+- [x] GitHub link fixed (`github.com/renzo-carletti`; old `Pipoku` URL was 404). Git remote moved to the new repo URL.
+- [x] Site address defaults to `https://renzo-carletti.github.io/personal-page/` (no custom domain). `robots.txt` generated (`src/pages/robots.txt.ts`); sitemap leaves out `/cv`, `/og`, 404.
+- [x] CV PDF generated from content: `/cv/` and `/cv/es/` (`CvSheet.astro`, 2 A4 pages) → `public/cv.pdf`, `public/cv-es.pdf` via `npm run assets` (`scripts/build-assets.mjs`, headless Chrome, no new deps). Download links follow page language (`data-cv` in i18n.js). Verified: no removed claims in the PDF text.
+- [x] New share card `/og/` → `public/og.png` (editorial dark, ridge line art). New favicon (ridge mark) + `apple-touch-icon.png`.
+- [x] Fonts moved to `src/styles/fonts.js`; pre-paint theme script to `ThemeInit.astro` (shared by Layout and 404).
+- [x] Certification dates stored as `YYYY-MM`, formatted per language (`formatMonth` in content.js).
+- [x] 404 page: plain in normal mode, "Game over / Continue?" with Vivi in fun mode.
+- [x] Skip link translated; `<title>` switches language through `data-i18n`; Vivi moved after the hero actions in tab order. Unused dictionary keys removed (`about.whoText`, `about.highlights`, `work.N.desc`; the fields stay in JSON, the CV uses `about`/`highlights`).
+- [x] `references/` git-ignored. README rewritten (GitHub Pages first).
+- [x] Quality: Lighthouse mobile 98/100/100/100, desktop 100/100/100/100 (normal mode). axe-core: 0 violations in normal light/dark and fun at 390 and 1440. Keyboard walk-through OK, no console errors.
 
 Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), drupal.org contributions/talks?, PHPUnit/Behat/Search API/Solr experience?, keep EN/ES?
 

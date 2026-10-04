@@ -1,0 +1,132 @@
+---
+// 1200×630 share card. `npm run assets` screenshots it to public/og.png.
+import { fontCss } from '../styles/fonts.js';
+import { farRidge, midRidge, hill3, hillLine } from '../components/scene.js';
+import { profile, stats, t, translations } from '../data/content.js';
+const en = translations.en;
+const host = Astro.site!.href.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>{profile.name} · share card</title>
+    <style is:global set:html={fontCss} />
+  </head>
+  <body>
+    <div class="card">
+      <p class="role">{t(profile.role)}</p>
+      <h1>{profile.name}</h1>
+      <p class="tagline">{t(profile.tagline)}</p>
+      <ul class="numbers">
+        {stats.map((s) => (
+          <li><strong>{en[`hero.stats.${s.id}.value`]}</strong> {t(s.label)}</li>
+        ))}
+      </ul>
+      <p class="host">{host}</p>
+      <svg class="ridges" viewBox="0 196 1440 224" preserveAspectRatio="none" aria-hidden="true">
+        <path d={farRidge} />
+        <path class="accent" d={midRidge} />
+        <path d={hillLine(hill3)} />
+      </svg>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #101214;
+    color: #e9eaec;
+    font-family: 'Public Sans Variable', system-ui, sans-serif;
+  }
+
+  .card {
+    position: relative;
+    height: 100%;
+    padding: 72px 80px;
+  }
+
+  .role {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 24px;
+    color: #5aaee8;
+  }
+
+  h1 {
+    margin-top: 18px;
+    font-family: 'Newsreader Variable', Georgia, serif;
+    font-weight: 500;
+    font-size: 92px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .tagline {
+    margin-top: 22px;
+    font-family: 'Newsreader Variable', Georgia, serif;
+    font-style: italic;
+    font-size: 34px;
+    color: #c9ccd1;
+    max-width: 22em;
+  }
+
+  .numbers {
+    display: flex;
+    gap: 36px;
+    margin-top: 34px;
+    list-style: none;
+    font-size: 19px;
+    color: #a3a8af;
+  }
+
+  .numbers strong {
+    font-family: 'Newsreader Variable', Georgia, serif;
+    font-weight: 500;
+    font-size: 30px;
+    color: #e9eaec;
+  }
+
+  .numbers li:nth-child(n + 3) {
+    display: none;
+  }
+
+  .host {
+    position: absolute;
+    top: 76px;
+    right: 80px;
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 18px;
+    color: #8a9098;
+  }
+
+  .ridges {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+  }
+
+  .ridges path {
+    fill: none;
+    stroke: #3d4248;
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .ridges .accent {
+    stroke: #5aaee8;
+    opacity: 0.6;
+  }
+</style>

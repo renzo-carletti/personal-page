@@ -5,3 +5,6 @@ dist/
 *.log
 # Playwright MCP artifacts
 .playwright-mcp/
+
+# Mood board with third-party art: reference only, never commit.
+references/

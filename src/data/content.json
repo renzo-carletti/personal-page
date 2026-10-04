@@ -15,7 +15,7 @@
     "phone": "+54 9 343 4295 881",
     "linkedin": "https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/",
     "linkedinLabel": "in/renzo-emiliano-carletti",
-    "github": "https://github.com/Pipoku",
+    "github": "https://github.com/renzo-carletti",
     "role": {
       "en": "Drupal & React developer",
       "es": "Desarrollador Drupal y React"
@@ -281,13 +281,13 @@
   },
 
   "certifications": [
-    { "name": { "en": "Diploma in DevOps Engineering", "es": "Diplomatura en Ingeniería DevOps" }, "issuer": "Mundos E", "date": "Apr 2025" },
-    { "name": { "en": "React.js", "es": "React.js" }, "issuer": "Coder House", "date": "Jun 2023" },
-    { "name": { "en": "JavaScript", "es": "JavaScript" }, "issuer": "Coder House", "date": "Jun 2023" },
-    { "name": { "en": "Web Development", "es": "Desarrollo Web" }, "issuer": "Coder House", "date": "Mar 2023" },
-    { "name": { "en": "Git Version Control", "es": "Control de versiones con Git" }, "issuer": "Gugler", "date": "Jan 2023" },
-    { "name": { "en": "Java Programming, Level 1", "es": "Programación Java, Nivel 1" }, "issuer": "Gugler", "date": "Jul 2020" },
-    { "name": { "en": "English, Advanced", "es": "Inglés, Avanzado" }, "issuer": "Advance", "date": "Dec 2014" }
+    { "name": { "en": "Diploma in DevOps Engineering", "es": "Diplomatura en Ingeniería DevOps" }, "issuer": "Mundos E", "date": "2025-04" },
+    { "name": { "en": "React.js", "es": "React.js" }, "issuer": "Coder House", "date": "2023-06" },
+    { "name": { "en": "JavaScript", "es": "JavaScript" }, "issuer": "Coder House", "date": "2023-06" },
+    { "name": { "en": "Web Development", "es": "Desarrollo Web" }, "issuer": "Coder House", "date": "2023-03" },
+    { "name": { "en": "Git Version Control", "es": "Control de versiones con Git" }, "issuer": "Gugler", "date": "2023-01" },
+    { "name": { "en": "Java Programming, Level 1", "es": "Programación Java, Nivel 1" }, "issuer": "Gugler", "date": "2020-07" },
+    { "name": { "en": "English, Advanced", "es": "Inglés, Avanzado" }, "issuer": "Advance", "date": "2014-12" }
   ],
 
   "education": [
@@ -366,6 +366,7 @@
     "contact.opening": { "en": "Opening your email client... if nothing happened, email me directly at ", "es": "Abriendo tu cliente de correo... si no pasa nada, escribime directamente a " },
     "nav.drupal": { "en": "Drupal", "es": "Drupal" },
     "nav.menu": { "en": "Menu", "es": "Menú" },
+    "nav.skip": { "en": "Skip to content", "es": "Saltar al contenido" },
     "nav.home": { "en": "Renzo Carletti, home", "es": "Renzo Carletti, inicio" },
     "hero.contact": { "en": "Get in touch", "es": "Escribime" },
     "hero.facts": { "en": "Quick facts", "es": "Datos rápidos" },
@@ -390,6 +391,13 @@
     "work.shot": { "en": "Home page of", "es": "Página de inicio de" },
     "hero.available": { "en": "Open to remote work", "es": "Disponible para trabajo remoto" },
     "exp.now": { "en": "Now", "es": "Actual" },
+    "cv.profile": { "en": "Profile", "es": "Perfil" },
+    "404.title": { "en": "Page not found", "es": "Página no encontrada" },
+    "404.text": { "en": "This page doesn't exist or has moved.", "es": "Esta página no existe o se movió." },
+    "404.home": { "en": "Back to home", "es": "Volver al inicio" },
+    "404.gameover": { "en": "Game over", "es": "Game over" },
+    "404.continue": { "en": "Continue?", "es": "¿Continuar?" },
+    "cv.projects": { "en": "Selected projects", "es": "Proyectos destacados" },
     "fun.lv": { "en": "LV 5", "es": "NV 5" },
     "fun.start": { "en": "Press start", "es": "Presioná start" },
     "fun.work": { "en": "World 1 · The river map", "es": "Mundo 1 · El mapa del río" },

@@ -1,0 +1,336 @@
+---
+// Two-page A4 CV built from content.json. `npm run assets` prints it to public/cv.pdf
+// (EN) and public/cv-es.pdf (ES), so the PDF never drifts from the site.
+import { fontCss } from '../styles/fonts.js';
+import {
+  certifications,
+  education,
+  experience,
+  languages,
+  profile,
+  projects,
+  skills,
+  t,
+  translations,
+  formatMonth,
+} from '../data/content.js';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+
+const { lang } = Astro.props;
+const ui = translations[lang];
+const tr = (field: unknown) => t(field, lang);
+const siteUrl = Astro.site!.href.replace(/\/$/, '');
+const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{profile.name} · CV</title>
+    <style is:global set:html={fontCss} />
+  </head>
+  <body>
+    <main class="sheet">
+      <header class="cv-head">
+        <div>
+          <h1>{profile.name}</h1>
+          <p class="cv-role">{tr(profile.role)}</p>
+        </div>
+        <ul class="cv-contact">
+          <li>{tr({ en: 'Paraná, Argentina', es: 'Paraná, Argentina' })}</li>
+          <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+          <li>{profile.phone}</li>
+          <li><a href={profile.linkedin}>linkedin.com/{profile.linkedinLabel}</a></li>
+          <li><a href={profile.github}>{host(profile.github)}</a></li>
+          <li><a href={siteUrl}>{host(siteUrl)}</a></li>
+        </ul>
+      </header>
+
+      <section>
+        <h2>{ui['cv.profile']}</h2>
+        <p>{tr(profile.summary)}</p>
+        <ul class="cv-highlights">
+          {profile.highlights.map((h) => <li>{tr(h)}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{ui['exp.title']}</h2>
+        {experience.map((job) => (
+          <article class="cv-job">
+            <div class="cv-row">
+              <h3>{tr(job.role)} · <span>{job.company}</span></h3>
+              <p class="cv-date">{tr(job.period)}</p>
+            </div>
+            <p class="cv-meta">{tr(job.meta)}</p>
+            <ul>
+              {job.bullets.map((b) => <li>{tr(b)}</li>)}
+            </ul>
+          </article>
+        ))}
+      </section>
+
+      <section>
+        <h2>{ui['cv.projects']}</h2>
+        {projects.map((p) => (
+          <article class="cv-project">
+            <div class="cv-row">
+              <h3>{tr(p.name)} · <span>{tr(p.tagline)}</span></h3>
+              <p class="cv-date"><a href={p.url}>{host(p.url)}</a></p>
+            </div>
+            <p>{tr(p.case.solution)} {tr(p.case.impact)}</p>
+            <p class="cv-meta">{p.tech.join(' · ')}</p>
+          </article>
+        ))}
+      </section>
+
+      <section>
+        <h2>{ui['skills.title']}</h2>
+        <dl class="cv-skills">
+          {skills.map((g) => (
+            <div>
+              <dt>{tr(g.group)}</dt>
+              <dd>{g.items.join(', ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <div class="cv-cols">
+        <section>
+          <h2>{ui['edu.degrees']}</h2>
+          {education.map((e) => (
+            <article class="cv-edu">
+              <h3>{tr(e.degree)}</h3>
+              <p class="cv-meta">{tr(e.school)} · {tr(e.period)}</p>
+            </article>
+          ))}
+          <h2 class="cv-sub">{ui['edu.langs']}</h2>
+          <p>{languages.map((l) => `${tr(l.name)}: ${tr(l.level)}`).join(' · ')}</p>
+        </section>
+
+        <section>
+          <h2>{ui['certs.title']}</h2>
+          <ul class="cv-certs">
+            {certifications.map((c) => (
+              <li>
+                <span>{tr(c.name)} <span class="cv-meta">· {c.issuer}</span></span>
+                <span class="cv-date">{formatMonth(c.date, lang)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  @page {
+    size: A4;
+    margin: 13mm 14mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 9.2pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Public Sans Variable', system-ui, sans-serif;
+    line-height: 1.42;
+    color: #1d2024;
+    background: #fff;
+  }
+
+  /* On screen, preview the sheet at A4 width. */
+  .sheet {
+    max-width: 182mm;
+    margin: 0 auto;
+  }
+
+  @media screen {
+    body {
+      background: #e9e9e6;
+      padding: 12mm 0;
+    }
+
+    .sheet {
+      background: #fff;
+      padding: 13mm 14mm;
+      max-width: 210mm;
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: 'Newsreader Variable', Georgia, serif;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  h1 {
+    font-size: 2.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    color: #0567a6;
+    padding-bottom: 0.15rem;
+    margin: 1.05rem 0 0.45rem;
+    border-bottom: 1px solid #d6d6d2;
+    break-after: avoid;
+  }
+
+  h3 {
+    font-size: 1.08rem;
+  }
+
+  h3 span {
+    color: #4f545b;
+  }
+
+  ul {
+    padding-left: 1rem;
+  }
+
+  li + li {
+    margin-top: 0.12rem;
+  }
+
+  .cv-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #1d2024;
+  }
+
+  .cv-role {
+    margin-top: 0.2rem;
+    font-size: 1.1rem;
+    color: #0567a6;
+  }
+
+  .cv-contact {
+    list-style: none;
+    padding: 0;
+    text-align: right;
+    font-size: 0.92rem;
+    color: #4f545b;
+  }
+
+  .cv-contact li + li {
+    margin-top: 0;
+  }
+
+  .cv-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.1rem 1.4rem;
+    margin-top: 0.45rem;
+  }
+
+  .cv-highlights li + li {
+    margin-top: 0;
+  }
+
+  .cv-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .cv-date {
+    flex: none;
+    font-size: 0.9rem;
+    color: #4f545b;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cv-meta {
+    font-size: 0.9rem;
+    color: #656b73;
+  }
+
+  .cv-job,
+  .cv-project {
+    break-inside: avoid;
+  }
+
+  .cv-job + .cv-job,
+  .cv-project + .cv-project {
+    margin-top: 0.6rem;
+  }
+
+  .cv-job ul {
+    margin-top: 0.2rem;
+  }
+
+  .cv-project p:not(.cv-meta, .cv-date) {
+    margin-top: 0.1rem;
+  }
+
+  .cv-skills > div {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 0.8rem;
+    break-inside: avoid;
+  }
+
+  .cv-skills > div + div {
+    margin-top: 0.15rem;
+  }
+
+  .cv-skills dt {
+    font-weight: 600;
+  }
+
+  .cv-cols {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 1.6rem;
+    break-inside: avoid;
+  }
+
+  .cv-edu + .cv-edu {
+    margin-top: 0.35rem;
+  }
+
+  .cv-sub {
+    margin-top: 0.8rem;
+  }
+
+  .cv-certs {
+    list-style: none;
+    padding: 0;
+  }
+
+  .cv-certs li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+</style>

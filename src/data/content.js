@@ -11,6 +11,14 @@ export function t(field, lang = defaultLang) {
   return field[lang] ?? field[defaultLang];
 }
 
+// "2025-04" → "Apr 2025" / "abr 2025".
+export function formatMonth(ym, lang = defaultLang) {
+  const [y, m] = ym.split('-').map(Number);
+  return new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' : 'en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(Date.UTC(y, m - 1, 1)))
+    .replace('.', '');
+}
+
 // Flat key → string map for one language. Keys match the `data-i18n` attributes in the markup.
 function buildDict(lang) {
   const d = {};
@@ -29,9 +37,7 @@ function buildDict(lang) {
     d[`hero.stats.${s.id}.value`] = s.value.toLocaleString(lang === 'es' ? 'es-AR' : 'en-US') + s.suffix;
   });
 
-  put('about.whoText', profile.about);
   put('about.current.text', profile.current);
-  profile.highlights.forEach((h, i) => put(`about.highlights.${i}`, h));
   education.forEach((e, i) => {
     for (const k of ['school', 'degree', 'detail', 'period']) put(`about.edu.${i}.${k}`, e[k]);
   });
@@ -48,7 +54,7 @@ function buildDict(lang) {
   });
 
   projects.forEach((p, i) => {
-    for (const k of ['name', 'tagline', 'desc', 'metric']) put(`work.${i}.${k}`, p[k]);
+    for (const k of ['name', 'tagline', 'metric']) put(`work.${i}.${k}`, p[k]);
     for (const k of ['problem', 'solution', 'impact']) put(`case.${i}.${k}`, p.case[k]);
     d[`work.${i}.shot`] = `${t(content.ui['work.shot'], lang)} ${t(p.name, lang)}`;
   });
@@ -60,7 +66,10 @@ function buildDict(lang) {
   });
 
   skills.forEach((g, i) => put(`skills.g${i}`, g.group));
-  certifications.forEach((c, i) => put(`certs.${i}`, c.name));
+  certifications.forEach((c, i) => {
+    put(`certs.${i}`, c.name);
+    d[`certs.${i}.date`] = formatMonth(c.date, lang);
+  });
 
   return d;
 }

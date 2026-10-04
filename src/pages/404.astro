@@ -1,0 +1,70 @@
+---
+import { fontCss } from '../styles/fonts.js';
+import '../styles/global.css';
+import '../styles/fun.css';
+import ThemeInit from '../components/ThemeInit.astro';
+import PixelSprite from '../components/fun/PixelSprite.astro';
+import { vivi } from '../components/fun/sprites.js';
+import { translations } from '../data/content.js';
+const en = translations.en;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <ThemeInit />
+    <link rel="icon" type="image/svg+xml" href={base + 'favicon.svg'} />
+    <title>404 · Renzo Carletti</title>
+    <style is:global set:html={fontCss} />
+  </head>
+  <body>
+    <main class="lost container">
+      <PixelSprite sprite={vivi} class="fun-only lost__vivi" />
+      <p class="fun-only lost__over" data-i18n="404.gameover">{en['404.gameover']}</p>
+      <p class="section__num">404</p>
+      <h1 class="section__title" data-i18n="404.title">{en['404.title']}</h1>
+      <p class="lost__text" data-i18n="404.text">{en['404.text']}</p>
+      <a class="btn btn--primary" href={base}>
+        <span class="pro-only" data-i18n="404.home">{en['404.home']}</span>
+        <span class="fun-only" data-i18n="404.continue">{en['404.continue']}</span>
+      </a>
+    </main>
+  </body>
+</html>
+
+<script>
+  import '../scripts/i18n.js';
+</script>
+
+<style>
+  .lost {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: var(--space-4);
+  }
+
+  .lost__text {
+    color: var(--muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .lost__vivi {
+    width: 88px;
+  }
+
+  .lost__over {
+    font-family: var(--font-pixel);
+    font-size: var(--text-3xl);
+    font-size-adjust: 0.55;
+    line-height: 1;
+    color: var(--frame-hot);
+    text-shadow: 4px 4px 0 #8e2b1a;
+    text-transform: uppercase;
+  }
+</style>

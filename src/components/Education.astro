@@ -45,7 +45,7 @@ const en = translations.en;
               <tr>
                 <th scope="row" data-i18n={`certs.${i}`}>{t(cert.name)}</th>
                 <td>{cert.issuer}</td>
-                <td class="certs__date">{cert.date}</td>
+                <td class="certs__date" data-i18n={`certs.${i}.date`}>{en[`certs.${i}.date`]}</td>
               </tr>
             ))}
           </tbody>

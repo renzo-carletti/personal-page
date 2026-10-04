@@ -320,20 +320,12 @@ const fields = [
 
     setStatus('contact.sending');
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: formKey,
-          subject,
-          from_name: 'Portfolio contact form',
-          name,
-          email: from,
-          replyto: from,
-          message,
-          botcheck: el('botcheck').checked,
-        }),
-      });
+      // FormData keeps this a "simple" CORS request (no preflight), which Web3Forms accepts.
+      const data = new FormData(form);
+      data.set('subject', subject);
+      data.set('from_name', 'Portfolio contact form');
+      data.set('replyto', from);
+      const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
       const json = await res.json();
       if (!json.success) throw new Error(json.message || 'error');
       setStatus('contact.success');

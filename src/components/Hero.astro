@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import HeroScene from './fun/HeroScene.astro';
+import { farRidge, midRidge, hill3, hillLine } from './scene.js';
 import { profile, stats, t, translations } from '../data/content.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
@@ -8,7 +9,16 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 <section id="top" class="hero container" aria-labelledby="hero-name">
   <HeroScene />
+  <svg class="pro-only hero__ridges" viewBox="0 190 1440 230" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <path class="hero__ridge" d={farRidge} />
+    <path class="hero__ridge hero__ridge--accent" d={midRidge} />
+    <path class="hero__ridge" d={hillLine(hill3)} />
+  </svg>
   <div class="hero__main">
+    <p class="pro-only hero__status">
+      <span class="hero__dot" aria-hidden="true"></span>
+      <span data-i18n="hero.available">{en['hero.available']}</span>
+    </p>
     <p class="hero__role" data-i18n="hero.role">{t(profile.role)}</p>
     <h1 id="hero-name" class="hero__name">{profile.name}</h1>
     <p class="hero__tagline" data-i18n="hero.tagline">{t(profile.tagline)}</p>
@@ -62,17 +72,62 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 <style>
   .hero {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-7);
-    padding-block: var(--space-8) var(--space-9);
+    padding-block: var(--space-8) calc(var(--space-9) + clamp(70px, 9vw, 130px));
+  }
+
+  /* Line-art echo of the fun mode landscape, full bleed under the hero. */
+  .hero__ridges {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    max-width: none;
+    height: clamp(90px, 11vw, 160px);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .hero__ridge {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.25;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .hero__ridge--accent {
+    stroke: var(--accent);
+    opacity: 0.55;
+  }
+
+  .hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--muted);
+    border: var(--border-1) solid var(--line);
+    border-radius: var(--radius-pill);
+  }
+
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 25%, transparent);
   }
 
   @media (min-width: 960px) {
     .hero {
       grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
       column-gap: var(--space-8);
-      padding-block: var(--space-9);
+      padding-top: var(--space-9);
     }
   }
 
@@ -168,6 +223,16 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     padding: var(--space-5) var(--space-5) 0 0;
   }
 
+  /* Short accent rule above each number. */
+  .hero__numbers > div::before {
+    content: '';
+    order: -2;
+    width: 1.5rem;
+    height: 2px;
+    margin-bottom: var(--space-3);
+    background: var(--accent);
+  }
+
   .hero__numbers dd {
     order: -1;
     font-family: var(--font-display);
@@ -188,7 +253,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       gap: 1rem;
     }
 
-    .hero__actions {
+    .hero__actions,
+    .hero__ridges,
+    .hero__status {
       display: none;
     }
 

@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import { drupal, t, translations } from '../data/content.js';
 const en = translations.en;
 ---
@@ -28,11 +29,13 @@ const en = translations.en;
           <figcaption class="label" data-i18n="workflow.arch.title">{en['workflow.arch.title']}</figcaption>
           <ol class="arch__flow" role="list">
             <li class="arch__node">
+              <Icon name="drop" size={22} class="arch__icon" />
               <strong data-i18n="workflow.arch.drupal">{en['workflow.arch.drupal']}</strong>
               <span data-i18n="workflow.arch.drupalSub">{en['workflow.arch.drupalSub']}</span>
             </li>
-            <li class="arch__link" data-i18n="workflow.arch.api">{en['workflow.arch.api']}</li>
+            <li class="arch__link"><span data-i18n="workflow.arch.api">{en['workflow.arch.api']}</span></li>
             <li class="arch__node">
+              <Icon name="atom" size={22} class="arch__icon" />
               <strong data-i18n="workflow.arch.react">{en['workflow.arch.react']}</strong>
               <span data-i18n="workflow.arch.reactSub">{en['workflow.arch.reactSub']}</span>
             </li>
@@ -113,9 +116,18 @@ const en = translations.en;
 
   .arch__node {
     display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: center;
     padding: var(--space-3) var(--space-4);
+    background: var(--bg);
     border: var(--border-1) solid var(--line-strong);
     border-radius: var(--radius-sm);
+  }
+
+  .arch__node :global(.arch__icon) {
+    grid-row: span 2;
+    color: var(--accent);
   }
 
   .arch__node span {
@@ -124,22 +136,31 @@ const en = translations.en;
     color: var(--faint);
   }
 
-  /* Connector: vertical rule with the protocol label beside it. */
+  /* Connector: dashed rule with the protocol as a chip on it. */
   .arch__link {
     position: relative;
-    padding: var(--space-3) 0 var(--space-3) var(--space-6);
+    padding: var(--space-4) 0 var(--space-4) calc(var(--space-4) + 2px);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--accent);
   }
 
+  .arch__link span {
+    position: relative;
+    display: inline-block;
+    padding: 0.1rem var(--space-2);
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+    border: var(--border-1) solid color-mix(in srgb, var(--accent) 40%, transparent);
+    border-radius: var(--radius-pill);
+  }
+
   .arch__link::before {
     content: '';
     position: absolute;
-    left: var(--space-4);
+    left: calc(var(--space-4) + 10px);
     top: 0;
     bottom: 0;
-    border-left: var(--border-2) solid var(--accent);
+    border-left: var(--border-2) dashed var(--accent);
   }
 
   .arch__why,

@@ -50,6 +50,7 @@ function buildDict(lang) {
   projects.forEach((p, i) => {
     for (const k of ['name', 'tagline', 'desc', 'metric']) put(`work.${i}.${k}`, p[k]);
     for (const k of ['problem', 'solution', 'impact']) put(`case.${i}.${k}`, p.case[k]);
+    d[`work.${i}.shot`] = `${t(content.ui['work.shot'], lang)} ${t(p.name, lang)}`;
   });
 
   put('drupal.versions', drupal.versions);

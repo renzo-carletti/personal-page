@@ -178,7 +178,10 @@
     color: var(--on-accent);
     background: var(--frame-hot);
     padding: 0 var(--space-2);
+    margin-bottom: var(--space-3);
     font-size: var(--text-sm);
+    font-style: normal;
+    line-height: var(--leading-body);
   }
 
   .fun-label {
@@ -415,6 +418,10 @@
     font-size: var(--text-xl);
   }
 
+  :root[data-theme='fun'] .hero__numbers > div::before {
+    content: none;
+  }
+
   :root[data-theme='fun'] .hero__numbers dd {
     color: var(--frame-hot);
   }
@@ -590,6 +597,7 @@
   /* ---------- 01 Work: level select along a river ---------- */
   :root[data-theme='fun'] .cases {
     position: relative;
+    grid-template-columns: minmax(0, 1fr);
     padding-left: 2.75rem;
     gap: var(--space-7);
   }
@@ -628,9 +636,35 @@
 
   :root[data-theme='fun'] .case article {
     margin: var(--px);
-    padding: var(--space-6);
+    border: none;
+    overflow: visible;
     background: var(--window);
     box-shadow: var(--pixel-frame);
+  }
+
+  /* Screenshot sits under the window's top edge; the browser bar becomes a dark title strip. */
+  :root[data-theme='fun'] .case__shot {
+    border-bottom: var(--px) solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .case__bar {
+    background: var(--night);
+    border-bottom: none;
+  }
+
+  :root[data-theme='fun'] .case__dots span {
+    border-radius: 0;
+    background: var(--frame);
+  }
+
+  :root[data-theme='fun'] .case__host {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--sky);
+  }
+
+  :root[data-theme='fun'] .case article:hover .case__shot img {
+    transform: none;
   }
 
   :root[data-theme='fun'] .case--featured article {
@@ -672,11 +706,24 @@
   }
 
   :root[data-theme='fun'] .job {
+    padding-block: var(--space-6);
     border-top: 2px dotted var(--frame);
   }
 
   :root[data-theme='fun'] .job:first-child {
+    padding-top: 0;
     border-top: none;
+  }
+
+  /* The quest log has no timeline rail. */
+  :root[data-theme='fun'] :is(.job__body, .job__period) {
+    padding-left: 0;
+    padding-bottom: 0;
+    border-left: none;
+  }
+
+  :root[data-theme='fun'] .job__body::before {
+    content: none;
   }
 
   :root[data-theme='fun'] .job__period {
@@ -920,6 +967,29 @@
     max-width: 24ch;
   }
 
+  :root[data-theme='fun'] .contact__lead {
+    border-bottom: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .contact__headline {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size-adjust: 0.55;
+    font-size: var(--text-2xl);
+    letter-spacing: 0;
+    max-width: 20ch;
+    color: var(--frame-hot);
+    text-shadow: var(--px) var(--px) 0 #8e2b1a;
+  }
+
+  :root[data-theme='fun'] .contact__mail {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .contact__copy {
+    border: 2px solid var(--frame);
+  }
+
   :root[data-theme='fun'] .contact__links li {
     border-bottom: 2px dotted var(--frame);
     color: var(--muted);
@@ -981,7 +1051,7 @@
       display: none;
     }
 
-    :root[data-theme='fun'] :is(.case article, .jobs, .contact__form) {
+    :root[data-theme='fun'] :is(.jobs, .contact__form) {
       padding: var(--space-5) var(--space-4);
     }
   }

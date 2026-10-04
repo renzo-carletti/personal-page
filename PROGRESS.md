@@ -134,6 +134,17 @@ Phase 3 — Fun mode
 - [x] Sections: 01 level select (river path, stage nodes, "Stage 1-n" mission cards, featured = gold frame) / 02 quest log window / 03 spellbook (gem markers, arch diagram window) / 04 star chart (planet + ring per group, pixel-star items; Skills now renders a list, normal mode unchanged) / 05 achievements (pixel trophies) / 06 save point (Vivi + campfire, form window). Pixel section dividers.
 - [x] Fun strings in `content.json` (`fun.*`, EN/ES). Footer credit in fun mode: "Vivi is a fan tribute: Final Fantasy IX © Square Enix. All pixel art on this site is original."
 - [x] Checked: no horizontal overflow at 320/390/1000/1440; reduced motion handled by the global rule.
+Phase 2b — Normal mode polish (2026-10-04, user: "looks kinda simple"; chose polished editorial, no photo, use site screenshots)
+- [x] Project screenshots: captured once from the live sites (1440×900, headless Chrome), stored as WebP in `src/assets/work/`, served by `<Picture>` as AVIF/WebP 480/800/1200w, lazy. ~75 KB AVIF on desktop. `image` id per project in `content.json`; alt text `work.N.shot` built in `content.js` (EN/ES).
+- [x] Work: cards on `--surface` with a light browser frame (dots + hostname). Featured projects full width with a 2:1 crop and 3-column steps; the others 2-up. Hover: accent border, shadow, image scale 1.02. Print hides screenshots.
+- [x] Section numbers: large italic Newsreader numerals in the accent color (fun keeps its pixel badge).
+- [x] Hero: line-art echo of the fun mode ridges (shared data in `src/components/scene.js`, also used by `fun/HeroScene.astro`), "Open to remote work" pill, accent rule above each number. `.pro-only` helper hides normal-only decoration in fun mode.
+- [x] Experience: timeline rail with a dot per role; current role (period ends "Present") gets an accent dot and a "Now" tag.
+- [x] Drupal diagram: drop/atom glyphs on nodes, dashed connector, protocol chip.
+- [x] Contact: full-width closing block, big serif "Have a Drupal site to upgrade?", large email link + copy button. `contact.text` replaced by `contact.headline` + `contact.sub`.
+- [x] Micro: primary button lift, arrow nudge on outbound links.
+- [x] Checked: normal dark/light 1440, ES 390, 320, 1000, fun 1440/390; no horizontal overflow.
+
 Phase 4 — Polish & quality: as brief; README rewrite (GitHub Pages first).
 
 Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), drupal.org contributions/talks?, PHPUnit/Behat/Search API/Solr experience?, keep EN/ES?

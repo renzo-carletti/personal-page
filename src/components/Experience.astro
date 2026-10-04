@@ -4,6 +4,8 @@ import { experience, t, translations } from '../data/content.js';
 const en = translations.en;
 // Bullets shown before the "more" toggle.
 const LEAD = 3;
+// A role still running has "Present" as its end date.
+const current = (job: (typeof experience)[number]) => /present/i.test(t(job.period));
 ---
 
 <section id="experience" class="section" aria-labelledby="exp-title">
@@ -16,8 +18,11 @@ const LEAD = 3;
 
     <ol class="jobs" role="list">
       {experience.map((job, i) => (
-        <li class="job">
-          <p class="job__period" data-i18n={`exp.${i}.period`}>{t(job.period)}</p>
+        <li class:list={['job', { 'job--current': current(job) }]}>
+          <p class="job__period">
+            <span data-i18n={`exp.${i}.period`}>{t(job.period)}</span>
+            {current(job) && <span class="pro-only job__now" data-i18n="exp.now">{en['exp.now']}</span>}
+          </p>
           <div class="job__body">
             <h3 class="job__role" data-i18n={`exp.${i}.role`}>{t(job.role)}</h3>
             <p class="job__company">
@@ -58,13 +63,56 @@ const LEAD = 3;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
-    padding-block: var(--space-6);
-    border-top: var(--border-1) solid var(--line);
   }
 
-  .job:first-child {
-    padding-top: 0;
-    border-top: none;
+  /* Timeline rail: one continuous line down the body column, a dot per role. */
+  .job__body {
+    position: relative;
+    padding: 0 0 var(--space-7) var(--space-6);
+    border-left: var(--border-1) solid var(--line-strong);
+  }
+
+  .job:last-child .job__body {
+    padding-bottom: 0;
+  }
+
+  .job__body::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 0.45rem;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: var(--border-2) solid var(--line-strong);
+  }
+
+  .job--current .job__body::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .job__now {
+    display: inline-block;
+    margin-left: var(--space-2);
+    padding: 0 var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--accent);
+    border: var(--border-1) solid currentColor;
+    border-radius: var(--radius-pill);
+  }
+
+  @media (max-width: 719px) {
+    .job__period {
+      padding-left: var(--space-6);
+      border-left: var(--border-1) solid var(--line-strong);
+    }
+
+    .job:first-child .job__period {
+      border-left-color: transparent;
+    }
   }
 
   @media (min-width: 720px) {
@@ -133,8 +181,13 @@ const LEAD = 3;
   }
 
   @media print {
-    .job {
-      padding-block: 0.6rem;
+    .job__body {
+      border-left: none;
+      padding: 0 0 0.6rem;
+    }
+
+    .job__body::before {
+      content: none;
     }
 
     .job__more summary {

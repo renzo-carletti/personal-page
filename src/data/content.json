@@ -55,6 +55,7 @@
     {
       "name": { "en": "e-UADER", "es": "e-UADER" },
       "url": "https://e.uader.edu.ar/",
+      "image": "e-uader",
       "role": "full",
       "featured": true,
       "tech": ["Drupal", "Moodle", "REST APIs", "Commerce"],
@@ -82,6 +83,7 @@
     {
       "name": { "en": "Ingresantes UADER", "es": "Ingresantes UADER" },
       "url": "https://ingresantes.uader.edu.ar/",
+      "image": "ingresantes",
       "role": "full",
       "featured": true,
       "tech": ["Drupal", "Paragraphs", "Views"],
@@ -109,6 +111,7 @@
     {
       "name": { "en": "Buenos Aires City", "es": "Ciudad de Buenos Aires" },
       "url": "https://buenosaires.gob.ar/inicio/",
+      "image": "buenos-aires",
       "role": "consultant",
       "featured": false,
       "tech": ["Drupal 8→10", "Paragraphs"],
@@ -136,6 +139,7 @@
     {
       "name": { "en": "Club San Jorge", "es": "Club San Jorge" },
       "url": "https://clubsanjorge.com.ar/",
+      "image": "san-jorge",
       "role": "modernization",
       "featured": false,
       "tech": ["PHP", "Legacy → Modern"],
@@ -336,7 +340,10 @@
     "skills.title": { "en": "Skills", "es": "Habilidades" },
     "certs.title": { "en": "Courses and certifications", "es": "Cursos y certificaciones" },
     "contact.title": { "en": "Contact", "es": "Contacto" },
-    "contact.text": { "en": "Have a Drupal site to upgrade, a headless project, or a question about Drupal, React or APIs? Email me or use the form.", "es": "¿Tenés un sitio Drupal para actualizar, un proyecto headless o una consulta sobre Drupal, React o APIs? Escribime por email o con el formulario." },
+    "contact.headline": { "en": "Have a Drupal site to upgrade?", "es": "¿Tenés un sitio Drupal para actualizar?" },
+    "contact.sub": { "en": "Or a headless project, or a question about Drupal, React or APIs. Email me or use the form.", "es": "O un proyecto headless, o una consulta sobre Drupal, React o APIs. Escribime por email o con el formulario." },
+    "contact.copyEmail": { "en": "Copy email address", "es": "Copiar dirección de email" },
+    "contact.emailCopied": { "en": "Email address copied.", "es": "Dirección de email copiada." },
     "contact.email": { "en": "Email", "es": "Email" },
     "contact.linkedin": { "en": "LinkedIn", "es": "LinkedIn" },
     "contact.phone": { "en": "Phone", "es": "Teléfono" },
@@ -380,6 +387,9 @@
     "workflow.ai.text": { "en": "Cursor and coding agents draft scaffolding, migrations and tests. For client and government code I use local models with Ollama. I review, refactor and test every change before it ships.", "es": "Cursor y agentes de código preparan scaffolding, migraciones y tests. Para código de clientes y de gobierno uso modelos locales con Ollama. Reviso, refactorizo y pruebo cada cambio antes de publicarlo." },
     "footer.built": { "en": "Built with Astro and plain CSS.", "es": "Hecho con Astro y CSS plano." },
     "footer.top": { "en": "Back to top", "es": "Volver arriba" },
+    "work.shot": { "en": "Home page of", "es": "Página de inicio de" },
+    "hero.available": { "en": "Open to remote work", "es": "Disponible para trabajo remoto" },
+    "exp.now": { "en": "Now", "es": "Actual" },
     "fun.lv": { "en": "LV 5", "es": "NV 5" },
     "fun.start": { "en": "Press start", "es": "Presioná start" },
     "fun.work": { "en": "World 1 · The river map", "es": "Mundo 1 · El mapa del río" },

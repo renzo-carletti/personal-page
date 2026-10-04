@@ -277,11 +277,14 @@ html {
 
 .section__num {
   display: block;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-caps);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
   color: var(--accent);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .section__title {
@@ -325,6 +328,20 @@ html {
   gap: var(--space-1);
 }
 
+/* Arrow icons nudge toward where the link goes. */
+.link--icon .icon:last-child:not(:first-child) {
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.link--icon:hover .icon:last-child:not(:first-child) {
+  transform: translate(2px, -2px);
+}
+
+/* Hide in fun mode: normal-only decoration. */
+:root[data-theme='fun'] .pro-only {
+  display: none !important;
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
@@ -337,7 +354,8 @@ html {
   font-weight: 600;
   font-size: var(--text-sm);
   text-decoration: none;
-  transition: background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+  transition: background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast),
+    transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast);
 }
 
 .btn--primary {
@@ -347,6 +365,8 @@ html {
 
 .btn--primary:hover {
   background: color-mix(in srgb, var(--accent-strong) 85%, #000);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn--ghost {

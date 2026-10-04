@@ -148,7 +148,7 @@ Phase 2b — Normal mode polish (2026-10-04, user: "looks kinda simple"; chose p
 Phase 4 — Polish & quality (2026-10-04)
 - [x] GitHub link fixed (`github.com/renzo-carletti`; old `Pipoku` URL was 404). Git remote moved to the new repo URL.
 - [x] Site address defaults to `https://renzo-carletti.github.io/personal-page/` (no custom domain). `robots.txt` generated (`src/pages/robots.txt.ts`); sitemap leaves out `/cv`, `/og`, 404.
-- [x] CV PDF generated from content: `/cv/` and `/cv/es/` (`CvSheet.astro`, 2 A4 pages) → `public/cv.pdf`, `public/cv-es.pdf` via `npm run assets` (`scripts/build-assets.mjs`, headless Chrome, no new deps). Download links follow page language (`data-cv` in i18n.js). Verified: no removed claims in the PDF text.
+- [x] CVs: edited Word files (EN from the user's Drupal-oriented CV with unverified metrics removed, ES a translation with the same layout) are the source: `public/renzo-carletti-cv{,-es}.docx` → `.pdf` via `npm run assets` (LibreOffice). PDF and Word downloads follow page language (`data-cv` in i18n.js). The generated `/cv/` sheet was dropped. Verified: no removed claims in either PDF.
 - [x] New share card `/og/` → `public/og.png` (editorial dark, ridge line art). New favicon (ridge mark) + `apple-touch-icon.png`.
 - [x] Fonts moved to `src/styles/fonts.js`; pre-paint theme script to `ThemeInit.astro` (shared by Layout and 404).
 - [x] Certification dates stored as `YYYY-MM`, formatted per language (`formatMonth` in content.js).

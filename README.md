@@ -71,14 +71,13 @@ npm run assets
 
 This builds the site, serves it, and uses headless Chrome to write:
 
-- `public/renzo-carletti-cv.pdf`, the English CV, converted from `public/renzo-carletti-cv.docx` (edit that Word file, needs LibreOffice)
-- `public/renzo-carletti-cv-es.pdf`, the Spanish CV, from `/cv/es/` (2-page A4, `src/components/CvSheet.astro`)
+- `public/renzo-carletti-cv.pdf` and `public/renzo-carletti-cv-es.pdf`, converted from the Word files `public/renzo-carletti-cv.docx` (English) and `public/renzo-carletti-cv-es.docx` (Spanish). Edit the Word files; the conversion needs LibreOffice
 - `public/og.png`, the 1200×630 share card from `/og/`
 - `public/apple-touch-icon.png`, from `public/favicon.svg`
 
-It needs Google Chrome or Chromium (`CHROME=/path/to/binary` to override). Commit the results; CI doesn't run it. The download buttons serve the CV in the visitor's language; the footer also links the Word file.
+It needs Google Chrome or Chromium (`CHROME=/path/to/binary` to override). Commit the results; CI doesn't run it. The download buttons serve the CV in the visitor's language; the footer also links the Word file in the same language.
 
-The English CV is written in Word, so when you change your experience, update both `content.json` (site and Spanish CV) and the `.docx`.
+Both CVs are written in Word, so when you change your experience, update `content.json` (the site) and both `.docx` files.
 
 **Project screenshots** (`src/assets/work/*.webp`) were captured once from the live sites at 1440×900. Replace a file with the same name to update it.
 

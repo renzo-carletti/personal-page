@@ -21,9 +21,9 @@ export function applyLang(lang) {
     else el.textContent = value;
   });
 
-  // CV download follows the page language.
+  // CV downloads (PDF and Word) follow the page language.
   document.querySelectorAll('[data-cv]').forEach((a) => {
-    a.href = a.href.replace(/cv(-es)?\.pdf$/, lang === 'es' ? 'cv-es.pdf' : 'cv.pdf');
+    a.href = a.href.replace(/cv(-es)?\.(pdf|docx)$/, (_, _es, ext) => (lang === 'es' ? `cv-es.${ext}` : `cv.${ext}`));
   });
 
   document.querySelectorAll('[data-lang-btn]').forEach((btn) => {

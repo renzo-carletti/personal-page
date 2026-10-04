@@ -2,7 +2,9 @@
 // Page-wide fun mode layers: pixel starfield behind everything and the airship
 // that follows scroll progress (`--scroll`, set in scroll-ui.js).
 import PixelSprite from './PixelSprite.astro';
-import { airship } from './sprites.js';
+import { airship, campfire, sun } from './sprites.js';
+import { translations } from '../../data/content.js';
+const en = translations.en;
 import QuantumMoon from './QuantumMoon.astro';
 
 function stars(count: number, seed: number, size: number) {
@@ -28,12 +30,25 @@ function stars(count: number, seed: number, size: number) {
   </svg>
 </div>
 
-<!-- Achievement pop-up (fun-secrets.js) and the supernova flash (fun-play.js). -->
+<!-- Achievement pop-up (fun-secrets.js) and the supernova sequence (fun-play.js). -->
 <div class="fun-only toast" role="status" aria-live="polite">
   <p class="toast__title"></p>
   <p class="toast__text"></p>
 </div>
-<div class="fun-only nova-flash" aria-hidden="true"></div>
+<!-- Supernova: the sun swells and collapses, a blue shockwave, white-out, black silence
+     by the campfire, then the eyes blink open on the page again. Skipped with reduced motion. -->
+<div class="fun-only nova" aria-hidden="true">
+  <PixelSprite sprite={sun} class="nova__sun" />
+  <span class="nova__ring"></span>
+  <span class="nova__ring nova__ring--late"></span>
+  <span class="nova__white"></span>
+  <span class="nova__black">
+    <PixelSprite sprite={campfire} class="nova__fire" />
+    <span class="nova__text" data-i18n="fun.nova.loop">{en['fun.nova.loop']}</span>
+  </span>
+  <span class="nova__lid nova__lid--top"></span>
+  <span class="nova__lid nova__lid--bottom"></span>
+</div>
 <QuantumMoon />
 
 <div class="fun-only airship" aria-hidden="true">

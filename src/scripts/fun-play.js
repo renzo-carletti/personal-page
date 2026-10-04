@@ -117,7 +117,7 @@ nomai?.addEventListener('mouseenter', translate);
 // ---------- Supernova: 5 minutes per loop (?supernova=N to test with N seconds) ----------
 const novaTime = document.querySelector('.footer__nova-time');
 const novaLoop = document.querySelector('.footer__nova-loop');
-const flash = document.querySelector('.nova-flash');
+const nova = document.querySelector('.nova');
 if (novaTime) {
   const testSeconds = Number(new URLSearchParams(location.search).get('supernova'));
   const LOOP = testSeconds > 0 ? testSeconds : 5 * 60;
@@ -128,12 +128,14 @@ if (novaTime) {
     novaTime.textContent = fmt(left);
     if (left > 0) return;
     if (isFun()) {
-      if (!reducedMotion() && flash) play(flash, 'is-nova', 4000);
+      const animate = !reducedMotion() && nova;
+      if (animate) play(nova, 'is-nova', 7400);
       if (novaLoop) {
         novaLoop.textContent = tr('fun.nova.loop');
         setTimeout(() => (novaLoop.textContent = ''), 6000);
       }
-      unlock('nova');
+      // The achievement pops when you "wake up", after the sequence.
+      setTimeout(() => unlock('nova'), animate ? 7200 : 0);
     }
     end = Date.now() + LOOP * 1000;
   };

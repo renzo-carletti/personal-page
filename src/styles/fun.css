@@ -1660,23 +1660,154 @@
     margin-left: var(--space-2);
   }
 
-  .nova-flash {
+  /* Supernova sequence, 7.2s. Every layer starts hidden and runs once on .is-nova. */
+  .nova {
     position: fixed;
     inset: 0;
     z-index: 90;
     pointer-events: none;
-    background: radial-gradient(circle at 50% 40%, #fff4d6, #fdb813 40%, rgba(232, 100, 30, 0.8) 70%);
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .nova.is-nova {
+    visibility: visible;
+  }
+
+  .nova > * {
+    position: absolute;
     opacity: 0;
   }
 
-  .nova-flash.is-nova {
-    animation: nova 3.8s ease-in-out forwards;
+  /* 1. The sun swells, flickers and collapses to a point (0–1.3s). */
+  .nova__sun {
+    left: 50%;
+    top: 36%;
+    width: 96px;
+    margin: -48px 0 0 -48px;
   }
 
-  @keyframes nova {
-    0% { opacity: 0; }
-    35% { opacity: 0.85; }
-    100% { opacity: 0; }
+  .is-nova .nova__sun {
+    animation: nova-sun 1.4s steps(14) forwards;
+  }
+
+  @keyframes nova-sun {
+    0% { opacity: 0; transform: scale(0.5); }
+    12% { opacity: 1; transform: scale(1); }
+    55% { opacity: 1; transform: scale(1.7); filter: brightness(1.2); }
+    62% { transform: scale(1.55); }
+    68% { transform: scale(1.75); }
+    92% { opacity: 1; transform: scale(0.12); filter: brightness(2) hue-rotate(160deg); }
+    100% { opacity: 0; transform: scale(0.05); }
+  }
+
+  /* 2. Blue-white shockwave rings sweep past the screen (1.3–3.1s). */
+  .nova__ring {
+    left: 50%;
+    top: 36%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0 30%, #bfe8ff 55%, rgba(127, 208, 255, 0) 72%);
+    box-shadow: 0 0 0 4px #7fd0ff, 0 0 24px 8px #4aa8ff;
+  }
+
+  .is-nova .nova__ring {
+    animation: nova-ring 1.6s steps(16) 1.3s forwards;
+  }
+
+  .is-nova .nova__ring--late {
+    animation-delay: 1.6s;
+  }
+
+  @keyframes nova-ring {
+    0% { opacity: 1; transform: scale(0.2); }
+    90% { opacity: 1; transform: scale(72); }
+    100% { opacity: 0; transform: scale(80); }
+  }
+
+  /* 3. White-out (2.3–3.9s). */
+  .nova__white {
+    inset: 0;
+    background: #f2fbff;
+  }
+
+  .is-nova .nova__white {
+    animation: nova-white 7.2s linear forwards;
+  }
+
+  @keyframes nova-white {
+    0%, 31% { opacity: 0; }
+    38%, 50% { opacity: 1; }
+    55%, 100% { opacity: 0; }
+  }
+
+  /* 4. Silence: black, the campfire, "the loop restarts" (3.6–5.7s). */
+  .nova__black {
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-4);
+    background: #04050a;
+  }
+
+  .is-nova .nova__black {
+    animation: nova-black 7.2s linear forwards;
+  }
+
+  @keyframes nova-black {
+    0%, 48% { opacity: 0; }
+    53%, 80% { opacity: 1; }
+    81%, 100% { opacity: 0; }
+  }
+
+  .nova__fire {
+    width: 56px;
+    filter: drop-shadow(0 0 14px rgba(232, 100, 30, 0.7));
+  }
+
+  .nova__fire .sprite-flame {
+    animation: flicker 0.5s steps(1) infinite;
+  }
+
+  .nova__text {
+    font-family: var(--font-pixel);
+    font-size: var(--text-xl);
+    font-size-adjust: 0.55;
+    color: var(--sky);
+    letter-spacing: 0.06em;
+  }
+
+  /* 5. Eyelids: closed over the page, then a blink and they open (5.8–7.2s). */
+  .nova__lid {
+    left: 0;
+    right: 0;
+    height: 51%;
+    background: #04050a;
+  }
+
+  .nova__lid--top {
+    top: 0;
+    --dir: -1;
+  }
+
+  .nova__lid--bottom {
+    bottom: 0;
+    --dir: 1;
+  }
+
+  .is-nova .nova__lid {
+    animation: nova-lid 7.2s steps(36) forwards;
+  }
+
+  @keyframes nova-lid {
+    0%, 79% { opacity: 0; transform: none; }
+    80% { opacity: 1; transform: none; }
+    86% { opacity: 1; transform: translateY(calc(var(--dir) * 55%)); }
+    89% { opacity: 1; transform: translateY(calc(var(--dir) * 10%)); }
+    100% { opacity: 1; transform: translateY(calc(var(--dir) * 101%)); }
   }
 
   /* ---------- Play: achievement toast + HUD counter ---------- */
@@ -1743,6 +1874,10 @@
     color: var(--muted);
     background: var(--window);
     box-shadow: 0 0 0 var(--px) #f5c842, var(--shadow-lg);
+  }
+
+  .hud-secrets__panel[hidden] {
+    display: none;
   }
 
   .hud-secrets__panel .is-found {

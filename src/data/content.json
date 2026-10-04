@@ -408,7 +408,7 @@
     "fun.save": { "en": "Rest by the fire. Your progress is saved.", "es": "Descansá junto al fuego. Tu progreso está guardado." },
     "fun.vivi": { "en": "Vivi: cast a spell", "es": "Vivi: lanzar un hechizo" },
     "fun.cast": { "en": "Fire!", "es": "¡Piro!" },
-    "fun.ice": { "en": "Blizzard!", "es": "¡Hielo!" },
+    "fun.stop": { "en": "Stop!", "es": "¡Paro!" },
     "fun.bolt": { "en": "Thunder!", "es": "¡Electro!" },
     "fun.bio": { "en": "Bio!", "es": "¡Bio!" },
     "fun.choco": { "en": "Chocobo: say hi", "es": "Chocobo: saludar" },

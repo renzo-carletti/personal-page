@@ -172,7 +172,7 @@ Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), dru
 
 ### Fun mode 2 — play (2026-10-04)
 - [x] Chocobo (original sprite, 2 leg frames) next to Vivi: click → "Kweh!", runs a lap off screen and back.
-- [x] Vivi casts in turn Fire / Blizzard / Thunder / Bio, FF9 official names (ES: Piro / Hielo / Electro / Bio): sparks, falling ice shards, pixel bolt on the staff + soft sky flash, green poison bubbles.
+- [x] Vivi casts in turn Fire / Thunder / Stop / Bio (ES: Piro / Electro / Paro / Bio): sparks, pixel bolt on the staff + soft sky flash, time stop (world greys out and pauses, clock ring), green poison bubbles. Blizzard removed at the user's request.
 - [x] Outer Wilds touches: mini solar system in the star chart, quantum moon that moves to another section whenever it is out of view, marshmallow roasting at the campfire (raw / perfect / burnt), supernova timer in the footer (5 min loop, `?supernova=N` to test), Nomai spiral dividers and a Nomai wall to translate, Experience as a "Ship log" (cards, orange strips, rumor lines, "?" on the current role).
 - [x] Treasure chest in Achievements → CV download in the page language. Stage nodes light up with "Clear!" as projects scroll in.
 - [x] Secrets: 7 interactions unlock achievements (`src/scripts/fun-secrets.js`, `rc-secrets` in localStorage), HUD counter "★ Secrets n/7", toast announced via aria-live. Handlers in `src/scripts/fun-play.js`.

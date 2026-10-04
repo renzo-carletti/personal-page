@@ -530,13 +530,13 @@
   }
 
   .vivi[data-spell='fire'] .vivi__say--fire,
-  .vivi[data-spell='ice'] .vivi__say--ice,
+  .vivi[data-spell='stop'] .vivi__say--stop,
   .vivi[data-spell='bolt'] .vivi__say--bolt,
   .vivi[data-spell='bio'] .vivi__say--bio {
     display: inline;
   }
 
-  :is(.vivi.is-fire, .vivi.is-ice, .vivi.is-bolt, .vivi.is-bio) .vivi__bubble {
+  :is(.vivi.is-fire, .vivi.is-stop, .vivi.is-bolt, .vivi.is-bio) .vivi__bubble {
     animation: bubble 1.3s steps(4) forwards;
   }
 
@@ -549,33 +549,79 @@
     fill: #fff4d6;
   }
 
-  /* Blizzard: pale shards fall around him and the orb frosts over. */
-  .vivi.is-ice .vivi__bubble {
-    background: #d8f0f8;
+  /* Stop: time freezes. The world turns grey and every animation pauses except Vivi;
+     a clock ring appears above him and its hand spins to a halt. */
+  .vivi.is-stop .vivi__bubble {
+    background: #b9bcc8;
   }
 
-  .vivi.is-ice .sprite-orb {
+  .vivi.is-stop .sprite-orb {
     animation: none;
-    fill: #8cc7d9;
+    fill: #b9bcc8;
   }
 
-  .vivi.is-ice .vivi__sparks span {
-    width: 5px;
-    height: 9px;
-    background: #d8f0f8;
-    box-shadow: 0 0 0 1px #8cc7d9;
-    animation: shard 1.1s steps(7) forwards;
+  .fun-scene__clock {
+    position: absolute;
+    left: calc(var(--gutter) + 20% - 68px);
+    bottom: calc(clamp(18px, 2.6vw, 40px) + clamp(72px, 8vw, 104px) * 0.75);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(11, 15, 30, 0.85);
+    box-shadow: 0 0 0 4px #b9bcc8, 0 0 0 8px rgba(185, 188, 200, 0.25);
+    opacity: 0;
   }
 
-  @keyframes shard {
-    0% {
-      opacity: 1;
-      transform: translate(calc(var(--dx) * 1.4), calc(var(--dy) * 1.1));
-    }
-    100% {
-      opacity: 0;
-      transform: translate(calc(var(--dx) * 1.2), 40px);
-    }
+  .fun-scene__clock::before,
+  .fun-scene__clock::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    width: 4px;
+    margin-left: -2px;
+    background: #fff4d6;
+    transform-origin: bottom center;
+  }
+
+  .fun-scene__clock::before {
+    height: 18px;
+  }
+
+  .fun-scene__clock::after {
+    height: 12px;
+    background: #b9bcc8;
+    transform: rotate(90deg);
+  }
+
+  .fun-scene__fx.is-stop .fun-scene__clock {
+    animation: clock-show 1.9s steps(6) forwards;
+  }
+
+  .fun-scene__fx.is-stop .fun-scene__clock::before {
+    animation: clock-hand 0.9s steps(8) forwards;
+  }
+
+  @keyframes clock-show {
+    0% { opacity: 0; transform: scale(0.4); }
+    15%, 85% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: none; }
+  }
+
+  @keyframes clock-hand {
+    0% { transform: rotate(0deg); }
+    70% { transform: rotate(600deg); }
+    85% { transform: rotate(705deg); }
+    100% { transform: rotate(720deg); }
+  }
+
+  :root.time-stop :is(.fun-scene, .choco, .airship, .fun-sky, .qmoon, .solar, .savepoint__scene) {
+    filter: grayscale(0.9) brightness(0.85);
+    transition: filter 0.2s steps(2);
+  }
+
+  :root.time-stop :is(.choco *, .airship *, .fun-sky *, .qmoon *, .solar *, .savepoint__scene *, .fun-scene *) {
+    animation-play-state: paused !important;
   }
 
   /* Thunder: a burst of yellow sparks; the bolt itself drops in the scene layer. */

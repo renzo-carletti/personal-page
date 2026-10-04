@@ -113,8 +113,8 @@ export const campfire = {
   },
 };
 
-// Chocobo tribute (FF9), drawn from scratch in a chibi style: dark outline, three-tone
-// shading, spiky crest, hooked beak, browed eye, feathered wing. Body shared by a
+// Chocobo tribute (FF9), drawn from scratch in a cute chibi style: dark outline, three-tone
+// shading, spiky crest, small hooked beak, big round eye with highlight, blush, feathered wing. Body shared by a
 // standing frame and a running stride.
 const chocoBody = [
     '..........o..o',
@@ -124,11 +124,11 @@ const chocoBody = [
     '......ooYYYYYYYYYoo',
     '....ooTTYYYYYYYYYYYo',
     '...oTTTYYYYYYYYYYYYYo',
-    '....ooYYYYYYYYYooooYYoo',
-    '......oYYYYYYYYYYKKYYoBBo',
-    '......oYYYYYYYYYKWKKYoBBBBo',
-    '......oSYYYYYYYYKKKYYBBBBBBo',
-    '.......oSYYYYYYYYYYYYBBbBBo',
+    '....ooYYYYYYYYYYYYYYYoo',
+    '......oYYYYYYYYYYKKYYYoBo',
+    '......oYYYYYYYYYKWWKYYoBBBo',
+    '......oSYYYYYYYYKWKKYYBBBBBo',
+    '.......oSYYYYYYYYKKYPPYBBbBo',
     '........oSSYYYYYYYYYYobbbo',
     '.........ooSYYYYYYYYoooo',
     '...........oSYYYYYYo',
@@ -154,6 +154,7 @@ const chocoPalette = {
   W: '#fff6e0',
   B: '#f4b26a',
   b: '#c9733a',
+  P: '#f2a08c',
   w: '#e9a12c',
   L: '#a8452a',
   l: '#7a2e1c',

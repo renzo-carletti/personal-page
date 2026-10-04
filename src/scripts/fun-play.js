@@ -14,10 +14,10 @@ function play(el, cls, ms) {
   el._t = { ...el._t, [cls]: setTimeout(() => el.classList.remove(cls), ms) };
 }
 
-// ---------- Vivi: Fire → Blizzard → Thunder → Bio (FF9 names) ----------
+// ---------- Vivi: Fire → Thunder → Stop → Bio (FF9 names) ----------
 const vivi = document.querySelector('.vivi');
 const fx = document.querySelector('.fun-scene__fx');
-const spells = ['fire', 'ice', 'bolt', 'bio'];
+const spells = ['fire', 'bolt', 'stop', 'bio'];
 const cast = new Set();
 let next = 0;
 vivi?.addEventListener('click', () => {
@@ -27,6 +27,11 @@ vivi?.addEventListener('click', () => {
   vivi.dataset.spell = spell;
   play(vivi, `is-${spell}`, 1400);
   if (spell === 'bolt' && fx) play(fx, reducedMotion() ? 'is-bolt-calm' : 'is-bolt', 900);
+  if (spell === 'stop') {
+    // Time stops: everything but Vivi greys out and pauses for a moment.
+    if (fx) play(fx, 'is-stop', 1900);
+    play(document.documentElement, 'time-stop', 1800);
+  }
   cast.add(spell);
   if (cast.size === spells.length) unlock('spells');
 });

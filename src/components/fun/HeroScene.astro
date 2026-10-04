@@ -2,7 +2,7 @@
 // Fun mode title screen: dusk sky, layered ridges (flat, no outlines) and Vivi on the ground.
 // Hidden in normal mode by `.fun-only`.
 import PixelSprite from './PixelSprite.astro';
-import { bolt, chocobo, vivi } from './sprites.js';
+import { bolt, chocobo, chocoRun, vivi } from './sprites.js';
 import { translations } from '../../data/content.js';
 import { farRidge, midRidge, hill3, hill4, hillLine, pines } from '../scene.js';
 const en = translations.en;
@@ -44,6 +44,7 @@ const sparks = Array.from({ length: 8 });
   <span class="choco__bubble" aria-hidden="true" data-i18n="fun.kweh">{en['fun.kweh']}</span>
   <span class="choco__body">
     <PixelSprite sprite={chocobo} class="choco__sprite" />
+    <PixelSprite sprite={chocoRun} class="choco__sprite choco__sprite--run" />
   </span>
   <span class="choco__dust" aria-hidden="true"><span /><span /><span /></span>
 </button>

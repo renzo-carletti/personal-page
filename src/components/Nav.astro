@@ -18,10 +18,14 @@ const links = [
       Renzo Carletti
       <span class="fun-only hud-lv" aria-hidden="true" data-i18n="fun.lv">{en['fun.lv']}</span>
     </a>
-    <p class="fun-only hud-secrets">
-      ★ <span class="hud-secrets__label" data-i18n="fun.secrets">{en['fun.secrets']}</span>
-      <span class="hud-secrets__n">0</span>/7
-    </p>
+    <div class="fun-only hud-secrets">
+      <button class="hud-secrets__btn" type="button" aria-expanded="false" aria-controls="secrets-panel" title={en['fun.secretsOpen']} data-i18n="fun.secretsOpen" data-i18n-attr="title">
+        ★ <span class="hud-secrets__label" data-i18n="fun.secrets">{en['fun.secrets']}</span>
+        <span class="hud-secrets__n">0</span>/7
+      </button>
+      <!-- Filled by fun-secrets.js: found secrets by name, missing ones as hints. -->
+      <ol id="secrets-panel" class="hud-secrets__panel" hidden></ol>
+    </div>
 
     <nav class="nav__menu" id="nav-menu" aria-label="Primary">
       <ul class="nav__links" role="list">

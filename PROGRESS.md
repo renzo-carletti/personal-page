@@ -173,7 +173,8 @@ Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), dru
 ### Fun mode 2 — play (2026-10-04)
 - [x] Chocobo (original sprite, 2 leg frames) next to Vivi: click → "Kweh!", runs a lap off screen and back.
 - [x] Vivi casts in turn Fire / Blizzard / Thunder (sparks, falling ice shards, pixel bolt on the staff + soft sky flash).
-- [x] Outer Wilds touches: mini solar system in the star chart, quantum moon that moves to another section whenever it is out of view, marshmallow roasting at the campfire (raw / perfect / burnt), supernova timer in the footer (22 min loop, `?supernova=N` to test), Nomai spiral dividers and a Nomai wall to translate, Experience as a "Ship log" (cards, orange strips, rumor lines, "?" on the current role).
+- [x] Outer Wilds touches: mini solar system in the star chart, quantum moon that moves to another section whenever it is out of view, marshmallow roasting at the campfire (raw / perfect / burnt), supernova timer in the footer (5 min loop, `?supernova=N` to test), Nomai spiral dividers and a Nomai wall to translate, Experience as a "Ship log" (cards, orange strips, rumor lines, "?" on the current role).
 - [x] Treasure chest in Achievements → CV download in the page language. Stage nodes light up with "Clear!" as projects scroll in.
 - [x] Secrets: 7 interactions unlock achievements (`src/scripts/fun-secrets.js`, `rc-secrets` in localStorage), HUD counter "★ Secrets n/7", toast announced via aria-live. Handlers in `src/scripts/fun-play.js`.
 - [x] Checked: normal mode pixel-identical (1440/390), axe 0 violations, every new button keyboard-reachable, reduced motion skips flashes and the chocobo lap, no overflow 320–1440.
+- [x] Follow-up: chocobo redrawn (outlined, swept-back crest, long beak, stride frame), supernova loop 5 min, HUD "★ Secrets" opens a list with hints for the missing ones, quantum moon bigger.

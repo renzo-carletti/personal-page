@@ -17,9 +17,47 @@ function found() {
   }
 }
 
+const panel = document.getElementById('secrets-panel');
+const panelBtn = document.querySelector('.hud-secrets__btn');
+
+// Found secrets show their name; missing ones show a hint.
+function renderPanel() {
+  if (!panel) return;
+  const set = found();
+  panel.replaceChildren(
+    ...SECRETS.map((id) => {
+      const li = document.createElement('li');
+      const done = set.has(id);
+      li.className = done ? 'is-found' : '';
+      li.textContent = `${done ? '★' : '☆'} ${tr(done ? `fun.s.${id}` : `fun.h.${id}`)}`;
+      return li;
+    })
+  );
+}
+
 function renderCount() {
   document.querySelectorAll('.hud-secrets__n').forEach((el) => (el.textContent = String(found().size)));
+  renderPanel();
 }
+
+function setPanel(open) {
+  if (!panel || !panelBtn) return;
+  panel.hidden = !open;
+  panelBtn.setAttribute('aria-expanded', String(open));
+  if (open) renderPanel();
+}
+
+panelBtn?.addEventListener('click', () => setPanel(panel.hidden));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && panel && !panel.hidden) {
+    setPanel(false);
+    panelBtn.focus();
+  }
+});
+document.addEventListener('click', (e) => {
+  if (panel && !panel.hidden && !e.target.closest('.hud-secrets')) setPanel(false);
+});
+document.addEventListener('i18n:changed', renderPanel);
 
 let toastTimer;
 export function toast(title, text) {

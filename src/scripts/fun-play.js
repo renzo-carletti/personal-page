@@ -114,13 +114,13 @@ const translate = () => {
 nomai?.addEventListener('click', translate);
 nomai?.addEventListener('mouseenter', translate);
 
-// ---------- Supernova: 22 minutes per loop (?supernova=N to test with N seconds) ----------
+// ---------- Supernova: 5 minutes per loop (?supernova=N to test with N seconds) ----------
 const novaTime = document.querySelector('.footer__nova-time');
 const novaLoop = document.querySelector('.footer__nova-loop');
 const flash = document.querySelector('.nova-flash');
 if (novaTime) {
   const testSeconds = Number(new URLSearchParams(location.search).get('supernova'));
-  const LOOP = testSeconds > 0 ? testSeconds : 22 * 60;
+  const LOOP = testSeconds > 0 ? testSeconds : 5 * 60;
   let end = Date.now() + LOOP * 1000;
   const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
   const tick = () => {

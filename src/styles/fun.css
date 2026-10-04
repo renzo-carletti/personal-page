@@ -1,0 +1,988 @@
+/* ---------- Fun mode ----------
+   Same markup and content as normal mode, reskinned as a game:
+   flat dusk scene at the top (hero), pixel night below, pixel HUD and windows.
+   Body text keeps the readable sans; pixel font only for headings and UI labels.
+   Fun-only elements carry `.fun-only` and are removed from layout and the
+   accessibility tree in normal mode. */
+
+:root:not([data-theme='fun']) .fun-only {
+  display: none !important;
+}
+
+@media print {
+  .fun-only {
+    display: none !important;
+  }
+}
+
+@media screen {
+  :root[data-theme='fun'] {
+    --font-pixel: 'Jersey 10', var(--font-mono);
+    /* No serif in fun mode: display text that is not a pixel heading falls back to the sans. */
+    --font-display: var(--font-sans);
+
+    --night: #0b0f1e;
+    --window: #1c1934;
+    --window-hi: rgba(243, 230, 204, 0.06);
+    --frame: #6b5b95;
+    --frame-hot: #fdb813;
+    --ember: #e8641e;
+    --sky: #8cc7d9;
+    --grass: #a8c66c;
+    --violet: #6b5b95;
+    --px: 4px;
+
+    --radius-xs: 0;
+    --radius-sm: 0;
+    --radius: 0;
+  }
+
+  /* Pixel frame: four offset shadows leave the corners empty, like an 8-bit window.
+     Declared on each framed element so a local --frame override takes effect. */
+  :root[data-theme='fun'] :is(.btn, .hero__aside, .hero__numbers, .case article, .jobs, .arch, .contact__form, .back-to-top) {
+    --pixel-frame: calc(var(--px) * -1) 0 0 0 var(--frame), var(--px) 0 0 0 var(--frame),
+      0 calc(var(--px) * -1) 0 0 var(--frame), 0 var(--px) 0 0 var(--frame), inset 0 var(--px) 0 0 var(--window-hi);
+  }
+
+  /* ---------- Sky + type ---------- */
+  :root[data-theme='fun'] body {
+    background: var(--night);
+  }
+
+  .fun-sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .fun-sky svg {
+    max-width: none;
+  }
+
+  .fun-sky__twinkle {
+    animation: twinkle 3.2s steps(2, jump-none) infinite alternate;
+  }
+
+  @keyframes twinkle {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0.15;
+    }
+  }
+
+  :root[data-theme='fun'] :is(.section__title, .hero__name, .case__name, .job__role, .nav__brand) {
+    font-family: var(--font-pixel);
+    letter-spacing: 0;
+  }
+
+  :root[data-theme='fun'] :is(.label, .section__num, .hero__role, .hero__numbers dd, .job__period, .case__metric, .certs__date, .tags li) {
+    font-family: var(--font-pixel);
+    letter-spacing: 0.04em;
+  }
+
+  /* Jersey 10 has one weight and a small x-height: never fake bold, and scale it to the body font. */
+  :root[data-theme='fun'] :is(.section__title, .hero__name, .case__name, .job__role, .nav__brand, .label, .section__num,
+      .hero__role, .job__period, .case__metric, .certs__date, .tags li, .btn, .fun-label, .case__stage, .nav__links a,
+      .nav__lang, .hero__numbers dd, .job__more summary, .drupal__versions, .skills dt, .field label, .savepoint__text, .vivi__bubble) {
+    font-weight: 400;
+    font-size-adjust: 0.55;
+  }
+
+  :root[data-theme='fun'] ::selection {
+    background: var(--frame-hot);
+    color: var(--on-accent);
+  }
+
+  :root[data-theme='fun'] :focus-visible {
+    outline: 3px solid var(--frame-hot);
+    outline-offset: 5px;
+  }
+
+  /* ---------- Shared pixel pieces ---------- */
+  :root[data-theme='fun'] .btn {
+    font-family: var(--font-pixel);
+    font-size: var(--text-base);
+    margin: var(--px);
+    border: none;
+    box-shadow: var(--pixel-frame);
+    background: var(--window);
+    color: var(--text);
+    transition: transform var(--dur-fast) steps(2), background-color var(--dur-fast);
+  }
+
+  :root[data-theme='fun'] .btn:hover {
+    transform: translateY(-2px);
+    border: none;
+  }
+
+  :root[data-theme='fun'] .btn:active {
+    transform: translateY(2px);
+  }
+
+  :root[data-theme='fun'] .btn--primary {
+    --frame: #c9772e;
+    background: var(--frame-hot);
+    color: var(--on-accent);
+  }
+
+  :root[data-theme='fun'] .btn--primary:hover {
+    background: #ffc93d;
+  }
+
+  :root[data-theme='fun'] .link {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .tags li {
+    border: none;
+    background: rgba(107, 91, 149, 0.35);
+    color: var(--text);
+    font-size: var(--text-sm);
+    padding: 0 var(--space-2);
+  }
+
+  :root[data-theme='fun'] .section {
+    border-top: none;
+    position: relative;
+  }
+
+  /* Pixel divider between sections: a dotted gold rule with a gem in the middle. */
+  :root[data-theme='fun'] .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(60%, 36rem);
+    height: var(--px);
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(90deg, var(--frame) 0 var(--px), transparent var(--px) calc(var(--px) * 3));
+  }
+
+  :root[data-theme='fun'] .section::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--px) * -2);
+    left: 50%;
+    width: calc(var(--px) * 3);
+    height: calc(var(--px) * 3);
+    transform: translateX(-50%) rotate(45deg);
+    background: var(--frame-hot);
+    box-shadow: 0 0 0 var(--px) var(--night);
+  }
+
+  :root[data-theme='fun'] .section__num {
+    display: inline-block;
+    color: var(--on-accent);
+    background: var(--frame-hot);
+    padding: 0 var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  .fun-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-family: var(--font-pixel);
+    font-size: var(--text-sm);
+    color: var(--sky);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---------- HUD (nav) ---------- */
+  :root[data-theme='fun'] .nav {
+    background: var(--night);
+    border-bottom: var(--px) solid var(--window);
+  }
+
+  :root[data-theme='fun'] .nav.scrolled {
+    border-bottom-color: var(--window);
+  }
+
+  :root[data-theme='fun'] .nav__brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    color: var(--frame-hot);
+  }
+
+  .hud-lv {
+    font-size: var(--text-xs);
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .nav__links a {
+    font-family: var(--font-pixel);
+    font-size: var(--text-base);
+    border-bottom: none;
+    position: relative;
+  }
+
+  /* FF-style menu cursor next to the current section. */
+  :root[data-theme='fun'] .nav__links a[aria-current='true']::before {
+    content: '';
+    position: absolute;
+    left: -0.9rem;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.6rem;
+    transform: translateY(-50%);
+    background: var(--frame-hot);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    animation: cursor 0.8s steps(2, jump-none) infinite alternate;
+  }
+
+  @keyframes cursor {
+    to {
+      transform: translate(3px, -50%);
+    }
+  }
+
+  :root[data-theme='fun'] .nav__langs {
+    border: 2px solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .nav__lang {
+    font-family: var(--font-pixel);
+  }
+
+  :root[data-theme='fun'] .nav__lang[aria-pressed='true'] {
+    background: var(--frame-hot);
+    color: var(--on-accent);
+  }
+
+  :root[data-theme='fun'] .nav__theme[aria-pressed='true'] {
+    color: var(--frame-hot);
+  }
+
+  @media (max-width: 1000px) {
+    :root[data-theme='fun'] .nav__menu {
+      background: var(--window);
+      border-bottom: var(--px) solid var(--frame);
+    }
+
+    :root[data-theme='fun'] .nav__links a {
+      border-bottom: 2px dotted var(--frame);
+      padding-left: var(--space-5);
+    }
+
+    :root[data-theme='fun'] .nav__links a[aria-current='true']::before {
+      left: 0;
+    }
+  }
+
+  /* XP bar: scroll progress, segmented like a game meter. */
+  .hud-xp {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--px) * -1);
+    height: var(--px);
+  }
+
+  .hud-xp span {
+    display: block;
+    height: 100%;
+    background: var(--grass);
+    transform-origin: left;
+    transform: scaleX(var(--scroll, 0));
+    mask: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 12px);
+  }
+
+  /* ---------- Hero: title screen ---------- */
+  :root[data-theme='fun'] .hero {
+    position: relative;
+    isolation: isolate;
+    align-content: start;
+    padding-block: var(--space-7) clamp(150px, 11vw, 170px);
+  }
+
+  .fun-scene {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    overflow: hidden;
+    background: linear-gradient(
+      to bottom,
+      var(--night) 0%,
+      #1b1838 30%,
+      #2e2a45 calc(100% - 330px),
+      #6b5b95 calc(100% - 250px),
+      #e9806e calc(100% - 180px),
+      #fdb813 calc(100% - 120px)
+    );
+  }
+
+  .fun-scene__land {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(220px, 26vw, 360px);
+    max-width: none;
+  }
+
+  :root[data-theme='fun'] .hero__role {
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .hero__name {
+    color: var(--frame-hot);
+    font-size: clamp(2.5rem, 1.4rem + 3.4vw, 4.4rem);
+    text-shadow: var(--px) var(--px) 0 #8e2b1a;
+    line-height: 1.05;
+  }
+
+  :root[data-theme='fun'] .hero__tagline {
+    font-style: normal;
+    font-size: var(--text-lg);
+  }
+
+  :root[data-theme='fun'] .hero__summary {
+    color: var(--text);
+  }
+
+  .btn--start {
+    --frame: var(--frame-hot);
+    background: transparent !important;
+    color: var(--frame-hot) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .btn--start::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.6rem;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Status + achievements windows. */
+  :root[data-theme='fun'] :is(.hero__aside, .hero__numbers) {
+    margin: var(--px);
+    padding: var(--space-5);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+    border: none;
+  }
+
+  :root[data-theme='fun'] .hero__aside {
+    align-self: start;
+    padding-block: var(--space-4);
+  }
+
+  :root[data-theme='fun'] .hero__numbers {
+    padding-block: var(--space-4);
+    row-gap: var(--space-4);
+  }
+
+  /* Wide screens: status and achievements stack on the right, so the scene shows above the fold. */
+  @media (min-width: 960px) {
+    :root[data-theme='fun'] .hero {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      row-gap: var(--space-5);
+    }
+
+    :root[data-theme='fun'] .hero__main {
+      grid-row: span 2;
+    }
+
+    :root[data-theme='fun'] .hero__numbers {
+      grid-column: 2;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  :root[data-theme='fun'] .hero__numbers > div {
+    padding: 0 var(--space-5) 0 0;
+  }
+
+  :root[data-theme='fun'] .hero__numbers dd {
+    font-size: var(--text-xl);
+  }
+
+  :root[data-theme='fun'] .hero__numbers dd {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .hero__numbers dd::before {
+    content: '';
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    margin-right: 0.3em;
+    vertical-align: 0.15em;
+    background: var(--grass);
+    transform: rotate(45deg);
+  }
+
+  /* Vivi stands on the front ridge. Click casts Fire. */
+  .vivi {
+    position: absolute;
+    left: calc(var(--gutter) + 20%);
+    bottom: clamp(18px, 2.6vw, 40px);
+    width: clamp(72px, 8vw, 104px);
+    padding: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .vivi__sprite {
+    width: 100%;
+    animation: bob 1.2s steps(1) infinite;
+  }
+
+  @keyframes bob {
+    50% {
+      transform: translateY(var(--px));
+    }
+  }
+
+  .vivi .sprite-eyes {
+    animation: eyes 4.5s steps(1) infinite;
+  }
+
+  @keyframes eyes {
+    0%,
+    94% {
+      fill: #ffd23a;
+    }
+    96% {
+      fill: #120c18;
+    }
+  }
+
+  .vivi .sprite-orb {
+    animation: orb 1.6s steps(2, jump-none) infinite alternate;
+  }
+
+  @keyframes orb {
+    to {
+      fill: #fdb813;
+    }
+  }
+
+  .vivi:hover .vivi__sprite,
+  .vivi:focus-visible .vivi__sprite {
+    filter: drop-shadow(0 0 6px rgba(253, 184, 19, 0.6));
+  }
+
+  .vivi__bubble {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-pixel);
+    white-space: nowrap;
+    color: var(--on-accent);
+    background: var(--text);
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .vivi__sparks {
+    position: absolute;
+    top: 22%;
+    right: 2%;
+    pointer-events: none;
+  }
+
+  .vivi__sparks span {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--ember);
+    opacity: 0;
+  }
+
+  .vivi__sparks span:nth-child(even) {
+    background: var(--frame-hot);
+  }
+
+  .vivi.is-casting .vivi__bubble {
+    animation: bubble 1.3s steps(4) forwards;
+  }
+
+  .vivi.is-casting .vivi__sparks span {
+    animation: spark 0.9s steps(6) forwards;
+  }
+
+  .vivi.is-casting .sprite-orb {
+    animation: none;
+    fill: #fff4d6;
+  }
+
+  .vivi__sparks span:nth-child(1) { --dx: -40px; --dy: -70px; }
+  .vivi__sparks span:nth-child(2) { --dx: 10px; --dy: -90px; animation-delay: 0.05s !important; }
+  .vivi__sparks span:nth-child(3) { --dx: 40px; --dy: -60px; animation-delay: 0.1s !important; }
+  .vivi__sparks span:nth-child(4) { --dx: -20px; --dy: -110px; animation-delay: 0.12s !important; }
+  .vivi__sparks span:nth-child(5) { --dx: 30px; --dy: -120px; animation-delay: 0.18s !important; }
+  .vivi__sparks span:nth-child(6) { --dx: -55px; --dy: -40px; animation-delay: 0.2s !important; }
+
+  @keyframes spark {
+    0% {
+      opacity: 1;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy));
+    }
+  }
+
+  @keyframes bubble {
+    0%,
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* ---------- Airship companion: drifts down the page with scroll ---------- */
+  .airship {
+    position: fixed;
+    z-index: 40;
+    top: calc(var(--nav-h) + var(--space-5));
+    right: max(var(--space-4), calc((100vw - var(--container)) / 2 - 7rem));
+    width: 84px;
+    pointer-events: none;
+    transform: translateY(calc(var(--scroll, 0) * (100vh - var(--nav-h) - 140px)));
+  }
+
+  .airship__sprite {
+    width: 100%;
+    animation: bob 1.6s steps(1) infinite;
+  }
+
+  .airship .sprite-prop {
+    animation: blink 0.3s steps(1) infinite;
+  }
+
+  .airship .sprite-lamps {
+    animation: orb 1.2s steps(2, jump-none) infinite alternate;
+  }
+
+  /* Only where there is a free margin beside the content. */
+  @media (max-width: 1439px) {
+    .airship {
+      display: none;
+    }
+  }
+
+  /* ---------- 01 Work: level select along a river ---------- */
+  :root[data-theme='fun'] .cases {
+    position: relative;
+    padding-left: 2.75rem;
+    gap: var(--space-7);
+  }
+
+  :root[data-theme='fun'] .cases::before {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    top: var(--space-3);
+    bottom: var(--space-3);
+    width: var(--px);
+    background: repeating-linear-gradient(to bottom, var(--sky) 0 8px, transparent 8px 16px);
+  }
+
+  :root[data-theme='fun'] .case + .case {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  :root[data-theme='fun'] .case {
+    position: relative;
+  }
+
+  /* Stage node on the river path. */
+  :root[data-theme='fun'] .case::before {
+    content: '';
+    position: absolute;
+    left: calc(-2.75rem + 0.45rem);
+    top: var(--space-6);
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(45deg);
+    background: var(--frame-hot);
+    box-shadow: 0 0 0 var(--px) var(--night), 0 0 0 calc(var(--px) * 2) var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .case article {
+    margin: var(--px);
+    padding: var(--space-6);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  :root[data-theme='fun'] .case--featured article {
+    --frame: var(--frame-hot);
+  }
+
+  .case__stage {
+    font-family: var(--font-pixel);
+    font-size: var(--text-sm);
+    color: var(--sky);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-1);
+  }
+
+  :root[data-theme='fun'] .case__metric {
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .case__steps > div {
+    padding-top: var(--space-3);
+    border-top: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .case__steps dt {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .case__steps dd {
+    color: var(--text);
+  }
+
+  /* ---------- 02 Experience: quest log ---------- */
+  :root[data-theme='fun'] .jobs {
+    margin: var(--px);
+    padding: var(--space-6);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  :root[data-theme='fun'] .job {
+    border-top: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .job:first-child {
+    border-top: none;
+  }
+
+  :root[data-theme='fun'] .job__period {
+    color: var(--sky);
+  }
+
+  :root[data-theme='fun'] .job__role {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .job__bullets {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  :root[data-theme='fun'] .job__bullets li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  :root[data-theme='fun'] .job__bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--grass);
+  }
+
+  :root[data-theme='fun'] .job__more summary {
+    font-family: var(--font-pixel);
+    font-size: var(--text-base);
+    color: var(--frame-hot);
+  }
+
+  /* ---------- 03 Drupal: spellbook ---------- */
+  :root[data-theme='fun'] .drupal__versions {
+    color: var(--grass);
+    font-family: var(--font-pixel);
+    border-width: 2px;
+  }
+
+  :root[data-theme='fun'] .drupal__list > div {
+    position: relative;
+    padding: var(--space-3) 0 0 1.5rem;
+    border-top: 2px dotted var(--frame);
+  }
+
+  /* Spell gem. */
+  :root[data-theme='fun'] .drupal__list > div::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: calc(var(--space-3) + 0.35em);
+    width: 0.6rem;
+    height: 0.6rem;
+    transform: rotate(45deg);
+    background: var(--sky);
+    box-shadow: inset -3px -3px 0 var(--violet);
+  }
+
+  :root[data-theme='fun'] .drupal__list dt {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .drupal__list dd,
+  :root[data-theme='fun'] .arch__why,
+  :root[data-theme='fun'] .drupal__ai p {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .arch {
+    margin: var(--px);
+    border: none;
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  :root[data-theme='fun'] .arch__node {
+    border: 2px solid var(--frame);
+    background: var(--night);
+  }
+
+  :root[data-theme='fun'] .arch__link {
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .arch__link::before {
+    border-left: var(--px) dotted var(--grass);
+  }
+
+  /* ---------- 04 Skills: star chart ---------- */
+  :root[data-theme='fun'] .skills__group {
+    padding: var(--space-5);
+    border: 2px dashed rgba(107, 91, 149, 0.8);
+    background: rgba(11, 15, 30, 0.7);
+  }
+
+  :root[data-theme='fun'] .skills dt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-pixel);
+    font-size: var(--text-md);
+    color: var(--frame-hot);
+    border-bottom: none;
+  }
+
+  /* Planet with a ring; color rotates per group. */
+  :root[data-theme='fun'] .skills dt::before {
+    content: '';
+    flex: none;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--planet, var(--ember));
+    box-shadow: 0 0 0 3px var(--night), 0 0 0 5px rgba(243, 230, 204, 0.5);
+  }
+
+  :root[data-theme='fun'] .skills__group:nth-child(4n + 2) { --planet: var(--sky); }
+  :root[data-theme='fun'] .skills__group:nth-child(4n + 3) { --planet: var(--grass); }
+  :root[data-theme='fun'] .skills__group:nth-child(4n + 4) { --planet: #e9806e; }
+
+  :root[data-theme='fun'] .skills__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  :root[data-theme='fun'] .skills__items li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .skills__items li::after {
+    content: none;
+  }
+
+  /* Four-point pixel star. */
+  :root[data-theme='fun'] .skills__items li::before {
+    content: '';
+    flex: none;
+    width: 2px;
+    height: 2px;
+    margin: 2px;
+    background: var(--star, #fff4d6);
+    box-shadow: 2px 0 #fff4d6, -2px 0 #fff4d6, 0 2px #fff4d6, 0 -2px #fff4d6;
+  }
+
+  /* ---------- 05 Education: achievements ---------- */
+  :root[data-theme='fun'] .edu__list strong {
+    color: var(--frame-hot);
+    font-weight: 600;
+  }
+
+  :root[data-theme='fun'] .edu__list span {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .certs th,
+  :root[data-theme='fun'] .certs td {
+    border-bottom: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .certs th {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  /* Pixel trophy: cup, stem and base from one square and its shadows. */
+  :root[data-theme='fun'] .certs th::before {
+    content: '';
+    position: absolute;
+    left: 0.3rem;
+    top: calc(var(--space-3) + 0.15em);
+    width: 8px;
+    height: 6px;
+    background: var(--frame-hot);
+    box-shadow: -3px 0 0 -1px var(--frame-hot), 3px 0 0 -1px var(--frame-hot), 0 4px 0 -2px var(--frame-hot), 0 7px 0 -1px #c9772e;
+  }
+
+  :root[data-theme='fun'] .certs td {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .certs__date {
+    color: var(--grass);
+    font-size: var(--text-sm);
+  }
+
+  /* ---------- 06 Contact: save point ---------- */
+  .savepoint {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .savepoint__scene {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-bottom: var(--px) solid #1e0f22;
+  }
+
+  .savepoint__vivi {
+    width: 64px;
+  }
+
+  .savepoint__fire {
+    width: 48px;
+    filter: drop-shadow(0 0 10px rgba(232, 100, 30, 0.55));
+  }
+
+  .savepoint__fire .sprite-flame {
+    animation: flicker 0.5s steps(1) infinite;
+  }
+
+  .savepoint__fire .sprite-flame:nth-of-type(2) {
+    animation-delay: 0.25s;
+  }
+
+  @keyframes flicker {
+    50% {
+      transform: translate(0, -1px);
+      opacity: 0.85;
+    }
+  }
+
+  .savepoint__vivi .sprite-eyes {
+    animation: eyes 5s steps(1) infinite 1s;
+  }
+
+  .savepoint__text {
+    font-family: var(--font-pixel);
+    color: var(--sky);
+    max-width: 24ch;
+  }
+
+  :root[data-theme='fun'] .contact__links li {
+    border-bottom: 2px dotted var(--frame);
+    color: var(--muted);
+  }
+
+  :root[data-theme='fun'] .contact__form {
+    margin: var(--px);
+    padding: var(--space-6);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  :root[data-theme='fun'] .field label {
+    font-family: var(--font-pixel);
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .field input,
+  :root[data-theme='fun'] .field textarea {
+    background: var(--night);
+    border: 2px solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .field input:focus-visible,
+  :root[data-theme='fun'] .field textarea:focus-visible {
+    outline: 3px solid var(--frame-hot);
+  }
+
+  /* ---------- Footer + back to top ---------- */
+  :root[data-theme='fun'] .footer {
+    border-top: var(--px) solid var(--window);
+    background: var(--night);
+  }
+
+  .footer__credit {
+    flex-basis: 100%;
+    font-size: var(--text-xs);
+  }
+
+  :root[data-theme='fun'] .back-to-top {
+    border: none;
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+    color: var(--frame-hot);
+  }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 720px) {
+    :root[data-theme='fun'] .hero {
+      min-height: 0;
+    }
+
+    :root[data-theme='fun'] .cases {
+      padding-left: 0;
+    }
+
+    :root[data-theme='fun'] .cases::before,
+    :root[data-theme='fun'] .case::before {
+      display: none;
+    }
+
+    :root[data-theme='fun'] :is(.case article, .jobs, .contact__form) {
+      padding: var(--space-5) var(--space-4);
+    }
+  }
+}

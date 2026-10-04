@@ -102,8 +102,8 @@
   --shadow-lg: 0 20px 50px -28px rgba(21, 23, 26, 0.25);
 }
 
-/* Fun: palette only (Style Brief "night/parchment/amber").
-   Phase 3 replaces this with the full game interface. */
+/* Fun: base palette (Style Brief night/parchment/amber).
+   Game tokens and the full skin live in fun.css. */
 :root[data-theme='fun'] {
   color-scheme: dark;
 

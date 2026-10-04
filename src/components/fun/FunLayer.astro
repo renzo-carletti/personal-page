@@ -1,0 +1,32 @@
+---
+// Page-wide fun mode layers: pixel starfield behind everything and the airship
+// that follows scroll progress (`--scroll`, set in scroll-ui.js).
+import PixelSprite from './PixelSprite.astro';
+import { airship } from './sprites.js';
+
+function stars(count: number, seed: number, size: number) {
+  let s = seed;
+  const rand = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  return Array.from({ length: count }, () => `M${Math.floor(rand() * 240)} ${Math.floor(rand() * 240)}h${size}v${size}h-${size}z`).join('');
+}
+---
+
+<div class="fun-only fun-sky" aria-hidden="true">
+  <svg width="100%" height="100%" focusable="false">
+    <defs>
+      <pattern id="stars-a" width="240" height="240" patternUnits="userSpaceOnUse">
+        <path d={stars(22, 3, 2)} fill="#b9bcc8" opacity="0.55" />
+        <path d={stars(4, 11, 3)} fill="#fff4d6" />
+      </pattern>
+      <pattern id="stars-b" x="120" y="60" width="240" height="240" patternUnits="userSpaceOnUse">
+        <path d={stars(6, 29, 2)} fill="#fff4d6" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#stars-a)" />
+    <rect class="fun-sky__twinkle" width="100%" height="100%" fill="url(#stars-b)" />
+  </svg>
+</div>
+
+<div class="fun-only airship" aria-hidden="true">
+  <PixelSprite sprite={airship} class="airship__sprite" />
+</div>

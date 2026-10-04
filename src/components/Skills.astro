@@ -7,6 +7,7 @@ const en = translations.en;
   <div class="container section__grid">
     <header class="section__head">
       <span class="section__num">04</span>
+      <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.skills">{en['fun.skills']}</span>
       <h2 id="skills-title" class="section__title" data-i18n="skills.title">{en['skills.title']}</h2>
     </header>
 
@@ -14,7 +15,11 @@ const en = translations.en;
       {skills.map((group, gi) => (
         <div class="skills__group">
           <dt data-i18n={`skills.g${gi}`}>{t(group.group)}</dt>
-          <dd>{group.items.join(', ')}</dd>
+          <dd>
+            <ul class="skills__items" role="list">
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </dd>
         </div>
       ))}
     </dl>
@@ -39,6 +44,14 @@ const en = translations.en;
     color: var(--muted);
     font-size: var(--text-sm);
     line-height: 1.7;
+  }
+
+  .skills__items li {
+    display: inline;
+  }
+
+  .skills__items li:not(:last-child)::after {
+    content: ', ';
   }
 
   @media print {

@@ -6,7 +6,7 @@ Single source of truth for the redesign. Phase 0 (audit) done on 2026-10-02. Ref
 - [x] Phase 0: Audit + Style Brief
 - [x] Phase 1: Content & architecture (2026-10-02; open: user regenerates cv.pdf)
 - [x] Phase 2: Normal mode (2026-10-02; fun mode is a palette swap until Phase 3)
-- [ ] Phase 3: Fun mode
+- [x] Phase 3: Fun mode (2026-10-02)
 - [ ] Phase 4: Polish & quality
 
 ### 1. Project map
@@ -94,7 +94,7 @@ IP flags (mood board only, never copy/trace/ship):
 - Firewatch site/art (Campo Santo/Olly Moss): landing_page_reference.
 - Outer Wilds (Mobius): d734 art; 0895 is signed fan art ("VJ 20").
 - Unknown authors: ship3, a56d. cards_reference likely AI-generated.
-- Current site's Vivi-like elements (if any remain in Hero/fun mode) must be checked in Phase 3 for being original.
+- Vivi: user asked for Vivi in fun mode (favorite character). Shipped as an original pixel drawing (not a ripped or traced sprite) with a fan-tribute credit line in the footer.
 
 Clash + proposed unified direction (NEEDS CONFIRMATION before Phase 3):
 - Brief asks pixel art; references contain zero pixel art (flat vector + ink illustration + 3D renders).
@@ -122,9 +122,18 @@ Phase 2 — Normal mode
 - [x] Icons: one inline SVG set in `src/components/Icon.astro` (24 grid, 1.75 stroke). Glyphs (×, ▍, ◐, $ whoami) removed.
 - [x] Fixes: contact form placeholder text leaking as visible text; labels now use `for`/`id`. Footer moved out of `<main>`. Numbers formatted per locale (1.100+ in ES). Experience period translated ("Actualidad").
 - [x] Removed: GSAP + `@fontsource-variable/inter` deps, `fun-fx.js`, `game-fx.js`, `reveal.js`, `hero-three.js`, About.astro, Workflow.astro. Certifications.astro renamed to Education.astro.
-- [ ] Fun mode is only a palette swap (Style Brief night/parchment/amber) on the normal layout until Phase 3.
+- [x] Fun mode is only a palette swap until Phase 3 (done in Phase 3).
 - [ ] Certification dates (`Apr 2025`) are still English-only.
-Phase 3 — Fun mode: as brief, direction per confirmed decision; replace current FF9 storybook skin; drop GSAP if CSS suffices; assets in `/public/assets/fun/` (Astro serves from public; brief's `/assets/fun/`).
+Phase 3 — Fun mode
+- [x] Approach: same markup and content as normal mode, reskinned by `src/styles/fun.css` (all rules under `@media screen` and `:root[data-theme='fun']`). Fun-only elements use `.fun-only` (display:none in normal mode and print). No GSAP, no extra JS deps.
+- [x] `astro.config.mjs`: `scopedStyleStrategy: 'where'` so theme overrides win over scoped component styles. Normal mode verified pixel-identical before/after (1440 and 390 full-page diff).
+- [x] Pixel font: Jersey 10 (`@fontsource/jersey-10`, latin + latin-ext, one weight, fetched only when fun styles use it). Pixelify Sans tried and dropped: its "5" reads as "S", bad for the stats. Body text stays Public Sans; no serif in fun (`--font-display` → sans).
+- [x] Sprites: original pixel art in `src/components/fun/sprites.js` (character grids), rendered by `PixelSprite.astro` as one crisp SVG (paths merged per color). Vivi (user's request, fan tribute drawn from scratch), airship, campfire. No image files, so nothing in `/public/assets/fun/`.
+- [x] Hero = title screen (`fun/HeroScene.astro`): dusk sky gradient, five flat ridge layers with pines (Firewatch-style values, no outlines), sun, status + achievements windows, blinking "Press start". Vivi stands on the ridge: idle bob, blinking eyes, glowing staff; click/Enter casts Fire (sparks + "Fire!"/"¡Piro!" bubble).
+- [x] Page-wide (`fun/FunLayer.astro`): fixed pixel starfield with twinkle layer; airship companion drifts down with scroll (only ≥1440px, where there is a free margin). HUD nav: pixel font, "LV 5" badge, FF-style menu cursor on the current section, segmented XP bar = scroll progress (`--scroll` set in scroll-ui.js).
+- [x] Sections: 01 level select (river path, stage nodes, "Stage 1-n" mission cards, featured = gold frame) / 02 quest log window / 03 spellbook (gem markers, arch diagram window) / 04 star chart (planet + ring per group, pixel-star items; Skills now renders a list, normal mode unchanged) / 05 achievements (pixel trophies) / 06 save point (Vivi + campfire, form window). Pixel section dividers.
+- [x] Fun strings in `content.json` (`fun.*`, EN/ES). Footer credit in fun mode: "Vivi is a fan tribute: Final Fantasy IX © Square Enix. All pixel art on this site is original."
+- [x] Checked: no horizontal overflow at 320/390/1000/1440; reduced motion handled by the global rule.
 Phase 4 — Polish & quality: as brief; README rewrite (GitHub Pages first).
 
 Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), drupal.org contributions/talks?, PHPUnit/Behat/Search API/Solr experience?, keep EN/ES?

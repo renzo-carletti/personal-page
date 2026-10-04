@@ -1,11 +1,13 @@
 ---
 import Icon from './Icon.astro';
+import HeroScene from './fun/HeroScene.astro';
 import { profile, stats, t, translations } from '../data/content.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <section id="top" class="hero container" aria-labelledby="hero-name">
+  <HeroScene />
   <div class="hero__main">
     <p class="hero__role" data-i18n="hero.role">{t(profile.role)}</p>
     <h1 id="hero-name" class="hero__name">{profile.name}</h1>
@@ -13,6 +15,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     <p class="hero__summary" data-i18n="hero.summary">{t(profile.summary)}</p>
 
     <div class="hero__actions">
+      <a class="fun-only btn btn--start" href="#work" data-i18n="fun.start">{en['fun.start']}</a>
       <a class="btn btn--primary" href="#contact">
         <Icon name="mail" size={16} />
         <span data-i18n="hero.contact">{en['hero.contact']}</span>

@@ -1,0 +1,56 @@
+---
+// Fun mode title screen: dusk sky, layered ridges (flat, no outlines) and Vivi on the ground.
+// Hidden in normal mode by `.fun-only`.
+import PixelSprite from './PixelSprite.astro';
+import { vivi } from './sprites.js';
+import { translations } from '../../data/content.js';
+const en = translations.en;
+
+// Pine silhouettes: deterministic positions so the build is stable.
+function pines(count: number, seed: number, baseY: (x: number) => number, h: [number, number]) {
+  let s = seed;
+  const rand = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  return Array.from({ length: count }, () => {
+    const x = Math.round(rand() * 1440);
+    const height = h[0] + rand() * (h[1] - h[0]);
+    const y = baseY(x) + 4;
+    const w = height * 0.28;
+    return `M${x} ${(y - height).toFixed(1)}L${(x + w).toFixed(1)} ${y.toFixed(1)}L${(x - w).toFixed(1)} ${y.toFixed(1)}Z`;
+  }).join('');
+}
+const hill3 = (x: number) => 342 + 8 * Math.sin(x / 140);
+const hill4 = (x: number) => 376 + 6 * Math.sin(x / 110 + 1);
+const trees3 = pines(26, 7, hill3, [26, 48]);
+const trees4 = pines(18, 42, hill4, [40, 72]);
+const sparks = Array.from({ length: 6 });
+---
+
+<div class="fun-only fun-scene" aria-hidden="true">
+  <svg class="fun-scene__land" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" focusable="false">
+    <circle cx="560" cy="250" r="96" fill="#fdb813" opacity="0.25" />
+    <circle cx="560" cy="250" r="62" fill="#fdb813" />
+    <path fill="#d9531e" d="M0 300L120 262L220 282L340 222L430 252L520 204L640 262L760 232L880 272L1000 214L1120 252L1240 218L1360 262L1440 242V420H0Z" />
+    <path fill="#8e2b1a" d="M0 322L90 302L200 332L310 284L420 316L560 272L700 322L820 292L960 332L1080 288L1200 322L1320 298L1440 312V420H0Z" />
+    <path fill="#4a1620" d={`M0 350${Array.from({ length: 49 }, (_, i) => `L${i * 30} ${hill3(i * 30).toFixed(1)}`).join('')}V420H0Z${trees3}`} />
+    <path fill="#1e0f22" d={`M0 380${Array.from({ length: 49 }, (_, i) => `L${i * 30} ${hill4(i * 30).toFixed(1)}`).join('')}V420H0Z${trees4}`} />
+    <path fill="#0b0f1e" d="M0 400Q360 390 720 398T1440 396V420H0Z" />
+  </svg>
+</div>
+
+<button class="fun-only vivi" type="button" aria-label={en['fun.vivi']} data-i18n="fun.vivi" data-i18n-attr="aria-label">
+  <span class="vivi__bubble" data-i18n="fun.cast">{en['fun.cast']}</span>
+  <span class="vivi__sparks" aria-hidden="true">{sparks.map(() => <span />)}</span>
+  <PixelSprite sprite={vivi} class="vivi__sprite" />
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.vivi');
+  let timer: number | undefined;
+  btn?.addEventListener('click', () => {
+    btn.classList.remove('is-casting');
+    void btn.offsetWidth; // restart the animation on repeat clicks
+    btn.classList.add('is-casting');
+    clearTimeout(timer);
+    timer = window.setTimeout(() => btn.classList.remove('is-casting'), 1400);
+  });
+</script>

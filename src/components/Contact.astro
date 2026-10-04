@@ -1,5 +1,7 @@
 ---
 import Icon from './Icon.astro';
+import PixelSprite from './fun/PixelSprite.astro';
+import { campfire, vivi } from './fun/sprites.js';
 import { profile, site as siteConfig, translations } from '../data/content.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
@@ -14,11 +16,19 @@ const fields = [
   <div class="container section__grid">
     <header class="section__head">
       <span class="section__num">06</span>
+      <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.contact">{en['fun.contact']}</span>
       <h2 id="contact-title" class="section__title" data-i18n="contact.title">{en['contact.title']}</h2>
     </header>
 
     <div class="contact">
       <div class="contact__info">
+        <div class="fun-only savepoint">
+          <div class="savepoint__scene" aria-hidden="true">
+            <PixelSprite sprite={vivi} class="savepoint__vivi" />
+            <PixelSprite sprite={campfire} class="savepoint__fire" />
+          </div>
+          <p class="savepoint__text" data-i18n="fun.save">{en['fun.save']}</p>
+        </div>
         <p class="contact__text" data-i18n="contact.text">{en['contact.text']}</p>
         <ul class="contact__links" role="list">
           <li>

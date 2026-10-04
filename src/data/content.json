@@ -379,6 +379,19 @@
     "workflow.ai.title": { "en": "AI in my workflow", "es": "IA en mi flujo de trabajo" },
     "workflow.ai.text": { "en": "Cursor and coding agents draft scaffolding, migrations and tests. For client and government code I use local models with Ollama. I review, refactor and test every change before it ships.", "es": "Cursor y agentes de código preparan scaffolding, migraciones y tests. Para código de clientes y de gobierno uso modelos locales con Ollama. Reviso, refactorizo y pruebo cada cambio antes de publicarlo." },
     "footer.built": { "en": "Built with Astro and plain CSS.", "es": "Hecho con Astro y CSS plano." },
-    "footer.top": { "en": "Back to top", "es": "Volver arriba" }
+    "footer.top": { "en": "Back to top", "es": "Volver arriba" },
+    "fun.lv": { "en": "LV 5", "es": "NV 5" },
+    "fun.start": { "en": "Press start", "es": "Presioná start" },
+    "fun.work": { "en": "World 1 · The river map", "es": "Mundo 1 · El mapa del río" },
+    "fun.stage": { "en": "Stage", "es": "Nivel" },
+    "fun.exp": { "en": "Quest log", "es": "Diario de misiones" },
+    "fun.drupal": { "en": "Spellbook", "es": "Libro de hechizos" },
+    "fun.skills": { "en": "Star chart", "es": "Carta estelar" },
+    "fun.edu": { "en": "Achievements", "es": "Logros" },
+    "fun.contact": { "en": "Save point", "es": "Punto de guardado" },
+    "fun.save": { "en": "Rest by the fire. Your progress is saved.", "es": "Descansá junto al fuego. Tu progreso está guardado." },
+    "fun.vivi": { "en": "Vivi: cast Fire", "es": "Vivi: lanzar Piro" },
+    "fun.cast": { "en": "Fire!", "es": "¡Piro!" },
+    "fun.credit": { "en": "Vivi is a fan tribute: Final Fantasy IX © Square Enix. All pixel art on this site is original.", "es": "Vivi es un homenaje de fan: Final Fantasy IX © Square Enix. Todo el pixel art de este sitio es original." }
   }
 }

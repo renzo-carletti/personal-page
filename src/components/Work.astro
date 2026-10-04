@@ -9,6 +9,7 @@ const steps = ['problem', 'solution', 'impact'];
   <div class="container section__grid">
     <header class="section__head">
       <span class="section__num">01</span>
+      <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.work">{en['fun.work']}</span>
       <h2 id="work-title" class="section__title" data-i18n="work.title">{en['work.title']}</h2>
       <p class="section__intro" data-i18n="work.intro">{en['work.intro']}</p>
     </header>
@@ -18,6 +19,7 @@ const steps = ['problem', 'solution', 'impact'];
         <li class:list={['case', { 'case--featured': p.featured }]}>
           <article aria-labelledby={`case-${i}`}>
             <header class="case__head">
+              <p class="fun-only case__stage" aria-hidden="true"><span data-i18n="fun.stage">{en['fun.stage']}</span> 1-{i + 1}</p>
               <p class="label" data-i18n={`work.role.${p.role}`}>{en[`work.role.${p.role}`]}</p>
               <h3 id={`case-${i}`} class="case__name" data-i18n={`work.${i}.name`}>{t(p.name)}</h3>
               <p class="case__tagline" data-i18n={`work.${i}.tagline`}>{t(p.tagline)}</p>

@@ -1,7 +1,18 @@
 const backToTop = document.getElementById('back-to-top');
 
+const root = document.documentElement;
+let ticking = false;
+
 function onScroll() {
   backToTop.classList.toggle('visible', window.scrollY > 600);
+  if (ticking) return;
+  ticking = true;
+  // Scroll progress 0..1, used by the fun mode XP bar and airship.
+  requestAnimationFrame(() => {
+    const max = root.scrollHeight - window.innerHeight;
+    root.style.setProperty('--scroll', max > 0 ? (window.scrollY / max).toFixed(4) : '0');
+    ticking = false;
+  });
 }
 
 onScroll();

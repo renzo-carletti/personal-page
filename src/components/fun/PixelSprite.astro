@@ -1,0 +1,40 @@
+---
+// Renders a sprite from `sprites.js` as one crisp SVG: one <path> per color,
+// horizontal runs merged. Decorative (aria-hidden); size it with CSS width.
+interface Props {
+  sprite: { rows: string[]; palette: Record<string, string | { fill: string; cls: string }> };
+  class?: string;
+}
+
+const { sprite, class: className } = Astro.props;
+const width = Math.max(...sprite.rows.map((r) => r.length));
+const height = sprite.rows.length;
+
+const paths = new Map<string, string>();
+sprite.rows.forEach((row, y) => {
+  let x = 0;
+  while (x < row.length) {
+    const ch = row[x];
+    let end = x + 1;
+    while (end < row.length && row[end] === ch) end++;
+    if (ch !== '.') paths.set(ch, (paths.get(ch) ?? '') + `M${x} ${y}h${end - x}v1h-${end - x}z`);
+    x = end;
+  }
+});
+
+const layers = [...paths].map(([ch, d]) => {
+  const entry = sprite.palette[ch];
+  return typeof entry === 'string' ? { d, fill: entry, cls: undefined } : { d, ...entry };
+});
+---
+
+<svg
+  class:list={['sprite', className]}
+  viewBox={`0 0 ${width} ${height}`}
+  style={`aspect-ratio: ${width} / ${height}`}
+  shape-rendering="crispEdges"
+  aria-hidden="true"
+  focusable="false"
+>
+  {layers.map((l) => <path d={l.d} fill={l.fill} class={l.cls} />)}
+</svg>

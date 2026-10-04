@@ -64,7 +64,18 @@ const fields = [
         </a>
       </div>
 
-      <form id="contact-form" class="contact__form" data-email={profile.email} data-form-key={siteConfig.web3FormsKey}>
+      <form
+        id="contact-form"
+        class="contact__form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        data-email={profile.email}
+        data-form-key={siteConfig.web3FormsKey}
+      >
+        <!-- Without JS the form still posts to Web3Forms. The key only delivers to my inbox, so it is safe in public. -->
+        <input type="hidden" name="access_key" value={siteConfig.web3FormsKey} />
+        <!-- Honeypot: bots tick it, Web3Forms drops those submissions. -->
+        <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
         {fields.map((f) => (
           <div class="field">
             <label for={`cf-${f.name}`} data-i18n={`contact.form.${f.name}`}>{en[`contact.form.${f.name}`]}</label>
@@ -312,7 +323,16 @@ const fields = [
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ access_key: formKey, subject, from_name: name, from_email: from, message }),
+        body: JSON.stringify({
+          access_key: formKey,
+          subject,
+          from_name: 'Portfolio contact form',
+          name,
+          email: from,
+          replyto: from,
+          message,
+          botcheck: el('botcheck').checked,
+        }),
       });
       const json = await res.json();
       if (!json.success) throw new Error(json.message || 'error');

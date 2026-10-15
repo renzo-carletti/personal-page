@@ -2,7 +2,7 @@ import content from './content.json';
 
 export default content;
 
-export const { site, profile, stats, projects, experience, skills, drupal, certifications, education, languages } = content;
+export const { site, profile, stats, projects, experience, skills, drupal, certifications, documents, education, languages } = content;
 export const { languages: langs, defaultLang } = site;
 
 // Pick one language from a bilingual field ({ en, es }); plain values pass through.
@@ -66,6 +66,12 @@ function buildDict(lang) {
   });
 
   skills.forEach((g, i) => put(`skills.g${i}`, g.group));
+  documents.forEach((doc, i) => {
+    put(`docs.${i}.title`, doc.title);
+    put(`docs.${i}.issuer`, doc.issuer);
+    d[`docs.${i}.date`] = formatMonth(doc.date, lang);
+    d[`docs.${i}.view`] = `${t(content.ui['edu.view'], lang)}: ${t(doc.title, lang)}`;
+  });
   certifications.forEach((c, i) => {
     put(`certs.${i}`, c.name);
     d[`certs.${i}.date`] = formatMonth(c.date, lang);

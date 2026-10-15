@@ -1972,4 +1972,58 @@
       display: none;
     }
   }
+
+  /* ---------- Certificates as legendary items ---------- */
+  :root[data-theme='fun'] .doc__thumb {
+    margin: var(--px);
+    width: calc(100% - var(--px) * 2);
+    border: none;
+    background: var(--window);
+    box-shadow: calc(var(--px) * -1) 0 0 0 var(--frame-hot), var(--px) 0 0 0 var(--frame-hot),
+      0 calc(var(--px) * -1) 0 0 var(--frame-hot), 0 var(--px) 0 0 var(--frame-hot), 0 0 18px rgba(253, 184, 19, 0.35);
+  }
+
+  :root[data-theme='fun'] .doc__thumb:hover {
+    transform: translateY(-2px);
+  }
+
+  .doc__tag {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    z-index: 1;
+    padding: 0 6px;
+    font-family: var(--font-pixel);
+    font-size: var(--text-xs);
+    font-size-adjust: 0.55;
+    color: var(--on-accent);
+    background: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .doc__info strong {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .doc__info span {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .doc__info .doc__date {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .doc__dialog {
+    border: none;
+    background: var(--window);
+    box-shadow: 0 0 0 var(--px) var(--frame-hot), var(--shadow-lg);
+  }
+
+  :root[data-theme='fun'] .doc__dialog-head {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size-adjust: 0.55;
+    color: var(--frame-hot);
+  }
 }

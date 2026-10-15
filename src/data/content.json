@@ -13,8 +13,8 @@
     "location": "Paraná, Entre Ríos, AR",
     "email": "renzocarletti@hotmail.com",
     "phone": "+54 9 343 4295 881",
-    "linkedin": "https://www.linkedin.com/in/renzo-emiliano-carletti-7bbaba20b/",
-    "linkedinLabel": "in/renzo-emiliano-carletti",
+    "linkedin": "https://www.linkedin.com/in/renzo-carletti/",
+    "linkedinLabel": "in/renzo-carletti",
     "github": "https://github.com/renzo-carletti",
     "role": {
       "en": "Drupal & React developer",
@@ -39,8 +39,8 @@
     "highlights": [
       { "en": "5+ years building and upgrading Drupal sites", "es": "5+ años construyendo y actualizando sitios Drupal" },
       { "en": "57,000+ active users and 786,000+ events on UADER portals", "es": "57.000+ usuarios activos y 786.000+ eventos en portales de UADER" },
-      { "en": "e-UADER: 2,000+ registered users, 1,100+ certificates issued", "es": "e-UADER: 2.000+ usuarios registrados, 1.100+ certificados emitidos" },
-      { "en": "Moved a monolithic Drupal site to a headless React frontend", "es": "Pasé un sitio Drupal monolítico a un frontend React headless" }
+      { "en": "e-UADER: 2,000+ registered users, 1,100+ certificates issued in its first 4 months", "es": "e-UADER: 2.000+ usuarios registrados, 1.100+ certificados emitidos en sus primeros 4 meses" },
+      { "en": "Worked in a team that moved a monolithic Drupal site to a headless React frontend", "es": "Trabajé en un equipo que pasó un sitio Drupal monolítico a un frontend React headless" }
     ]
   },
 
@@ -64,7 +64,7 @@
         "en": "Course and diploma catalog with 5-step self-enrollment. Drupal Commerce handles the purchase, Moodle's REST API creates the enrollment, and the site issues state or university certificates automatically.",
         "es": "Catálogo de cursos y diplomaturas con auto-inscripción en 5 pasos. Drupal Commerce gestiona la compra, la API REST de Moodle crea la inscripción y el sitio emite certificados estatales o universitarios de forma automática."
       },
-      "metric": { "en": "2,000+ users · 1,100+ certificates", "es": "2.000+ usuarios · 1.100+ certificados" },
+      "metric": { "en": "2,000+ users · 1,100+ certificates in 4 months", "es": "2.000+ usuarios · 1.100+ certificados en 4 meses" },
       "case": {
         "problem": {
           "en": "There was no single enrollment path. Each faculty enrolled students by hand, and digital certificates took a long time.",
@@ -75,8 +75,8 @@
           "es": "Conecté Drupal Commerce con Moodle mediante su API REST, con un flujo de auto-inscripción en 5 pasos y certificados digitales automáticos."
         },
         "impact": {
-          "en": "2,000+ registered users and 1,100+ certificates issued so far, with no manual step to issue them.",
-          "es": "2.000+ usuarios registrados y 1.100+ certificados emitidos hasta hoy, sin pasos manuales para emitirlos."
+          "en": "2,000+ registered users and 1,100+ certificates issued in its first 4 months, with no manual step to issue them.",
+          "es": "2.000+ usuarios registrados y 1.100+ certificados emitidos en sus primeros 4 meses, sin pasos manuales para emitirlos."
         }
       }
     },
@@ -117,8 +117,8 @@
       "tech": ["Drupal 8→10", "Paragraphs"],
       "tagline": { "en": "City government portal", "es": "Portal del gobierno de la ciudad" },
       "desc": {
-        "en": "Drupal 8 to 10 migration for the City of Buenos Aires: content remodeling, Paragraphs, bug fixes and support, as a Drupal consultant through CyS.",
-        "es": "Migración de Drupal 8 a 10 para la Ciudad de Buenos Aires: remodelación de contenido, Paragraphs, corrección de bugs y soporte, como consultor Drupal vía CyS."
+        "en": "Drupal 8 to 10 migration for the City of Buenos Aires: content remodeling, Paragraphs, bug fixes and support, as a Drupal consultant through C&S Informática.",
+        "es": "Migración de Drupal 8 a 10 para la Ciudad de Buenos Aires: remodelación de contenido, Paragraphs, corrección de bugs y soporte, como consultor Drupal vía C&S Informática."
       },
       "metric": null,
       "case": {
@@ -168,7 +168,7 @@
 
   "experience": [
     {
-      "company": "CyS Informática",
+      "company": "C&S Informática",
       "period": "03/2026 · 04/2026",
       "role": { "en": "Drupal Consultant", "es": "Consultor Drupal" },
       "meta": { "en": "Remote · Contract", "es": "Remoto · Contrato" },
@@ -188,12 +188,12 @@
       "role": { "en": "Full-Stack Developer (Drupal + React)", "es": "Desarrollador Full-Stack (Drupal + React)" },
       "meta": { "en": "Remote", "es": "Remoto" },
       "bullets": [
-        { "en": "Moved a monolithic Drupal site to a headless setup: Drupal serves content over REST with OAuth2, React renders the frontend.", "es": "Pasé un sitio Drupal monolítico a una arquitectura headless: Drupal sirve el contenido por REST con OAuth2 y React renderiza el frontend." },
+        { "en": "Worked in an agile team that moved a monolithic Drupal site to a headless setup: Drupal serves content over REST with OAuth2, React renders the frontend.", "es": "Trabajé en un equipo ágil que pasó un sitio Drupal monolítico a una arquitectura headless: Drupal sirve el contenido por REST con OAuth2 y React renderiza el frontend." },
         { "en": "Upgraded the site for speed and performance, and added features for each user role.", "es": "Actualicé el sitio para mejorar velocidad y rendimiento, y sumé funciones para cada rol de usuario." },
-        { "en": "Wrote the REST endpoints and OAuth2 flows between Drupal and the React frontend.", "es": "Escribí los endpoints REST y los flujos OAuth2 entre Drupal y el frontend React." },
+        { "en": "Wrote REST endpoints and OAuth2 flows between Drupal and the React frontend.", "es": "Escribí endpoints REST y flujos OAuth2 entre Drupal y el frontend React." },
         { "en": "Built custom React components that consume JSON:API payloads.", "es": "Construí componentes React propios que consumen payloads de JSON:API." },
         { "en": "Worked in Agile sprints in Jira, with code reviews on Bitbucket.", "es": "Trabajé en sprints ágiles en Jira, con code reviews en Bitbucket." },
-        { "en": "Mentored teammates on code quality and reviews.", "es": "Acompañé a compañeros del equipo en calidad de código y revisiones." }
+        { "en": "Taught Drupal development to a teammate and helped with code quality in reviews.", "es": "Enseñé desarrollo en Drupal a un compañero del equipo y ayudé con la calidad del código en las revisiones." }
       ]
     },
     {
@@ -204,12 +204,12 @@
       "bullets": [
         { "en": "Lead the university's web projects on Drupal and Moodle, and act as the main link between academic, administrative and government stakeholders.", "es": "Dirijo los proyectos web de la universidad en Drupal y Moodle, y soy el nexo principal entre áreas académicas, administrativas y de gobierno." },
         { "en": "Built and maintain three university portals with 57,000+ active users and 786,000+ events.", "es": "Construí y mantengo tres portales universitarios con 57.000+ usuarios activos y 786.000+ eventos." },
-        { "en": "Built e-UADER, a course enrollment platform on Moodle's REST API: 2,000+ registered users and 1,100+ certificates issued.", "es": "Construí e-UADER, una plataforma de inscripción a cursos sobre la API REST de Moodle: 2.000+ usuarios registrados y 1.100+ certificados emitidos." },
+        { "en": "Built e-UADER, a course enrollment platform on Moodle's REST API: 2,000+ registered users and 1,100+ certificates issued in its first 4 months.", "es": "Construí e-UADER, una plataforma de inscripción a cursos sobre la API REST de Moodle: 2.000+ usuarios registrados y 1.100+ certificados emitidos en sus primeros 4 meses." },
         { "en": "Added ECA automations and custom Drupal modules that simplify each area's interfaces and workflows, so staff finish common tasks faster.", "es": "Sumé automatizaciones con ECA y módulos Drupal propios que simplifican las interfaces y los flujos de cada área, para que el personal termine las tareas comunes más rápido." },
         { "en": "Upgraded the sites for speed and performance, and fixed recurring server bottlenecks.", "es": "Actualicé los sitios para mejorar velocidad y rendimiento, y resolví cuellos de botella recurrentes del servidor." },
         { "en": "Migrating a legacy Drupal monolith to a headless frontend with React and GraphQL.", "es": "Migro un Drupal monolítico legado a un frontend headless con React y GraphQL." },
         { "en": "Building a new internal university app from scratch with Vue.js.", "es": "Desarrollo desde cero una nueva aplicación interna de la universidad con Vue.js." },
-        { "en": "Train the team on Drupal practices and project lifecycle.", "es": "Capacito al equipo en buenas prácticas de Drupal y ciclo de vida de proyectos." },
+        { "en": "Trained a fellow developer in Drupal programming, and train university staff to use the sites: publishing content, updating pages and creating certificate templates.", "es": "Capacité a un compañero desarrollador en programación Drupal y capacito al personal de la universidad en el uso de los sitios: carga de contenido, actualización de páginas y plantillas de certificados." },
         { "en": "Building a multi-agent AI orchestrator that gives LLMs separate roles for code generation, review and deployment.", "es": "Desarrollo un orquestador de IA multi-agente que asigna a los LLMs roles separados de generación, revisión y despliegue de código." }
       ]
     }
@@ -281,7 +281,7 @@
   },
 
   "certifications": [
-    { "name": { "en": "Diploma in DevOps Engineering", "es": "Diplomatura en Ingeniería DevOps" }, "issuer": "Mundos E", "date": "2025-04" },
+    { "name": { "en": "DevOps Diploma (250 h)", "es": "Diplomatura en DevOps (250 h)" }, "issuer": "UNC FCEFyN · Mundos E", "date": "2025-04" },
     { "name": { "en": "React.js", "es": "React.js" }, "issuer": "Coder House", "date": "2023-06" },
     { "name": { "en": "JavaScript", "es": "JavaScript" }, "issuer": "Coder House", "date": "2023-06" },
     { "name": { "en": "Web Development", "es": "Desarrollo Web" }, "issuer": "Coder House", "date": "2023-03" },
@@ -290,12 +290,29 @@
     { "name": { "en": "English, Advanced", "es": "Inglés, Avanzado" }, "issuer": "Advance", "date": "2014-12" }
   ],
 
+  "documents": [
+    {
+      "id": "titulo",
+      "image": "titulo",
+      "title": { "en": "Systems Analyst degree", "es": "Título de Analista de Sistemas" },
+      "issuer": { "en": "UADER · Faculty of Science and Technology", "es": "UADER · Facultad de Ciencia y Tecnología" },
+      "date": "2025-09"
+    },
+    {
+      "id": "devops",
+      "image": "devops",
+      "title": { "en": "DevOps Diploma · 250 h", "es": "Diplomatura en DevOps · 250 h" },
+      "issuer": { "en": "UNC FCEFyN · Mundos E", "es": "UNC FCEFyN · Mundos E" },
+      "date": "2025-04"
+    }
+  ],
+
   "education": [
     {
-      "school": { "en": "Autonomous University of Entre Ríos", "es": "Universidad Autónoma de Entre Ríos" },
-      "degree": { "en": "Associate Degree: Information Systems", "es": "Tecnicatura en Sistemas de Información" },
-      "detail": { "en": "Minor: Information Systems Analyst", "es": "Orientación: Analista de Sistemas de Información" },
-      "period": { "en": "Graduated 2025", "es": "Egresado 2025" }
+      "school": { "en": "Autonomous University of Entre Ríos (UADER), Faculty of Science and Technology", "es": "Universidad Autónoma de Entre Ríos (UADER), Facultad de Ciencia y Tecnología" },
+      "degree": { "en": "Systems Analyst (Analista de Sistemas)", "es": "Analista de Sistemas" },
+      "detail": { "en": "Degree program: Systems Analysis", "es": "Carrera: Análisis de Sistemas" },
+      "period": { "en": "Graduated July 2025", "es": "Egresado en julio de 2025" }
     },
     {
       "school": { "en": "Centenario High School", "es": "Escuela Secundaria Centenario" },
@@ -384,6 +401,11 @@
     "edu.title": { "en": "Education and courses", "es": "Formación y cursos" },
     "edu.degrees": { "en": "Education", "es": "Educación" },
     "edu.langs": { "en": "Languages", "es": "Idiomas" },
+    "edu.docs": { "en": "Degree and diploma", "es": "Título y diplomatura" },
+    "edu.view": { "en": "View larger", "es": "Ver más grande" },
+    "edu.close": { "en": "Close", "es": "Cerrar" },
+    "edu.hidden": { "en": "ID number hidden for privacy.", "es": "Número de documento oculto por privacidad." },
+    "fun.legendary": { "en": "★ Legendary", "es": "★ Legendario" },
     "workflow.ai.title": { "en": "AI in my workflow", "es": "IA en mi flujo de trabajo" },
     "workflow.ai.text": { "en": "Cursor and coding agents draft scaffolding, migrations and tests. For client and government code I use local models with Ollama. I review, refactor and test every change before it ships.", "es": "Cursor y agentes de código preparan scaffolding, migraciones y tests. Para código de clientes y de gobierno uso modelos locales con Ollama. Reviso, refactorizo y pruebo cada cambio antes de publicarlo." },
     "footer.built": { "en": "Built with Astro and plain CSS.", "es": "Hecho con Astro y CSS plano." },

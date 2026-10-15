@@ -179,3 +179,7 @@ Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), dru
 - [x] Checked: normal mode pixel-identical (1440/390), axe 0 violations, every new button keyboard-reachable, reduced motion skips flashes and the chocobo lap, no overflow 320–1440.
 - [x] Follow-up: chocobo redrawn (outlined, swept-back crest, long beak, stride frame), supernova loop 5 min, HUD "★ Secrets" opens a list with hints for the missing ones, quantum moon bigger.
 - [x] Follow-up 2 (2026-10-04): chocobo redrawn chibi-style from the user's new references (style only, not traced): dark outline, three-tone shading, spiky crest, hooked beak, browed eye, feathered wing. Supernova is now a sequence (sun swells and collapses, blue-white shockwave, white-out, black silence with campfire and "the loop restarts", eyes blink open); the achievement pops on waking. Fixed the secrets list showing on load.
+
+### Certificates (2026-10-15)
+- [x] UADER degree (Analista de Sistemas) and DevOps Diplomatura (UNC FCEFyN · Mundos E, 250 h) shown in Education as image cards with a `<dialog>` viewer. Images rendered from the PDFs with the DNI and the DevOps QR covered (`src/assets/certs/*.webp`); original PDFs moved to `~/Documentos/CV/certificados/`, never committed. Fun mode: gold "Legendary" frames.
+- [x] Education text and both Word CVs/PDFs now match the diploma: "Analista de Sistemas", carrera Análisis de Sistemas, Facultad de Ciencia y Tecnología, July 2025; DevOps entry renamed.

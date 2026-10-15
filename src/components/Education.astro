@@ -1,7 +1,14 @@
 ---
 import PixelSprite from './fun/PixelSprite.astro';
 import { chestClosed, chestOpen } from './fun/sprites.js';
-import { certifications, education, languages, t, translations } from '../data/content.js';
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icon from './Icon.astro';
+import { certifications, documents, education, languages, t, translations } from '../data/content.js';
+
+// Certificate images with the DNI and QR codes covered; the original PDFs are not in the repo.
+const docImages = import.meta.glob<{ default: ImageMetadata }>('../assets/certs/*.webp', { eager: true });
+const docImage = (id: string) => docImages[`../assets/certs/${id}.webp`]?.default;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const en = translations.en;
 ---
@@ -25,6 +32,35 @@ const en = translations.en;
     </header>
 
     <div class="edu">
+      <div class="docs">
+        <h3 class="label" data-i18n="edu.docs">{en['edu.docs']}</h3>
+        <ul class="docs__list" role="list">
+          {documents.map((doc, i) => (
+            <li class="doc">
+              <span class="fun-only doc__tag" aria-hidden="true" data-i18n="fun.legendary">{en['fun.legendary']}</span>
+              <button class="doc__thumb" type="button" data-doc={`doc-${doc.id}`} aria-label={en[`docs.${i}.view`]} data-i18n={`docs.${i}.view`} data-i18n-attr="aria-label">
+                <Picture src={docImage(doc.image)} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(min-width: 1100px) 400px, (min-width: 720px) 45vw, 100vw" loading="lazy" decoding="async" />
+              </button>
+              <div class="doc__info">
+                <strong data-i18n={`docs.${i}.title`}>{t(doc.title)}</strong>
+                <span data-i18n={`docs.${i}.issuer`}>{t(doc.issuer)}</span>
+                <span class="doc__date" data-i18n={`docs.${i}.date`}>{en[`docs.${i}.date`]}</span>
+              </div>
+              <dialog id={`doc-${doc.id}`} class="doc__dialog" aria-labelledby={`doc-${doc.id}-title`}>
+                <div class="doc__dialog-head">
+                  <p id={`doc-${doc.id}-title`} data-i18n={`docs.${i}.title`}>{t(doc.title)}</p>
+                  <button class="doc__close" type="button" aria-label={en['edu.close']} data-i18n="edu.close" data-i18n-attr="aria-label">
+                    <Icon name="close" />
+                  </button>
+                </div>
+                <Picture src={docImage(doc.image)} alt={t(doc.title)} data-i18n={`docs.${i}.title`} data-i18n-attr="alt" formats={['avif', 'webp']} widths={[1200, 2000]} sizes="min(92vw, 1100px)" loading="lazy" decoding="async" />
+                <p class="doc__note" data-i18n="edu.hidden">{en['edu.hidden']}</p>
+              </dialog>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div class="edu__col">
         <h3 class="label" data-i18n="edu.degrees">{en['edu.degrees']}</h3>
         <ul class="edu__list" role="list">
@@ -68,7 +104,132 @@ const en = translations.en;
   </div>
 </section>
 
+<script>
+  // Certificate viewer: native <dialog>; Esc, the close button or a click on the backdrop closes it.
+  document.querySelectorAll('[data-doc]').forEach((btn) => {
+    const dialog = document.getElementById(btn.dataset.doc);
+    btn.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector('.doc__close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  });
+</script>
+
 <style>
+  .docs {
+    grid-column: 1 / -1;
+  }
+
+  .docs__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-5);
+    margin-top: var(--space-4);
+  }
+
+  .doc {
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .doc__thumb {
+    display: block;
+    width: 100%;
+    padding: var(--space-2);
+    background: var(--surface);
+    border: var(--border-1) solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+  }
+
+  .doc__thumb:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+    box-shadow: var(--shadow-md);
+  }
+
+  .doc__thumb :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-xs);
+  }
+
+  .doc__info {
+    display: grid;
+    font-size: var(--text-sm);
+  }
+
+  .doc__info span {
+    color: var(--muted);
+  }
+
+  .doc__info .doc__date {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--faint);
+  }
+
+  .doc__dialog {
+    margin: auto;
+    width: min(92vw, 1100px);
+    max-height: 92vh;
+    padding: var(--space-4);
+    color: var(--text);
+    background: var(--surface);
+    border: var(--border-1) solid var(--line-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .doc__dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .doc__dialog-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    font-weight: 600;
+  }
+
+  .doc__close {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+  }
+
+  .doc__close:hover {
+    color: var(--text);
+    background: var(--accent-soft);
+  }
+
+  .doc__dialog :global(img) {
+    width: 100%;
+    height: auto;
+    max-height: calc(92vh - 9rem);
+    object-fit: contain;
+  }
+
+  .doc__note {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--faint);
+  }
+
+  @media print {
+    .docs {
+      display: none;
+    }
+  }
+
   .edu {
     display: grid;
     gap: var(--space-7);

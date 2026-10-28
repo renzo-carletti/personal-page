@@ -238,7 +238,7 @@
     },
     {
       "group": { "en": "AI Tooling", "es": "Herramientas de IA" },
-      "items": ["Multi-agent orchestration", "Cursor", "Ollama / local LLMs", "Prompt engineering"]
+      "items": ["Claude Code", "Multi-agent orchestration", "Cursor", "Ollama / local LLMs", "Prompt engineering"]
     }
   ],
 
@@ -407,7 +407,7 @@
     "edu.hidden": { "en": "ID number hidden for privacy.", "es": "Número de documento oculto por privacidad." },
     "fun.legendary": { "en": "★ Legendary", "es": "★ Legendario" },
     "workflow.ai.title": { "en": "AI in my workflow", "es": "IA en mi flujo de trabajo" },
-    "workflow.ai.text": { "en": "Cursor and coding agents draft scaffolding, migrations and tests. For client and government code I use local models with Ollama. I review, refactor and test every change before it ships.", "es": "Cursor y agentes de código preparan scaffolding, migraciones y tests. Para código de clientes y de gobierno uso modelos locales con Ollama. Reviso, refactorizo y pruebo cada cambio antes de publicarlo." },
+    "workflow.ai.text": { "en": "Claude Code, Cursor and other coding agents draft scaffolding, migrations and tests. For client and government code I use local models with Ollama. I review, refactor and test every change before it ships.", "es": "Claude Code, Cursor y otros agentes de código preparan scaffolding, migraciones y tests. Para código de clientes y de gobierno uso modelos locales con Ollama. Reviso, refactorizo y pruebo cada cambio antes de publicarlo." },
     "footer.built": { "en": "Built with Astro and plain CSS.", "es": "Hecho con Astro y CSS plano." },
     "footer.top": { "en": "Back to top", "es": "Volver arriba" },
     "work.shot": { "en": "Home page of", "es": "Página de inicio de" },

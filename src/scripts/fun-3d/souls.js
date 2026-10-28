@@ -447,11 +447,20 @@ export function mountSouls() {
     });
   }
 
-  // Petting Sif: she lowers her head and sets the sword down, howls, then picks it up again.
-  const HOWL = 3.9;
+  // Petting Sif: she lowers her head and lays the sword down, howls, then bends down and picks it
+  // up again. The sword never jumps: it goes jaws -> lying on the ground where it already points
+  // ("flat") -> nudged along the ground into place, and back the same way.
+  // Timeline (s): lay it down 0.75–1.45, nudge it 1.45–2.25 (+ a small clank), howl 2.6–3.9,
+  // nudge it back 4.2–4.9, lift it into the jaws 4.9–5.5, done at 5.9.
+  const HOWL = 5.9;
+  const STEPS = { down: [0.75, 0.7], nudge: [1.45, 0.8], back: [4.2, 0.7], lift: [4.9, 0.6] };
+  const SETTLE = 0.4;
   let since = 9;
   let phase = 'held';
-  const from = { position: new THREE.Vector3(), quaternion: new THREE.Quaternion() };
+  const pose = () => ({ position: new THREE.Vector3(), quaternion: new THREE.Quaternion() });
+  const from = pose();
+  const flat = pose();
+  const held = pose();
   // Where the sword lies (diorama space): flat on the ground across the front of the clearing,
   // grip by Sif's paws and the long blade pointing toward the bonfire, in plain view.
   const onGround = { position: new THREE.Vector3(24, 0.7, 5), quaternion: new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.atan2(-31, 6), Math.PI / 2, 'YXZ')) };
@@ -463,11 +472,33 @@ export function mountSouls() {
     }
   }).observe(sifBtn, { attributes: true, attributeFilter: ['class'] });
 
-  function moveSword(bite, to, k, arc = 0) {
-    bite.position.lerpVectors(from.position, to.position, ease(k));
-    bite.position.y += Math.sin(Math.PI * k) * arc;
-    bite.quaternion.slerpQuaternions(from.quaternion, to.quaternion, ease(k));
+  // The pose the sword has in the jaws right now, in diorama space (follows the moving head).
+  const restMatrix = new THREE.Matrix4();
+  const m = new THREE.Matrix4();
+  const tmp = new THREE.Vector3();
+  function heldPose(out) {
+    const { head, biteRest } = wolf.userData;
+    world.updateMatrixWorld(true);
+    restMatrix.compose(biteRest.position, biteRest.quaternion, tmp.set(1, 1, 1));
+    m.copy(world.matrixWorld).invert().multiply(head.matrixWorld).multiply(restMatrix);
+    m.decompose(out.position, out.quaternion, tmp);
   }
+
+  // Lying on the ground, pointing the way the sword in the jaws points now, grip under the mouth.
+  function flatPose(out) {
+    const dir = tmp.set(0, 0, 1).applyQuaternion(from.quaternion);
+    out.quaternion.setFromEuler(new THREE.Euler(0, Math.atan2(dir.x, dir.z), Math.PI / 2, 'YXZ'));
+    out.position.lerpVectors(from.position, onGround.position, 0.4).setY(onGround.position.y);
+  }
+
+  // Ease from one pose to another; `arc` lifts the path in the middle.
+  function moveSword(bite, a, b, k, arc = 0) {
+    const e = ease(k);
+    bite.position.lerpVectors(a.position, b.position, e);
+    bite.position.y += Math.sin(Math.PI * k) * arc;
+    bite.quaternion.slerpQuaternions(a.quaternion, b.quaternion, e);
+  }
+  const progress = ([start, length]) => Math.min(1, Math.max(0, (since - start) / length));
 
   view(canvas, {
     scene,
@@ -490,43 +521,70 @@ export function mountSouls() {
       const { head, tail, bite, biteRest } = wolf.userData;
       wolf.scale.y = 1 + Math.sin(t * 2) * 0.012;
       const acting = since < HOWL;
-      // Head pitch (+ = nose down): lower 0–0.7 s, howl 1.1–2.7 s, lower again 2.7–3.3 s.
+      // Head pitch (+ = nose down): low while laying the sword down, up to howl, low again to
+      // take the sword back, then up.
       let pitch = Math.sin(t * 0.5) * 0.05;
       let turn = 0.1;
+      let rate = 3.5;
       if (acting) {
-        if (since < 1.1) pitch = 0.5;
-        else if (since < 2.7) {
+        if (since < 2.6) pitch = since < 2.3 ? 0.65 : 0.4;
+        else if (since < 3.9) {
           pitch = -0.85 + Math.sin(since * 9) * 0.04;
           turn = -0.15;
-        } else if (since < 3.4) pitch = 0.5;
+          rate = 5;
+        } else if (since < 5.3) pitch = 0.65;
       }
-      head.rotation.z = approach(head.rotation.z, pitch, 7, dt);
-      head.rotation.y = approach(head.rotation.y, turn, 4, dt);
-      const happy = acting && since > 2.9;
+      head.rotation.z = approach(head.rotation.z, pitch, rate, dt);
+      head.rotation.y = approach(head.rotation.y, turn, 3, dt);
+      const happy = acting && since > 5.3;
       wag = approach(wag, happy ? 1 : 0, 6, dt);
       tail.rotation.y = Math.sin(t * (happy ? 18 : 1.5)) * (0.12 + wag * 0.35);
-      // The sword leaves the jaws at 0.6 s and lands on the ground; back in the jaws at 3.3 s.
-      if (acting && phase === 'held' && since >= 0.6) {
+      if (acting && phase === 'held' && since >= STEPS.down[0]) {
         world.attach(bite);
         from.position.copy(bite.position);
         from.quaternion.copy(bite.quaternion);
-        phase = 'dropping';
+        flatPose(flat);
+        phase = 'down';
       }
-      if (phase === 'dropping') {
-        const k = Math.min(1, (since - 0.6) / 0.45);
-        moveSword(bite, onGround, k, 1.5);
+      // Lay it down: the grip comes down to the ground and the blade settles flat, tip first.
+      if (phase === 'down') {
+        const k = progress(STEPS.down);
+        moveSword(bite, from, flat, k);
+        if (k === 1) phase = 'nudge';
+      }
+      // Nudge it along the ground into place, then a small clank as it settles.
+      if (phase === 'nudge') {
+        const k = progress(STEPS.nudge);
+        moveSword(bite, flat, onGround, k, 0.4);
         if (k === 1) phase = 'ground';
       }
-      if (phase === 'ground' && since >= 3.3) {
-        head.attach(bite);
-        from.position.copy(bite.position);
-        from.quaternion.copy(bite.quaternion);
-        phase = 'lifting';
+      if (phase === 'ground') {
+        const s = (since - STEPS.nudge[0] - STEPS.nudge[1]) / SETTLE;
+        bite.position.copy(onGround.position);
+        bite.quaternion.copy(onGround.quaternion);
+        if (s < 1) {
+          const fade = (1 - s) ** 2;
+          bite.position.y += Math.abs(Math.sin(s * Math.PI * 2)) * 0.3 * fade;
+          bite.rotateZ(Math.sin(s * Math.PI * 3) * 0.05 * fade);
+        }
+        if (since >= STEPS.back[0]) phase = 'back';
       }
-      if (phase === 'lifting') {
-        const k = Math.min(1, (since - 3.3) / 0.45);
-        moveSword(bite, biteRest, k);
-        if (k === 1) phase = 'held';
+      // Pick it up: nudge it back, then it rises into the jaws, following the moving head.
+      if (phase === 'back') {
+        const k = progress(STEPS.back);
+        moveSword(bite, onGround, flat, k, 0.4);
+        if (k === 1) phase = 'lift';
+      }
+      if (phase === 'lift') {
+        const k = progress(STEPS.lift);
+        heldPose(held);
+        moveSword(bite, flat, held, k);
+        if (k === 1) {
+          head.attach(bite);
+          bite.position.copy(biteRest.position);
+          bite.quaternion.copy(biteRest.quaternion);
+          phase = 'held';
+        }
       }
       cover(fireBtn, fire);
       cover(sifBtn, wolf);

@@ -323,7 +323,7 @@
   }
 
   .sif.is-howl .sif__bubble {
-    animation: souls-in 1.8s steps(4) 1s forwards;
+    animation: souls-in 1.4s steps(4) 2.6s forwards;
   }
 
   .savepoint__hint {

@@ -100,10 +100,10 @@
     top: 0;
   }
 
-  :root.has-3d :is(.savepoint__fire-btn, .sif):is(:hover, :focus-visible) {
-    background: rgba(253, 184, 19, 0.08);
-    outline: 2px dashed rgba(253, 184, 19, 0.6);
-    outline-offset: 2px;
+  /* No box on hover: the models are the buttons. Keyboard focus keeps a thin outline. */
+  :root.has-3d :is(.savepoint__fire-btn, .sif):focus-visible {
+    outline: 1px solid rgba(253, 184, 19, 0.7);
+    outline-offset: 0;
   }
 
   /* ---------- Solar system: grab and spin (fun-play.js) ---------- */

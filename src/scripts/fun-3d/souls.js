@@ -18,7 +18,7 @@ function ground() {
   });
 }
 
-// ---------- Artorias' grave: stone, greatsword, Cleansing Greatshield ----------
+// ---------- Artorias' grave: stone and the Cleansing Greatshield (Sif took the sword) ----------
 function grave() {
   const group = new THREE.Group();
   const stone = voxelize([-8, 0, -6], [8, 11, 6], (x, y, z) => {
@@ -30,19 +30,6 @@ function grave() {
     return n > 0.6 ? '#6a6478' : n > 0.25 ? '#57516a' : '#47425a';
   });
   group.add(stone);
-
-  // Greatsword of Artorias planted in front of the stone: long silver blade, dark guard and grip.
-  const sword = voxelize([-3, 0, -1], [3, 26, 1], (x, y, z) => {
-    if (y <= 18 && x >= -1 && x <= 0 && z === 0) return y > 2 && x === 0 ? '#e6e9f2' : '#b9bdcc';
-    if (y === 18 && x === 1 && z === 0) return null;
-    if (y >= 19 && y <= 20 && Math.abs(x) <= 3 && z === 0) return '#2e2e3c';
-    if (y >= 21 && y <= 25 && x >= -1 && x <= 0 && z === 0) return y % 2 ? '#3a2a22' : '#4e3a2c';
-    if (y === 26 && x >= -1 && x <= 0 && Math.abs(z) <= 1) return '#9a8a5a';
-    return null;
-  });
-  sword.position.set(-7, -1, 3);
-  sword.rotation.z = 0.08;
-  group.add(sword);
 
   // Cleansing Greatshield: tall steel greatshield with a rounded top, gold rim and emblem.
   const shield = voxelize([-6, 0, -1], [6, 16, 0], (x, y, z) => {
@@ -56,6 +43,14 @@ function grave() {
     if (rim) return '#c9a24e';
     const emblem = (x === 0 && y >= 4 && y <= 13) || (y === 10 && Math.abs(x) <= 3) || (Math.abs(x) + Math.abs(y - 10) === 2);
     if (emblem) return '#b38a35';
+    // Two small crossed swords behind the emblem: silver blades, gold guards, dark grips.
+    for (const dir of [1, -1]) {
+      const along = y - 2;
+      const cx = dir * (-4 + along * 0.66);
+      if (along >= 1 && along <= 8 && Math.abs(x - cx) <= 0.5) return '#7d8194';
+      if (along === 9 && Math.abs(x - cx) <= 1.5) return '#d8b45a';
+      if (along >= 10 && along <= 11 && Math.abs(x - cx) <= 0.5) return '#3a2a22';
+    }
     return (x + y) % 5 === 0 ? '#dfe3ec' : '#cfd3de';
   });
   shield.position.set(-1.5, 0, 6.5);
@@ -193,6 +188,23 @@ function sif() {
     return fur(x, y, z);
   });
   head.add(skull);
+  // The Greatsword of Artorias held crosswise in the jaws: the long blade runs out to one side and
+  // dips toward the ground, the guard and grip stick out on the other side of the muzzle.
+  const sword = voxelize([-8, -16, -12], [-4, 4, 36], (x, y, z) => {
+    if (x < -7 || x > -5) return null;
+    if (z >= -1 && z <= 35) {
+      const yc = -Math.max(0, z - 3) * 0.36;
+      const half = z > 31 ? 1.2 - (z - 31) * 0.3 : 1.4;
+      if (Math.abs(y - yc) > half) return null;
+      return Math.abs(y - yc) < 0.5 && x === -6 ? '#f3f5fa' : '#b9bdcc';
+    }
+    if (z === -2 && Math.abs(y) <= 3) return '#2e2e3c';
+    if (z >= -8 && z <= -3 && Math.abs(y) <= 0.6 && x === -6) return z % 2 ? '#3a2a22' : '#4e3a2c';
+    if (z === -9 && Math.abs(y) <= 1 && x === -6) return '#9a8a5a';
+    return null;
+  });
+  sword.position.set(0, 0.4, 0);
+  head.add(sword);
   group.add(head);
 
   // Bushy tail curled on the ground, on a pivot for wagging.
@@ -239,7 +251,8 @@ export function mountSouls() {
   world.add(fire);
   const wolf = sif();
   wolf.position.set(12, 0, -1);
-  wolf.rotation.y = 0.25;
+  // Three-quarter view so the bitten sword reads across the scene.
+  wolf.rotation.y = 0.6;
   world.add(wolf);
 
   const target = new THREE.Vector3(0, 11, 0);

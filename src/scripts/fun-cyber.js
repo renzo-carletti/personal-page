@@ -1,23 +1,33 @@
-// Cyberpunk 2077 tribute: a Breach Protocol puzzle in the Drupal section, and a scanner (hold Q,
-// or the `scan` cheat) that tints the page and tags each section.
-import { isFun, play, tr, trf, unlock } from './fun-secrets.js';
+// Cyberpunk 2077 tribute: a locked access point in the Drupal section that opens a timed Breach
+// Protocol (winning turns on Night City mode), and a scanner (hold Q, or the `scan` cheat) that
+// tints the page and tags each section.
+import { isFun, play, reducedMotion, toast, tr, trf, unlock } from './fun-secrets.js';
 
-// ---------- Breach Protocol ----------
+// ---------- Breach Protocol: locked access point, timed terminal, Night City reward ----------
+const root = document.documentElement;
 const CODES = ['1C', '55', 'BD', 'E9', '7A'];
 const SIZE = 5;
 const BUFFER = 6;
-const box = document.querySelector('.breach');
-const grid = box?.querySelector('.breach__grid');
-const seqEl = box?.querySelector('.breach__seq');
-const bufEl = box?.querySelector('.breach__buf');
-const status = box?.querySelector('.breach__status');
+const TIME = 30;
+const card = document.querySelector('.breach');
+const jack = card?.querySelector('.breach__jack');
+const term = document.querySelector('.breach-term');
+const grid = term?.querySelector('.breach__grid');
+const seqEl = term?.querySelector('.breach__seq');
+const bufEl = term?.querySelector('.breach__buf');
+const status = term?.querySelector('.breach__status');
+const retry = term?.querySelector('.breach__reset');
+const timerBar = term?.querySelector('.breach-term__timer span');
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
 let cells = [];
 let target = [];
 let buffer = [];
 let line = { row: 0 };
-let done = false;
+let done = true;
+let deadline = 0;
+let timerFrame = 0;
+let opener = null;
 
 // Build a grid with a solution hidden along a valid row/column path.
 function generate() {
@@ -36,10 +46,7 @@ function generate() {
   cells = cells.map((row) => row.map((code) => ({ code, used: false })));
 }
 
-const matched = () => {
-  const s = buffer.join(' ');
-  return s.includes(target.join(' '));
-};
+const matched = () => buffer.join(' ').includes(target.join(' '));
 
 function render() {
   if (!grid) return;
@@ -62,42 +69,127 @@ function render() {
   );
 }
 
+function stopTimer() {
+  cancelAnimationFrame(timerFrame);
+}
+
+function tick() {
+  const left = Math.max(0, deadline - performance.now());
+  timerBar?.style.setProperty('--left', `${(left / (TIME * 1000)) * 100}%`);
+  if (left <= 0) return fail(tr('fun.breach.timeout'));
+  timerFrame = requestAnimationFrame(tick);
+}
+
+function fail(text) {
+  done = true;
+  stopTimer();
+  status.textContent = text;
+  play(term, 'is-failed', 700);
+  render();
+  retry.hidden = false;
+  retry.focus();
+}
+
 function choose(r, c) {
   const cell = cells[r][c];
   cell.used = true;
   buffer.push(cell.code);
   line = 'row' in line ? { col: c } : { row: r };
-  if (matched()) {
-    done = true;
-    status.textContent = tr('fun.breach.win');
-    box.classList.add('is-won');
-    unlock('breach');
-    document.dispatchEvent(new CustomEvent('fun:breach'));
-  } else if (buffer.length >= BUFFER) {
-    done = true;
-    status.textContent = tr('fun.breach.fail');
-    play(box, 'is-failed', 700);
-  } else {
-    status.textContent = trf('fun.breach.picked', { code: cell.code, n: buffer.length, max: BUFFER });
-  }
+  if (matched()) return win();
+  if (buffer.length >= BUFFER) return fail(tr('fun.breach.fail'));
+  status.textContent = trf('fun.breach.picked', { code: cell.code, n: buffer.length, max: BUFFER });
   render();
-  // Keep keyboard focus inside the grid on the next playable cell.
   grid.querySelector('button:not(:disabled)')?.focus();
-  if (done) box.querySelector('.breach__reset')?.focus();
 }
 
-function reset() {
-  generate();
-  box?.classList.remove('is-won');
-  if (status) status.textContent = '';
-  render();
+// Short "connecting" beat, then a fresh puzzle with the clock running.
+function start() {
+  retry.hidden = true;
+  term.classList.add('is-connecting');
+  grid.replaceChildren();
+  seqEl.textContent = bufEl.textContent = '';
+  status.textContent = tr('fun.breach.connecting');
+  timerBar?.style.setProperty('--left', '100%');
+  setTimeout(() => {
+    if (term.hidden) return;
+    term.classList.remove('is-connecting');
+    generate();
+    status.textContent = '';
+    render();
+    deadline = performance.now() + TIME * 1000;
+    stopTimer();
+    timerFrame = requestAnimationFrame(tick);
+    grid.querySelector('button:not(:disabled)')?.focus();
+  }, reducedMotion() ? 0 : 800);
 }
-box?.querySelector('.breach__reset')?.addEventListener('click', reset);
-document.addEventListener('i18n:changed', render);
-if (box) reset();
+
+function openTerm() {
+  if (!term || !isFun()) return;
+  opener = document.activeElement;
+  term.hidden = false;
+  start();
+}
+
+function closeTerm() {
+  if (!term || term.hidden) return;
+  stopTimer();
+  done = true;
+  term.hidden = true;
+  (opener?.isConnected ? opener : jack)?.focus({ preventScroll: true });
+}
+
+// Text scrambles, then settles letter by letter ("decrypted").
+function decrypt(el) {
+  const final = el.textContent;
+  const glyphs = '01#$%&*+<>/\\|=ABCDEF';
+  const start = performance.now();
+  const step = (now) => {
+    const k = Math.min(1, (now - start) / 1200);
+    const shown = Math.floor(final.length * k);
+    el.textContent = final.slice(0, shown) + [...final.slice(shown)].map((ch) => (ch === ' ' ? ' ' : glyphs[Math.floor(Math.random() * glyphs.length)])).join('');
+    if (k < 1) requestAnimationFrame(step);
+    else el.textContent = final;
+  };
+  requestAnimationFrame(step);
+}
+
+function setNightCity(on) {
+  root.classList.toggle('night-city', on);
+  const off = document.querySelector('.hud-nightcity');
+  if (off) off.hidden = !on;
+}
+
+function win() {
+  done = true;
+  stopTimer();
+  status.textContent = tr('fun.breach.win');
+  term.classList.add('is-won');
+  render();
+  unlock('breach');
+  document.dispatchEvent(new CustomEvent('fun:breach'));
+  setTimeout(() => {
+    closeTerm();
+    term.classList.remove('is-won');
+    if (!reducedMotion()) play(root, 'is-glitching', 2000);
+    setNightCity(true);
+    toast(`★ ${tr('fun.nc.on')}`, tr('fun.breach.open'));
+    const state = card?.querySelector('.breach__state');
+    if (state) state.textContent = tr('fun.breach.open');
+    if (!reducedMotion()) document.querySelectorAll('#drupal .drupal__list :is(dt, dd)').forEach(decrypt);
+  }, 900);
+}
+
+jack?.addEventListener('click', openTerm);
+retry?.addEventListener('click', start);
+term?.querySelector('.breach-term__close')?.addEventListener('click', closeTerm);
+term?.addEventListener('click', (e) => e.target === term && closeTerm());
+document.addEventListener('keydown', (e) => e.key === 'Escape' && term && !term.hidden && closeTerm());
+document.addEventListener('fun:breach-open', openTerm);
+document.querySelector('.hud-nightcity')?.addEventListener('click', () => setNightCity(false));
+document.addEventListener('theme:changed', (e) => !e.detail.fun && (closeTerm(), setNightCity(false)));
+document.addEventListener('i18n:changed', () => !done && render());
 
 // ---------- Scanner ----------
-const root = document.documentElement;
 const typing = (el) => el?.closest?.('input, textarea, select, [contenteditable="true"]');
 const THREAT = ['low', 'low', 'med', 'med', 'high', 'low'];
 

@@ -27,6 +27,8 @@ const links = [
       <!-- Filled by fun-secrets.js: found secrets by name, missing ones as hints. -->
       <ol id="secrets-panel" class="hud-secrets__panel" hidden></ol>
     </div>
+    <!-- Shown while Night City mode is on (won from Breach Protocol, fun-cyber.js). -->
+    <button class="fun-only hud-nightcity" type="button" hidden data-i18n="fun.nc.off">{en['fun.nc.off']}</button>
     <!-- Sims-style cheat bar (fun-cheats.js). Also opens with the backquote key. -->
     <button class="fun-only hud-cheats" type="button" aria-controls="cheats" aria-expanded="false" aria-label={en['fun.cheats.open']} title={en['fun.cheats.open']} data-i18n="fun.cheats.open" data-i18n-attr="aria-label">&gt;_</button>
 

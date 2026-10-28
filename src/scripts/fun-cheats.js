@@ -52,12 +52,7 @@ const CHEATS = {
     close();
     send('fun:nova');
   },
-  breach: () => {
-    close();
-    const b = document.querySelector('.breach');
-    b?.scrollIntoView({ block: 'center' });
-    b?.querySelector('.breach__grid button:not(:disabled)')?.focus({ preventScroll: true });
-  },
+  breach: () => send('fun:breach-open'),
   scan: () => send('fun:scan'),
 };
 const ALL = Object.keys(CHEATS);

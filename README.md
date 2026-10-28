@@ -93,7 +93,8 @@ Both CVs are written in Word, so when you change your experience, update `conten
   - Poke the title screen sun 5 times: it implodes into a black hole, the page falls in, "YOU DIED", and a new loop starts at the top (`fun-blackhole.js`). Secrets are kept.
   - Dark Souls: the Contact save point is a voxel diorama (`fun-3d/souls.js`): Artorias' grave with his greatsword and the Cleansing Greatshield, a bonfire to light, and Sif to pet. Orange soapstone messages are read once and each teaches a cheat (`fun-souls.js`).
   - The Sims: cheat book on the backquote key or the `>_` HUD button (`fun-cheats.js`), one card per cheat (learned: what it does + Use; missing: where to learn it). Cheats are learned by reading the soapstone messages and by finding secrets; `motherlode` rains Simoleons.
-  - Cyberpunk 2077: Breach Protocol puzzle in the Drupal section, and a scanner while holding Q (`fun-cyber.js`).
+  - Cyberpunk 2077: a locked access point in the Drupal section; "Jack in" opens a 30 s Breach Protocol terminal, and winning glitches the page into Night City mode (neon palette, decrypted Drupal texts) until reload or the HUD button. Scanner while holding Q (`fun-cyber.js`).
+  - The black hole is 3D when the 3D views run (`fun-3d/blackhole.js`: accretion disk, lensing, photon ring), CSS otherwise.
   - Test shortcuts: `?supernova=N`, `?comet`, and the cheats `blackhole`, `supernova`, `scan`.
 - Cards tilt toward the pointer in fun mode (`src/scripts/fun-tilt.js`, mouse only).
 - All motion respects `prefers-reduced-motion`.

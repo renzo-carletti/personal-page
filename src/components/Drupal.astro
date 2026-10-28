@@ -51,16 +51,29 @@ const en = translations.en;
 
         <NomaiWall />
 
-        <!-- Cyberpunk 2077 tribute (fun-cyber.js): a Breach Protocol puzzle, filled by script. -->
+        <!-- Cyberpunk 2077 tribute (fun-cyber.js): a locked access point. "Jack in" opens a timed
+             Breach Protocol; winning turns on Night City mode. -->
         <section class="fun-only breach" aria-labelledby="breach-title">
+          <p class="breach__kicker" data-i18n="fun.breach.kicker">{en['fun.breach.kicker']}</p>
           <h3 id="breach-title" class="breach__title" data-i18n="fun.breach.title">{en['fun.breach.title']}</h3>
-          <p class="breach__help" data-i18n="fun.breach.help">{en['fun.breach.help']}</p>
-          <p class="breach__line"><span data-i18n="fun.breach.seq">{en['fun.breach.seq']}</span> <span class="breach__seq"></span></p>
-          <p class="breach__line"><span data-i18n="fun.breach.buffer">{en['fun.breach.buffer']}</span> <span class="breach__buf"></span></p>
-          <div class="breach__grid"></div>
-          <p class="breach__status" role="status" aria-live="polite"></p>
-          <button class="breach__reset btn" type="button" data-i18n="fun.breach.reset">{en['fun.breach.reset']}</button>
+          <p class="breach__prompt"><span aria-hidden="true">&gt; </span><span class="breach__state" data-i18n="fun.breach.idle">{en['fun.breach.idle']}</span><span class="breach__cursor" aria-hidden="true"></span></p>
+          <button class="breach__jack btn" type="button" data-i18n="fun.breach.jack">{en['fun.breach.jack']}</button>
         </section>
+        <div class="fun-only breach-term" role="dialog" aria-modal="true" aria-labelledby="breach-term-title" hidden>
+          <div class="breach-term__window">
+            <header class="breach-term__head">
+              <h3 id="breach-term-title" class="breach__title" data-i18n="fun.breach.title">{en['fun.breach.title']}</h3>
+              <button class="breach-term__close" type="button" aria-label={en['fun.breach.close']} data-i18n="fun.breach.close" data-i18n-attr="aria-label">✕</button>
+            </header>
+            <div class="breach-term__timer" aria-hidden="true"><span></span></div>
+            <p class="breach__help" data-i18n="fun.breach.help">{en['fun.breach.help']}</p>
+            <p class="breach__line"><span data-i18n="fun.breach.seq">{en['fun.breach.seq']}</span> <span class="breach__seq"></span></p>
+            <p class="breach__line"><span data-i18n="fun.breach.buffer">{en['fun.breach.buffer']}</span> <span class="breach__buf"></span></p>
+            <div class="breach__grid"></div>
+            <p class="breach__status" role="status" aria-live="polite"></p>
+            <button class="breach__reset btn" type="button" hidden data-i18n="fun.breach.reset">{en['fun.breach.reset']}</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -573,22 +573,122 @@
   }
 
   /* ---------- Cyberpunk: Breach Protocol ---------- */
+  /* Locked access point card in the Drupal section. */
   .breach {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
     margin-top: var(--space-6);
-    padding: var(--space-4) var(--space-5) var(--space-5);
+    padding: var(--space-4) var(--space-5);
     color: #d6f7ff;
     background: #0a0f14;
-    box-shadow: 0 0 0 var(--px) #f3e600, inset 0 0 0 calc(var(--px) * 2) #0a0f14, inset 0 0 0 calc(var(--px) * 2 + 1px) rgba(94, 246, 255, 0.4);
+    box-shadow: 0 0 0 var(--px) #f3e600, inset 0 0 0 1px rgba(94, 246, 255, 0.3);
   }
 
-  .breach__title {
-    font-family: var(--font-pixel);
-    font-weight: 400;
-    font-size-adjust: 0.55;
-    font-size: var(--text-lg);
-    color: #f3e600;
+  .breach__kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    color: #ff3d6e;
+  }
+
+  .breach__prompt {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: #5ef6ff;
+  }
+
+  .breach__cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background: #5ef6ff;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  :root[data-theme='fun'] :is(.breach__jack, .breach__reset) {
+    --frame: #f3e600;
+    color: #0a0f14 !important;
+    background: #f3e600 !important;
+  }
+
+  .breach__reset[hidden] {
+    display: none !important;
+  }
+
+  /* The terminal: a timed overlay. */
+  .breach-term {
+    position: fixed;
+    inset: 0;
+    z-index: 96;
+    display: grid;
+    place-items: center;
+    padding: var(--space-4);
+    background: rgba(2, 6, 10, 0.78);
+  }
+
+  .breach-term[hidden] {
+    display: none;
+  }
+
+  .breach-term__window {
+    display: grid;
+    gap: var(--space-2);
+    width: min(30rem, 100%);
+    padding: var(--space-5);
+    color: #d6f7ff;
+    background: #0a0f14;
+    box-shadow: 0 0 0 var(--px) #f3e600, 0 0 40px rgba(94, 246, 255, 0.25);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    animation: book-in 0.2s steps(3);
+  }
+
+  .breach-term__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .breach-term__close {
+    width: 2rem;
+    height: 2rem;
+    color: #f3e600;
+    box-shadow: 0 0 0 1px #f3e600;
+    cursor: pointer;
+  }
+
+  .breach-term__timer {
+    height: 6px;
+    background: #1b2c33;
+  }
+
+  .breach-term__timer span {
+    display: block;
+    width: var(--left, 100%);
+    height: 100%;
+    background: linear-gradient(90deg, #ff3d6e, #f3e600);
+  }
+
+  .breach-term.is-connecting .breach-term__window {
+    animation: breach-connect 0.8s steps(8);
+  }
+
+  @keyframes breach-connect {
+    0%, 30%, 60% { filter: brightness(1.8) hue-rotate(40deg); transform: translateX(-3px); }
+    15%, 45%, 75% { filter: none; transform: translateX(3px); }
+    100% { transform: none; }
+  }
+
+  .breach-term.is-failed .breach-term__window {
+    animation: sun-shake 0.08s steps(2) 6;
+  }
+
+  .breach-term.is-won .breach-term__window {
+    box-shadow: 0 0 0 var(--px) #5ef6ff, 0 0 60px rgba(94, 246, 255, 0.6);
   }
 
   .breach__help {
@@ -656,18 +756,73 @@
     letter-spacing: 0.06em;
   }
 
-  .breach.is-won .breach__status {
+  .breach-term.is-won .breach__status {
     color: #5ef6ff;
     text-shadow: 0 0 10px #5ef6ff;
   }
 
-  .breach.is-failed {
-    animation: sun-shake 0.08s steps(2) 6;
+  /* ---------- Breach won: page glitch, then Night City mode ---------- */
+  :root.is-glitching :is(main, .nav) {
+    animation: glitch 0.16s steps(2) infinite;
   }
 
-  :root[data-theme='fun'] .breach__reset {
-    --frame: #f3e600;
-    margin-top: var(--space-2);
+  :root.is-glitching body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 92;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(255, 61, 110, 0.18) 0 2px, transparent 2px 6px);
+    mix-blend-mode: screen;
+    animation: scan-sweep 0.4s linear infinite;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(-4px, 1px); filter: drop-shadow(3px 0 #ff3d6e) drop-shadow(-3px 0 #5ef6ff); clip-path: inset(0 0 40% 0); }
+    50% { transform: translate(4px, -1px); filter: drop-shadow(-3px 0 #ff3d6e) drop-shadow(3px 0 #5ef6ff); clip-path: inset(30% 0 0 0); }
+    100% { transform: none; filter: none; clip-path: none; }
+  }
+
+  :root.night-city[data-theme='fun'] {
+    --frame: #ff3d6e;
+    --frame-hot: #f3e600;
+    --sky: #5ef6ff;
+    --grass: #5ef6ff;
+    --ember: #ff3d6e;
+    --violet: #ff3d6e;
+    --window: #140a1f;
+  }
+
+  :root.night-city .fun-scene {
+    filter: hue-rotate(300deg) saturate(1.5);
+  }
+
+  :root.night-city .section__title,
+  :root.night-city .hero__name {
+    text-shadow: 3px 0 #ff3d6e, -3px 0 #5ef6ff;
+  }
+
+  :root.night-city body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 89;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(94, 246, 255, 0.04) 0 1px, transparent 1px 3px);
+  }
+
+  .hud-nightcity {
+    padding: var(--space-1) var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: #0a0f14;
+    background: #f3e600;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .hud-nightcity[hidden] {
+    display: none;
   }
 
   /* ---------- Cyberpunk: scanner (hold Q) ---------- */

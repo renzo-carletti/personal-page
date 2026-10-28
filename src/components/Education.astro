@@ -106,8 +106,8 @@ const en = translations.en;
 
 <script>
   // Certificate viewer: native <dialog>; Esc, the close button or a click on the backdrop closes it.
-  document.querySelectorAll('[data-doc]').forEach((btn) => {
-    const dialog = document.getElementById(btn.dataset.doc);
+  document.querySelectorAll<HTMLElement>('[data-doc]').forEach((btn) => {
+    const dialog = document.getElementById(btn.dataset.doc!) as HTMLDialogElement;
     btn.addEventListener('click', () => dialog.showModal());
     dialog.querySelector('.doc__close').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', (e) => {

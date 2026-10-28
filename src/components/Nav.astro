@@ -246,7 +246,7 @@ const links = [
   window.addEventListener('scroll', onScroll, { passive: true });
 
   // Mobile menu
-  const toggle = document.querySelector('.nav__toggle');
+  const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle')!;
   const menu = document.getElementById('nav-menu');
   function setMenu(open) {
     toggle.setAttribute('aria-expanded', String(open));
@@ -261,11 +261,11 @@ const links = [
     }
   });
 
-  document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
-    btn.addEventListener('click', () => setLang(btn.dataset.langBtn));
+  document.querySelectorAll<HTMLElement>('[data-lang-btn]').forEach((btn) => {
+    btn.addEventListener('click', () => setLang(btn.dataset.langBtn!));
   });
 
-  const themeColor = document.querySelector('meta[name="theme-color"]');
+  const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   const syncThemeColor = () => {
     if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue('--bg').trim();
   };

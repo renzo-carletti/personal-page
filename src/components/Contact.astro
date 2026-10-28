@@ -9,7 +9,7 @@ const fields = [
   { name: 'name', type: 'text', autocomplete: 'name' },
   { name: 'email', type: 'email', autocomplete: 'email' },
   { name: 'subject', type: 'text', autocomplete: 'off' },
-];
+] as const;
 ---
 
 <section id="contact" class="section" aria-labelledby="contact-title">
@@ -290,7 +290,7 @@ const fields = [
   import { currentLang } from '../scripts/i18n.js';
   import { translations, defaultLang } from '../data/content.js';
 
-  const form = document.getElementById('contact-form');
+  const form = document.getElementById('contact-form') as HTMLFormElement;
   const status = document.querySelector('.contact__hint');
   const copyBtn = document.getElementById('copy-msg');
   const email = form.dataset.email;
@@ -312,7 +312,7 @@ const fields = [
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const el = (n) => form.elements.namedItem(n);
+    const el = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
     const name = el('name').value.trim();
     const from = el('email').value.trim();
     const subjectLine = el('subject').value.trim();

@@ -1,4 +1,5 @@
-// Dark Souls corner as a 3D diorama: Artorias' grave with the Cleansing Greatshield, the bonfire
+// Dark Souls corner as a 3D diorama: Artorias' grave (a mossy monolith in a field of small swords)
+// with the Cleansing Greatshield, the bonfire
 // (coiled sword, ash and a skull), and Sif sitting by the fire with the Greatsword of Artorias held
 // by the grip in her jaws. Organic shapes are smooth (marching cubes over the same shape tests),
 // weapons are beveled geometry, all with the same 3-step toon light. Fan tribute, sculpted from
@@ -26,71 +27,98 @@ function ground() {
   }, { res: 72, fallback: '#2e2433' });
 }
 
-// ---------- Cleansing Greatshield: steel face, gold rim, emblem and two small crossed swords ----------
+// ---------- Cleansing Greatshield: tall dark steel greatshield with silver filigree ----------
+// Flat top with raised corners, sides tapering to a point; navy-black steel, a silver rim and
+// curling silver ornament with a faint blue sheen.
 function greatshield() {
   const shield = new THREE.Group();
   const outline = (s) => {
     const sh = new THREE.Shape();
-    sh.moveTo(-6 * s, 4 * s);
-    sh.lineTo(-6 * s, 11 * s);
-    sh.absarc(0, 11 * s, 6 * s, Math.PI, 0, true);
-    sh.lineTo(6 * s, 4 * s);
-    sh.quadraticCurveTo(6 * s, 0, 0, -1.5 * s);
-    sh.quadraticCurveTo(-6 * s, 0, -6 * s, 4 * s);
+    sh.moveTo(-5.4 * s, 17 * s);
+    sh.quadraticCurveTo(0, 15.8 * s, 5.4 * s, 17 * s);
+    sh.lineTo(5 * s, 9 * s);
+    sh.quadraticCurveTo(4.4 * s, 3 * s, 0, -1.5 * s);
+    sh.quadraticCurveTo(-4.4 * s, 3 * s, -5 * s, 9 * s);
+    sh.closePath();
     return sh;
   };
   const extrude = (shape, depth, bevel) => new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 2, curveSegments: 24 });
-  const rim = new THREE.Mesh(extrude(outline(1), 0.6, 0.3), toon('#c9a24e'));
+  const rim = new THREE.Mesh(extrude(outline(1), 0.6, 0.3), toon('#aeb8cc'));
   rim.position.z = -0.6;
-  const face = new THREE.Mesh(extrude(outline(0.86), 0.6, 0.25), toon('#d3d7e2'));
-  face.position.set(0, 0.7, 0);
+  const face = new THREE.Mesh(extrude(outline(0.88), 0.6, 0.25), toon('#1f2538'));
+  face.position.set(0, 0.9, 0);
   shield.add(rim, face);
-  const front = 1.15;
-  const bar = (w, h, color, x, y, rot = 0) => {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.35), toon(color));
-    m.position.set(x, y, front);
-    m.rotation.z = rot;
-    shield.add(m);
-    return m;
-  };
-  // Crossed swords behind the emblem: blade, guard, grip, pommel.
-  [-1, 1].forEach((dir) => {
-    const rot = dir * 0.62;
-    const along = (d) => [Math.sin(-rot) * d, 7 + Math.cos(rot) * d];
-    const [bx, by] = along(-0.5);
-    bar(0.7, 10, '#8f94a6', bx, by, rot).position.z = front - 0.05;
-    const [gx, gy] = along(4.8);
-    bar(3, 0.55, '#d8b45a', gx, gy, rot);
-    const [hx, hy] = along(6.2);
-    bar(0.5, 2.2, '#3a2a22', hx, hy, rot);
+  const front = 1.2;
+  const silver = toon('#c9d2e6');
+  const sheen = new THREE.MeshBasicMaterial({ color: '#7fb3ff', transparent: true, opacity: 0.55 });
+  // Filigree: a central spine, mirrored curls and a ring, with a thin glowing line inside.
+  const spine = new THREE.Mesh(new THREE.BoxGeometry(0.5, 13, 0.3), silver);
+  spine.position.set(0, 8, front);
+  shield.add(spine);
+  [-1, 1].forEach((side) => {
+    for (const [y, r, from, len] of [[12.6, 2.6, 0, Math.PI * 1.2], [7.4, 2.2, Math.PI, Math.PI * 1.1], [3.4, 1.5, 0, Math.PI]]) {
+      const curl = new THREE.Mesh(new THREE.TorusGeometry(r, 0.22, 6, 24, len), silver);
+      curl.position.set(side * (r + 0.3), y, front);
+      curl.rotation.set(0, side < 0 ? Math.PI : 0, from);
+      shield.add(curl);
+    }
   });
-  // Emblem: a gold cross with a ring.
-  bar(1.1, 9.5, '#b38a35', 0, 7.6);
-  bar(6, 1.1, '#b38a35', 0, 9.8);
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.9, 0.35, 8, 24), toon('#b38a35'));
-  ring.position.set(0, 9.8, front + 0.1);
-  shield.add(ring);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.3, 8, 28), silver);
+  ring.position.set(0, 10, front + 0.05);
+  const glow = new THREE.Mesh(new THREE.TorusGeometry(1.1, 0.12, 6, 28), sheen);
+  glow.position.set(0, 10, front + 0.2);
+  const line = new THREE.Mesh(new THREE.BoxGeometry(0.15, 11, 0.1), sheen);
+  line.position.set(0, 7.5, front + 0.2);
+  shield.add(ring, glow, line);
   return shield;
 }
 
-// ---------- Artorias' grave: stone and the Cleansing Greatshield (Sif took the sword) ----------
+// ---------- Artorias' grave: a tall mossy monolith on a stone base, the shield leaning on it ----------
 function grave() {
   const group = new THREE.Group();
-  const stone = smooth([-9, -1, -7], [9, 13, 7], (x, y, z) => {
-    const mound = inEllipsoid(x, y, z, [0, 0, 0], [8, 4.5, 6]);
-    const slab = inBox(x, y, z, [1.6, 0, -3.2], [4.4, 11.5, 3.2]) && inEllipsoid(x, y, z, [3, 4, 0], [2.4, 8.5, 4.6]);
-    if (!mound && !slab) return null;
+  const stone = smooth([-8, -1, -7], [8, 25, 7], (x, y, z) => {
+    const base = inEllipsoid(x, y, z, [0, 0, 0], [7.5, 3.2, 6]);
+    // The monolith narrows a little and rounds off at the top; rough faces from the noise.
+    const w = 3.6 - y * 0.06 + (patch(x, y, z, 2) - 0.5) * 0.9;
+    const pillar = y >= 0 && y <= 23 && Math.abs(x - 0.5) <= w && Math.abs(z) <= w * 0.75 && inEllipsoid(x, y, z, [0.5, 10, 0], [5, 14, 5]);
+    if (!base && !pillar) return null;
     const n = patch(x, y, z, 3);
-    if (y >= 3 && n > 0.5 && !slab) return '#3e8e41';
-    if (slab && y > 9 && n > 0.6) return '#3e8e41';
-    return n > 0.66 ? '#6a6478' : n > 0.3 ? '#57516a' : '#4a4560';
-  }, { res: 56, fallback: '#57516a' });
+    if ((base && y >= 1.5 && n > 0.58) || (pillar && n > 0.8)) return '#3e8e41';
+    if (pillar && y > 19 && n > 0.62) return '#2f5a3a';
+    return n > 0.62 ? '#6a6478' : n > 0.3 ? '#57516a' : '#4a4560';
+  }, { res: 64, fallback: '#57516a' });
   group.add(stone);
   const shield = greatshield();
-  shield.position.set(-1.5, 0, 6.5);
-  shield.rotation.set(-0.28, 0.35, 0);
+  shield.position.set(-1, 0.5, 6.2);
+  shield.rotation.set(-0.22, 0.3, 0.04);
   group.add(shield);
   return group;
+}
+
+// ---------- The field of small swords stuck in the ground around the grave ----------
+function swordField() {
+  const field = new THREE.Group();
+  const blade = new THREE.BoxGeometry(0.45, 6, 0.18);
+  const guard = new THREE.BoxGeometry(2, 0.35, 0.4);
+  const grip = new THREE.CylinderGeometry(0.2, 0.2, 1.6, 6);
+  const steel = [toon('#6f7486'), toon('#8a8f9e'), toon('#5a5d6b')];
+  const dark = toon('#3a3540');
+  const spots = [[-31, -6], [-28, 4], [-25, 9], [-14, 9], [-10, -9], [-6, 10], [5, -10], [9, 10], [22, -9], [27, 6], [30, -3], [-33, 0], [16, 11], [-18, -10]];
+  spots.forEach(([x, z], i) => {
+    const sword = new THREE.Group();
+    const b = new THREE.Mesh(blade, steel[i % 3]);
+    b.position.y = 2.2;
+    const g = new THREE.Mesh(guard, dark);
+    g.position.y = 5.3;
+    const h = new THREE.Mesh(grip, dark);
+    h.position.y = 6.2;
+    sword.add(b, g, h);
+    sword.position.set(x, -0.6, z);
+    sword.rotation.set((hash(i, 1, 0) - 0.5) * 0.5, hash(i, 2, 0) * Math.PI, (hash(i, 3, 0) - 0.5) * 0.6);
+    sword.scale.setScalar(0.85 + hash(i, 4, 0) * 0.35);
+    field.add(sword);
+  });
+  return field;
 }
 
 // ---------- Bonfire: ash, a skull, the coiled sword, embers and flames ----------
@@ -208,14 +236,14 @@ function bonfire() {
 // Built along +z from the guard (z = 0): blade toward +z, grip and pommel toward -z.
 function greatsword() {
   const sword = new THREE.Group();
-  const steel = toon('#cdd2df');
-  const dark = toon('#2b2b3a');
-  const grip = toon('#2a2238');
-  const gold = toon('#b89a4e');
+  const steel = toon('#b9c3d6');
+  const dark = toon('#262634');
+  const grip = toon('#1f1d2b');
+  const gold = toon('#8f97ad');
 
-  // Blade outline in the XY plane: long, wide, parallel edges, short point at the end.
-  const L = 29;
-  const W = 1.2;
+  // Blade outline in the XY plane: very long and narrow, parallel edges, short point.
+  const L = 33;
+  const W = 0.75;
   const shape = new THREE.Shape();
   shape.moveTo(0, -W);
   shape.lineTo(L - 4, -W);
@@ -231,7 +259,7 @@ function greatsword() {
   sword.add(blade);
 
   // Fuller: a darker groove down the middle of both faces.
-  const fullerGeo = new THREE.BoxGeometry(0.06, 0.5, L - 8);
+  const fullerGeo = new THREE.BoxGeometry(0.06, 0.32, L - 8);
   [-0.37, 0.37].forEach((x) => {
     const fuller = new THREE.Mesh(fullerGeo, toon('#7d8396'));
     fuller.position.set(x, 0, (L - 8) / 2 + 1.5);
@@ -239,14 +267,19 @@ function greatsword() {
   });
 
   // Cross guard, grip with wrap rings, pommel.
-  const guard = new THREE.Mesh(new THREE.BoxGeometry(1.3, 7, 1.2), dark);
+  // Ornate dark guard: a bar with curled ends sweeping toward the blade.
+  const guard = new THREE.Mesh(new THREE.BoxGeometry(1, 5.2, 1), dark);
   guard.position.z = -0.4;
   sword.add(guard);
-  [-3.5, 3.5].forEach((y) => {
-    const tip = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.6, 1.2), gold);
-    tip.position.set(0, y, -0.4);
-    sword.add(tip);
+  [-1, 1].forEach((side) => {
+    const curl = new THREE.Mesh(new THREE.TorusGeometry(1.1, 0.3, 6, 16, Math.PI * 1.3), dark);
+    curl.rotation.set(0, Math.PI / 2, side > 0 ? -0.4 : Math.PI + 0.4);
+    curl.position.set(0, side * 3.2, 0.4);
+    sword.add(curl);
   });
+  const jewel = new THREE.Mesh(new THREE.OctahedronGeometry(0.55, 0), gold);
+  jewel.position.set(0.55, 0, -0.4);
+  sword.add(jewel);
   const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 6.5, 10), grip);
   handle.rotation.x = Math.PI / 2;
   handle.position.z = -4.2;
@@ -263,7 +296,12 @@ function greatsword() {
 }
 
 // ---------- Sif: the great grey wolf, sitting, facing the fire (toward -x) ----------
-const SILVER = '#959bad';
+// Tones from the original: dark charcoal-brown back and head, warm grey flanks, sandy legs and
+// chest, a dark mask on the muzzle.
+const SILVER = '#6e6a68';
+const BACK = '#423e43';
+const SAND = '#a39b8f';
+const MASK = '#353135';
 
 function sif() {
   const group = new THREE.Group();
@@ -275,8 +313,9 @@ function sif() {
     const hind = inEllipsoid(x, y, z, [3, 1, 4.5], [3.5, 1.4, 1.7]) || inEllipsoid(x, y, z, [3, 1, -4.5], [3.5, 1.4, 1.7]);
     if (!haunch && !torso && !legs && !paws && !hind) return null;
     // Light chest and paws, darker saddle along the back.
-    if ((torso && x <= -1 && y >= 6 && y <= 15) || paws) return '#dde1ea';
-    if (y >= 11 && x >= 3) return '#737a8e';
+    if (paws || legs || (torso && x <= -1.5 && y >= 5 && y <= 13) || (hind && y < 2)) return SAND;
+    if (y >= 10 && x >= 1) return BACK;
+    if (haunch && y < 4) return SAND;
     return SILVER;
   }, { res: 60, fallback: SILVER });
   group.add(body);
@@ -290,14 +329,15 @@ function sif() {
       const snout = inEllipsoid(x, y, z, [-6.5, 0.8, 0], [4.2, 1.8, 1.9]);
       const ruff = inEllipsoid(x, y, z, [1.5, -1, 0], [3.5, 3.2, 4.4]);
       if (!cranium && !snout && !ruff) return null;
-      if (snout && y <= -0.3 && x <= -5) return '#2a2230'; // mouth line
-      if (snout || ruff) return '#dde1ea';
-      return SILVER;
+      if (snout && y <= -0.3 && x <= -5) return '#231f24'; // mouth line
+      if (snout) return MASK;
+      if (ruff) return y < -1 ? SAND : SILVER;
+      return BACK;
     }, { res: 52, fallback: SILVER })
   );
   // Pointed ears, dark nose, eyes.
   [-1, 1].forEach((side) => {
-    const ear = new THREE.Mesh(new THREE.ConeGeometry(1.4, 4.2, 4), toon('#8a90a2'));
+    const ear = new THREE.Mesh(new THREE.ConeGeometry(1.4, 4.2, 4), toon(MASK));
     ear.position.set(-0.5, 7.2, side * 2);
     ear.rotation.set(side * 0.18, Math.PI / 4, side * -0.1);
     head.add(ear);
@@ -314,7 +354,7 @@ function sif() {
   const bite = new THREE.Group();
   bite.position.set(-6.6, 0.2, 0);
   // Tip down and a little toward the viewer, so the whole length shows across the scene.
-  bite.rotation.set(0.3, -0.35, 0);
+  bite.rotation.set(0.22, -0.55, 0);
   const sword = greatsword();
   // Grip center (z = -4.2 in the sword's own space) sits in the mouth.
   sword.position.z = 4.2;
@@ -330,7 +370,7 @@ function sif() {
       for (let i = 0; i <= 10; i++) {
         const t = i / 10;
         const c = [t * 5, 1 - t * 2.5, t * 6.5];
-        if (inEllipsoid(x, y, z, c, [2.3 - t * 0.7, 1.9 - t * 0.6, 2.3 - t * 0.7])) return t > 0.8 ? '#dde1ea' : SILVER;
+        if (inEllipsoid(x, y, z, c, [2.3 - t * 0.7, 1.9 - t * 0.6, 2.3 - t * 0.7])) return t > 0.8 ? SAND : y > 1 ? BACK : SILVER;
       }
       return null;
     }, { res: 40, fallback: SILVER })
@@ -361,6 +401,7 @@ export function mountSouls() {
   const tomb = grave();
   tomb.position.set(-21, 0, -2);
   world.add(tomb);
+  world.add(swordField());
   const fire = bonfire();
   fire.scale.setScalar(1.35);
   world.add(fire);

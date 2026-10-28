@@ -51,19 +51,33 @@ async function collapse() {
     // 1. Implosion (1.2s): the sun shrinks to a point.
     scene?.setAttribute('data-sun', 'implode');
     await wait(1200);
-    // 2. Black hole opens and the page spirals in (2.8s).
+    // 2. Black hole opens and the page spirals in (2.8s). With 3D running, a real one
+    //    (fun-3d/blackhole.js); otherwise the CSS disk.
     scene?.setAttribute('data-sun', 'gone');
+    let hole3d = null;
+    if (root.classList.contains('has-3d')) {
+      try {
+        hole3d = (await import('./fun-3d/blackhole.js')).open({ x, y });
+      } catch (err) {
+        console.warn('3D black hole failed:', err);
+      }
+    }
     hole.classList.add('is-open');
+    if (hole3d) hole.classList.add('is-3d');
     await wait(500);
     falling().forEach((el) => {
       const b = el.getBoundingClientRect();
       el.style.transformOrigin = `${x - b.left}px ${y - b.top}px`;
       el.classList.add('is-falling');
     });
-    await wait(2600);
+    await wait(1200);
+    hole3d?.swallow();
+    await wait(1400);
     // 3. Black, then YOU DIED (2.6s).
     hole.classList.add('is-dark');
     await wait(400);
+    hole3d?.dispose();
+    hole.classList.remove('is-3d');
     showBanner(tr('fun.died'), 'died', 2400);
     await wait(2600);
   }

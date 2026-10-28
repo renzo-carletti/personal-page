@@ -366,10 +366,6 @@
     border-bottom: var(--px) solid #1e0f22;
   }
 
-  .savepoint__vivi {
-    width: 64px;
-  }
-
   .savepoint__fire {
     width: 48px;
     filter: drop-shadow(0 0 10px rgba(232, 100, 30, 0.55));
@@ -388,10 +384,6 @@
       transform: translate(0, -1px);
       opacity: 0.85;
     }
-  }
-
-  .savepoint__vivi .sprite-eyes {
-    animation: eyes 5s steps(1) infinite 1s;
   }
 
   .savepoint__text {

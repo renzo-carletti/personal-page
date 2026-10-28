@@ -96,12 +96,29 @@ export function mountVivi() {
   const model = spriteToVoxels(vivi, { depth: 9 });
   const a = actor({ host: el, anchor, name: 'vivi', models: [model] });
   const eyes = meshes(model, 'sprite-eyes');
+  // Sims plumbob above his hat, colored by mood (fun-sims.js).
+  const MOOD = { green: '#5be05b', yellow: '#f5d142', red: '#ff4a3d' };
+  const plumbob = new THREE.Mesh(new THREE.OctahedronGeometry(2.6, 0), new THREE.MeshToonMaterial({ color: MOOD.green, emissive: MOOD.green, emissiveIntensity: 0.35, flatShading: true }));
+  plumbob.scale.set(1, 1.7, 1);
+  plumbob.position.y = model.userData.size.h + 5;
+  a.body.add(plumbob);
+  const setMood = (mood) => {
+    plumbob.material.color.set(MOOD[mood] ?? MOOD.green);
+    plumbob.material.emissive.set(MOOD[mood] ?? MOOD.green);
+  };
+  setMood(document.documentElement.dataset.mood);
+  document.addEventListener('fun:needs', (e) => setMood(e.detail.mood));
   const orb = meshes(model, 'sprite-orb')[0];
   const orbColor = orb.material.color.clone();
   let spell = null;
   let since = 9;
   let blinkAt = 2;
 
+  onClassAdded(el, ['is-praise'], () => {
+    spell = 'praise';
+    since = 0;
+    orb.material.color.set('#fdb813');
+  });
   onClassAdded(el, Object.keys(SPELL_COLOR).map((s) => `is-${s}`), (cls) => {
     spell = cls.slice(3);
     since = 0;
@@ -116,11 +133,16 @@ export function mountVivi() {
       since += dt;
       a.look(t, dt);
       // Spells: a hop for Fire and Bio, a big jump for Thunder, a full twirl for Stop.
-      const dur = spell === 'bolt' ? 0.75 : 0.55;
+      plumbob.rotation.y = t * 2;
+      plumbob.position.y = model.userData.size.h + 5 + Math.sin(t * 2.5) * 0.8;
+      const tired = el.classList.contains('is-tired');
+      const dur = spell === 'bolt' || spell === 'praise' ? 0.75 : 0.55;
       const p = since / dur;
       let y = Math.sin(t * 4.2) * 0.35;
       a.body.scale.set(1, 1, 1);
-      if (p < 1) y += hop(a.body, p, spell === 'bolt' ? 9 : 5);
+      if (p < 1) y += hop(a.body, p, spell === 'bolt' || spell === 'praise' ? 9 : 5);
+      // Exhausted: he droops.
+      if (tired && p >= 1) a.body.rotation.x += 0.25;
       if (spell === 'stop' && since < 0.9) a.body.rotation.y += THREE.MathUtils.smootherstep(since, 0, 0.9) * Math.PI * 2;
       if (spell === 'bio' && since < 1.2) a.body.rotation.z = Math.sin(since * 22) * 0.12 * (1.2 - since);
       else a.body.rotation.z = 0;

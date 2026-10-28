@@ -1,18 +1,7 @@
-// Fun mode interactions: Vivi's spells, the chocobo, the quantum moon, marshmallow roasting,
-// the solar system spin, the treasure chest, Nomai writing, the supernova timer and the "stage clear" markers.
+// Fun mode interactions: Vivi's spells, the chocobo, the quantum moon, the solar system spin,
+// the treasure chest, Nomai writing, the supernova timer and the "stage clear" markers.
 // Elements are display:none in normal mode, and secrets only unlock in fun mode.
-import { isFun, tr, unlock } from './fun-secrets.js';
-
-const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// Restart a CSS animation class on an element and drop it after `ms`.
-function play(el, cls, ms) {
-  el.classList.remove(cls);
-  void el.offsetWidth;
-  el.classList.add(cls);
-  clearTimeout(el._t?.[cls]);
-  el._t = { ...el._t, [cls]: setTimeout(() => el.classList.remove(cls), ms) };
-}
+import { isFun, play, reducedMotion, tr, unlock } from './fun-secrets.js';
 
 // ---------- Vivi: Fire → Thunder → Stop → Bio (FF9 names) ----------
 const vivi = document.querySelector('.vivi');
@@ -35,6 +24,7 @@ vivi?.addEventListener('click', () => {
   cast.add(spell);
   if (cast.size === spells.length) unlock('spells');
 });
+document.addEventListener('fun:loop', () => (next = 0));
 
 // ---------- Chocobo: kweh, then a lap off screen and back ----------
 const choco = document.querySelector('.choco');
@@ -69,6 +59,7 @@ if (qmoon && spots.length) {
       relocate();
     }
   }).observe(qmoon);
+  document.addEventListener('fun:loop', relocate);
   qmoon.addEventListener('click', () => {
     qmoon.classList.add('is-caught');
     unlock('moon');
@@ -115,29 +106,6 @@ if (solar) {
   solar.addEventListener('pointercancel', release);
 }
 
-// ---------- Marshmallow: click to roast, click again to pull it out ----------
-const fire = document.querySelector('.savepoint__fire-btn');
-const hint = document.querySelector('.savepoint__hint');
-const ROAST_MS = 6000;
-let roastStart = 0;
-fire?.addEventListener('click', () => {
-  if (!roastStart) {
-    roastStart = performance.now();
-    fire.classList.remove('is-raw', 'is-perfect', 'is-burnt');
-    fire.classList.add('is-roasting');
-    fire.setAttribute('aria-label', tr('fun.mallow.pull'));
-    return;
-  }
-  const t = (performance.now() - roastStart) / ROAST_MS;
-  roastStart = 0;
-  const result = t < 0.36 ? 'raw' : t < 0.62 ? 'perfect' : 'burnt';
-  fire.classList.remove('is-roasting');
-  fire.classList.add(`is-${result}`);
-  fire.setAttribute('aria-label', tr('fun.mallow.label'));
-  if (hint) hint.textContent = tr(`fun.mallow.${result}`);
-  if (result === 'perfect') unlock('mallow');
-});
-
 // ---------- Treasure chest ----------
 const chest = document.querySelector('.chest__btn');
 chest?.addEventListener('click', () => {
@@ -160,6 +128,7 @@ nomai?.addEventListener('click', translate);
 nomai?.addEventListener('mouseenter', translate);
 
 // ---------- Supernova: 5 minutes per loop (?supernova=N to test with N seconds) ----------
+// The `supernova` cheat sends `fun:nova` to explode the sun right away.
 const novaTime = document.querySelector('.footer__nova-time');
 const novaLoop = document.querySelector('.footer__nova-loop');
 const nova = document.querySelector('.nova');
@@ -168,10 +137,7 @@ if (novaTime) {
   const LOOP = testSeconds > 0 ? testSeconds : 5 * 60;
   let end = Date.now() + LOOP * 1000;
   const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
-  const tick = () => {
-    const left = Math.max(0, Math.round((end - Date.now()) / 1000));
-    novaTime.textContent = fmt(left);
-    if (left > 0) return;
+  const explode = () => {
     if (isFun()) {
       const animate = !reducedMotion() && nova;
       if (animate) play(nova, 'is-nova', 7400);
@@ -184,8 +150,18 @@ if (novaTime) {
     }
     end = Date.now() + LOOP * 1000;
   };
+  const tick = () => {
+    const left = Math.max(0, Math.round((end - Date.now()) / 1000));
+    novaTime.textContent = fmt(left);
+    if (left === 0) explode();
+  };
   tick();
   setInterval(tick, 1000);
+  document.addEventListener('fun:nova', explode);
+  document.addEventListener('fun:loop', () => {
+    end = Date.now() + LOOP * 1000;
+    tick();
+  });
 }
 
 // ---------- Stage clear: light each level node the first time it is seen ----------

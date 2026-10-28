@@ -50,6 +50,17 @@ const en = translations.en;
         </div>
 
         <NomaiWall />
+
+        <!-- Cyberpunk 2077 tribute (fun-cyber.js): a Breach Protocol puzzle, filled by script. -->
+        <section class="fun-only breach" aria-labelledby="breach-title">
+          <h3 id="breach-title" class="breach__title" data-i18n="fun.breach.title">{en['fun.breach.title']}</h3>
+          <p class="breach__help" data-i18n="fun.breach.help">{en['fun.breach.help']}</p>
+          <p class="breach__line"><span data-i18n="fun.breach.seq">{en['fun.breach.seq']}</span> <span class="breach__seq"></span></p>
+          <p class="breach__line"><span data-i18n="fun.breach.buffer">{en['fun.breach.buffer']}</span> <span class="breach__buf"></span></p>
+          <div class="breach__grid"></div>
+          <p class="breach__status" role="status" aria-live="polite"></p>
+          <button class="breach__reset btn" type="button" data-i18n="fun.breach.reset">{en['fun.breach.reset']}</button>
+        </section>
       </div>
     </div>
   </div>

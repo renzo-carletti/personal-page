@@ -91,8 +91,16 @@ export function mountHero() {
   sunLayer.inner.add(glow, sun);
   sunLayer.outer.add(sunLayer.inner);
   scene.add(sunLayer.outer);
-  sun.traverse((o) => o.material && (o.material = new THREE.MeshBasicMaterial({ color: o.material.color, fog: false })));
+  sun.traverse((o) => o.material && (o.material = new THREE.MeshBasicMaterial({ color: o.material.color.clone(), fog: false })));
   layers.unshift(sunLayer);
+  // Black hole pokes (fun-blackhole.js): `data-heat` on the scene shakes and whitens the sun,
+  // `data-sun="implode"` crushes it to a point, "gone" hides it. The poke button follows the sun.
+  const sunParts = [];
+  sun.traverse((o) => o.material && sunParts.push({ mat: o.material, base: o.material.color.clone() }));
+  const white = new THREE.Color('#ffffff');
+  const sunBtn = document.querySelector('.hero-sun');
+  const sunWorld = new THREE.Vector3();
+  let implodeT = 0;
 
   // Fireflies between the near hills.
   const FLIES = 28;
@@ -144,9 +152,30 @@ export function mountHero() {
       camera.position.set(cam.x, cam.y, D);
       camera.setViewOffset(W, H, -cam.x, cam.y, W, H);
 
-      sun.rotation.y = clock * 0.3;
-      sun.position.y = glow.position.y = 230 - lift * 45;
-      glow.scale.setScalar(330 + Math.sin(clock * 1.5) * 18);
+      const heat = Number(host.dataset.heat) || 0;
+      const state = host.dataset.sun;
+      implodeT = state === 'implode' ? implodeT + dt : 0;
+      const shrink = state === 'implode' ? 1 - THREE.MathUtils.smootherstep(implodeT, 0, 1.1) : state === 'gone' ? 0 : 1;
+      const jitter = heat * 1.6 + (state === 'implode' ? 6 : 0);
+      sun.visible = glow.visible = state !== 'gone';
+      sun.rotation.y = clock * (0.3 + heat * 0.8) + implodeT * 12;
+      sun.position.set(760 + (Math.random() - 0.5) * jitter, 230 - lift * 45 + (Math.random() - 0.5) * jitter, 0);
+      glow.position.set(sun.position.x, sun.position.y, -10);
+      sun.scale.setScalar((124 / 11) * (1 + heat * 0.04) * shrink);
+      sunParts.forEach((p) => p.mat.color.copy(p.base).lerp(white, Math.min(1, heat / 4.5 + (state ? 0.6 : 0))));
+      const praise = host.classList.contains('is-praised') ? 1.7 : 1;
+      glow.scale.setScalar((330 + Math.sin(clock * 1.5) * 18 + heat * 30) * praise * (shrink > 0 ? 0.3 + 0.7 * shrink : 0));
+      // Keep the poke button on the projected sun.
+      if (sunBtn) {
+        sun.getWorldPosition(sunWorld).project(camera);
+        const c = canvas.getBoundingClientRect();
+        const hero = sunBtn.offsetParent?.getBoundingClientRect();
+        if (hero) {
+          sunBtn.style.left = `${c.left - hero.left + ((sunWorld.x + 1) / 2) * W}px`;
+          sunBtn.style.top = `${c.top - hero.top + ((1 - sunWorld.y) / 2) * H}px`;
+          sunBtn.style.setProperty('--size', `${Math.max(48, 124 * s)}px`);
+        }
+      }
       layers.forEach(({ inner }) =>
         inner.children.forEach((c) =>
           c.children.forEach((tree) => tree.userData.sway !== undefined && (tree.rotation.z = Math.sin(clock * 0.9 + tree.userData.sway) * 0.04))

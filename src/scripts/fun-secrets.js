@@ -1,12 +1,25 @@
 // Fun mode secrets: remembered in this browser, counted in the HUD, announced with a toast.
 import { currentLang } from './i18n.js';
 import { translations, defaultLang } from '../data/content.js';
+import { SECRETS } from '../data/secrets.js';
 
-export const SECRETS = ['spells', 'kweh', 'mallow', 'moon', 'chest', 'nomai', 'nova', 'dizzy'];
+export { SECRETS };
 const KEY = 'rc-secrets';
 
 export const tr = (key) => (translations[currentLang()] ?? translations[defaultLang])[key] ?? key;
+// A string with {name} placeholders filled in.
+export const trf = (key, vars) => tr(key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 export const isFun = () => document.documentElement.dataset.theme === 'fun';
+export const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Restart a CSS animation class on an element and drop it after `ms`.
+export function play(el, cls, ms) {
+  el.classList.remove(cls);
+  void el.offsetWidth;
+  el.classList.add(cls);
+  clearTimeout(el._t?.[cls]);
+  el._t = { ...el._t, [cls]: setTimeout(() => el.classList.remove(cls), ms) };
+}
 
 function found() {
   try {
@@ -82,6 +95,7 @@ export function unlock(id) {
   } catch {}
   renderCount();
   toast(`★ ${tr('fun.unlocked')} · ${set.size}/${SECRETS.length}`, tr(`fun.s.${id}`));
+  document.dispatchEvent(new CustomEvent('fun:unlocked', { detail: { id } }));
 }
 
 renderCount();

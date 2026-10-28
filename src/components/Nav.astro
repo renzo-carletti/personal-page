@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { translations } from '../data/content.js';
+import { SECRETS } from '../data/secrets.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const links = [
@@ -21,11 +22,13 @@ const links = [
     <div class="fun-only hud-secrets">
       <button class="hud-secrets__btn" type="button" aria-expanded="false" aria-controls="secrets-panel" title={en['fun.secretsOpen']} data-i18n="fun.secretsOpen" data-i18n-attr="title">
         ★ <span class="hud-secrets__label" data-i18n="fun.secrets">{en['fun.secrets']}</span>
-        <span class="hud-secrets__n">0</span>/8
+        <span class="hud-secrets__n">0</span>/{SECRETS.length}
       </button>
       <!-- Filled by fun-secrets.js: found secrets by name, missing ones as hints. -->
       <ol id="secrets-panel" class="hud-secrets__panel" hidden></ol>
     </div>
+    <!-- Sims-style cheat bar (fun-cheats.js). Also opens with the backquote key. -->
+    <button class="fun-only hud-cheats" type="button" aria-controls="cheats" aria-expanded="false" aria-label={en['fun.cheats.open']} title={en['fun.cheats.open']} data-i18n="fun.cheats.open" data-i18n-attr="aria-label">&gt;_</button>
 
     <nav class="nav__menu" id="nav-menu" aria-label="Primary">
       <ul class="nav__links" role="list">

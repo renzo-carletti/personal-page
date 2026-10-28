@@ -195,3 +195,12 @@ Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), dru
 - [x] Card tilt (`fun-tilt.js`): mission cards, ship log and certificates tilt up to 4° with layers lifted in Z, a gold sheen on certificates, and a fixed tilt on keyboard focus.
 - [x] Fixes: `.playwright-mcp/` untracked; `astro check` runs in CI (DOM types fixed in Nav, Contact, Education); `fun.css` split into `src/styles/fun/{base,hud,hero,sections,play,3d}.css` (built CSS identical apart from media wrappers).
 - [x] Night sky (`sky.js`, 2026-10-28): replaces the 2D starfield. Square pixel stars flow toward the viewer (one shader, no per-frame buffer updates) and warp faster while scrolling; slow field rotation; pointer parallax. Shooting stars every 4–10 s. An icy voxel comet with a dotted tail crosses about once a minute (`?comet` to test).
+
+### Fun mode 4 — crossovers (2026-10-28)
+- [x] Secrets list in `src/data/secrets.js` (11 now; HUD total reads its length). Marshmallow removed (user); `bonfire`, `horizon`, `cheat`, `breach` added.
+- [x] Shared helpers `play()`, `reducedMotion()`, `trf()` in `fun-secrets.js`; `unlock()` sends `fun:unlocked`. Events: `fun:blackhole`, `fun:nova`, `fun:loop`, `fun:needs`, `fun:rest`, `fun:pet`, `fun:praise`, `fun:money`, `fun:breach`, `fun:scan`.
+- [x] Black hole: `.hero-sun` button over the sun (2D circle, or the projected voxel sun from `hero.js`). Pokes heat and shake it; the 5th implodes it, a pixel accretion disk opens, `main`/HUD/sky spiral in, "YOU DIED", then the eyes open at the top and `fun:loop` resets the supernova timer, Vivi's spells, the moon and the bonfire. Reduced motion: fade, text, jump.
+- [x] Dark Souls: save point = rock with greatsword and shield, bonfire (unlit until clicked, "BONFIRE LIT" banner), Sif (pet: tail wag, "Awoo!"). Four soapstone messages with saved ratings. All sprites original.
+- [x] Sims: needs panel (≥1100px, collapsible, saved in `rc-needs`), plumbob over Vivi (3D octahedron or CSS diamond) by mood; spamming Vivi tires him ("Zzz…"). Cheat bar on backquote / `>_` (Ctrl+Shift+C is taken by browser dev tools).
+- [x] Cyberpunk: Breach Protocol (5×5, sequence of 3, buffer 6, row/column alternation, always solvable, keyboard friendly); scanner while holding Q (tint, scanlines, boxes, section tags) or the `scan` cheat.
+- [x] Checked in Chrome: full black hole loop, cheats, bonfire, Sif, soapstones, Breach win, scanner, 2D sun placement, no fun elements in normal mode, no console errors, no overflow. axe not run (external script blocked in this session).

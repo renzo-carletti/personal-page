@@ -1,0 +1,686 @@
+/* Fun mode — crossovers: the black hole (Outer Wilds), the Dark Souls corner and banners, the Sims
+   needs, plumbob and cheat bar, and the Cyberpunk Breach Protocol and scanner. */
+
+@media screen {
+  /* ---------- Sun poke button and the 2D sun heating up ---------- */
+  .hero-sun {
+    --size: 96px;
+    position: absolute;
+    z-index: 1;
+    width: var(--size);
+    height: var(--size);
+    padding: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .hero-sun:focus-visible {
+    outline: 2px dashed var(--frame-hot);
+    outline-offset: 4px;
+  }
+
+  .fun-scene__sun {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .fun-scene[data-heat] .fun-scene__sun {
+    animation: sun-shake 0.12s steps(2) infinite;
+  }
+
+  .fun-scene[data-heat='2'] .fun-scene__sun-core { fill: #ffd25a; }
+  .fun-scene[data-heat='3'] .fun-scene__sun-core { fill: #ffe9a8; }
+  .fun-scene[data-heat='4'] .fun-scene__sun-core { fill: #fff8e6; }
+  .fun-scene[data-heat='3'] .fun-scene__sun,
+  .fun-scene[data-heat='4'] .fun-scene__sun {
+    animation-duration: 0.07s;
+  }
+
+  .fun-scene[data-sun='implode'] .fun-scene__sun {
+    animation: sun-implode 1.2s cubic-bezier(0.7, 0, 0.9, 0.5) forwards;
+  }
+
+  .fun-scene[data-sun='gone'] .fun-scene__sun {
+    opacity: 0;
+  }
+
+  .fun-scene.is-praised .fun-scene__sun {
+    filter: drop-shadow(0 0 30px #fdb813);
+  }
+
+  @keyframes sun-shake {
+    50% { transform: translate(2px, -1px); }
+  }
+
+  @keyframes sun-implode {
+    0% { transform: scale(1.1); }
+    70% { transform: scale(0.15) rotate(180deg); }
+    100% { transform: scale(0); opacity: 0; }
+  }
+
+  /* ---------- Black hole ---------- */
+  .blackhole {
+    --bx: 50vw;
+    --by: 30vh;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .blackhole.is-open,
+  .blackhole.is-dark,
+  .blackhole.is-waking {
+    visibility: visible;
+  }
+
+  .blackhole__disk,
+  .blackhole__hole {
+    position: absolute;
+    left: var(--bx);
+    top: var(--by);
+    width: var(--d);
+    height: var(--d);
+    margin: calc(var(--d) / -2) 0 0 calc(var(--d) / -2);
+    border-radius: 50%;
+    transform: scale(0);
+  }
+
+  /* Accretion ring: stepped colors, spinning, squashed a bit so it reads as a tilted disk. */
+  .blackhole__disk {
+    --d: 360px;
+    background: conic-gradient(#fff4d6 0 8%, #fdb813 0 20%, #e8641e 0 38%, #8e2b1a 0 50%, #fff4d6 0 58%, #fdb813 0 70%, #e8641e 0 86%, #8e2b1a 0);
+    -webkit-mask: radial-gradient(circle, transparent 0 34%, #000 35% 62%, transparent 63%);
+    mask: radial-gradient(circle, transparent 0 34%, #000 35% 62%, transparent 63%);
+    filter: drop-shadow(0 0 24px rgba(253, 184, 19, 0.6));
+  }
+
+  .blackhole__hole {
+    --d: 130px;
+    background: #000;
+    box-shadow: 0 0 0 6px #04050a, 0 0 60px 20px rgba(0, 0, 0, 0.85);
+  }
+
+  .blackhole.is-open .blackhole__disk {
+    animation: bh-grow 0.8s steps(8) forwards, bh-spin 1.2s linear infinite;
+  }
+
+  .blackhole.is-open .blackhole__hole {
+    animation: bh-grow 0.8s steps(8) forwards;
+  }
+
+  @keyframes bh-grow {
+    to { transform: scale(1); }
+  }
+
+  @keyframes bh-spin {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+  }
+
+  .blackhole__dark {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .blackhole.is-dark .blackhole__dark {
+    opacity: 1;
+  }
+
+  /* Eyelids open on the new loop. */
+  .blackhole__lid {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 51%;
+    background: #000;
+    opacity: 0;
+  }
+
+  .blackhole__lid--top { top: 0; --dir: -1; }
+  .blackhole__lid--bottom { bottom: 0; --dir: 1; }
+
+  .blackhole.is-waking .blackhole__lid {
+    animation: bh-lid 1.4s steps(20) forwards;
+  }
+
+  .blackhole.is-waking .blackhole__dark {
+    opacity: 0;
+    transition: none;
+  }
+
+  @keyframes bh-lid {
+    0% { opacity: 1; transform: none; }
+    35% { opacity: 1; transform: translateY(calc(var(--dir) * 45%)); }
+    50% { opacity: 1; transform: translateY(calc(var(--dir) * 8%)); }
+    100% { opacity: 1; transform: translateY(calc(var(--dir) * 101%)); }
+  }
+
+  /* The page spirals into the hole. */
+  .is-falling {
+    animation: bh-fall 2.6s cubic-bezier(0.55, 0, 0.9, 0.4) forwards;
+  }
+
+  @keyframes bh-fall {
+    0% { transform: none; filter: none; }
+    100% { transform: rotate(-260deg) scale(0.01); filter: blur(2px) brightness(1.6); }
+  }
+
+  /* ---------- Dark Souls banner ---------- */
+  .souls-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 101;
+    display: grid;
+    place-items: center;
+    height: 9rem;
+    transform: translateY(-50%);
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.82) 25% 75%, transparent);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .souls-banner.is-shown {
+    animation: souls-in 2.6s ease-out forwards;
+  }
+
+  .souls-banner__text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 1.4rem + 4vw, 4.8rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e0a63a;
+    text-shadow: 0 0 18px rgba(224, 166, 58, 0.55);
+  }
+
+  .souls-banner[data-kind='died'] .souls-banner__text {
+    color: #a3140e;
+    text-shadow: 0 0 14px rgba(163, 20, 14, 0.5);
+  }
+
+  .souls-banner.is-shown .souls-banner__text {
+    animation: souls-text 2.6s ease-out forwards;
+  }
+
+  @keyframes souls-in {
+    0% { opacity: 0; }
+    18%, 78% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes souls-text {
+    from { letter-spacing: 0.02em; transform: scale(0.96); }
+    to { letter-spacing: 0.14em; transform: scale(1.02); }
+  }
+
+  /* ---------- Save point: rock with sword and shield, bonfire, Sif ---------- */
+  .savepoint__scene {
+    gap: var(--space-4);
+  }
+
+  .savepoint__rock {
+    width: 92px;
+  }
+
+  .savepoint__fire {
+    width: 72px;
+    filter: none;
+  }
+
+  .savepoint__fire-btn {
+    position: relative;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .savepoint__fire-btn:focus-visible {
+    outline-offset: 2px;
+  }
+
+  /* Unlit: flames hidden, embers pulse. Lit: flames and a warm glow. */
+  .savepoint__fire-btn:not(.is-lit) .sprite-flame {
+    visibility: hidden;
+  }
+
+  .savepoint__fire .sprite-ember {
+    animation: ember 1.6s steps(2) infinite alternate;
+  }
+
+  .savepoint__fire-btn.is-lit .savepoint__fire {
+    filter: drop-shadow(0 0 12px rgba(232, 100, 30, 0.7));
+  }
+
+  @keyframes ember {
+    to { opacity: 0.35; }
+  }
+
+  .sif {
+    position: relative;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .sif__sprite {
+    width: 124px;
+  }
+
+  .sif .sprite-eyes {
+    animation: eyes 5s steps(1) infinite 2s;
+  }
+
+  .sif.is-wag .sprite-tail {
+    animation: wag 0.2s steps(1) infinite;
+  }
+
+  .sif.is-wag .sif__sprite {
+    animation: bob 0.3s steps(1) 4;
+  }
+
+  @keyframes wag {
+    50% { transform: translateY(-2px); }
+  }
+
+  .sif__bubble {
+    position: absolute;
+    bottom: 100%;
+    left: 10%;
+    padding: 2px 8px;
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--night);
+    background: #f3e6cc;
+    opacity: 0;
+    white-space: nowrap;
+  }
+
+  .sif.is-wag .sif__bubble {
+    animation: souls-in 1.4s steps(4) forwards;
+  }
+
+  .savepoint__hint {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  /* ---------- Soapstone messages ---------- */
+  .soapstone {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2);
+    grid-column: -2;
+    justify-self: end;
+    margin-top: var(--space-6);
+    padding: var(--space-1) var(--space-3);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: var(--text-sm);
+    color: #ffb56b;
+    background: radial-gradient(ellipse at center, rgba(232, 100, 30, 0.28), transparent 70%);
+    text-shadow: 0 0 8px rgba(232, 100, 30, 0.8);
+    cursor: pointer;
+    animation: soap-glow 2.4s ease-in-out infinite alternate;
+  }
+
+  .soapstone__rated {
+    font-family: var(--font-pixel);
+    font-style: normal;
+    font-size-adjust: 0.55;
+    color: var(--grass);
+    text-shadow: none;
+  }
+
+  .soapstone.is-rated {
+    animation: soap-pop 0.9s steps(6);
+  }
+
+  @keyframes soap-glow {
+    to { text-shadow: 0 0 14px rgba(253, 184, 19, 0.9); }
+  }
+
+  @keyframes soap-pop {
+    30% { transform: translateY(-4px) scale(1.05); }
+  }
+
+  /* ---------- Sims: plumbob, tired Vivi, needs panel ---------- */
+  .vivi__plumbob {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 6px);
+    width: 14px;
+    height: 24px;
+    margin-left: -7px;
+    background: var(--mood, #5be05b);
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    filter: drop-shadow(0 0 4px var(--mood, #5be05b));
+    animation: bob 1.2s steps(2) infinite;
+    pointer-events: none;
+  }
+
+  :root[data-mood='yellow'] { --mood: #f5d142; }
+  :root[data-mood='red'] { --mood: #ff4a3d; }
+
+  :root.has-3d .vivi__plumbob {
+    visibility: hidden;
+  }
+
+  .vivi__zzz {
+    position: absolute;
+    right: -10px;
+    top: -6px;
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--sky);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .vivi:is(.is-tired, .is-yawn) .vivi__zzz {
+    animation: zzz 2s steps(4) infinite;
+  }
+
+  @keyframes zzz {
+    0% { opacity: 0; transform: none; }
+    30%, 70% { opacity: 1; }
+    100% { opacity: 0; transform: translate(10px, -14px); }
+  }
+
+  .needs {
+    position: fixed;
+    left: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 45;
+    width: 12.5rem;
+    background: var(--window);
+    box-shadow: 0 0 0 var(--px) #4c8c8a, var(--shadow-lg);
+  }
+
+  .needs__toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: #8fe36b;
+    background: #12312e;
+    cursor: pointer;
+  }
+
+  .needs__gem {
+    width: 9px;
+    height: 15px;
+    background: var(--mood, #5be05b);
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  }
+
+  .needs.is-closed .needs__body {
+    display: none;
+  }
+
+  .needs__body {
+    padding: var(--space-2) var(--space-3) var(--space-3);
+  }
+
+  .needs__cash {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: #8fe36b;
+  }
+
+  .needs__row {
+    display: grid;
+    grid-template-columns: 4.6rem 1fr;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .needs__row + .needs__row {
+    margin-top: var(--space-1);
+  }
+
+  .needs__bar {
+    display: block;
+    height: 10px;
+    background: #0b0f1e;
+    box-shadow: inset 0 0 0 2px #1c1934;
+  }
+
+  .needs__bar > span {
+    display: block;
+    width: var(--v, 50%);
+    height: 100%;
+    background: #5be05b;
+    transition: width 0.4s steps(6);
+  }
+
+  .needs__bar[data-level='mid'] > span { background: #f5d142; }
+  .needs__bar[data-level='low'] > span { background: #ff4a3d; }
+
+  @media (max-width: 1099px) {
+    .needs {
+      display: none;
+    }
+  }
+
+  /* ---------- Sims cheat bar ---------- */
+  .hud-cheats {
+    padding: var(--space-1) var(--space-2);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: #8fe36b;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .hud-cheats:hover,
+  .hud-cheats[aria-expanded='true'] {
+    border-color: #4c8c8a;
+  }
+
+  .cheats {
+    position: fixed;
+    top: calc(var(--nav-h) + var(--space-3));
+    left: 50%;
+    z-index: 96;
+    display: grid;
+    gap: var(--space-2);
+    width: min(32rem, calc(100vw - 2rem));
+    padding: var(--space-3) var(--space-4);
+    transform: translateX(-50%);
+    background: linear-gradient(#1b3a6b, #12284d);
+    box-shadow: 0 0 0 var(--px) #8cc7d9, var(--shadow-lg);
+  }
+
+  .cheats[hidden] {
+    display: none;
+  }
+
+  .cheats label {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: #f3e6cc;
+  }
+
+  .cheats input {
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--font-mono);
+    color: #fff;
+    background: #0b1730;
+    border: 2px solid #8cc7d9;
+  }
+
+  .cheats input:focus-visible {
+    outline: 2px solid var(--frame-hot);
+    outline-offset: 2px;
+  }
+
+  .cheats__out {
+    min-height: 1.4em;
+    font-size: var(--text-sm);
+    color: #8fe36b;
+  }
+
+  .cheats.is-wrong {
+    animation: sun-shake 0.08s steps(2) 4;
+  }
+
+  /* ---------- Cyberpunk: Breach Protocol ---------- */
+  .breach {
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    color: #d6f7ff;
+    background: #0a0f14;
+    box-shadow: 0 0 0 var(--px) #f3e600, inset 0 0 0 calc(var(--px) * 2) #0a0f14, inset 0 0 0 calc(var(--px) * 2 + 1px) rgba(94, 246, 255, 0.4);
+  }
+
+  .breach__title {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size-adjust: 0.55;
+    font-size: var(--text-lg);
+    color: #f3e600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .breach__help {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: #8fb8c0;
+  }
+
+  .breach__line {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: #5ef6ff;
+  }
+
+  .breach__line > span:first-child {
+    display: inline-block;
+    min-width: 6.5rem;
+    color: #8fb8c0;
+  }
+
+  .breach__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 2.8rem));
+    gap: 6px;
+    margin-top: var(--space-4);
+  }
+
+  .breach__cell {
+    aspect-ratio: 1;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: #3d6a70;
+    background: transparent;
+    border: 1px solid #1b2c33;
+  }
+
+  .breach__cell.is-active {
+    color: #d6f7ff;
+    background: rgba(243, 230, 0, 0.08);
+    border-color: rgba(243, 230, 0, 0.5);
+    cursor: pointer;
+  }
+
+  .breach__cell.is-active:hover,
+  .breach__cell.is-active:focus-visible {
+    color: #0a0f14;
+    background: #5ef6ff;
+    outline: none;
+  }
+
+  .breach__cell.is-used {
+    color: #0a0f14;
+    background: #1b2c33;
+    text-decoration: line-through;
+  }
+
+  .breach__status {
+    min-height: 1.4em;
+    margin-top: var(--space-3);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: #f3e600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .breach.is-won .breach__status {
+    color: #5ef6ff;
+    text-shadow: 0 0 10px #5ef6ff;
+  }
+
+  .breach.is-failed {
+    animation: sun-shake 0.08s steps(2) 6;
+  }
+
+  :root[data-theme='fun'] .breach__reset {
+    --frame: #f3e600;
+    margin-top: var(--space-2);
+  }
+
+  /* ---------- Cyberpunk: scanner (hold Q) ---------- */
+  .scan-tag {
+    display: none;
+  }
+
+  :root.is-scanning body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, rgba(94, 246, 255, 0.07) 0 1px, transparent 1px 4px),
+      radial-gradient(ellipse at center, rgba(243, 230, 0, 0.08), rgba(94, 246, 255, 0.2));
+    box-shadow: inset 0 0 0 3px rgba(243, 230, 0, 0.6), inset 0 0 120px rgba(94, 246, 255, 0.25);
+    animation: scan-sweep 1.6s linear infinite;
+  }
+
+  @keyframes scan-sweep {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 0 40px, 0 0; }
+  }
+
+  /* Every card or item gets a scan box. */
+  :root.is-scanning :is(.case article, .job, .skills__group, .drupal__list > div, .doc, .arch, .breach, .contact__form) {
+    outline: 1px solid rgba(94, 246, 255, 0.7);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(94, 246, 255, 0.08), 0 0 18px rgba(94, 246, 255, 0.25);
+  }
+
+  :root.is-scanning .section__title {
+    color: #f3e600;
+    text-shadow: 2px 0 #ff3d6e, -2px 0 #5ef6ff;
+  }
+
+  :root.is-scanning .scan-tag {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: var(--space-4);
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: #0a0f14;
+    background: #f3e600;
+    letter-spacing: 0.04em;
+    box-shadow: 4px 4px 0 #ff3d6e;
+  }
+}

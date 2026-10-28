@@ -1,4 +1,4 @@
-/* Fun mode — Play: interactive extras (chocobo, solar system, moon, Nomai, chest, marshmallow, supernova, toast, stage clear, certificates). */
+/* Fun mode — Play: interactive extras (chocobo, solar system, moon, Nomai, chest, supernova, toast, stage clear, certificates). */
 
 @media screen {
   /* ---------- Play: chocobo ---------- */
@@ -341,59 +341,6 @@
     font-family: var(--font-pixel);
     font-size-adjust: 0.55;
     color: var(--grass);
-  }
-
-  /* ---------- Play: marshmallow at the save point ---------- */
-  .savepoint__fire-btn {
-    position: relative;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .savepoint__fire-btn:focus-visible {
-    outline-offset: 2px;
-  }
-
-  .savepoint__mallow {
-    position: absolute;
-    left: -24px;
-    bottom: 30px;
-    width: 40px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .savepoint__fire-btn:is(.is-roasting, .is-raw, .is-perfect, .is-burnt) .savepoint__mallow {
-    opacity: 1;
-  }
-
-  .savepoint__fire-btn.is-roasting .sprite-mallow {
-    animation: roast 6s steps(6) forwards;
-  }
-
-  .savepoint__fire-btn.is-raw .sprite-mallow { fill: #fff4d6; }
-  .savepoint__fire-btn.is-perfect .sprite-mallow { fill: #e8a43a; }
-  .savepoint__fire-btn.is-burnt .sprite-mallow { fill: #2a1a12; }
-
-  /* The mallow catches fire once it burns. */
-  .savepoint__fire-btn.is-burnt .savepoint__mallow,
-  .savepoint__fire-btn.is-roasting .savepoint__mallow {
-    filter: drop-shadow(0 -2px 3px rgba(232, 100, 30, 0.7));
-  }
-
-  @keyframes roast {
-    0% { fill: #fff4d6; }
-    35% { fill: #f6dca0; }
-    45% { fill: #e8a43a; }
-    62% { fill: #a0612a; }
-    80% { fill: #2a1a12; }
-    100% { fill: #2a1a12; }
-  }
-
-  .savepoint__hint {
-    margin-top: var(--space-1);
-    font-size: var(--text-sm);
-    color: var(--muted);
   }
 
   /* ---------- Play: supernova ---------- */

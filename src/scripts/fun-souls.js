@@ -1,6 +1,8 @@
-// Dark Souls corner: light the bonfire at the save point (then rest at it), pet Sif, and rate the
-// orange soapstone messages left between sections. Also the big banner ("BONFIRE LIT", "YOU DIED").
-import { isFun, play, tr, trf, unlock } from './fun-secrets.js';
+// Dark Souls corner: light the bonfire at the save point (then rest at it), pet Sif, and read the
+// orange soapstone messages left between sections (each teaches a cheat). Also the big banner
+// ("BONFIRE LIT", "YOU DIED").
+import { isFun, play, toast, tr, trf, unlock } from './fun-secrets.js';
+import { learn } from './fun-cheats.js';
 
 const banner = document.querySelector('.souls-banner');
 const bannerText = banner?.querySelector('.souls-banner__text');
@@ -42,13 +44,15 @@ sif?.addEventListener('click', () => {
   play(sif, 'is-wag', 1400);
 });
 
-// ---------- Soapstone messages, one after a few sections ----------
+// ---------- Soapstone messages: each one teaches a cheat, read once ----------
 const KEY = 'rc-soapstones';
-const ratings = () => {
+const TEACHES = ['motherlode', 'praise the sun', 'scan', 'breach'];
+const readSet = () => {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? '{}') || {};
+    const list = JSON.parse(localStorage.getItem(KEY) ?? '[]');
+    return new Set(Array.isArray(list) ? list : []);
   } catch {
-    return {};
+    return new Set();
   }
 };
 ['work', 'experience', 'skills', 'education'].forEach((id, i) => {
@@ -59,23 +63,29 @@ const ratings = () => {
   msg.className = 'fun-only soapstone';
   const text = document.createElement('span');
   text.className = 'soapstone__text';
-  const rated = document.createElement('span');
-  rated.className = 'soapstone__rated';
-  msg.append(text, rated);
+  const state = document.createElement('span');
+  state.className = 'soapstone__rated';
+  msg.append(text, state);
   const render = () => {
-    const n = ratings()[i] ?? 0;
+    const read = readSet().has(i);
+    msg.classList.toggle('is-read', read);
     text.textContent = tr(`fun.msg.${i}`);
-    rated.textContent = n ? trf('fun.msg.rated', { n }) : '';
-    msg.setAttribute('aria-label', `${tr('fun.msg.label')}: ${tr(`fun.msg.${i}`)}${n ? `. ${trf('fun.msg.rated', { n })}` : ''}`);
+    state.textContent = read ? tr('fun.msg.read') : '';
+    msg.setAttribute('aria-label', `${tr('fun.msg.label')}: ${tr(`fun.msg.${i}`)}${read ? `. ${tr('fun.msg.read')}` : ''}`);
   };
   msg.addEventListener('click', () => {
-    const all = ratings();
-    all[i] = (all[i] ?? 0) + 1;
-    try {
-      localStorage.setItem(KEY, JSON.stringify(all));
-    } catch {}
+    if (!isFun()) return;
+    const set = readSet();
+    if (!set.has(i)) {
+      set.add(i);
+      try {
+        localStorage.setItem(KEY, JSON.stringify([...set]));
+      } catch {}
+      play(msg, 'is-rated', 900);
+    }
+    learn(TEACHES[i]);
+    toast(`★ ${trf('fun.cheats.learned', { code: TEACHES[i] })}`, tr('fun.h.cheat'));
     render();
-    play(msg, 'is-rated', 900);
   });
   document.addEventListener('i18n:changed', render);
   render();

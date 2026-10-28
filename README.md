@@ -91,8 +91,8 @@ Both CVs are written in Word, so when you change your experience, update `conten
 - Voxel 3D (`src/scripts/fun-3d/`): Three.js turns the same sprite grids into voxel models (Vivi, the chocobo, the airship, the star chart solar system), extrudes the ridges into a title screen diorama, and draws a moving night sky (star flow that speeds up while you scroll, shooting stars, a comet; `?comet` sends the comet right away). The Three.js chunk (about 150 KB gzip) loads only in fun mode, with WebGL, and without reduced motion or data saver. Otherwise the 2D pixel art stays. `html.has-3d` hides the 2D art the 3D views replace.
 - Game crossovers (fun mode, each in its own `src/scripts/fun-*.js`):
   - Poke the title screen sun 5 times: it implodes into a black hole, the page falls in, "YOU DIED", and a new loop starts at the top (`fun-blackhole.js`). Secrets are kept.
-  - Dark Souls: the Contact save point is a bonfire to light, with Sif and a rock with a sword and shield. Orange soapstone messages can be rated (`fun-souls.js`).
-  - The Sims: Fun, Energy and Social needs plus Simoleons in a panel (wide screens), and a mood plumbob over Vivi (`fun-sims.js`). Cheat bar on the backquote key or the `>_` HUD button; type `help` (`fun-cheats.js`).
+  - Dark Souls: the Contact save point is a bonfire to light, with Sif and a rock with a sword and shield. Orange soapstone messages are read once and each teaches a cheat (`fun-souls.js`).
+  - The Sims: cheat bar on the backquote key or the `>_` HUD button (`fun-cheats.js`). Cheats are learned by reading the soapstone messages and by finding secrets; `motherlode` rains Simoleons.
   - Cyberpunk 2077: Breach Protocol puzzle in the Drupal section, and a scanner while holding Q (`fun-cyber.js`).
   - Test shortcuts: `?supernova=N`, `?comet`, and the cheats `blackhole`, `supernova`, `scan`.
 - Cards tilt toward the pointer in fun mode (`src/scripts/fun-tilt.js`, mouse only).

@@ -413,6 +413,42 @@
     animation: sun-shake 0.08s steps(2) 4;
   }
 
+  .cheats__known {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: #8cc7d9;
+  }
+
+  /* motherlode: Simoleon rain */
+  .coin-rain {
+    position: fixed;
+    inset: 0;
+    z-index: 97;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .coin-rain span {
+    position: absolute;
+    top: -40px;
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    color: #5be05b;
+    text-shadow: 2px 2px 0 #1e6b2a, 0 0 8px rgba(91, 224, 91, 0.6);
+    animation: coin-fall linear forwards;
+  }
+
+  @keyframes coin-fall {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateY(calc(100vh + 60px)) rotate(540deg); opacity: 0; }
+  }
+
+  .soapstone.is-read {
+    opacity: 0.6;
+    animation: none;
+  }
+
   /* ---------- Cyberpunk: Breach Protocol ---------- */
   .breach {
     margin-top: var(--space-6);

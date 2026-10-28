@@ -1,0 +1,513 @@
+/* Fun mode — Hero title screen and the airship companion. */
+
+@media screen {
+  /* ---------- Hero: title screen ---------- */
+  :root[data-theme='fun'] .hero {
+    position: relative;
+    isolation: isolate;
+    align-content: start;
+    padding-block: var(--space-7) clamp(150px, 11vw, 170px);
+  }
+
+  .fun-scene {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    overflow: hidden;
+    background: linear-gradient(
+      to bottom,
+      var(--night) 0%,
+      #1b1838 30%,
+      #2e2a45 calc(100% - 330px),
+      #6b5b95 calc(100% - 250px),
+      #e9806e calc(100% - 180px),
+      #fdb813 calc(100% - 120px)
+    );
+  }
+
+  .fun-scene__land {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(220px, 26vw, 360px);
+    max-width: none;
+  }
+
+  :root[data-theme='fun'] .hero__role {
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .hero__name {
+    color: var(--frame-hot);
+    font-size: clamp(2.5rem, 1.4rem + 3.4vw, 4.4rem);
+    text-shadow: var(--px) var(--px) 0 #8e2b1a;
+    line-height: 1.05;
+  }
+
+  :root[data-theme='fun'] .hero__tagline {
+    font-style: normal;
+    font-size: var(--text-lg);
+  }
+
+  :root[data-theme='fun'] .hero__summary {
+    color: var(--text);
+  }
+
+  .btn--start {
+    --frame: var(--frame-hot);
+    background: transparent !important;
+    color: var(--frame-hot) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .btn--start::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.6rem;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Status + achievements windows. */
+  :root[data-theme='fun'] :is(.hero__aside, .hero__numbers) {
+    margin: var(--px);
+    padding: var(--space-5);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+    border: none;
+  }
+
+  :root[data-theme='fun'] .hero__aside {
+    align-self: start;
+    padding-block: var(--space-4);
+  }
+
+  :root[data-theme='fun'] .hero__numbers {
+    padding-block: var(--space-4);
+    row-gap: var(--space-4);
+  }
+
+  /* Wide screens: status and achievements stack on the right, so the scene shows above the fold. */
+  @media (min-width: 960px) {
+    :root[data-theme='fun'] .hero {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      row-gap: var(--space-5);
+    }
+
+    :root[data-theme='fun'] .hero__main {
+      grid-row: span 2;
+    }
+
+    :root[data-theme='fun'] .hero__numbers {
+      grid-column: 2;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  :root[data-theme='fun'] .hero__numbers > div {
+    padding: 0 var(--space-5) 0 0;
+  }
+
+  :root[data-theme='fun'] .hero__numbers dd {
+    font-size: var(--text-xl);
+  }
+
+  :root[data-theme='fun'] .hero__numbers > div::before {
+    content: none;
+  }
+
+  :root[data-theme='fun'] .hero__numbers dd {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .hero__numbers dd::before {
+    content: '';
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    margin-right: 0.3em;
+    vertical-align: 0.15em;
+    background: var(--grass);
+    transform: rotate(45deg);
+  }
+
+  /* Vivi stands on the front ridge. Click casts Fire. */
+  .vivi {
+    position: absolute;
+    left: calc(var(--gutter) + 20%);
+    bottom: clamp(18px, 2.6vw, 40px);
+    width: clamp(72px, 8vw, 104px);
+    padding: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .vivi__sprite {
+    width: 100%;
+    animation: bob 1.2s steps(1) infinite;
+  }
+
+  @keyframes bob {
+    50% {
+      transform: translateY(var(--px));
+    }
+  }
+
+  .vivi .sprite-eyes {
+    animation: eyes 4.5s steps(1) infinite;
+  }
+
+  @keyframes eyes {
+    0%,
+    94% {
+      fill: #ffd23a;
+    }
+    96% {
+      fill: #120c18;
+    }
+  }
+
+  .vivi .sprite-orb {
+    animation: orb 1.6s steps(2, jump-none) infinite alternate;
+  }
+
+  @keyframes orb {
+    to {
+      fill: #fdb813;
+    }
+  }
+
+  .vivi:hover .vivi__sprite,
+  .vivi:focus-visible .vivi__sprite {
+    filter: drop-shadow(0 0 6px rgba(253, 184, 19, 0.6));
+  }
+
+  .vivi__bubble {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-pixel);
+    white-space: nowrap;
+    color: var(--on-accent);
+    background: var(--text);
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .vivi__sparks {
+    position: absolute;
+    top: 22%;
+    right: 2%;
+    pointer-events: none;
+  }
+
+  .vivi__sparks span {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--ember);
+    opacity: 0;
+  }
+
+  .vivi__sparks span:nth-child(even) {
+    background: var(--frame-hot);
+  }
+
+  /* One bubble line per spell; only the one being cast shows. */
+  .vivi__say {
+    display: none;
+  }
+
+  .vivi[data-spell='fire'] .vivi__say--fire,
+  .vivi[data-spell='stop'] .vivi__say--stop,
+  .vivi[data-spell='bolt'] .vivi__say--bolt,
+  .vivi[data-spell='bio'] .vivi__say--bio {
+    display: inline;
+  }
+
+  :is(.vivi.is-fire, .vivi.is-stop, .vivi.is-bolt, .vivi.is-bio) .vivi__bubble {
+    animation: bubble 1.3s steps(4) forwards;
+  }
+
+  .vivi.is-fire .vivi__sparks span {
+    animation: spark 0.9s steps(6) forwards;
+  }
+
+  :is(.vivi.is-fire, .vivi.is-bolt) .sprite-orb {
+    animation: none;
+    fill: #fff4d6;
+  }
+
+  /* Stop: time freezes. The world turns grey and every animation pauses except Vivi;
+     a clock ring appears above him and its hand spins to a halt. */
+  .vivi.is-stop .vivi__bubble {
+    background: #b9bcc8;
+  }
+
+  .vivi.is-stop .sprite-orb {
+    animation: none;
+    fill: #b9bcc8;
+  }
+
+  .fun-scene__clock {
+    position: absolute;
+    left: calc(var(--gutter) + 20% - 68px);
+    bottom: calc(clamp(18px, 2.6vw, 40px) + clamp(72px, 8vw, 104px) * 0.75);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(11, 15, 30, 0.85);
+    box-shadow: 0 0 0 4px #b9bcc8, 0 0 0 8px rgba(185, 188, 200, 0.25);
+    opacity: 0;
+  }
+
+  .fun-scene__clock::before,
+  .fun-scene__clock::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    width: 4px;
+    margin-left: -2px;
+    background: #fff4d6;
+    transform-origin: bottom center;
+  }
+
+  .fun-scene__clock::before {
+    height: 18px;
+  }
+
+  .fun-scene__clock::after {
+    height: 12px;
+    background: #b9bcc8;
+    transform: rotate(90deg);
+  }
+
+  .fun-scene__fx.is-stop .fun-scene__clock {
+    animation: clock-show 1.9s steps(6) forwards;
+  }
+
+  .fun-scene__fx.is-stop .fun-scene__clock::before {
+    animation: clock-hand 0.9s steps(8) forwards;
+  }
+
+  @keyframes clock-show {
+    0% { opacity: 0; transform: scale(0.4); }
+    15%, 85% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: none; }
+  }
+
+  @keyframes clock-hand {
+    0% { transform: rotate(0deg); }
+    70% { transform: rotate(600deg); }
+    85% { transform: rotate(705deg); }
+    100% { transform: rotate(720deg); }
+  }
+
+  :root.time-stop :is(.fun-scene, .choco, .airship, .fun-sky, .qmoon, .solar, .savepoint__scene) {
+    filter: grayscale(0.9) brightness(0.85);
+    transition: filter 0.2s steps(2);
+  }
+
+  :root.time-stop :is(.choco *, .airship *, .fun-sky *, .qmoon *, .solar *, .savepoint__scene *, .fun-scene *) {
+    animation-play-state: paused !important;
+  }
+
+  /* Thunder: a burst of yellow sparks; the bolt itself drops in the scene layer. */
+  .vivi.is-bolt .vivi__bubble {
+    background: var(--frame-hot);
+  }
+
+  .vivi.is-bolt .vivi__sparks span {
+    background: #fff4d6;
+    animation: spark 0.5s steps(4) 0.25s forwards;
+  }
+
+  /* Bio: green poison bubbles wobble up and pop; the orb turns sickly green. */
+  .vivi.is-bio .vivi__bubble {
+    background: #a8c66c;
+  }
+
+  .vivi.is-bio .sprite-orb {
+    animation: none;
+    fill: #a8c66c;
+  }
+
+  .vivi.is-bio .vivi__sparks span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(168, 198, 108, 0.35);
+    box-shadow: inset 0 0 0 2px #a8c66c;
+    animation: bio 1.3s steps(8) forwards;
+  }
+
+  .vivi.is-bio .vivi__sparks span:nth-child(even) {
+    width: 6px;
+    height: 6px;
+    background: rgba(62, 142, 65, 0.4);
+    box-shadow: inset 0 0 0 2px #3e8e41;
+  }
+
+  @keyframes bio {
+    0% {
+      opacity: 0;
+      transform: translate(calc(var(--dx) * 0.3), 10px);
+    }
+    15% {
+      opacity: 1;
+    }
+    50% {
+      transform: translate(calc(var(--dx) * 0.6 + 6px), calc(var(--dy) * 0.5));
+    }
+    85% {
+      opacity: 1;
+      transform: translate(calc(var(--dx) * 0.8 - 6px), calc(var(--dy) * 0.9)) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(var(--dx) * 0.8 - 6px), var(--dy)) scale(1.8);
+    }
+  }
+
+  .fun-scene__fx {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .fun-scene__flash {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: #fff4d6;
+    opacity: 0;
+  }
+
+  /* Strikes Vivi's staff orb: same left/bottom/width math as .vivi. */
+  .fun-scene__bolt {
+    --vw: clamp(72px, 8vw, 104px);
+    position: absolute;
+    left: calc(var(--gutter) + 20% + var(--vw) * 0.92 - 18px);
+    bottom: calc(clamp(18px, 2.6vw, 40px) + var(--vw) * 0.92);
+    width: 36px;
+    opacity: 0;
+    filter: drop-shadow(0 0 8px #fdb813);
+  }
+
+  .fun-scene__fx.is-bolt .fun-scene__flash {
+    animation: flash 0.7s ease-out;
+  }
+
+  :is(.fun-scene__fx.is-bolt, .fun-scene__fx.is-bolt-calm) .fun-scene__bolt {
+    animation: bolt 0.6s steps(3) forwards;
+  }
+
+  @keyframes flash {
+    0% {
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.35;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes bolt {
+    0% {
+      opacity: 1;
+      transform: translateY(-60px);
+    }
+    60% {
+      opacity: 1;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      transform: none;
+    }
+  }
+
+  .vivi__sparks span:nth-child(1) { --dx: -40px; --dy: -70px; }
+  .vivi__sparks span:nth-child(2) { --dx: 10px; --dy: -90px; animation-delay: 0.05s !important; }
+  .vivi__sparks span:nth-child(3) { --dx: 40px; --dy: -60px; animation-delay: 0.1s !important; }
+  .vivi__sparks span:nth-child(4) { --dx: -20px; --dy: -110px; animation-delay: 0.12s !important; }
+  .vivi__sparks span:nth-child(5) { --dx: 30px; --dy: -120px; animation-delay: 0.18s !important; }
+  .vivi__sparks span:nth-child(6) { --dx: -55px; --dy: -40px; animation-delay: 0.2s !important; }
+  .vivi__sparks span:nth-child(7) { --dx: 55px; --dy: -30px; animation-delay: 0.08s !important; }
+  .vivi__sparks span:nth-child(8) { --dx: -5px; --dy: -60px; animation-delay: 0.15s !important; }
+
+  @keyframes spark {
+    0% {
+      opacity: 1;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy));
+    }
+  }
+
+  @keyframes bubble {
+    0%,
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* ---------- Airship companion: drifts down the page with scroll ---------- */
+  .airship {
+    position: fixed;
+    z-index: 40;
+    top: calc(var(--nav-h) + var(--space-5));
+    right: max(var(--space-4), calc((100vw - var(--container)) / 2 - 7rem));
+    width: 84px;
+    pointer-events: none;
+    transform: translateY(calc(var(--scroll, 0) * (100vh - var(--nav-h) - 140px)));
+  }
+
+  .airship__sprite {
+    width: 100%;
+    animation: bob 1.6s steps(1) infinite;
+  }
+
+  .airship .sprite-prop {
+    animation: blink 0.3s steps(1) infinite;
+  }
+
+  .airship .sprite-lamps {
+    animation: orb 1.2s steps(2, jump-none) infinite alternate;
+  }
+
+  /* Only where there is a free margin beside the content. */
+  @media (max-width: 1439px) {
+    .airship {
+      display: none;
+    }
+  }
+}

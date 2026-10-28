@@ -1,0 +1,736 @@
+/* Fun mode — Play: interactive extras (chocobo, solar system, moon, Nomai, chest, marshmallow, supernova, toast, stage clear, certificates). */
+
+@media screen {
+  /* ---------- Play: chocobo ---------- */
+  .choco {
+    position: absolute;
+    left: calc(var(--gutter) + 20% + clamp(72px, 8vw, 104px) + 1.5rem);
+    bottom: clamp(18px, 2.6vw, 40px);
+    width: clamp(70px, 7.2vw, 96px);
+    padding: 0;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .choco__body {
+    display: grid;
+  }
+
+  /* Standing and running frames sit on top of each other. */
+  .choco__body > .choco__sprite {
+    grid-area: 1 / 1;
+  }
+
+  .choco__sprite--run {
+    visibility: hidden;
+  }
+
+  .choco__sprite {
+    width: 100%;
+    animation: peck 3.2s steps(1) infinite;
+  }
+
+  @keyframes peck {
+    0%,
+    78%,
+    100% {
+      transform: none;
+    }
+    82%,
+    90% {
+      transform: translate(3px, 3px) rotate(6deg);
+    }
+  }
+
+  .choco:hover .choco__sprite,
+  .choco:focus-visible .choco__sprite {
+    filter: drop-shadow(0 0 6px rgba(245, 200, 66, 0.6));
+  }
+
+  .choco__bubble {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    white-space: nowrap;
+    color: var(--on-accent);
+    background: #f5c842;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .choco.is-kweh .choco__bubble {
+    animation: bubble 1.2s steps(4) forwards;
+  }
+
+  .choco.is-kweh .choco__sprite {
+    animation: hop 0.5s steps(2) 2;
+  }
+
+  @keyframes hop {
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* A lap: off to the right, back in from the left. */
+  .choco.is-running .choco__body {
+    animation: lap 3.4s linear forwards;
+  }
+
+  /* Standing and stride frames swap while running. */
+  .choco.is-running .choco__sprite {
+    animation: frame-a 0.26s steps(1) infinite;
+  }
+
+  .choco.is-running .choco__sprite--run {
+    animation: frame-b 0.26s steps(1) infinite;
+  }
+
+  @keyframes frame-a {
+    0%, 100% { visibility: visible; }
+    50% { visibility: hidden; }
+  }
+
+  @keyframes frame-b {
+    0%, 100% { visibility: hidden; }
+    50% { visibility: visible; }
+  }
+
+  @keyframes lap {
+    0% {
+      transform: none;
+    }
+    45% {
+      transform: translateX(110vw);
+    }
+    45.01% {
+      transform: translateX(-60vw);
+    }
+    100% {
+      transform: none;
+    }
+  }
+
+  .choco__dust span {
+    position: absolute;
+    bottom: 2px;
+    width: 8px;
+    height: 8px;
+    background: rgba(243, 230, 204, 0.6);
+    opacity: 0;
+  }
+
+  .choco__dust span:nth-child(2) { left: 10px; animation-delay: 0.1s !important; }
+  .choco__dust span:nth-child(3) { left: 20px; animation-delay: 0.2s !important; }
+
+  .choco.is-running .choco__dust span {
+    animation: dust 0.6s steps(3) forwards;
+  }
+
+  @keyframes dust {
+    0% {
+      opacity: 1;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-24px, -10px) scale(1.6);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .choco {
+      left: auto;
+      right: var(--gutter);
+    }
+  }
+
+  /* ---------- Play: solar system (star chart) ---------- */
+  .solar {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin-top: var(--space-6);
+    max-width: 100%;
+  }
+
+  .solar__sun {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 10px rgba(253, 184, 19, 0.6));
+  }
+
+  .solar__orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--d);
+    height: var(--d);
+    margin: calc(var(--d) / -2) 0 0 calc(var(--d) / -2);
+    border: 2px dotted rgba(140, 199, 217, 0.35);
+    border-radius: 50%;
+  }
+
+  .solar__arm {
+    position: absolute;
+    inset: 0;
+    transform: rotate(var(--start));
+    animation: orbit var(--t) linear infinite;
+  }
+
+  .solar__planet {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    width: 18px;
+    margin-left: -9px;
+  }
+
+  @keyframes orbit {
+    from {
+      transform: rotate(var(--start));
+    }
+    to {
+      transform: rotate(calc(var(--start) + 360deg));
+    }
+  }
+
+  @media (max-width: 959px) {
+    .solar {
+      width: 200px;
+      height: 200px;
+      transform: scale(0.77);
+      transform-origin: left top;
+      margin-bottom: -40px;
+    }
+  }
+
+  /* ---------- Play: quantum moon ---------- */
+  .qmoon {
+    position: absolute;
+    z-index: 2;
+    width: 36px;
+    padding: 0;
+    cursor: pointer;
+    filter: drop-shadow(0 0 10px rgba(185, 188, 200, 0.7));
+  }
+
+  .qmoon__sprite {
+    width: 100%;
+    animation: bob 2.4s steps(1) infinite;
+  }
+
+  .qmoon__say {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: var(--space-1);
+    padding: 2px var(--space-2);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    color: var(--night);
+    background: #b9bcc8;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .qmoon.is-caught .qmoon__say {
+    opacity: 1;
+  }
+
+  .qmoon.is-caught .qmoon__sprite {
+    animation: none;
+    filter: brightness(1.3);
+  }
+
+  /* ---------- Play: Nomai wall ---------- */
+  .nomai {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    text-align: left;
+    border: 2px dashed rgba(140, 199, 217, 0.35);
+    cursor: pointer;
+  }
+
+  .nomai__glyph {
+    width: 170px;
+    max-width: 100%;
+  }
+
+  .nomai__glyph path {
+    fill: none;
+    stroke: #6b7f8f;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    transition: stroke 0.6s steps(3), filter 0.6s steps(3);
+  }
+
+  .nomai__text {
+    font-style: italic;
+    color: var(--sky);
+    opacity: 0;
+    transition: opacity 0.6s steps(3);
+  }
+
+  .nomai.is-translated .nomai__glyph path {
+    stroke: #8cc7d9;
+    filter: drop-shadow(0 0 4px #8cc7d9);
+  }
+
+  .nomai.is-translated .nomai__text {
+    opacity: 1;
+  }
+
+  /* ---------- Play: treasure chest ---------- */
+  .chest {
+    margin-top: var(--space-6);
+  }
+
+  .chest__btn {
+    position: relative;
+    width: 64px;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .chest__open,
+  .chest__btn[aria-expanded='true'] .chest__closed {
+    display: none;
+  }
+
+  .chest__btn[aria-expanded='true'] .chest__open {
+    display: block;
+  }
+
+  .chest__btn:hover,
+  .chest__btn:focus-visible {
+    filter: drop-shadow(0 0 6px rgba(253, 184, 19, 0.6));
+  }
+
+  .chest__btn.is-sparkle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 4px;
+    height: 4px;
+    background: #fff4d6;
+    box-shadow: -14px -6px #fdb813, 14px -8px #fdb813, 0 -16px #fff4d6, -8px -20px #fdb813, 10px -22px #fff4d6;
+    animation: spark 0.9s steps(5) forwards;
+    --dx: 0px;
+    --dy: -24px;
+  }
+
+  .chest .sprite-glow {
+    animation: orb 0.8s steps(2, jump-none) infinite alternate;
+  }
+
+  .chest__loot {
+    margin-top: var(--space-2);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--grass);
+  }
+
+  /* ---------- Play: marshmallow at the save point ---------- */
+  .savepoint__fire-btn {
+    position: relative;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .savepoint__fire-btn:focus-visible {
+    outline-offset: 2px;
+  }
+
+  .savepoint__mallow {
+    position: absolute;
+    left: -24px;
+    bottom: 30px;
+    width: 40px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .savepoint__fire-btn:is(.is-roasting, .is-raw, .is-perfect, .is-burnt) .savepoint__mallow {
+    opacity: 1;
+  }
+
+  .savepoint__fire-btn.is-roasting .sprite-mallow {
+    animation: roast 6s steps(6) forwards;
+  }
+
+  .savepoint__fire-btn.is-raw .sprite-mallow { fill: #fff4d6; }
+  .savepoint__fire-btn.is-perfect .sprite-mallow { fill: #e8a43a; }
+  .savepoint__fire-btn.is-burnt .sprite-mallow { fill: #2a1a12; }
+
+  /* The mallow catches fire once it burns. */
+  .savepoint__fire-btn.is-burnt .savepoint__mallow,
+  .savepoint__fire-btn.is-roasting .savepoint__mallow {
+    filter: drop-shadow(0 -2px 3px rgba(232, 100, 30, 0.7));
+  }
+
+  @keyframes roast {
+    0% { fill: #fff4d6; }
+    35% { fill: #f6dca0; }
+    45% { fill: #e8a43a; }
+    62% { fill: #a0612a; }
+    80% { fill: #2a1a12; }
+    100% { fill: #2a1a12; }
+  }
+
+  .savepoint__hint {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  /* ---------- Play: supernova ---------- */
+  .footer__nova {
+    flex-basis: 100%;
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--frame-hot);
+  }
+
+  .footer__nova-time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .footer__nova-loop {
+    color: var(--sky);
+    margin-left: var(--space-2);
+  }
+
+  /* Supernova sequence, 7.2s. Every layer starts hidden and runs once on .is-nova. */
+  .nova {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .nova.is-nova {
+    visibility: visible;
+  }
+
+  .nova > * {
+    position: absolute;
+    opacity: 0;
+  }
+
+  /* 1. The sun swells, flickers and collapses to a point (0–1.3s). */
+  .nova__sun {
+    left: 50%;
+    top: 36%;
+    width: 96px;
+    margin: -48px 0 0 -48px;
+  }
+
+  .is-nova .nova__sun {
+    animation: nova-sun 1.4s steps(14) forwards;
+  }
+
+  @keyframes nova-sun {
+    0% { opacity: 0; transform: scale(0.5); }
+    12% { opacity: 1; transform: scale(1); }
+    55% { opacity: 1; transform: scale(1.7); filter: brightness(1.2); }
+    62% { transform: scale(1.55); }
+    68% { transform: scale(1.75); }
+    92% { opacity: 1; transform: scale(0.12); filter: brightness(2) hue-rotate(160deg); }
+    100% { opacity: 0; transform: scale(0.05); }
+  }
+
+  /* 2. Blue-white shockwave rings sweep past the screen (1.3–3.1s). */
+  .nova__ring {
+    left: 50%;
+    top: 36%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0 30%, #bfe8ff 55%, rgba(127, 208, 255, 0) 72%);
+    box-shadow: 0 0 0 4px #7fd0ff, 0 0 24px 8px #4aa8ff;
+  }
+
+  .is-nova .nova__ring {
+    animation: nova-ring 1.6s steps(16) 1.3s forwards;
+  }
+
+  .is-nova .nova__ring--late {
+    animation-delay: 1.6s;
+  }
+
+  @keyframes nova-ring {
+    0% { opacity: 1; transform: scale(0.2); }
+    90% { opacity: 1; transform: scale(72); }
+    100% { opacity: 0; transform: scale(80); }
+  }
+
+  /* 3. White-out (2.3–3.9s). */
+  .nova__white {
+    inset: 0;
+    background: #f2fbff;
+  }
+
+  .is-nova .nova__white {
+    animation: nova-white 7.2s linear forwards;
+  }
+
+  @keyframes nova-white {
+    0%, 31% { opacity: 0; }
+    38%, 50% { opacity: 1; }
+    55%, 100% { opacity: 0; }
+  }
+
+  /* 4. Silence: black, the campfire, "the loop restarts" (3.6–5.7s). */
+  .nova__black {
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-4);
+    background: #04050a;
+  }
+
+  .is-nova .nova__black {
+    animation: nova-black 7.2s linear forwards;
+  }
+
+  @keyframes nova-black {
+    0%, 48% { opacity: 0; }
+    53%, 80% { opacity: 1; }
+    81%, 100% { opacity: 0; }
+  }
+
+  .nova__fire {
+    width: 56px;
+    filter: drop-shadow(0 0 14px rgba(232, 100, 30, 0.7));
+  }
+
+  .nova__fire .sprite-flame {
+    animation: flicker 0.5s steps(1) infinite;
+  }
+
+  .nova__text {
+    font-family: var(--font-pixel);
+    font-size: var(--text-xl);
+    font-size-adjust: 0.55;
+    color: var(--sky);
+    letter-spacing: 0.06em;
+  }
+
+  /* 5. Eyelids: closed over the page, then a blink and they open (5.8–7.2s). */
+  .nova__lid {
+    left: 0;
+    right: 0;
+    height: 51%;
+    background: #04050a;
+  }
+
+  .nova__lid--top {
+    top: 0;
+    --dir: -1;
+  }
+
+  .nova__lid--bottom {
+    bottom: 0;
+    --dir: 1;
+  }
+
+  .is-nova .nova__lid {
+    animation: nova-lid 7.2s steps(36) forwards;
+  }
+
+  @keyframes nova-lid {
+    0%, 79% { opacity: 0; transform: none; }
+    80% { opacity: 1; transform: none; }
+    86% { opacity: 1; transform: translateY(calc(var(--dir) * 55%)); }
+    89% { opacity: 1; transform: translateY(calc(var(--dir) * 10%)); }
+    100% { opacity: 1; transform: translateY(calc(var(--dir) * 101%)); }
+  }
+
+  /* ---------- Play: achievement toast + HUD counter ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: var(--space-5);
+    z-index: 95;
+    min-width: min(22rem, calc(100vw - 2rem));
+    padding: var(--space-3) var(--space-5);
+    background: var(--window);
+    box-shadow: 0 0 0 var(--px) var(--frame-hot), var(--shadow-lg);
+    transform: translate(-50%, calc(100% + 3rem));
+    transition: transform 0.4s steps(4);
+    pointer-events: none;
+  }
+
+  .toast.is-shown {
+    transform: translate(-50%, 0);
+  }
+
+  .toast__title {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--frame-hot);
+  }
+
+  .toast__text {
+    font-size: var(--text-sm);
+  }
+
+  .hud-secrets {
+    position: relative;
+    margin-right: auto;
+  }
+
+  .hud-secrets__btn {
+    padding: var(--space-1) var(--space-2);
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    font-size: var(--text-sm);
+    color: #f5c842;
+    white-space: nowrap;
+    border: 2px solid transparent;
+  }
+
+  .hud-secrets__btn:hover,
+  .hud-secrets__btn[aria-expanded='true'] {
+    border-color: #f5c842;
+  }
+
+  .hud-secrets__panel {
+    position: absolute;
+    top: calc(100% + var(--space-3));
+    left: 0;
+    z-index: 60;
+    width: min(22rem, calc(100vw - 2rem));
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    margin: var(--px);
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--muted);
+    background: var(--window);
+    box-shadow: 0 0 0 var(--px) #f5c842, var(--shadow-lg);
+  }
+
+  .hud-secrets__panel[hidden] {
+    display: none;
+  }
+
+  .hud-secrets__panel .is-found {
+    color: #f5c842;
+  }
+
+  @media (max-width: 1180px) {
+    .hud-secrets__label {
+      display: none;
+    }
+  }
+
+  /* ---------- Play: stage clear on the river map ---------- */
+  :root[data-theme='fun'] .case.is-cleared::before {
+    background: var(--grass);
+    box-shadow: 0 0 0 var(--px) var(--night), 0 0 0 calc(var(--px) * 2) var(--grass), 0 0 14px var(--grass);
+  }
+
+  :root[data-theme='fun'] .case.is-cleared::after {
+    content: attr(data-clear);
+    position: absolute;
+    left: -2.6rem;
+    top: calc(var(--space-6) + 1.9rem);
+    padding: 0 4px;
+    font-family: var(--font-pixel);
+    font-size: var(--text-xs);
+    font-size-adjust: 0.55;
+    color: var(--night);
+    background: var(--grass);
+    animation: clear-pop 0.5s steps(3);
+  }
+
+  @keyframes clear-pop {
+    0% {
+      transform: translateY(8px) scale(0.6);
+      opacity: 0;
+    }
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 720px) {
+    :root[data-theme='fun'] .case.is-cleared::after {
+      display: none;
+    }
+  }
+
+  /* ---------- Certificates as legendary items ---------- */
+  :root[data-theme='fun'] .doc__thumb {
+    margin: var(--px);
+    width: calc(100% - var(--px) * 2);
+    border: none;
+    background: var(--window);
+    box-shadow: calc(var(--px) * -1) 0 0 0 var(--frame-hot), var(--px) 0 0 0 var(--frame-hot),
+      0 calc(var(--px) * -1) 0 0 var(--frame-hot), 0 var(--px) 0 0 var(--frame-hot), 0 0 18px rgba(253, 184, 19, 0.35);
+  }
+
+  :root[data-theme='fun'] .doc__thumb:hover {
+    transform: translateY(-2px);
+  }
+
+  .doc__tag {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    z-index: 1;
+    padding: 0 6px;
+    font-family: var(--font-pixel);
+    font-size: var(--text-xs);
+    font-size-adjust: 0.55;
+    color: var(--on-accent);
+    background: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .doc__info strong {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .doc__info span {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .doc__info .doc__date {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .doc__dialog {
+    border: none;
+    background: var(--window);
+    box-shadow: 0 0 0 var(--px) var(--frame-hot), var(--shadow-lg);
+  }
+
+  :root[data-theme='fun'] .doc__dialog-head {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size-adjust: 0.55;
+    color: var(--frame-hot);
+  }
+}

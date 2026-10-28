@@ -1,0 +1,491 @@
+/* Fun mode — Sections 01–06, footer and small screens. */
+
+@media screen {
+  /* ---------- 01 Work: level select along a river ---------- */
+  :root[data-theme='fun'] .cases {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 2.75rem;
+    gap: var(--space-7);
+  }
+
+  :root[data-theme='fun'] .cases::before {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    top: var(--space-3);
+    bottom: var(--space-3);
+    width: var(--px);
+    background: repeating-linear-gradient(to bottom, var(--sky) 0 8px, transparent 8px 16px);
+  }
+
+  :root[data-theme='fun'] .case + .case {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  :root[data-theme='fun'] .case {
+    position: relative;
+  }
+
+  /* Stage node on the river path. */
+  :root[data-theme='fun'] .case::before {
+    content: '';
+    position: absolute;
+    left: calc(-2.75rem + 0.45rem);
+    top: var(--space-6);
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(45deg);
+    background: var(--frame-hot);
+    box-shadow: 0 0 0 var(--px) var(--night), 0 0 0 calc(var(--px) * 2) var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .case article {
+    margin: var(--px);
+    border: none;
+    overflow: visible;
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  /* Screenshot sits under the window's top edge; the browser bar becomes a dark title strip. */
+  :root[data-theme='fun'] .case__shot {
+    border-bottom: var(--px) solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .case__bar {
+    background: var(--night);
+    border-bottom: none;
+  }
+
+  :root[data-theme='fun'] .case__dots span {
+    border-radius: 0;
+    background: var(--frame);
+  }
+
+  :root[data-theme='fun'] .case__host {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--sky);
+  }
+
+  :root[data-theme='fun'] .case article:hover .case__shot img {
+    transform: none;
+  }
+
+  :root[data-theme='fun'] .case--featured article {
+    --frame: var(--frame-hot);
+  }
+
+  .case__stage {
+    font-family: var(--font-pixel);
+    font-size: var(--text-sm);
+    color: var(--sky);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-1);
+  }
+
+  :root[data-theme='fun'] .case__metric {
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .case__steps > div {
+    padding-top: var(--space-3);
+    border-top: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .case__steps dt {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .case__steps dd {
+    color: var(--text);
+  }
+
+  /* ---------- 02 Experience: ship log ----------
+     One card per role with an orange entry strip, joined by dotted rumor lines. */
+  :root[data-theme='fun'] .jobs {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  :root[data-theme='fun'] .job {
+    position: relative;
+    margin: var(--px);
+    padding: var(--space-5) var(--space-6) var(--space-6);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+    border-top: 8px solid var(--ember);
+  }
+
+  /* Rumor line to the next entry. */
+  :root[data-theme='fun'] .job:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    height: calc(var(--space-7) + var(--px) * 2);
+    border-left: 3px dotted var(--sky);
+  }
+
+  /* An ongoing role is still a rumor: marked with "?". */
+  :root[data-theme='fun'] .job--current::before {
+    content: '?';
+    position: absolute;
+    top: -22px;
+    right: var(--space-5);
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-pixel);
+    font-size: 1.4rem;
+    color: var(--night);
+    background: var(--frame-hot);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--night);
+  }
+
+  /* The quest log has no timeline rail. */
+  :root[data-theme='fun'] :is(.job__body, .job__period) {
+    padding-left: 0;
+    padding-bottom: 0;
+    border-left: none;
+  }
+
+  :root[data-theme='fun'] .job__body::before {
+    content: none;
+  }
+
+  :root[data-theme='fun'] .job__period {
+    color: var(--sky);
+  }
+
+  :root[data-theme='fun'] .job__role {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .job__bullets {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  :root[data-theme='fun'] .job__bullets li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  :root[data-theme='fun'] .job__bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--grass);
+  }
+
+  :root[data-theme='fun'] .job__more summary {
+    font-family: var(--font-pixel);
+    font-size: var(--text-base);
+    color: var(--frame-hot);
+  }
+
+  /* ---------- 03 Drupal: spellbook ---------- */
+  :root[data-theme='fun'] .drupal__versions {
+    color: var(--grass);
+    font-family: var(--font-pixel);
+    border-width: 2px;
+  }
+
+  :root[data-theme='fun'] .drupal__list > div {
+    position: relative;
+    padding: var(--space-3) 0 0 1.5rem;
+    border-top: 2px dotted var(--frame);
+  }
+
+  /* Spell gem. */
+  :root[data-theme='fun'] .drupal__list > div::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: calc(var(--space-3) + 0.35em);
+    width: 0.6rem;
+    height: 0.6rem;
+    transform: rotate(45deg);
+    background: var(--sky);
+    box-shadow: inset -3px -3px 0 var(--violet);
+  }
+
+  :root[data-theme='fun'] .drupal__list dt {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .drupal__list dd,
+  :root[data-theme='fun'] .arch__why,
+  :root[data-theme='fun'] .drupal__ai p {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .arch {
+    margin: var(--px);
+    border: none;
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  :root[data-theme='fun'] .arch__node {
+    border: 2px solid var(--frame);
+    background: var(--night);
+  }
+
+  :root[data-theme='fun'] .arch__link {
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .arch__link::before {
+    border-left: var(--px) dotted var(--grass);
+  }
+
+  /* ---------- 04 Skills: star chart ---------- */
+  :root[data-theme='fun'] .skills__group {
+    padding: var(--space-5);
+    border: 2px dashed rgba(107, 91, 149, 0.8);
+    background: rgba(11, 15, 30, 0.7);
+  }
+
+  :root[data-theme='fun'] .skills dt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-pixel);
+    font-size: var(--text-md);
+    color: var(--frame-hot);
+    border-bottom: none;
+  }
+
+  /* Planet with a ring; color rotates per group. */
+  :root[data-theme='fun'] .skills dt::before {
+    content: '';
+    flex: none;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--planet, var(--ember));
+    box-shadow: 0 0 0 3px var(--night), 0 0 0 5px rgba(243, 230, 204, 0.5);
+  }
+
+  :root[data-theme='fun'] .skills__group:nth-child(4n + 2) { --planet: var(--sky); }
+  :root[data-theme='fun'] .skills__group:nth-child(4n + 3) { --planet: var(--grass); }
+  :root[data-theme='fun'] .skills__group:nth-child(4n + 4) { --planet: #e9806e; }
+
+  :root[data-theme='fun'] .skills__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  :root[data-theme='fun'] .skills__items li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .skills__items li::after {
+    content: none;
+  }
+
+  /* Four-point pixel star. */
+  :root[data-theme='fun'] .skills__items li::before {
+    content: '';
+    flex: none;
+    width: 2px;
+    height: 2px;
+    margin: 2px;
+    background: var(--star, #fff4d6);
+    box-shadow: 2px 0 #fff4d6, -2px 0 #fff4d6, 0 2px #fff4d6, 0 -2px #fff4d6;
+  }
+
+  /* ---------- 05 Education: achievements ---------- */
+  :root[data-theme='fun'] .edu__list strong {
+    color: var(--frame-hot);
+    font-weight: 600;
+  }
+
+  :root[data-theme='fun'] .edu__list span {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .certs th,
+  :root[data-theme='fun'] .certs td {
+    border-bottom: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .certs th {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  /* Pixel trophy: cup, stem and base from one square and its shadows. */
+  :root[data-theme='fun'] .certs th::before {
+    content: '';
+    position: absolute;
+    left: 0.3rem;
+    top: calc(var(--space-3) + 0.15em);
+    width: 8px;
+    height: 6px;
+    background: var(--frame-hot);
+    box-shadow: -3px 0 0 -1px var(--frame-hot), 3px 0 0 -1px var(--frame-hot), 0 4px 0 -2px var(--frame-hot), 0 7px 0 -1px #c9772e;
+  }
+
+  :root[data-theme='fun'] .certs td {
+    color: var(--text);
+  }
+
+  :root[data-theme='fun'] .certs__date {
+    color: var(--grass);
+    font-size: var(--text-sm);
+  }
+
+  /* ---------- 06 Contact: save point ---------- */
+  .savepoint {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .savepoint__scene {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-6);
+    padding-bottom: var(--space-2);
+    border-bottom: var(--px) solid #1e0f22;
+  }
+
+  .savepoint__vivi {
+    width: 64px;
+  }
+
+  .savepoint__fire {
+    width: 48px;
+    filter: drop-shadow(0 0 10px rgba(232, 100, 30, 0.55));
+  }
+
+  .savepoint__fire .sprite-flame {
+    animation: flicker 0.5s steps(1) infinite;
+  }
+
+  .savepoint__fire .sprite-flame:nth-of-type(2) {
+    animation-delay: 0.25s;
+  }
+
+  @keyframes flicker {
+    50% {
+      transform: translate(0, -1px);
+      opacity: 0.85;
+    }
+  }
+
+  .savepoint__vivi .sprite-eyes {
+    animation: eyes 5s steps(1) infinite 1s;
+  }
+
+  .savepoint__text {
+    font-family: var(--font-pixel);
+    color: var(--sky);
+    max-width: 24ch;
+  }
+
+  :root[data-theme='fun'] .contact__lead {
+    border-bottom: 2px dotted var(--frame);
+  }
+
+  :root[data-theme='fun'] .contact__headline {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size-adjust: 0.55;
+    font-size: var(--text-2xl);
+    letter-spacing: 0;
+    max-width: 20ch;
+    color: var(--frame-hot);
+    text-shadow: var(--px) var(--px) 0 #8e2b1a;
+  }
+
+  :root[data-theme='fun'] .contact__mail {
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .contact__copy {
+    border: 2px solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .contact__links li {
+    border-bottom: 2px dotted var(--frame);
+    color: var(--muted);
+  }
+
+  :root[data-theme='fun'] .contact__form {
+    margin: var(--px);
+    padding: var(--space-6);
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+  }
+
+  :root[data-theme='fun'] .field label {
+    font-family: var(--font-pixel);
+    color: var(--frame-hot);
+  }
+
+  :root[data-theme='fun'] .field input,
+  :root[data-theme='fun'] .field textarea {
+    background: var(--night);
+    border: 2px solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .field input:focus-visible,
+  :root[data-theme='fun'] .field textarea:focus-visible {
+    outline: 3px solid var(--frame-hot);
+  }
+
+  /* ---------- Footer + back to top ---------- */
+  :root[data-theme='fun'] .footer {
+    border-top: var(--px) solid var(--window);
+    background: var(--night);
+  }
+
+  .footer__credit {
+    flex-basis: 100%;
+    font-size: var(--text-xs);
+  }
+
+  :root[data-theme='fun'] .back-to-top {
+    border: none;
+    background: var(--window);
+    box-shadow: var(--pixel-frame);
+    color: var(--frame-hot);
+  }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 720px) {
+    :root[data-theme='fun'] .hero {
+      min-height: 0;
+    }
+
+    :root[data-theme='fun'] .cases {
+      padding-left: 0;
+    }
+
+    :root[data-theme='fun'] .cases::before,
+    :root[data-theme='fun'] .case::before {
+      display: none;
+    }
+
+    :root[data-theme='fun'] :is(.job, .contact__form) {
+      padding: var(--space-5) var(--space-4);
+    }
+  }
+}

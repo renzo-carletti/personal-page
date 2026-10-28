@@ -1,0 +1,103 @@
+/* Fun mode — HUD: the nav as a game menu. */
+
+@media screen {
+  /* ---------- HUD (nav) ---------- */
+  :root[data-theme='fun'] .nav {
+    background: var(--night);
+    border-bottom: var(--px) solid var(--window);
+  }
+
+  :root[data-theme='fun'] .nav.scrolled {
+    border-bottom-color: var(--window);
+  }
+
+  :root[data-theme='fun'] .nav__brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    color: var(--frame-hot);
+  }
+
+  .hud-lv {
+    font-size: var(--text-xs);
+    color: var(--grass);
+  }
+
+  :root[data-theme='fun'] .nav__links a {
+    font-family: var(--font-pixel);
+    font-size: var(--text-base);
+    border-bottom: none;
+    position: relative;
+  }
+
+  /* FF-style menu cursor next to the current section. */
+  :root[data-theme='fun'] .nav__links a[aria-current='true']::before {
+    content: '';
+    position: absolute;
+    left: -0.9rem;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.6rem;
+    transform: translateY(-50%);
+    background: var(--frame-hot);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    animation: cursor 0.8s steps(2, jump-none) infinite alternate;
+  }
+
+  @keyframes cursor {
+    to {
+      transform: translate(3px, -50%);
+    }
+  }
+
+  :root[data-theme='fun'] .nav__langs {
+    border: 2px solid var(--frame);
+  }
+
+  :root[data-theme='fun'] .nav__lang {
+    font-family: var(--font-pixel);
+  }
+
+  :root[data-theme='fun'] .nav__lang[aria-pressed='true'] {
+    background: var(--frame-hot);
+    color: var(--on-accent);
+  }
+
+  :root[data-theme='fun'] .nav__theme[aria-pressed='true'] {
+    color: var(--frame-hot);
+  }
+
+  @media (max-width: 1000px) {
+    :root[data-theme='fun'] .nav__menu {
+      background: var(--window);
+      border-bottom: var(--px) solid var(--frame);
+    }
+
+    :root[data-theme='fun'] .nav__links a {
+      border-bottom: 2px dotted var(--frame);
+      padding-left: var(--space-5);
+    }
+
+    :root[data-theme='fun'] .nav__links a[aria-current='true']::before {
+      left: 0;
+    }
+  }
+
+  /* XP bar: scroll progress, segmented like a game meter. */
+  .hud-xp {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--px) * -1);
+    height: var(--px);
+  }
+
+  .hud-xp span {
+    display: block;
+    height: 100%;
+    background: var(--grass);
+    transform-origin: left;
+    transform: scaleX(var(--scroll, 0));
+    mask: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 12px);
+  }
+}

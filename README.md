@@ -92,7 +92,7 @@ Both CVs are written in Word, so when you change your experience, update `conten
 - Game crossovers (fun mode, each in its own `src/scripts/fun-*.js`):
   - Poke the title screen sun 5 times: it implodes into a black hole, the page falls in, "YOU DIED", and a new loop starts at the top (`fun-blackhole.js`). Secrets are kept.
   - Dark Souls: the Contact save point is a voxel diorama (`fun-3d/souls.js`): Artorias' grave with his greatsword and the Cleansing Greatshield, a bonfire to light, and Sif to pet. Orange soapstone messages are read once and each teaches a cheat (`fun-souls.js`).
-  - The Sims: cheat bar on the backquote key or the `>_` HUD button (`fun-cheats.js`). Cheats are learned by reading the soapstone messages and by finding secrets; `motherlode` rains Simoleons.
+  - The Sims: cheat book on the backquote key or the `>_` HUD button (`fun-cheats.js`), one card per cheat (learned: what it does + Use; missing: where to learn it). Cheats are learned by reading the soapstone messages and by finding secrets; `motherlode` rains Simoleons.
   - Cyberpunk 2077: Breach Protocol puzzle in the Drupal section, and a scanner while holding Q (`fun-cyber.js`).
   - Test shortcuts: `?supernova=N`, `?comet`, and the cheats `blackhole`, `supernova`, `scan`.
 - Cards tilt toward the pointer in fun mode (`src/scripts/fun-tilt.js`, mouse only).

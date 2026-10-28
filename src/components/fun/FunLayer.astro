@@ -64,13 +64,26 @@ function stars(count: number, seed: number, size: number) {
 <!-- Dark Souls banner: "BONFIRE LIT" (gold) and "YOU DIED" (red). -->
 <div class="fun-only souls-banner" aria-hidden="true"><span class="souls-banner__text"></span></div>
 
-<!-- Sims-style cheat bar (fun-cheats.js). -->
-<form id="cheats" class="fun-only cheats" hidden>
-  <label for="cheat-input" data-i18n="fun.cheats.label">{en['fun.cheats.label']}</label>
-  <input id="cheat-input" name="cheat" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" />
-  <p class="cheats__known"></p>
-  <p class="cheats__out" role="status" aria-live="polite"></p>
-</form>
+<!-- Cheat book (fun-cheats.js): a card per cheat, learned ones ready to use, missing ones with a hint. -->
+<div id="cheats" class="fun-only cheatbook" role="dialog" aria-modal="true" aria-labelledby="cheatbook-title" hidden>
+  <div class="cheatbook__window">
+    <header class="cheatbook__head">
+      <h2 id="cheatbook-title" class="cheatbook__title" data-i18n="fun.cheats.title">{en['fun.cheats.title']}</h2>
+      <p class="cheatbook__progress"></p>
+      <button class="cheatbook__close" type="button" aria-label={en['fun.cheats.close']} data-i18n="fun.cheats.close" data-i18n-attr="aria-label">✕</button>
+    </header>
+    <ul class="cheatbook__list" role="list"></ul>
+    <form class="cheatbook__form">
+      <label for="cheat-input" data-i18n="fun.cheats.label">{en['fun.cheats.label']}</label>
+      <div class="cheatbook__row">
+        <input id="cheat-input" name="cheat" type="text" list="cheat-known" autocomplete="off" spellcheck="false" autocapitalize="off" />
+        <button class="btn" type="submit" data-i18n="fun.cheats.enter">{en['fun.cheats.enter']}</button>
+      </div>
+      <datalist id="cheat-known"></datalist>
+      <p class="cheats__out" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
 
 <div class="fun-only airship" aria-hidden="true">
   <PixelSprite sprite={airship} class="airship__sprite" />

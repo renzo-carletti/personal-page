@@ -387,40 +387,147 @@
     border-color: #4c8c8a;
   }
 
-  .cheats {
+  /* Cheat book: a pixel window over a dimmed page. */
+  .cheatbook {
     position: fixed;
-    top: calc(var(--nav-h) + var(--space-3));
-    left: 50%;
+    inset: 0;
     z-index: 96;
     display: grid;
-    gap: var(--space-2);
-    width: min(32rem, calc(100vw - 2rem));
-    padding: var(--space-3) var(--space-4);
-    transform: translateX(-50%);
-    background: linear-gradient(#1b3a6b, #12284d);
-    box-shadow: 0 0 0 var(--px) #8cc7d9, var(--shadow-lg);
+    place-items: center;
+    padding: var(--space-4);
+    background: rgba(4, 5, 10, 0.72);
   }
 
-  .cheats[hidden] {
+  .cheatbook[hidden] {
     display: none;
   }
 
-  .cheats label {
-    font-family: var(--font-pixel);
-    font-size-adjust: 0.55;
-    color: #f3e6cc;
+  .cheatbook__window {
+    display: grid;
+    gap: var(--space-4);
+    width: min(44rem, 100%);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    padding: var(--space-5);
+    background: var(--window);
+    box-shadow: 0 0 0 var(--px) var(--frame-hot), 0 0 0 calc(var(--px) * 2) var(--night), 0 0 0 calc(var(--px) * 3) var(--frame), var(--shadow-lg);
+    animation: book-in 0.25s steps(4);
   }
 
-  .cheats input {
-    width: 100%;
+  @keyframes book-in {
+    from { transform: scale(0.92); opacity: 0; }
+  }
+
+  .cheatbook__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .cheatbook__title {
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size-adjust: 0.55;
+    font-size: var(--text-xl);
+    color: var(--frame-hot);
+    text-shadow: 2px 2px 0 #8e2b1a;
+  }
+
+  .cheatbook__progress {
+    margin-right: auto;
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--grass);
+  }
+
+  .cheatbook__close {
+    width: 2rem;
+    height: 2rem;
+    font-size: var(--text-md);
+    color: var(--text);
+    box-shadow: 0 0 0 2px var(--frame);
+    cursor: pointer;
+  }
+
+  .cheatbook__close:hover {
+    color: var(--frame-hot);
+  }
+
+  .cheatbook__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 12.5rem), 1fr));
+    gap: var(--space-3);
+  }
+
+  .cheatcard {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--night);
+    box-shadow: 0 0 0 2px var(--frame);
+  }
+
+  .cheatcard code {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    font-size: var(--text-lg);
+    color: #8fe36b;
+  }
+
+  .cheatcard p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .cheatcard.is-missing {
+    box-shadow: 0 0 0 2px #2e2a45;
+    background: repeating-linear-gradient(135deg, #0b0f1e 0 8px, #0f1326 8px 16px);
+  }
+
+  .cheatcard.is-missing code {
+    color: #5a5f70;
+  }
+
+  .cheatcard.is-new {
+    animation: soap-pop 0.9s steps(6);
+  }
+
+  :root[data-theme='fun'] .cheatcard .btn {
+    justify-self: start;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .cheatbook__form {
+    display: grid;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 2px dotted var(--frame);
+  }
+
+  .cheatbook__form label {
+    font-family: var(--font-pixel);
+    font-size-adjust: 0.55;
+    color: var(--sky);
+  }
+
+  .cheatbook__row {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .cheatbook__row input {
+    flex: 1;
+    min-width: 0;
     padding: var(--space-2) var(--space-3);
     font-family: var(--font-mono);
     color: #fff;
-    background: #0b1730;
-    border: 2px solid #8cc7d9;
+    background: var(--night);
+    border: 2px solid var(--frame);
   }
 
-  .cheats input:focus-visible {
+  .cheatbook__row input:focus-visible {
     outline: 2px solid var(--frame-hot);
     outline-offset: 2px;
   }
@@ -431,14 +538,8 @@
     color: #8fe36b;
   }
 
-  .cheats.is-wrong {
+  .cheatbook.is-wrong .cheatbook__window {
     animation: sun-shake 0.08s steps(2) 4;
-  }
-
-  .cheats__known {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: #8cc7d9;
   }
 
   /* motherlode: Simoleon rain */

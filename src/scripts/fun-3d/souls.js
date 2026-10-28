@@ -377,7 +377,7 @@ function sif() {
     }, { res: 40, fallback: SILVER })
   );
   group.add(tail);
-  group.userData = { head, tail, bite, biteRest };
+  group.userData = { head, tail, bite, biteRest, headRest: head.position.clone() };
   return group;
 }
 
@@ -450,13 +450,18 @@ export function mountSouls() {
   // Petting Sif: she lowers her head and lays the sword down, howls, then bends down and picks it
   // up again. The sword never jumps: it goes jaws -> lying on the ground where it already points
   // ("flat") -> nudged along the ground into place, and back the same way.
-  // Timeline (s): lay it down 0.75–1.45, nudge it 1.45–2.25 (+ a small clank), howl 2.6–3.9,
-  // nudge it back 4.2–4.9, lift it into the jaws 4.9–5.5, done at 5.9.
+  // She bows (neck down and forward, body leaning in) to carry the sword to the ground in her
+  // jaws before letting go, and bows again to take it back.
+  // Timeline (s): bow 0–1.0, lay it down 1.0–1.5, nudge it 1.5–2.3 (+ a small clank), howl
+  // 2.6–3.9, bow 3.9, nudge it back 4.2–4.9, lift it into the jaws 4.9–5.45, up again 5.5, done 5.9.
   const HOWL = 5.9;
-  const STEPS = { down: [0.75, 0.7], nudge: [1.45, 0.8], back: [4.2, 0.7], lift: [4.9, 0.6] };
+  const STEPS = { down: [1.0, 0.5], nudge: [1.5, 0.8], back: [4.2, 0.7], lift: [4.9, 0.6] };
   const SETTLE = 0.4;
   let since = 9;
   let phase = 'held';
+  let bow = 0;
+  // Head offset at a full bow (wolf space): the neck stretches down and forward.
+  const BOW = new THREE.Vector3(-2.5, -4, 0);
   const pose = () => ({ position: new THREE.Vector3(), quaternion: new THREE.Quaternion() });
   const from = pose();
   const flat = pose();
@@ -518,7 +523,7 @@ export function mountSouls() {
       fire.userData.update(dt, t, fireBtn.classList.contains('is-lit'));
       // Sif breathes and watches the fire; when petted she drops the sword, howls, picks it up.
       since += dt;
-      const { head, tail, bite, biteRest } = wolf.userData;
+      const { head, tail, bite, biteRest, headRest } = wolf.userData;
       wolf.scale.y = 1 + Math.sin(t * 2) * 0.012;
       const acting = since < HOWL;
       // Head pitch (+ = nose down): low while laying the sword down, up to howl, low again to
@@ -527,14 +532,19 @@ export function mountSouls() {
       let turn = 0.1;
       let rate = 3.5;
       if (acting) {
-        if (since < 2.6) pitch = since < 2.3 ? 0.65 : 0.4;
+        if (since < 2.6) pitch = since < 2.3 ? 0.9 : 0.4;
         else if (since < 3.9) {
           pitch = -0.85 + Math.sin(since * 9) * 0.04;
           turn = -0.15;
           rate = 5;
-        } else if (since < 5.3) pitch = 0.65;
+        } else if (since < 5.5) pitch = 0.9;
       }
       head.rotation.z = approach(head.rotation.z, pitch, rate, dt);
+      // Bowing: neck down and forward, body leaning in a little toward the paws.
+      const bowing = acting && (since < 2.3 || (since > 3.9 && since < 5.5));
+      bow = approach(bow, bowing ? 1 : 0, 4, dt);
+      head.position.copy(headRest).addScaledVector(BOW, bow);
+      wolf.rotation.z = bow * 0.05;
       head.rotation.y = approach(head.rotation.y, turn, 3, dt);
       const happy = acting && since > 5.3;
       wag = approach(wag, happy ? 1 : 0, 6, dt);

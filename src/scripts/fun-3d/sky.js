@@ -1,5 +1,5 @@
 // Page-wide night sky in 3D: square pixel stars flowing slowly toward you (faster while you
-// scroll, like a short warp), a spiral galaxy turning far away, shooting stars, and now and then
+// scroll, like a short warp), shooting stars, and now and then
 // a comet with an icy tail crossing the sky (a nod to the Interloper). Replaces the 2D starfield.
 import * as THREE from 'three';
 import { approach, pointer, view } from './stage.js';
@@ -62,33 +62,6 @@ function stars(count) {
   return new THREE.Points(geo, starMaterial());
 }
 
-// Two-arm spiral of square dots, violet core to teal arms.
-function galaxy() {
-  const count = 900;
-  const pos = new Float32Array(count * 3);
-  const col = new Float32Array(count * 3);
-  const core = new THREE.Color('#fff4d6');
-  const arm = new THREE.Color('#a99be0');
-  const rim = new THREE.Color('#8cc7d9');
-  const c = new THREE.Color();
-  for (let i = 0; i < count; i++) {
-    const t = Math.random();
-    const a = t * 9 + (i % 2) * Math.PI + (Math.random() - 0.5) * 0.6;
-    const r = 8 + t * 230 + (Math.random() - 0.5) * 30 * t;
-    pos.set([Math.cos(a) * r, Math.sin(a) * r, (Math.random() - 0.5) * 20], i * 3);
-    c.copy(core).lerp(arm, Math.min(1, t * 2.2)).lerp(rim, Math.max(0, t - 0.5));
-    col.set([c.r, c.g, c.b], i * 3);
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-  const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 2.5, sizeAttenuation: false, vertexColors: true, transparent: true, opacity: 0.9, depthWrite: false }));
-  const group = new THREE.Group();
-  group.add(points);
-  group.rotation.x = -0.8;
-  return group;
-}
-
 // A streak: bright head, tail fading out (RGBA vertex colors).
 function streak(rgb) {
   const geo = new THREE.BufferGeometry();
@@ -140,9 +113,6 @@ export function mountSky() {
 
   const field = stars(innerWidth < 720 ? 700 : 1400);
   scene.add(field);
-  const spiral = galaxy();
-  spiral.position.set(520, 330, -1700);
-  scene.add(spiral);
   const shooters = [streak([1, 0.96, 0.84]), streak([0.55, 0.78, 0.85])];
   shooters.forEach((s) => scene.add(s));
   const ice = comet();
@@ -166,10 +136,6 @@ export function mountSky() {
     camera,
     resize() {
       u.uScale.value = Math.min(devicePixelRatio || 1, 2);
-      // Keep the galaxy low in the left margin, beside the section titles, whatever the window shape.
-      const half = Math.tan((FOV * Math.PI) / 360) * (camera.position.z - spiral.position.z);
-      spiral.position.x = -half * camera.aspect * 0.72;
-      spiral.position.y = -half * 0.55;
     },
     update(dt) {
       if (root.classList.contains('time-stop')) dt = 0;
@@ -182,7 +148,6 @@ export function mountSky() {
       u.uFlow.value = flow % DEPTH;
       u.uTime.value = clock;
       field.rotation.z = clock * 0.004;
-      spiral.rotation.z = clock * 0.05;
       look.x = approach(look.x, pointer.active ? (pointer.x / innerWidth - 0.5) * 40 : 0, 2, dt);
       look.y = approach(look.y, pointer.active ? (0.5 - pointer.y / innerHeight) * 25 : 0, 2, dt);
       camera.position.x = look.x;

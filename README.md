@@ -88,7 +88,7 @@ Both CVs are written in Word, so when you change your experience, update `conten
 - `astro.config.mjs` sets `scopedStyleStrategy: 'where'`, so the theme overrides win over component styles at equal specificity.
 - Pixel art is plain text grids in `src/components/fun/sprites.js`, rendered as crisp SVG by `PixelSprite.astro`. To draw a new sprite, add a grid and a palette.
 - The landscape lines are shared by both modes (`src/components/scene.js`): filled ridges in fun mode, line art under the normal hero.
-- Voxel 3D (`src/scripts/fun-3d/`): Three.js turns the same sprite grids into voxel models (Vivi, the chocobo, the airship, the star chart solar system), extrudes the ridges into a title screen diorama, and draws a moving night sky (star flow that speeds up while you scroll, a spiral galaxy, shooting stars, a comet; `?comet` sends the comet right away). The Three.js chunk (about 150 KB gzip) loads only in fun mode, with WebGL, and without reduced motion or data saver. Otherwise the 2D pixel art stays. `html.has-3d` hides the 2D art the 3D views replace.
+- Voxel 3D (`src/scripts/fun-3d/`): Three.js turns the same sprite grids into voxel models (Vivi, the chocobo, the airship, the star chart solar system), extrudes the ridges into a title screen diorama, and draws a moving night sky (star flow that speeds up while you scroll, shooting stars, a comet; `?comet` sends the comet right away). The Three.js chunk (about 150 KB gzip) loads only in fun mode, with WebGL, and without reduced motion or data saver. Otherwise the 2D pixel art stays. `html.has-3d` hides the 2D art the 3D views replace.
 - Cards tilt toward the pointer in fun mode (`src/scripts/fun-tilt.js`, mouse only).
 - All motion respects `prefers-reduced-motion`.
 

@@ -83,10 +83,11 @@ export function mountHero() {
   // Sun behind everything, a slowly turning voxel ball with a soft glow.
   const sunLayer = { cfg: { d: 900 }, outer: new THREE.Group(), inner: new THREE.Group() };
   const sun = spriteToVoxels(sunSprite, { shape: 'round' });
-  sun.position.set(560, 170, 0);
+  // In the gap between the hero text and the facts column, high enough to clear the far ridge.
+  sun.position.set(760, 230, 0);
   sun.scale.setScalar(124 / 11);
   const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), depthWrite: false, fog: false }));
-  glow.position.set(560, 170, -10);
+  glow.position.set(760, 230, -10);
   sunLayer.inner.add(glow, sun);
   sunLayer.outer.add(sunLayer.inner);
   scene.add(sunLayer.outer);
@@ -133,7 +134,7 @@ export function mountHero() {
     update(dt) {
       if (root.classList.contains('time-stop')) dt = 0;
       clock += dt;
-      // Camera moves with the pointer and sinks as the hero scrolls away, while the sun sets.
+      // Camera moves with the pointer and sinks as the hero scrolls away, while the sun sets a little.
       // The view offset keeps the front plane still, so Vivi and the chocobo stay on their ground.
       const lift = Math.min(1, scrollY / H);
       const tx = (pointer.active ? (pointer.x / W - 0.5) * 90 : 0) + Math.sin(clock * 0.25) * 18;
@@ -144,8 +145,8 @@ export function mountHero() {
       camera.setViewOffset(W, H, -cam.x, cam.y, W, H);
 
       sun.rotation.y = clock * 0.3;
-      sun.position.y = glow.position.y = 170 - lift * 90;
-      glow.scale.setScalar(250 + Math.sin(clock * 1.5) * 14);
+      sun.position.y = glow.position.y = 230 - lift * 45;
+      glow.scale.setScalar(330 + Math.sin(clock * 1.5) * 18);
       layers.forEach(({ inner }) =>
         inner.children.forEach((c) =>
           c.children.forEach((tree) => tree.userData.sway !== undefined && (tree.rotation.z = Math.sin(clock * 0.9 + tree.userData.sway) * 0.04))

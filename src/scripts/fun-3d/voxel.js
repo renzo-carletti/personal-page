@@ -116,3 +116,70 @@ export function glowTexture(rgb = '253,184,19') {
   g.fillRect(0, 0, 128, 128);
   return new THREE.CanvasTexture(c);
 }
+
+// Face directions for voxelize: normal, then the 4 corners of that face on a unit cube.
+const FACES = [
+  [[1, 0, 0], [[1, 0, 0], [1, 1, 0], [1, 1, 1], [1, 0, 1]]],
+  [[-1, 0, 0], [[0, 0, 1], [0, 1, 1], [0, 1, 0], [0, 0, 0]]],
+  [[0, 1, 0], [[0, 1, 1], [1, 1, 1], [1, 1, 0], [0, 1, 0]]],
+  [[0, -1, 0], [[0, 0, 0], [1, 0, 0], [1, 0, 1], [0, 0, 1]]],
+  [[0, 0, 1], [[1, 0, 1], [1, 1, 1], [0, 1, 1], [0, 0, 1]]],
+  [[0, 0, -1], [[0, 0, 0], [0, 1, 0], [1, 1, 0], [1, 0, 0]]],
+];
+
+/**
+ * Sculpt a voxel model from a color function: `colorAt(x, y, z)` returns a CSS color or null for
+ * empty, over integer coordinates from `min` to `max` (inclusive). Only faces next to empty space
+ * are built, one mesh per color. `glow` lists colors drawn unlit.
+ */
+export function voxelize(min, max, colorAt, { glow = [] } = {}) {
+  const [x0, y0, z0] = min;
+  const [x1, y1, z1] = max;
+  const sx = x1 - x0 + 1;
+  const sy = y1 - y0 + 1;
+  const sz = z1 - z0 + 1;
+  const grid = new Array(sx * sy * sz);
+  const idx = (x, y, z) => (x - x0) + sx * ((y - y0) + sy * (z - z0));
+  for (let z = z0; z <= z1; z++) for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) grid[idx(x, y, z)] = colorAt(x, y, z) || null;
+  const filled = (x, y, z) => x >= x0 && x <= x1 && y >= y0 && y <= y1 && z >= z0 && z <= z1 && grid[idx(x, y, z)];
+
+  const byColor = new Map();
+  for (let z = z0; z <= z1; z++)
+    for (let y = y0; y <= y1; y++)
+      for (let x = x0; x <= x1; x++) {
+        const color = grid[idx(x, y, z)];
+        if (!color) continue;
+        if (!byColor.has(color)) byColor.set(color, { pos: [], nor: [], index: [] });
+        const g = byColor.get(color);
+        for (const [n, corners] of FACES) {
+          if (filled(x + n[0], y + n[1], z + n[2])) continue;
+          const base = g.pos.length / 3;
+          corners.forEach(([cx, cy, cz]) => {
+            g.pos.push(x + cx, y + cy, z + cz);
+            g.nor.push(...n);
+          });
+          g.index.push(base, base + 1, base + 2, base, base + 2, base + 3);
+        }
+      }
+
+  const model = new THREE.Group();
+  for (const [color, g] of byColor) {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(g.pos, 3));
+    geo.setAttribute('normal', new THREE.Float32BufferAttribute(g.nor, 3));
+    geo.setIndex(g.index);
+    const mesh = new THREE.Mesh(geo, glow.includes(color) ? new THREE.MeshBasicMaterial({ color }) : toon(color));
+    mesh.name = color;
+    model.add(mesh);
+  }
+  return model;
+}
+
+// Shape tests for voxelize color functions.
+export const inEllipsoid = (x, y, z, [cx, cy, cz], [rx, ry, rz]) => ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 + ((z - cz) / rz) ** 2 <= 1;
+export const inBox = (x, y, z, [ax, ay, az], [bx, by, bz]) => x >= ax && x <= bx && y >= ay && y <= by && z >= az && z <= bz;
+// Small stable noise in 0..1 for speckled stone, ash and fur.
+export const hash = (x, y, z) => {
+  const h = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453;
+  return h - Math.floor(h);
+};

@@ -3,6 +3,7 @@ import { mountAirship, mountChocobo, mountVivi } from './actors.js';
 import { mountHero } from './hero.js';
 import { mountSky } from './sky.js';
 import { mountSolar } from './solar.js';
+import { mountSouls } from './souls.js';
 import { start, stop } from './stage.js';
 
 export function mount() {
@@ -12,5 +13,6 @@ export function mount() {
   mountChocobo();
   mountSolar();
   mountAirship();
+  mountSouls();
   return { resume: start, pause: stop };
 }

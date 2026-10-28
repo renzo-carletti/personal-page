@@ -73,6 +73,39 @@
     filter: drop-shadow(0 0 6px rgba(253, 184, 19, 0.6));
   }
 
+  /* ---------- Dark Souls diorama (fun-3d/souls.js): buttons follow the models ---------- */
+  :root:is(.has-3d, .wants-3d) .savepoint__scene {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    width: min(100%, 480px);
+    height: 270px;
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .fun3d--souls {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  :root:is(.has-3d, .wants-3d) :is(.savepoint__rock, .savepoint__fire, .sif__sprite) {
+    display: none;
+  }
+
+  :root:is(.has-3d, .wants-3d) :is(.savepoint__fire-btn, .sif) {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  :root.has-3d :is(.savepoint__fire-btn, .sif):is(:hover, :focus-visible) {
+    background: rgba(253, 184, 19, 0.08);
+    outline: 2px dashed rgba(253, 184, 19, 0.6);
+    outline-offset: 2px;
+  }
+
   /* ---------- Solar system: grab and spin (fun-play.js) ---------- */
   .solar {
     cursor: grab;

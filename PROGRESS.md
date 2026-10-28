@@ -183,3 +183,14 @@ Open questions for user (Phase 1+): verify stats (30%/40%/57K/786K/80%/25%), dru
 ### Certificates (2026-10-15)
 - [x] UADER degree (Analista de Sistemas) and DevOps Diplomatura (UNC FCEFyN · Mundos E, 250 h) shown in Education as image cards with a `<dialog>` viewer. Images rendered from the PDFs with the DNI and the DevOps QR covered (`src/assets/certs/*.webp`); original PDFs moved to `~/Documentos/CV/certificados/`, never committed. Fun mode: gold "Legendary" frames.
 - [x] Education text and both Word CVs/PDFs now match the diploma: "Analista de Sistemas", carrera Análisis de Sistemas, Facultad de Ciencia y Tecnología, July 2025; DevOps entry renamed.
+
+### Fun mode 3 — voxel 3D (2026-10-28)
+- [x] Three.js 0.186.1, loaded by `src/scripts/fun-3d/index.js` through dynamic import only in fun mode, with WebGL 2, and without reduced motion or data saver. The chunk is about 150 KB gzip. Normal mode never fetches it. If mounting fails, the 2D art stays.
+- [x] `voxel.js`: sprite grid to voxel model (puffy depth from the outline for characters, sphere depth for sun and planets), merged per color, 3-step toon shading, glow colors unlit.
+- [x] `stage.js`: one rAF loop. The hero has its own renderer; the small views share one and copy into 2D canvases (two WebGL contexts total). Views draw only while on screen.
+- [x] Hero diorama: the `scene.js` ridges extruded into slabs at real depth, scaled so the front layer matches the SVG at rest. Pine pyramids, voxel sun with glow, fireflies, warm fog. The camera follows the pointer and the view offset keeps the front plane still. The sun sets as the hero scrolls away.
+- [x] Vivi and the chocobo are voxel models in canvases inside their buttons, sized from the hidden sprites. They look at the cursor. Vivi: hop per spell, big jump for Thunder, twirl for Stop, wobble for Bio, orb flares in the spell color, blinks. Chocobo: wiggle on Kweh, three-quarter view and voxel leg frames on the lap, pecks now and then.
+- [x] Airship (≥1440px): banks and pitches with scroll speed, propeller and lamps animate, barrel roll on "back to top".
+- [x] Star chart: voxel sun and planets on a tilted plane, voxel ring on the gas giant. Drag to spin it (`--spin`, also turns the 2D orbits). New secret "Dizzy Hearthian" for three turns (8 secrets now).
+- [x] Card tilt (`fun-tilt.js`): mission cards, ship log and certificates tilt up to 4° with layers lifted in Z, a gold sheen on certificates, and a fixed tilt on keyboard focus.
+- [x] Fixes: `.playwright-mcp/` untracked; `astro check` runs in CI (DOM types fixed in Nav, Contact, Education); `fun.css` split into `src/styles/fun/{base,hud,hero,sections,play,3d}.css` (built CSS identical apart from media wrappers).

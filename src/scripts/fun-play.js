@@ -1,5 +1,5 @@
 // Fun mode interactions: Vivi's spells, the chocobo, the quantum moon, marshmallow roasting,
-// the treasure chest, Nomai writing, the supernova timer and the "stage clear" markers.
+// the solar system spin, the treasure chest, Nomai writing, the supernova timer and the "stage clear" markers.
 // Elements are display:none in normal mode, and secrets only unlock in fun mode.
 import { isFun, tr, unlock } from './fun-secrets.js';
 
@@ -73,6 +73,46 @@ if (qmoon && spots.length) {
     qmoon.classList.add('is-caught');
     unlock('moon');
   });
+}
+
+// ---------- Solar system: drag to spin it, with a little coasting; three turns unlock a secret ----------
+// The angle goes to `--spin` on `.solar`: CSS turns the 2D orbits, the 3D view reads it too.
+const solar = document.querySelector('.solar');
+if (solar) {
+  let angle = 0;
+  let speed = 0;
+  let turned = 0;
+  let dragX = null;
+  const turn = (d) => {
+    angle += d;
+    turned += Math.abs(d);
+    solar.style.setProperty('--spin', `${angle.toFixed(1)}deg`);
+    if (turned >= 3 * 360) unlock('dizzy');
+  };
+  const coast = () => {
+    if (dragX !== null || Math.abs(speed) < 0.1) return;
+    speed *= 0.95;
+    turn(speed);
+    requestAnimationFrame(coast);
+  };
+  solar.addEventListener('pointerdown', (e) => {
+    dragX = e.clientX;
+    speed = 0;
+    solar.setPointerCapture(e.pointerId);
+  });
+  solar.addEventListener('pointermove', (e) => {
+    if (dragX === null) return;
+    speed = (e.clientX - dragX) * 0.8;
+    dragX = e.clientX;
+    turn(speed);
+  });
+  const release = () => {
+    if (dragX === null) return;
+    dragX = null;
+    if (!reducedMotion()) coast();
+  };
+  solar.addEventListener('pointerup', release);
+  solar.addEventListener('pointercancel', release);
 }
 
 // ---------- Marshmallow: click to roast, click again to pull it out ----------

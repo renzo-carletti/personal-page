@@ -2,7 +2,7 @@
 import { currentLang } from './i18n.js';
 import { translations, defaultLang } from '../data/content.js';
 
-export const SECRETS = ['spells', 'kweh', 'mallow', 'moon', 'chest', 'nomai', 'nova'];
+export const SECRETS = ['spells', 'kweh', 'mallow', 'moon', 'chest', 'nomai', 'nova', 'dizzy'];
 const KEY = 'rc-secrets';
 
 export const tr = (key) => (translations[currentLang()] ?? translations[defaultLang])[key] ?? key;

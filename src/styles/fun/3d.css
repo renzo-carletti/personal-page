@@ -1,0 +1,137 @@
+/* Fun mode — 3D: voxel views from src/scripts/fun-3d/ and the card tilt from fun-tilt.js.
+   `html.has-3d` is set only once the 3D views run; without it the 2D pixel art shows. */
+
+@media screen {
+  /* ---------- Voxel canvases ---------- */
+  .fun3d {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    animation: fun3d-in 0.5s ease-out;
+  }
+
+  :root:not(.has-3d) .fun3d {
+    display: none;
+  }
+
+  @keyframes fun3d-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .fun3d--hero {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Room around each sprite to hop, turn and look around. */
+  .fun3d--vivi {
+    left: -80%;
+    width: 260%;
+    bottom: -12%;
+    height: 175%;
+  }
+
+  .choco__body {
+    position: relative;
+  }
+
+  .fun3d--choco {
+    left: -70%;
+    width: 240%;
+    bottom: -15%;
+    height: 200%;
+  }
+
+  .fun3d--airship {
+    left: -45%;
+    width: 190%;
+    top: -40%;
+    height: 180%;
+  }
+
+  .fun3d--solar {
+    inset: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+  }
+
+  :root.has-3d :is(.fun-scene__land, .vivi__sprite, .choco__sprite, .airship__sprite, .solar > .sprite, .solar__orbit) {
+    visibility: hidden;
+  }
+
+  /* The hover glow moves from the hidden sprite to the model. */
+  :root.has-3d :is(.vivi, .choco):is(:hover, :focus-visible) .fun3d {
+    filter: drop-shadow(0 0 6px rgba(253, 184, 19, 0.6));
+  }
+
+  /* ---------- Solar system: grab and spin (fun-play.js) ---------- */
+  .solar {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+  }
+
+  .solar:active {
+    cursor: grabbing;
+  }
+
+  .solar__orbit {
+    rotate: var(--spin, 0deg);
+  }
+
+  /* ---------- Cards tilt toward the pointer ---------- */
+  :root[data-theme='fun'] :is(.case article, .job, .doc__thumb) {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    transition: transform 0.35s var(--ease);
+  }
+
+  :root[data-theme='fun'] .doc__thumb:hover {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-2px);
+  }
+
+  :root[data-theme='fun'] :is(.case article, .job, .doc__thumb).is-tilted {
+    transition: transform 0.08s linear;
+  }
+
+  :root[data-theme='fun'] :is(.case article, .job, .doc__thumb):focus-within {
+    --rx: 2deg;
+    --ry: -3deg;
+  }
+
+  /* Layers lift off the card: stage tag and title float above, the screenshot sits a bit out. */
+  :root[data-theme='fun'] .case__stage {
+    transform: translateZ(36px);
+  }
+
+  :root[data-theme='fun'] :is(.case__name, .job__role) {
+    transform: translateZ(24px);
+  }
+
+  :root[data-theme='fun'] .case__shot {
+    transform: translateZ(8px);
+  }
+
+  /* Gold sheen that follows the pointer on the legendary certificates. */
+  :root[data-theme='fun'] .doc__thumb {
+    position: relative;
+  }
+
+  :root[data-theme='fun'] .doc__thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 228, 138, 0.35), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    mix-blend-mode: screen;
+  }
+
+  :root[data-theme='fun'] .doc__thumb.is-tilted::after {
+    opacity: 1;
+  }
+}

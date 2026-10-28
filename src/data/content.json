@@ -483,12 +483,6 @@
     "fun.msg.2": { "en": "Be wary of the deadline", "es": "Cuidado con la fecha de entrega" },
     "fun.msg.3": { "en": "Praise the sun", "es": "Alabado sea el sol" },
     "fun.msg.rated": { "en": "Appraised ×{n}", "es": "Valorado ×{n}" },
-    "fun.needs": { "en": "Needs", "es": "Necesidades" },
-    "fun.needs.toggle": { "en": "Show or hide needs", "es": "Mostrar u ocultar necesidades" },
-    "fun.need.fun": { "en": "Fun", "es": "Diversión" },
-    "fun.need.energy": { "en": "Energy", "es": "Energía" },
-    "fun.need.social": { "en": "Social", "es": "Social" },
-    "fun.zzz": { "en": "Zzz…", "es": "Zzz…" },
     "fun.cheats.open": { "en": "Cheat console", "es": "Consola de trucos" },
     "fun.cheats.label": { "en": "Enter cheat code:", "es": "Ingresá un truco:" },
     "fun.cheats.unknown": { "en": "Cheat not found. Try help.", "es": "Truco no encontrado. Probá help." },
@@ -512,6 +506,6 @@
     "fun.scan.med": { "en": "medium", "es": "media" },
     "fun.scan.high": { "en": "high", "es": "alta" },
     "fun.clear": { "en": "Clear!", "es": "¡Superado!" },
-    "fun.credit": { "en": "Fan tributes: Vivi and the chocobo (Final Fantasy IX © Square Enix), Sif and the bonfire (Dark Souls © FromSoftware / Bandai Namco), the plumbob, needs and cheats (The Sims © Electronic Arts), Breach Protocol and the scanner (Cyberpunk 2077 © CD PROJEKT RED), and the loop (Outer Wilds © Mobius Digital). All pixel art on this site is original.", "es": "Homenajes de fan: Vivi y el chocobo (Final Fantasy IX © Square Enix), Sif y la hoguera (Dark Souls © FromSoftware / Bandai Namco), el plumbob, las necesidades y los trucos (Los Sims © Electronic Arts), el Protocolo de brecha y el escáner (Cyberpunk 2077 © CD PROJEKT RED) y el bucle (Outer Wilds © Mobius Digital). Todo el pixel art de este sitio es original." }
+    "fun.credit": { "en": "Fan tributes: Vivi and the chocobo (Final Fantasy IX © Square Enix), Sif and the bonfire (Dark Souls © FromSoftware / Bandai Namco), the cheat codes (The Sims © Electronic Arts), Breach Protocol and the scanner (Cyberpunk 2077 © CD PROJEKT RED), and the loop (Outer Wilds © Mobius Digital). All pixel and voxel art on this site is original.", "es": "Homenajes de fan: Vivi y el chocobo (Final Fantasy IX © Square Enix), Sif y la hoguera (Dark Souls © FromSoftware / Bandai Namco), los trucos (Los Sims © Electronic Arts), el Protocolo de brecha y el escáner (Cyberpunk 2077 © CD PROJEKT RED) y el bucle (Outer Wilds © Mobius Digital). Todo el pixel art y voxel art de este sitio es original." }
   }
 }

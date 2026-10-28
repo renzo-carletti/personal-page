@@ -64,25 +64,6 @@ function stars(count: number, seed: number, size: number) {
 <!-- Dark Souls banner: "BONFIRE LIT" (gold) and "YOU DIED" (red). -->
 <div class="fun-only souls-banner" aria-hidden="true"><span class="souls-banner__text"></span></div>
 
-<!-- Sims needs (fun-sims.js). -->
-<section class="fun-only needs" aria-labelledby="needs-title">
-  <button class="needs__toggle" type="button" aria-expanded="true" aria-controls="needs-body" title={en['fun.needs.toggle']} data-i18n="fun.needs.toggle" data-i18n-attr="title">
-    <span class="needs__gem" aria-hidden="true"></span>
-    <span id="needs-title" data-i18n="fun.needs">{en['fun.needs']}</span>
-  </button>
-  <div id="needs-body" class="needs__body">
-    <p class="needs__cash">§<span class="needs__money">20,000</span></p>
-    <dl class="needs__list">
-      {['fun', 'energy', 'social'].map((n) => (
-        <div class="needs__row">
-          <dt data-i18n={`fun.need.${n}`}>{en[`fun.need.${n}`]}</dt>
-          <dd><span class="needs__bar" data-need={n}><span></span></span><span class="needs__pct visually-hidden"></span></dd>
-        </div>
-      ))}
-    </dl>
-  </div>
-</section>
-
 <!-- Sims-style cheat bar (fun-cheats.js). -->
 <form id="cheats" class="fun-only cheats" hidden>
   <label for="cheat-input" data-i18n="fun.cheats.label">{en['fun.cheats.label']}</label>

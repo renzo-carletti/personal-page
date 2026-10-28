@@ -27,7 +27,6 @@ fire?.addEventListener('click', () => {
   } else if (hint) {
     hint.textContent = tr('fun.bonfire.rested');
   }
-  document.dispatchEvent(new CustomEvent('fun:rest'));
 });
 // A new loop puts the bonfire out again.
 document.addEventListener('fun:loop', () => {
@@ -41,7 +40,6 @@ document.addEventListener('fun:loop', () => {
 const sif = document.querySelector('.sif');
 sif?.addEventListener('click', () => {
   play(sif, 'is-wag', 1400);
-  document.dispatchEvent(new CustomEvent('fun:pet'));
 });
 
 // ---------- Soapstone messages, one after a few sections ----------

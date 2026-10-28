@@ -1,5 +1,5 @@
 /* Fun mode — 3D: voxel views from src/scripts/fun-3d/ and the card tilt from fun-tilt.js.
-   `html.has-3d` is set only once the 3D views run; without it the 2D pixel art shows. */
+   `html.wants-3d` hides the 2D art from first paint when 3D is expected; `html.has-3d` shows the canvases once they run. Without both, the 2D pixel art shows. */
 
 @media screen {
   /* ---------- Voxel canvases ---------- */
@@ -64,7 +64,7 @@
     height: calc(100% + 40px);
   }
 
-  :root.has-3d :is(.fun-sky > svg, .fun-scene__land, .vivi__sprite, .choco__sprite, .airship__sprite, .solar > .sprite, .solar__orbit) {
+  :root:is(.has-3d, .wants-3d) :is(.fun-sky > svg, .fun-scene__land, .vivi__sprite, .choco__sprite, .airship__sprite, .solar > .sprite, .solar__orbit) {
     visibility: hidden;
   }
 

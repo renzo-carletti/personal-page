@@ -31,7 +31,7 @@ place();
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // The page elements that fall in, each one spinning toward the hole from its own box.
-const falling = () => [...document.querySelectorAll('main, .nav, .site-footer, footer, .fun-sky, .airship, .needs')];
+const falling = () => [...document.querySelectorAll('main, .nav, .site-footer, footer, .fun-sky, .airship')];
 
 async function collapse() {
   if (busy || !isFun() || !hole) return;

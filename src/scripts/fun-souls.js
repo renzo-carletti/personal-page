@@ -38,10 +38,11 @@ document.addEventListener('fun:loop', () => {
   if (hint) hint.textContent = tr('fun.bonfire.hint');
 });
 
-// ---------- Sif: wags, perks up, says hi ----------
+// ---------- Sif: sets the sword down, howls, picks it up ----------
 const sif = document.querySelector('.sif');
 sif?.addEventListener('click', () => {
-  play(sif, 'is-wag', 1400);
+  // Drops the sword, howls, picks it up again (3.9 s; the 3D view acts it out).
+  if (!sif.classList.contains('is-howl')) play(sif, 'is-howl', 3900);
 });
 
 // ---------- Soapstone messages: each one teaches a cheat, read once ----------

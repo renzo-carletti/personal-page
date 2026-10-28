@@ -361,6 +361,7 @@ function sif() {
   bite.add(sword);
   head.add(bite);
   group.add(head);
+  const biteRest = { position: bite.position.clone(), quaternion: bite.quaternion.clone() };
 
   // Bushy tail curled on the ground, on a pivot for wagging.
   const tail = new THREE.Group();
@@ -376,7 +377,7 @@ function sif() {
     }, { res: 40, fallback: SILVER })
   );
   group.add(tail);
-  group.userData = { head, tail };
+  group.userData = { head, tail, bite, biteRest };
   return group;
 }
 
@@ -406,7 +407,8 @@ export function mountSouls() {
   fire.scale.setScalar(1.35);
   world.add(fire);
   const wolf = sif();
-  wolf.position.set(12, 0, -1);
+  // A little room between the bonfire and Sif, so the dropped sword fits in front of her.
+  wolf.position.set(16, 0, -1);
   // Three-quarter view so the bitten sword reads across the scene.
   wolf.rotation.y = 0.6;
   world.add(wolf);
@@ -445,8 +447,27 @@ export function mountSouls() {
     });
   }
 
+  // Petting Sif: she lowers her head and sets the sword down, howls, then picks it up again.
+  const HOWL = 3.9;
   let since = 9;
-  new MutationObserver(() => sifBtn.classList.contains('is-wag') && (since = 0)).observe(sifBtn, { attributes: true, attributeFilter: ['class'] });
+  let phase = 'held';
+  const from = { position: new THREE.Vector3(), quaternion: new THREE.Quaternion() };
+  // Where the sword lies (diorama space): flat on the ground across the front of the clearing,
+  // grip by Sif's paws and the long blade pointing toward the bonfire, in plain view.
+  const onGround = { position: new THREE.Vector3(24, 0.7, 5), quaternion: new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.atan2(-31, 6), Math.PI / 2, 'YXZ')) };
+  const ease = (k) => k * k * (3 - 2 * k);
+  new MutationObserver(() => {
+    if (sifBtn.classList.contains('is-howl') && since > HOWL) {
+      since = 0;
+      phase = 'held';
+    }
+  }).observe(sifBtn, { attributes: true, attributeFilter: ['class'] });
+
+  function moveSword(bite, to, k, arc = 0) {
+    bite.position.lerpVectors(from.position, to.position, ease(k));
+    bite.position.y += Math.sin(Math.PI * k) * arc;
+    bite.quaternion.slerpQuaternions(from.quaternion, to.quaternion, ease(k));
+  }
 
   view(canvas, {
     scene,
@@ -464,15 +485,49 @@ export function mountSouls() {
       yaw = approach(yaw, want, 2, dt);
       world.rotation.y = yaw;
       fire.userData.update(dt, t, fireBtn.classList.contains('is-lit'));
-      // Sif breathes, watches the fire, wags and tilts the head when petted.
+      // Sif breathes and watches the fire; when petted she drops the sword, howls, picks it up.
       since += dt;
-      const { head, tail } = wolf.userData;
+      const { head, tail, bite, biteRest } = wolf.userData;
       wolf.scale.y = 1 + Math.sin(t * 2) * 0.012;
-      const happy = since < 1.4;
+      const acting = since < HOWL;
+      // Head pitch (+ = nose down): lower 0–0.7 s, howl 1.1–2.7 s, lower again 2.7–3.3 s.
+      let pitch = Math.sin(t * 0.5) * 0.05;
+      let turn = 0.1;
+      if (acting) {
+        if (since < 1.1) pitch = 0.5;
+        else if (since < 2.7) {
+          pitch = -0.85 + Math.sin(since * 9) * 0.04;
+          turn = -0.15;
+        } else if (since < 3.4) pitch = 0.5;
+      }
+      head.rotation.z = approach(head.rotation.z, pitch, 7, dt);
+      head.rotation.y = approach(head.rotation.y, turn, 4, dt);
+      const happy = acting && since > 2.9;
       wag = approach(wag, happy ? 1 : 0, 6, dt);
       tail.rotation.y = Math.sin(t * (happy ? 18 : 1.5)) * (0.12 + wag * 0.35);
-      head.rotation.z = approach(head.rotation.z, happy ? 0.28 : Math.sin(t * 0.5) * 0.05, 5, dt);
-      head.rotation.y = approach(head.rotation.y, happy ? -0.4 : 0.1, 4, dt);
+      // The sword leaves the jaws at 0.6 s and lands on the ground; back in the jaws at 3.3 s.
+      if (acting && phase === 'held' && since >= 0.6) {
+        world.attach(bite);
+        from.position.copy(bite.position);
+        from.quaternion.copy(bite.quaternion);
+        phase = 'dropping';
+      }
+      if (phase === 'dropping') {
+        const k = Math.min(1, (since - 0.6) / 0.45);
+        moveSword(bite, onGround, k, 1.5);
+        if (k === 1) phase = 'ground';
+      }
+      if (phase === 'ground' && since >= 3.3) {
+        head.attach(bite);
+        from.position.copy(bite.position);
+        from.quaternion.copy(bite.quaternion);
+        phase = 'lifting';
+      }
+      if (phase === 'lifting') {
+        const k = Math.min(1, (since - 3.3) / 0.45);
+        moveSword(bite, biteRest, k);
+        if (k === 1) phase = 'held';
+      }
       cover(fireBtn, fire);
       cover(sifBtn, wolf);
     },

@@ -297,11 +297,11 @@
     animation: eyes 5s steps(1) infinite 2s;
   }
 
-  .sif.is-wag .sprite-tail {
+  .sif.is-howl .sprite-tail {
     animation: wag 0.2s steps(1) infinite;
   }
 
-  .sif.is-wag .sif__sprite {
+  .sif.is-howl .sif__sprite {
     animation: bob 0.3s steps(1) 4;
   }
 
@@ -322,8 +322,8 @@
     white-space: nowrap;
   }
 
-  .sif.is-wag .sif__bubble {
-    animation: souls-in 1.4s steps(4) forwards;
+  .sif.is-howl .sif__bubble {
+    animation: souls-in 1.8s steps(4) 1s forwards;
   }
 
   .savepoint__hint {

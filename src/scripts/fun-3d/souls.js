@@ -2,7 +2,7 @@
 // Greatshield, the bonfire (coiled sword, ash and bones), and Sif sitting by the fire. Fan tribute,
 // sculpted from scratch. The real buttons (bonfire, Sif) follow the models on screen.
 import * as THREE from 'three';
-import { addLights, hash, inBox, inEllipsoid, voxelize } from './voxel.js';
+import { addLights, hash, inBox, inEllipsoid, toon, voxelize } from './voxel.js';
 import { approach, pointer, view } from './stage.js';
 
 const FOV = 28;
@@ -147,6 +147,64 @@ function bonfire() {
   return group;
 }
 
+// ---------- Greatsword of Artorias: smooth, beveled, straight ----------
+// Built along +z from the guard (z = 0): blade toward +z, grip and pommel toward -z.
+function greatsword() {
+  const sword = new THREE.Group();
+  const steel = toon('#cdd2df');
+  const dark = toon('#2b2b3a');
+  const grip = toon('#2a2238');
+  const gold = toon('#b89a4e');
+
+  // Blade outline in the XY plane: long, wide, parallel edges, short point at the end.
+  const L = 29;
+  const W = 1.2;
+  const shape = new THREE.Shape();
+  shape.moveTo(0, -W);
+  shape.lineTo(L - 4, -W);
+  shape.lineTo(L, 0);
+  shape.lineTo(L - 4, W);
+  shape.lineTo(0, W);
+  shape.closePath();
+  const bladeGeo = new THREE.ExtrudeGeometry(shape, { depth: 0.24, bevelEnabled: true, bevelThickness: 0.22, bevelSize: 0.35, bevelSegments: 1 });
+  bladeGeo.translate(0, 0, -0.12);
+  const blade = new THREE.Mesh(bladeGeo, steel);
+  // Lay the blade along +z with its flat side facing out (x).
+  blade.rotation.y = -Math.PI / 2;
+  sword.add(blade);
+
+  // Fuller: a darker groove down the middle of both faces.
+  const fullerGeo = new THREE.BoxGeometry(0.06, 0.5, L - 8);
+  [-0.37, 0.37].forEach((x) => {
+    const fuller = new THREE.Mesh(fullerGeo, toon('#7d8396'));
+    fuller.position.set(x, 0, (L - 8) / 2 + 1.5);
+    sword.add(fuller);
+  });
+
+  // Cross guard, grip with wrap rings, pommel.
+  const guard = new THREE.Mesh(new THREE.BoxGeometry(1.3, 7, 1.2), dark);
+  guard.position.z = -0.4;
+  sword.add(guard);
+  [-3.5, 3.5].forEach((y) => {
+    const tip = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.6, 1.2), gold);
+    tip.position.set(0, y, -0.4);
+    sword.add(tip);
+  });
+  const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 6.5, 10), grip);
+  handle.rotation.x = Math.PI / 2;
+  handle.position.z = -4.2;
+  sword.add(handle);
+  for (let k = 0; k < 4; k++) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.12, 4, 10), dark);
+    ring.position.z = -1.8 - k * 1.6;
+    sword.add(ring);
+  }
+  const pommel = new THREE.Mesh(new THREE.OctahedronGeometry(1.05, 0), gold);
+  pommel.position.z = -8;
+  sword.add(pommel);
+  return sword;
+}
+
 // ---------- Sif: the great grey wolf, sitting, facing the fire (toward -x) ----------
 const FUR = ['#8e94a6', '#9da3b4', '#7d8396'];
 const fur = (x, y, z) => FUR[Math.floor(hash(x, y, z) * 3)];
@@ -188,22 +246,13 @@ function sif() {
     return fur(x, y, z);
   });
   head.add(skull);
-  // The Greatsword of Artorias held crosswise in the jaws: the long blade runs out to one side and
-  // dips toward the ground, the guard and grip stick out on the other side of the muzzle.
-  const sword = voxelize([-8, -16, -12], [-4, 4, 36], (x, y, z) => {
-    if (x < -7 || x > -5) return null;
-    if (z >= -1 && z <= 35) {
-      const yc = -Math.max(0, z - 3) * 0.36;
-      const half = z > 31 ? 1.2 - (z - 31) * 0.3 : 1.4;
-      if (Math.abs(y - yc) > half) return null;
-      return Math.abs(y - yc) < 0.5 && x === -6 ? '#f3f5fa' : '#b9bdcc';
-    }
-    if (z === -2 && Math.abs(y) <= 3) return '#2e2e3c';
-    if (z >= -8 && z <= -3 && Math.abs(y) <= 0.6 && x === -6) return z % 2 ? '#3a2a22' : '#4e3a2c';
-    if (z === -9 && Math.abs(y) <= 1 && x === -6) return '#9a8a5a';
-    return null;
-  });
-  sword.position.set(0, 0.4, 0);
+  // The Greatsword of Artorias held crosswise in the jaws, as a smooth, straight model (not voxels)
+  // so it reads as one long blade: it runs out to one side and dips toward the ground in a
+  // single straight line; the guard and grip stick out on the other side of the muzzle.
+  const sword = greatsword();
+  sword.position.set(-6, 0.6, -3);
+  // Tip down and a little toward the viewer, so the whole length shows across the scene.
+  sword.rotation.set(0.3, -0.35, 0);
   head.add(sword);
   group.add(head);
 

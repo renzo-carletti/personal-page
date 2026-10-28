@@ -2,6 +2,7 @@
 // merged per color so each model costs one draw call per palette entry.
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
 
 // Three flat light steps, like the cel-shaded references (3–5 value steps, no gradients).
 const steps = new THREE.DataTexture(new Uint8Array([110, 190, 255]), 3, 1, THREE.RedFormat);
@@ -183,3 +184,50 @@ export const hash = (x, y, z) => {
   const h = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453;
   return h - Math.floor(h);
 };
+
+// Toon material that reads per-vertex colors (for the smoothed models below).
+export const toonVertex = () => new THREE.MeshToonMaterial({ color: '#ffffff', vertexColors: true, gradientMap: steps });
+
+/**
+ * Same inputs as voxelize, but a smooth surface instead of cubes: the shape is sampled into a
+ * field, blurred and polygonized with marching cubes, then each vertex takes the color found just
+ * inside the surface. Use for organic shapes (Sif, stones, ash); `res` is the grid resolution.
+ */
+export function smooth(min, max, colorAt, { res = 48, blur = 1, maxPoly = 40000, fallback = '#808080' } = {}) {
+  const span = Math.max(max[0] - min[0], max[1] - min[1], max[2] - min[2]) + 3;
+  const c = min.map((m, i) => (m + max[i]) / 2);
+  const mc = new MarchingCubes(res, new THREE.MeshBasicMaterial(), false, false, maxPoly);
+  const half = res / 2;
+  const world = (cell, i) => c[i] + ((cell - half) / half) * (span / 2);
+  for (let z = 0; z < res; z++)
+    for (let y = 0; y < res; y++)
+      for (let x = 0; x < res; x++) mc.setCell(x, y, z, colorAt(world(x, 0), world(y, 1), world(z, 2)) ? 160 : 0);
+  mc.blur(blur);
+  mc.update();
+
+  const n = mc.count;
+  const pos = new Float32Array(n * 3);
+  const nor = mc.normalArray.slice(0, n * 3);
+  const col = new Float32Array(n * 3);
+  const color = new THREE.Color();
+  for (let i = 0; i < n; i++) {
+    for (let k = 0; k < 3; k++) pos[i * 3 + k] = c[k] + mc.positionArray[i * 3 + k] * (span / 2);
+    // Marching cubes leaves the normals unnormalized (raw field gradients).
+    const len = Math.hypot(nor[i * 3], nor[i * 3 + 1], nor[i * 3 + 2]) || 1;
+    for (let k = 0; k < 3; k++) nor[i * 3 + k] /= len;
+    let found = null;
+    for (const depth of [0.35, 0.8, 1.4, 2.2]) {
+      found = colorAt(pos[i * 3] - nor[i * 3] * depth, pos[i * 3 + 1] - nor[i * 3 + 1] * depth, pos[i * 3 + 2] - nor[i * 3 + 2] * depth);
+      if (found) break;
+    }
+    color.set(found || fallback);
+    col.set([color.r, color.g, color.b], i * 3);
+  }
+  mc.geometry.dispose();
+  mc.material.dispose();
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  return new THREE.Mesh(geo, toonVertex());
+}

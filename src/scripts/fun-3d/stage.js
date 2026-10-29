@@ -1,6 +1,7 @@
-// Render loop for the fun mode 3D views. The hero has its own WebGL renderer; the small views
-// (Vivi, chocobo, airship, solar system) share one and copy their frame into a 2D canvas, so the
-// page never holds more than two WebGL contexts. Views draw only while on screen.
+// Render loop for the fun mode 3D views. The hero and the Dark Souls diorama have their own
+// antialiased WebGL renderers; the small views (Vivi, chocobo, airship, solar system) share one
+// and copy their frame into a 2D canvas, so the page holds three WebGL contexts at most. Views
+// draw only while on screen.
 import * as THREE from 'three';
 
 const dpr = () => Math.min(devicePixelRatio || 1, innerWidth < 960 ? 1.5 : 2);

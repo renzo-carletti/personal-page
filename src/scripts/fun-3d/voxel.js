@@ -187,13 +187,17 @@ export const hash = (x, y, z) => {
 
 // Toon material that reads per-vertex colors (for the smoothed models below).
 export const toonVertex = () => new THREE.MeshToonMaterial({ color: '#ffffff', vertexColors: true, gradientMap: steps });
+// Toon material with a texture (brick and flagstone surfaces).
+export const toonMap = (map) => new THREE.MeshToonMaterial({ map, gradientMap: steps });
 
 /**
  * Same inputs as voxelize, but a smooth surface instead of cubes: the shape is sampled into a
  * field, blurred and polygonized with marching cubes, then each vertex takes the color found just
  * inside the surface. Use for organic shapes (Sif, stones, ash); `res` is the grid resolution.
+ * `soft` blends each vertex color with a few samples around it, for soft color transitions (fur)
+ * instead of hard stair-stepped patches.
  */
-export function smooth(min, max, colorAt, { res = 48, blur = 1, maxPoly = 40000, fallback = '#808080' } = {}) {
+export function smooth(min, max, colorAt, { res = 48, blur = 1, maxPoly = 40000, fallback = '#808080', soft = 0 } = {}) {
   const span = Math.max(max[0] - min[0], max[1] - min[1], max[2] - min[2]) + 3;
   const c = min.map((m, i) => (m + max[i]) / 2);
   const mc = new MarchingCubes(res, new THREE.MeshBasicMaterial(), false, false, maxPoly);
@@ -210,17 +214,44 @@ export function smooth(min, max, colorAt, { res = 48, blur = 1, maxPoly = 40000,
   const nor = mc.normalArray.slice(0, n * 3);
   const col = new Float32Array(n * 3);
   const color = new THREE.Color();
+  const sample = new THREE.Color();
+  const insideColor = (x, y, z, nx, ny, nz) => {
+    for (const depth of [0.35, 0.8, 1.4, 2.2]) {
+      const found = colorAt(x - nx * depth, y - ny * depth, z - nz * depth);
+      if (found) return found;
+    }
+    return null;
+  };
+  // Offsets for the soft blend, spread around the vertex.
+  const around = soft
+    ? Array.from({ length: 8 }, (_, k) => [Math.cos(k * 2.4) * soft, ((k % 4) / 1.5 - 1) * soft, Math.sin(k * 2.4) * soft])
+    : [];
+  // Marching cubes repeats each vertex for every triangle that shares it: color each one once.
+  const done = new Map();
   for (let i = 0; i < n; i++) {
     for (let k = 0; k < 3; k++) pos[i * 3 + k] = c[k] + mc.positionArray[i * 3 + k] * (span / 2);
     // Marching cubes leaves the normals unnormalized (raw field gradients).
     const len = Math.hypot(nor[i * 3], nor[i * 3 + 1], nor[i * 3 + 2]) || 1;
     for (let k = 0; k < 3; k++) nor[i * 3 + k] /= len;
-    let found = null;
-    for (const depth of [0.35, 0.8, 1.4, 2.2]) {
-      found = colorAt(pos[i * 3] - nor[i * 3] * depth, pos[i * 3 + 1] - nor[i * 3 + 1] * depth, pos[i * 3 + 2] - nor[i * 3 + 2] * depth);
-      if (found) break;
+    const [x, y, z, nx, ny, nz] = [pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2], nor[i * 3], nor[i * 3 + 1], nor[i * 3 + 2]];
+    const key = `${Math.round(x * 512)},${Math.round(y * 512)},${Math.round(z * 512)}`;
+    const seen = done.get(key);
+    if (seen !== undefined) {
+      col.copyWithin(i * 3, seen, seen + 3);
+      continue;
     }
-    color.set(found || fallback);
+    done.set(key, i * 3);
+    color.set(insideColor(x, y, z, nx, ny, nz) || fallback);
+    if (soft) {
+      let count = 1;
+      for (const [dx, dy, dz] of around) {
+        const found = insideColor(x + dx, y + dy, z + dz, nx, ny, nz);
+        if (!found) continue;
+        color.add(sample.set(found));
+        count++;
+      }
+      color.multiplyScalar(1 / count);
+    }
     col.set([color.r, color.g, color.b], i * 3);
   }
   mc.geometry.dispose();

@@ -1,6 +1,6 @@
-// Cheat book (a Sims nod): the ` key or the >_ button in the HUD opens it, Esc or ✕ closes it. One
-// card per cheat: learned ones show what they do and a Use button, missing ones show where to
-// learn them. Cheats are learned by playing: the orange soapstone messages teach some, and finding
+// Cheat book (a Sims nod): the ` key or the >_ button in the HUD (in the menu on phones) opens it,
+// Esc or ✕ closes it. One card per cheat: learned ones show what they do and a Use button, missing
+// ones show where to learn them. Cheats are learned by playing: the orange soapstone messages teach some, and finding
 // a secret teaches the cheat that replays it. The first cheat used unlocks the "Cheater" secret.
 import { isFun, play, reducedMotion, tr, trf, unlock } from './fun-secrets.js';
 
@@ -11,7 +11,7 @@ const out = form?.querySelector('.cheats__out');
 const list = book?.querySelector('.cheatbook__list');
 const progress = book?.querySelector('.cheatbook__progress');
 const options = document.getElementById('cheat-known');
-const btn = document.querySelector('.hud-cheats');
+const btns = document.querySelectorAll('.hud-cheats, .nav__cheats');
 const KEY = 'rc-cheats';
 let opener = null;
 const coarse = matchMedia('(hover: none) and (pointer: coarse)');
@@ -125,7 +125,7 @@ function open() {
   if (!book || !isFun()) return;
   opener = document.activeElement;
   book.hidden = false;
-  btn?.setAttribute('aria-expanded', 'true');
+  btns.forEach((b) => b.setAttribute('aria-expanded', 'true'));
   input.value = '';
   say('');
   renderBook();
@@ -139,8 +139,10 @@ function open() {
 function close() {
   if (!book || book.hidden) return;
   book.hidden = true;
-  btn?.setAttribute('aria-expanded', 'false');
-  if (opener?.isConnected) opener.focus({ preventScroll: true });
+  btns.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+  // Opened from the phone menu, which has closed since: focus goes back to the menu button.
+  const back = opener?.checkVisibility?.() === false ? document.querySelector('.nav__toggle') : opener;
+  if (back?.isConnected) back.focus({ preventScroll: true });
 }
 
 function run(code) {
@@ -173,7 +175,7 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
-btn?.addEventListener('click', () => (book?.hidden ? open() : close()));
+btns.forEach((b) => b.addEventListener('click', () => (book?.hidden ? open() : close())));
 book?.querySelector('.cheatbook__close')?.addEventListener('click', close);
 // A click on the dimmed backdrop closes it.
 book?.addEventListener('click', (e) => e.target === book && close());

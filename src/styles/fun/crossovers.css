@@ -891,6 +891,28 @@
     display: none;
   }
 
+  /* The menu copy only shows on phones, where the HUD one would squeeze out the menu toggle. */
+  .nav__nightcity {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .hud-nightcity {
+      display: none;
+    }
+
+    .nav__nightcity:not([hidden]) {
+      display: block;
+      min-height: 3rem;
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: #0a0f14;
+      background: #f3e600;
+      cursor: pointer;
+    }
+  }
+
   /* ---------- Cyberpunk: scanner (hold Q) ---------- */
   .scan-tag {
     display: none;

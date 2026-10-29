@@ -155,8 +155,7 @@ function decrypt(el) {
 
 function setNightCity(on) {
   root.classList.toggle('night-city', on);
-  const off = document.querySelector('.hud-nightcity');
-  if (off) off.hidden = !on;
+  document.querySelectorAll('[data-nightcity-off]').forEach((b) => (b.hidden = !on));
 }
 
 function win() {
@@ -185,7 +184,7 @@ term?.querySelector('.breach-term__close')?.addEventListener('click', closeTerm)
 term?.addEventListener('click', (e) => e.target === term && closeTerm());
 document.addEventListener('keydown', (e) => e.key === 'Escape' && term && !term.hidden && closeTerm());
 document.addEventListener('fun:breach-open', openTerm);
-document.querySelector('.hud-nightcity')?.addEventListener('click', () => setNightCity(false));
+document.querySelectorAll('[data-nightcity-off]').forEach((b) => b.addEventListener('click', () => setNightCity(false)));
 document.addEventListener('theme:changed', (e) => !e.detail.fun && (closeTerm(), setNightCity(false)));
 document.addEventListener('i18n:changed', () => !done && render());
 

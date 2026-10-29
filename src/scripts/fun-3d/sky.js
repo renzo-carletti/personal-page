@@ -242,9 +242,43 @@ export function mountSky() {
   const shooters = [streak('#fff4d6', '255,240,200'), streak('#8cc7d9', '160,215,240')];
   shooters.forEach((s) => scene.add(s));
   const ice = comet();
-  scene.add(ice.body, ice.tail, ice.head);
   const cometPos = new THREE.Vector3();
   const cometDir = new THREE.Vector3(-1, 0, 0);
+  // On narrow screens the cards cover nearly all of the sky, so the comet flies on its own layer
+  // above the content (no pointer events), with its own renderer and the same camera. It is made
+  // the first time the screen is narrow, and only shows while the comet is out.
+  const narrow = matchMedia('(max-width: 959px)');
+  const overScene = new THREE.Scene();
+  let over;
+  const placeComet = () => {
+    if (narrow.matches && !over) {
+      over = document.createElement('canvas');
+      over.className = 'fun3d fun3d--comet';
+      over.setAttribute('aria-hidden', 'true');
+      document.body.append(over);
+      view(over, { scene: overScene, camera, own: true });
+    }
+    (narrow.matches ? overScene : scene).add(ice.body, ice.tail, ice.head);
+  };
+  placeComet();
+  narrow.addEventListener('change', placeComet);
+  // The path: on wide screens past both edges at the original depth. On narrow ones farther away
+  // (smaller, so it doesn't cover the text) and high on the screen, from just past one edge of
+  // the visible sky to the other, so it spends its whole crossing in view.
+  let span = 1000;
+  let cometZ = -650;
+  let cometY = [120, 140];
+  let cometSecs = 22;
+  function aimComet() {
+    if (!narrow.matches) {
+      [span, cometZ, cometY] = [1000, -650, [120, 140]];
+      return;
+    }
+    cometZ = -1100;
+    const half = (camera.position.z - cometZ) * Math.tan((FOV * Math.PI) / 360);
+    span = half * camera.aspect + 100;
+    cometY = [half * 0.5, half * 0.18];
+  }
 
   const u = field.material.uniforms;
   let clock = 0;
@@ -321,20 +355,22 @@ export function mountSky() {
         }
       }
 
-      // Comet crossing right to left over about 22 seconds, every minute or so. The tails keep
-      // streaming for a moment after the head leaves the screen.
+      // Comet crossing right to left, every minute or so: about 22 seconds on wide screens, at
+      // least 9 on narrow ones. The tails keep streaming for a moment after the head leaves.
       cometAt -= dt;
       if (cometAt < 0 && cometT < 0) {
         cometT = 0;
-        cometPos.set(1000, 120, -650);
+        aimComet();
+        cometSecs = Math.max(narrow.matches ? 9 : 0, (22 * span) / 1000);
+        cometPos.set(span, cometY[0], cometZ);
       }
       const flying = cometT >= 0;
       if (flying) {
-        cometT += dt / 22;
-        const x = 1000 - cometT * 2000;
-        const y = 120 + Math.sin(cometT * Math.PI) * 140;
+        cometT += dt / cometSecs;
+        const x = span - cometT * 2 * span;
+        const y = cometY[0] + Math.sin(cometT * Math.PI) * cometY[1];
         if (dt) cometDir.set(x - cometPos.x, y - cometPos.y, 0).normalize();
-        cometPos.set(x, y, -650);
+        cometPos.set(x, y, cometZ);
         ice.head.visible = true;
         ice.head.position.copy(cometPos);
         const { rock, dark, coma, core } = ice.head.userData;
@@ -350,6 +386,7 @@ export function mountSky() {
         }
       }
       if (flying || ice.tail.visible) ice.update(dt, flying, cometPos, cometDir);
+      over?.classList.toggle('is-on', narrow.matches && (flying || ice.tail.visible));
     },
   });
 }

@@ -353,6 +353,7 @@
   /* ---------- 06 Contact: save point ---------- */
   .savepoint {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     gap: var(--space-5);
     margin-bottom: var(--space-6);

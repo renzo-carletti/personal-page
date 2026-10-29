@@ -100,6 +100,13 @@
     row-gap: var(--space-4);
   }
 
+  /* One column: the stats end well above the hills, so the sun (the black hole button) shows. */
+  @media (max-width: 959px) {
+    :root[data-theme='fun'] .hero {
+      padding-bottom: 250px;
+    }
+  }
+
   /* Wide screens: status and achievements stack on the right, so the scene shows above the fold. */
   @media (min-width: 960px) {
     :root[data-theme='fun'] .hero {

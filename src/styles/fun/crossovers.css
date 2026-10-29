@@ -407,6 +407,7 @@
     gap: var(--space-4);
     width: min(44rem, 100%);
     max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
     overflow: auto;
     padding: var(--space-5);
     background: var(--window);
@@ -638,6 +639,8 @@
     display: grid;
     gap: var(--space-2);
     width: min(30rem, 100%);
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
     padding: var(--space-5);
     color: #d6f7ff;
     background: #0a0f14;

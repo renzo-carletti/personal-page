@@ -170,7 +170,8 @@
     mix-blend-mode: screen;
   }
 
-  :root[data-theme='fun'] .doc__thumb.is-tilted::after {
+  :root[data-theme='fun'] .doc__thumb.is-tilted::after,
+  :root.is-gyro[data-theme='fun'] .doc__thumb::after {
     opacity: 1;
   }
 }

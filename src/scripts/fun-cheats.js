@@ -14,6 +14,7 @@ const options = document.getElementById('cheat-known');
 const btn = document.querySelector('.hud-cheats');
 const KEY = 'rc-cheats';
 let opener = null;
+const coarse = matchMedia('(hover: none) and (pointer: coarse)');
 
 const send = (name, detail) => document.dispatchEvent(new CustomEvent(name, { detail }));
 const say = (text) => out && (out.textContent = text);
@@ -128,7 +129,11 @@ function open() {
   input.value = '';
   say('');
   renderBook();
-  input.focus();
+  // On touch screens focusing the input would pop the keyboard over the book; start at the top.
+  if (coarse.matches) {
+    book.querySelector('.cheatbook__window').scrollTop = 0;
+    book.querySelector('.cheatbook__close').focus({ preventScroll: true });
+  } else input.focus();
 }
 
 function close() {

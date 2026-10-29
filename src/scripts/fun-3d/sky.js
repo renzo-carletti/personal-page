@@ -1,5 +1,5 @@
-// Page-wide night sky in 3D: square pixel stars flowing slowly toward you (faster while you
-// scroll, like a short warp), shooting stars, and now and then
+// Page-wide night sky in 3D: square pixel stars flowing slowly toward you (a short warp toward
+// you while you scroll down, away from you while you scroll up), shooting stars, and now and then
 // a comet with an icy tail crossing the sky (a nod to the Interloper). Replaces the 2D starfield.
 import * as THREE from 'three';
 import { approach, pointer, view } from './stage.js';
@@ -140,12 +140,16 @@ export function mountSky() {
     update(dt) {
       if (root.classList.contains('time-stop')) dt = 0;
       clock += dt;
-      const v = dt ? Math.abs(scrollY - lastY) / dt : 0;
+      // Scroll speed, signed: down brings the stars toward you, up sends them away.
+      const v = dt ? (scrollY - lastY) / dt : 0;
       lastY = scrollY;
-      // Calm drift, with a warp boost while scrolling.
-      speed = approach(speed, 14 + Math.min(900, v * 0.6), v > speed ? 6 : 1.5, dt);
-      flow += speed * dt;
-      u.uFlow.value = flow % DEPTH;
+      // Calm drift, with a warp boost in the scroll direction; it kicks in fast (also when the
+      // direction flips) and eases back.
+      const want = 14 + Math.max(-900, Math.min(900, v * 0.6));
+      const kick = Math.abs(want) > Math.abs(speed) || want * speed < 0;
+      speed = approach(speed, want, kick ? 6 : 1.5, dt);
+      flow = (((flow + speed * dt) % DEPTH) + DEPTH) % DEPTH;
+      u.uFlow.value = flow;
       u.uTime.value = clock;
       field.rotation.z = clock * 0.004;
       look.x = approach(look.x, pointer.active ? (pointer.x / innerWidth - 0.5) * 40 : 0, 2, dt);

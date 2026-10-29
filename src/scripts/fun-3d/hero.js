@@ -1,10 +1,9 @@
 // Title screen diorama: the same ridges as the flat SVG scene, extruded into slabs at real depth,
-// with pine pyramids, a voxel sun and fireflies. At rest the front layer lines up with the SVG
+// with pine pyramids, a glowing sun and fireflies. At rest the front layer lines up with the SVG
 // it replaces; moving the pointer or scrolling moves the camera, and the far layers drift.
 import * as THREE from 'three';
 import { farRidge, midRidge, hill3, hill4 } from '../../components/scene.js';
-import { sun as sunSprite } from '../../components/fun/sprites.js';
-import { glowTexture, spriteToVoxels, toon } from './voxel.js';
+import { toon } from './voxel.js';
 import { approach, pointer, view } from './stage.js';
 
 const FOV = 35;
@@ -52,6 +51,83 @@ function forest({ count, seed, fn, size: [minH, maxH], color }, depth) {
   return group;
 }
 
+// ---------- Sun: a churning pixel ball in a pixel corona ----------
+// One flat disk, drawn on a coarse pixel grid so it reads as pixel art next to the hills. Inside
+// the sun's radius it shades a ball: posterized colors (pale core, gold, orange, deep orange at
+// the limb), slow cells churning across the turning surface and a dark pixel rim. Outside it, a
+// stepped halo and two sets of rays turning slowly in opposite directions. `uHeat` (0..1)
+// bleaches it toward white for the black hole pokes; `uSpin` turns the surface.
+const SUN_D = 11; // diameter of the (invisible) anchor in model units; the caller scales it
+
+const sunMaterial = (uniforms) =>
+  new THREE.ShaderMaterial({
+    uniforms,
+    transparent: true,
+    depthWrite: false,
+    vertexShader: /* glsl */ `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }`,
+    fragmentShader: /* glsl */ `
+      uniform float uTime;
+      uniform float uHeat;
+      uniform float uRatio;
+      uniform float uSpin;
+      varying vec2 vUv;
+      // Soft moving cells from nested sines: cheap, smooth, never repeats on screen.
+      float churn(vec3 p) {
+        return sin(p.x * 3.1 + sin(p.y * 2.3 + uTime * 0.6) * 1.4)
+             * sin(p.y * 2.7 + sin(p.z * 3.3 - uTime * 0.5) * 1.4)
+             * sin(p.z * 2.9 + sin(p.x * 2.1 + uTime * 0.4) * 1.4);
+      }
+      void main() {
+        vec2 q = (floor(vUv * 120.0) + 0.5) / 120.0 - 0.5;
+        float r = length(q) * 2.0;
+        float rr = r / uRatio;
+        vec3 col;
+        float alpha;
+        if (rr < 1.0) {
+          // The ball: a sphere normal from the disk, turned around the vertical axis.
+          vec2 xy = q * 2.0 / uRatio;
+          float nz = sqrt(1.0 - rr * rr);
+          float c = cos(uSpin);
+          float s = sin(uSpin);
+          vec3 p = vec3(c * xy.x + s * nz, xy.y, -s * xy.x + c * nz);
+          float v = pow(nz, 1.1) * 0.62 + churn(p * 2.4) * 0.17 + 0.16;
+          float k = floor(clamp(v, 0.0, 0.999) * 5.0);
+          col = rr > 0.94 ? vec3(0.75, 0.25, 0.10)
+              : k < 1.0 ? vec3(0.91, 0.39, 0.12)
+              : k < 2.0 ? vec3(0.96, 0.55, 0.10)
+              : k < 3.0 ? vec3(0.99, 0.72, 0.07)
+              : k < 4.0 ? vec3(1.0, 0.85, 0.35)
+              : vec3(1.0, 0.96, 0.84);
+          col = mix(col, vec3(1.0), uHeat);
+          alpha = 1.0;
+        } else {
+          // The corona: 0 at the sun's edge, 1 at the edge of the disk.
+          float d = clamp((r - uRatio) / (1.0 - uRatio), 0.0, 1.0);
+          float a = atan(q.y, q.x);
+          float halo = pow(1.0 - d, 2.4);
+          float rays = pow(abs(cos(a * 6.0 + uTime * 0.12)), 16.0) * (1.0 - smoothstep(0.0, 0.8, d))
+                     + pow(abs(cos(a * 9.0 - uTime * 0.08 + 0.4)), 28.0) * 0.7 * (1.0 - smoothstep(0.0, 0.5, d));
+          alpha = floor((halo * 0.55 + rays * 0.6) * 6.0) / 6.0;
+          col = mix(vec3(1.0, 0.55, 0.15), vec3(1.0, 0.9, 0.6), clamp(halo + rays * 0.4, 0.0, 1.0));
+          col = mix(col, vec3(1.0), uHeat * 0.6);
+        }
+        gl_FragColor = vec4(col, alpha);
+      }`,
+  });
+
+function makeSun() {
+  const uniforms = { uTime: { value: 0 }, uHeat: { value: 0 }, uRatio: { value: 0.35 }, uSpin: { value: 0 } };
+  // The anchor keeps the sun's place, size and turn for the poke button and the implode.
+  const anchor = new THREE.Object3D();
+  const disk = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), sunMaterial(uniforms));
+  return { core: anchor, corona: disk, uniforms };
+}
+
 export function mountHero() {
   const host = document.querySelector('.fun-scene');
   const land = host?.querySelector('.fun-scene__land');
@@ -80,24 +156,19 @@ export function mountHero() {
     return { cfg, outer, inner };
   });
 
-  // Sun behind everything, a slowly turning voxel ball with a soft glow.
+  // Sun behind everything: a slowly turning pixel ball with its corona, on one disk.
   const sunLayer = { cfg: { d: 900 }, outer: new THREE.Group(), inner: new THREE.Group() };
-  const sun = spriteToVoxels(sunSprite, { shape: 'round' });
+  const { core: sun, corona: glow, uniforms: sunU } = makeSun();
   // In the gap between the hero text and the facts column, high enough to clear the far ridge.
   sun.position.set(760, 230, 0);
-  sun.scale.setScalar(124 / 11);
-  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), depthWrite: false, fog: false }));
+  sun.scale.setScalar(124 / SUN_D);
   glow.position.set(760, 230, -10);
   sunLayer.inner.add(glow, sun);
   sunLayer.outer.add(sunLayer.inner);
   scene.add(sunLayer.outer);
-  sun.traverse((o) => o.material && (o.material = new THREE.MeshBasicMaterial({ color: o.material.color.clone(), fog: false })));
   layers.unshift(sunLayer);
   // Black hole pokes (fun-blackhole.js): `data-heat` on the scene shakes and whitens the sun,
   // `data-sun="implode"` crushes it to a point, "gone" hides it. The poke button follows the sun.
-  const sunParts = [];
-  sun.traverse((o) => o.material && sunParts.push({ mat: o.material, base: o.material.color.clone() }));
-  const white = new THREE.Color('#ffffff');
   const sunBtn = document.querySelector('.hero-sun');
   const sunWorld = new THREE.Vector3();
   let implodeT = 0;
@@ -158,13 +229,18 @@ export function mountHero() {
       const shrink = state === 'implode' ? 1 - THREE.MathUtils.smootherstep(implodeT, 0, 1.1) : state === 'gone' ? 0 : 1;
       const jitter = heat * 1.6 + (state === 'implode' ? 6 : 0);
       sun.visible = glow.visible = state !== 'gone';
-      sun.rotation.y = clock * (0.3 + heat * 0.8) + implodeT * 12;
+      sun.rotation.y = clock * (0.15 + heat * 0.8) + implodeT * 12;
       sun.position.set(760 + (Math.random() - 0.5) * jitter, 230 - lift * 45 + (Math.random() - 0.5) * jitter, 0);
       glow.position.set(sun.position.x, sun.position.y, -10);
-      sun.scale.setScalar((124 / 11) * (1 + heat * 0.04) * shrink);
-      sunParts.forEach((p) => p.mat.color.copy(p.base).lerp(white, Math.min(1, heat / 4.5 + (state ? 0.6 : 0))));
+      const diameter = 124 * (1 + heat * 0.04) * shrink;
+      sun.scale.setScalar(diameter / SUN_D);
+      sunU.uTime.value = clock * (1 + heat * 0.6);
+      sunU.uSpin.value = sun.rotation.y;
+      sunU.uHeat.value = Math.min(1, heat / 4.5 + (state ? 0.6 : 0));
       const praise = host.classList.contains('is-praised') ? 1.7 : 1;
-      glow.scale.setScalar((330 + Math.sin(clock * 1.5) * 18 + heat * 30) * praise * (shrink > 0 ? 0.3 + 0.7 * shrink : 0));
+      const corona = (360 + Math.sin(clock * 1.5) * 16 + heat * 30) * praise * (shrink > 0 ? 0.3 + 0.7 * shrink : 0);
+      glow.scale.setScalar(Math.max(corona, 0.001));
+      sunU.uRatio.value = corona > 0 ? Math.min(0.95, diameter / corona) : 0.5;
       // Keep the poke button on the projected sun.
       if (sunBtn) {
         sun.getWorldPosition(sunWorld).project(camera);

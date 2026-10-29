@@ -247,6 +247,18 @@
     opacity: 1;
   }
 
+  /* At the page edges the bubble opens toward the content, not off screen. */
+  .qmoon[data-side='left'] .qmoon__say {
+    left: 0;
+    transform: none;
+  }
+
+  .qmoon[data-side='right'] .qmoon__say {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+
   .qmoon.is-caught .qmoon__sprite {
     animation: none;
     filter: brightness(1.3);
@@ -590,6 +602,19 @@
     }
   }
 
+  /* Phones: the list hangs from the HUD across the screen instead of off its right edge. */
+  @media (max-width: 600px) {
+    .hud-secrets__panel {
+      position: fixed;
+      top: calc(var(--nav-h) + var(--space-2));
+      left: var(--gutter);
+      right: var(--gutter);
+      width: auto;
+      max-height: calc(100dvh - var(--nav-h) - var(--space-6));
+      overflow: auto;
+    }
+  }
+
   /* ---------- Play: stage clear on the river map ---------- */
   :root[data-theme='fun'] .case.is-cleared::before {
     background: var(--grass);
@@ -623,7 +648,10 @@
 
   @media (max-width: 720px) {
     :root[data-theme='fun'] .case.is-cleared::after {
-      display: none;
+      left: auto;
+      right: var(--space-3);
+      top: var(--space-3);
+      z-index: 2;
     }
   }
 

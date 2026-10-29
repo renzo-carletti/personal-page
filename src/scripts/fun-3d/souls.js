@@ -606,7 +606,7 @@ function buildSouls(host, fireBtn, sifBtn) {
 
   const scene = new THREE.Scene();
   // The far side fades a little into the night, so the ruin blends with the page behind it.
-  scene.fog = new THREE.Fog('#0b0f1e', 80, 150);
+  scene.fog = new THREE.Fog('#0b0f1e', 80, 150); // distances set in resize()
   const camera = new THREE.PerspectiveCamera(FOV, 2, 1, 600);
   addLights(scene, { key: [-0.4, 1, 0.8], intensity: 1.6 });
   scene.add(new THREE.AmbientLight('#2e2a45', 0.6));
@@ -783,10 +783,15 @@ function buildSouls(host, fireBtn, sifBtn) {
     own: true,
     resize(w, h) {
       measure();
-      // Fit the diorama width (about 72 voxels) with a slightly high angle.
-      const dist = 37 / (Math.tan((FOV * Math.PI) / 360) * (w / h));
+      // Fit the diorama width (about 72 voxels) with a slightly high angle. Narrow (phone) boxes
+      // crop the crumbling wall ends a little, so the bonfire and Sif stay big enough to read.
+      const half = w / h < 1.6 ? 33 : 37;
+      const dist = half / (Math.tan((FOV * Math.PI) / 360) * (w / h));
       camera.position.set(0, dist * 0.3, dist);
       camera.lookAt(target);
+      // The fog follows the camera: only the far side of the ruin fades, at any distance.
+      scene.fog.near = dist - 4;
+      scene.fog.far = dist + 66;
     },
     update(dt, t) {
       if (root.classList.contains('time-stop')) dt = 0;

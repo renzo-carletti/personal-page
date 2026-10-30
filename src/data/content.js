@@ -19,6 +19,23 @@ export function formatMonth(ym, lang = defaultLang) {
     .replace('.', '');
 }
 
+// Length of a role from "YYYY" or "YYYY-MM" dates; end null = still running (counted to the build date).
+// Year-only dates give whole years. Month dates count both ends: 2026-03 → 2026-04 is 2 months.
+export function formatDuration(start, end, lang = defaultLang) {
+  const now = new Date();
+  const [sy, sm] = start.split('-').map(Number);
+  const [ey, em] = end ? end.split('-').map(Number) : [now.getUTCFullYear(), now.getUTCMonth() + 1];
+  const es = lang === 'es';
+  const unit = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+  const years = (n) => unit(n, es ? 'año' : 'year', es ? 'años' : 'years');
+  const months = (n) => unit(n, es ? 'mes' : 'month', es ? 'meses' : 'months');
+  if (!sm || (end && !em)) return years(Math.max(1, ey - sy));
+  const total = (ey - sy) * 12 + (em - sm) + 1;
+  const y = Math.floor(total / 12);
+  const m = total % 12;
+  return [y && years(y), m && months(m)].filter(Boolean).join(' ');
+}
+
 // Flat key → string map for one language. Keys match the `data-i18n` attributes in the markup.
 function buildDict(lang) {
   const d = {};
@@ -50,6 +67,7 @@ function buildDict(lang) {
     put(`exp.${i}.role`, job.role);
     put(`exp.${i}.meta`, job.meta);
     put(`exp.${i}.period`, job.period);
+    d[`exp.${i}.duration`] = formatDuration(job.start, job.end, lang);
     job.bullets.forEach((b, bi) => put(`exp.${i}.b${bi}`, b));
   });
 

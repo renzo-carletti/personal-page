@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Icon from './Icon.astro';
+import SectionIndex from './SectionIndex.astro';
 import { projects, t, translations } from '../data/content.js';
 const en = translations.en;
 const steps = ['problem', 'solution', 'impact'];
@@ -14,15 +15,16 @@ const host = (url: string) => new URL(url).host.replace(/^www\./, '');
 <section id="work" class="section" aria-labelledby="work-title">
   <div class="container section__grid">
     <header class="section__head">
-      <span class="section__num">01</span>
+      <span class="section__num">01<span class="pro-only section__of" aria-hidden="true">/ 06</span></span>
       <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.work">{en['fun.work']}</span>
       <h2 id="work-title" class="section__title" data-i18n="work.title">{en['work.title']}</h2>
       <p class="section__intro" data-i18n="work.intro">{en['work.intro']}</p>
+      <SectionIndex items={projects.map((p, i) => ({ href: `#work-${p.image}`, key: `work.${i}.name` }))} />
     </header>
 
     <ol class="cases" role="list">
       {projects.map((p, i) => (
-        <li class:list={['case', { 'case--featured': p.featured }]}>
+        <li id={`work-${p.image}`} class:list={['case', { 'case--featured': p.featured }]}>
           <article aria-labelledby={`case-${i}`}>
             {shot(p.image) && (
               <figure class="case__shot">

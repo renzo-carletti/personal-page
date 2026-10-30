@@ -11,7 +11,46 @@ function onScroll() {
   requestAnimationFrame(() => {
     const max = root.scrollHeight - window.innerHeight;
     root.style.setProperty('--scroll', max > 0 ? (window.scrollY / max).toFixed(4) : '0');
+    if (root.dataset.theme !== 'fun') {
+      updateIndexes();
+      updateTimeline();
+    }
     ticking = false;
+  });
+}
+
+// The reading line: the part of a section crossing 40% of the viewport is the one being read.
+const readingLine = () => window.innerHeight * 0.4;
+
+// Section index (SectionIndex.astro): mark the last part whose top passed the reading line.
+const indexes = [...document.querySelectorAll('.section-index')].map((nav) =>
+  [...nav.querySelectorAll('a')].map((a) => ({ a, target: document.querySelector(a.getAttribute('href')) }))
+);
+
+function updateIndexes() {
+  const line = readingLine();
+  indexes.forEach((items) => {
+    let current = null;
+    items.forEach((item) => {
+      if (item.target && item.target.getBoundingClientRect().top <= line) current = item;
+    });
+    items.forEach((item) => {
+      if (item === current) item.a.setAttribute('aria-current', 'true');
+      else item.a.removeAttribute('aria-current');
+    });
+  });
+}
+
+// Experience rail: each role's stretch fills as it passes the reading line (styles in Experience.astro).
+const jobs = [...document.querySelectorAll('.job')].map((job) => ({ job, body: job.querySelector('.job__body') }));
+
+function updateTimeline() {
+  const line = window.innerHeight * 0.6;
+  jobs.forEach(({ job, body }) => {
+    const r = body.getBoundingClientRect();
+    const fill = Math.min(1, Math.max(0, (line - r.top) / r.height));
+    body.style.setProperty('--fill', fill.toFixed(3));
+    job.classList.toggle('is-reached', r.top < line);
   });
 }
 

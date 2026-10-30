@@ -1,0 +1,66 @@
+---
+// Normal mode, wide screens: a short list of anchors under the sticky section title, one per part
+// of the section. scroll-ui.js marks the part in view with aria-current.
+import { translations } from '../data/content.js';
+const en = translations.en;
+
+interface Props {
+  // `key` is a data-i18n key (text swaps with the language); `text` is a plain label (company names).
+  items: { href: string; key?: string; text?: string }[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="pro-only section-index" aria-label={en['nav.index']} data-i18n="nav.index" data-i18n-attr="aria-label">
+  <ol role="list">
+    {items.map((item) => (
+      <li>
+        <a href={item.href} data-i18n={item.key}>{item.key ? en[item.key] : item.text}</a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .section-index {
+    display: none;
+  }
+
+  @media (min-width: 960px) {
+    .section-index {
+      display: block;
+      margin-top: var(--space-6);
+    }
+  }
+
+  .section-index ol {
+    display: grid;
+    border-left: var(--border-1) solid var(--line);
+  }
+
+  .section-index a {
+    display: block;
+    margin-left: -1px;
+    padding: var(--space-1) 0 var(--space-1) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--faint);
+    text-decoration: none;
+    border-left: var(--border-2) solid transparent;
+    transition: color var(--dur-fast), border-color var(--dur-base) var(--ease);
+  }
+
+  .section-index a:hover {
+    color: var(--text);
+  }
+
+  .section-index a[aria-current='true'] {
+    color: var(--text);
+    border-left-color: var(--accent);
+  }
+
+  @media print {
+    .section-index {
+      display: none;
+    }
+  }
+</style>

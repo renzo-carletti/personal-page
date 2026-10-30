@@ -170,6 +170,9 @@
     {
       "company": "C&S Informática",
       "period": "03/2026 · 04/2026",
+      "start": "2026-03",
+      "end": "2026-04",
+      "tech": ["Drupal 8 → 10", "RBAC", "JSON:API", "Composer", "DDEV", "Drush"],
       "role": { "en": "Drupal Consultant", "es": "Consultor Drupal" },
       "meta": { "en": "Remote · Contract", "es": "Remoto · Contrato" },
       "bullets": [
@@ -185,6 +188,9 @@
     {
       "company": "Activarte",
       "period": "2023 · 2026",
+      "start": "2023",
+      "end": "2026",
+      "tech": ["Drupal", "React", "REST", "OAuth2", "JSON:API", "Jira", "Bitbucket"],
       "role": { "en": "Full-Stack Developer (Drupal + React)", "es": "Desarrollador Full-Stack (Drupal + React)" },
       "meta": { "en": "Remote", "es": "Remoto" },
       "bullets": [
@@ -199,6 +205,9 @@
     {
       "company": "UADER Rectorado",
       "period": { "en": "2021 · Present", "es": "2021 · Actualidad" },
+      "start": "2021",
+      "end": null,
+      "tech": ["Drupal", "Moodle", "ECA", "React", "GraphQL", "Vue.js"],
       "role": { "en": "Drupal / Moodle Developer", "es": "Desarrollador Drupal / Moodle" },
       "meta": { "en": "Part-time · On-site", "es": "Part-time · Presencial" },
       "bullets": [
@@ -334,6 +343,8 @@
     "nav.work": { "en": "Work", "es": "Proyectos" },
     "nav.skills": { "en": "Skills", "es": "Habilidades" },
     "nav.contact": { "en": "Contact", "es": "Contacto" },
+    "nav.education": { "en": "Education", "es": "Formación" },
+    "nav.index": { "en": "In this section", "es": "En esta sección" },
     "nav.download": { "en": "Download CV", "es": "Descargar CV" },
     "nav.theme": { "en": "Game mode", "es": "Modo juego" },
     "nav.scheme": { "en": "Dark mode", "es": "Modo oscuro" },
@@ -413,6 +424,8 @@
     "work.shot": { "en": "Home page of", "es": "Página de inicio de" },
     "hero.available": { "en": "Open to remote work", "es": "Disponible para trabajo remoto" },
     "exp.now": { "en": "Now", "es": "Actual" },
+    "exp.stack": { "en": "Technologies used in this role", "es": "Tecnologías usadas en este puesto" },
+    "hero.portrait": { "en": "Portrait of Renzo Carletti", "es": "Retrato de Renzo Carletti" },
     "404.title": { "en": "Page not found", "es": "Página no encontrada" },
     "404.text": { "en": "This page doesn't exist or has moved.", "es": "Esta página no existe o se movió." },
     "404.home": { "en": "Back to home", "es": "Volver al inicio" },

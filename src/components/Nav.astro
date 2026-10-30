@@ -9,6 +9,8 @@ const links = [
   { href: '#experience', i18n: 'nav.experience' },
   { href: '#drupal', i18n: 'nav.drupal' },
   { href: '#skills', i18n: 'nav.skills' },
+  // Normal mode only: the fun HUD has no room for a sixth link between 1000 and 1100px.
+  { href: '#education', i18n: 'nav.education', proOnly: true },
   { href: '#contact', i18n: 'nav.contact' },
 ];
 ---
@@ -37,7 +39,7 @@ const links = [
     <nav class="nav__menu" id="nav-menu" aria-label="Primary">
       <ul class="nav__links" role="list">
         {links.map((l) => (
-          <li><a href={l.href} data-i18n={l.i18n}>{en[l.i18n]}</a></li>
+          <li class:list={{ 'pro-only': l.proOnly }}><a href={l.href} data-i18n={l.i18n}>{en[l.i18n]}</a></li>
         ))}
       </ul>
 
@@ -135,6 +137,21 @@ const links = [
 
   .nav__links a[aria-current='true'] {
     border-bottom-color: var(--accent);
+  }
+
+  /* Just above the phone menu the row is tight: closer links, and the CV button never wraps. */
+  @media (min-width: 1001px) and (max-width: 1100px) {
+    :global(:root:not([data-theme='fun'])) .nav__menu {
+      gap: var(--space-5);
+    }
+
+    :global(:root:not([data-theme='fun'])) .nav__links {
+      gap: var(--space-4);
+    }
+  }
+
+  :global(:root:not([data-theme='fun'])) .nav__cv {
+    white-space: nowrap;
   }
 
   .nav__controls {

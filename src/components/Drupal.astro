@@ -8,7 +8,7 @@ const en = translations.en;
 <section id="drupal" class="section" aria-labelledby="drupal-title">
   <div class="container section__grid">
     <header class="section__head">
-      <span class="section__num">03</span>
+      <span class="section__num">03<span class="pro-only section__of" aria-hidden="true">/ 06</span></span>
       <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.drupal">{en['fun.drupal']}</span>
       <h2 id="drupal-title" class="section__title" data-i18n="drupal.title">{en['drupal.title']}</h2>
       <p class="section__intro" data-i18n="drupal.intro">{en['drupal.intro']}</p>
@@ -111,6 +111,14 @@ const en = translations.en;
   .drupal__list > div {
     padding-top: var(--space-3);
     border-top: var(--border-2) solid var(--line);
+  }
+
+  :global(:root:not([data-theme='fun'])) .drupal__list > div:hover {
+    border-top-color: var(--accent);
+  }
+
+  .drupal__list > div {
+    transition: border-color var(--dur-base) var(--ease);
   }
 
   .drupal__list dt {

@@ -4,6 +4,7 @@ import { chestClosed, chestOpen } from './fun/sprites.js';
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Icon from './Icon.astro';
+import SectionIndex from './SectionIndex.astro';
 import { certifications, documents, education, languages, t, translations } from '../data/content.js';
 
 // Certificate images with the DNI and QR codes covered; the original PDFs are not in the repo.
@@ -16,9 +17,17 @@ const en = translations.en;
 <section id="education" class="section" aria-labelledby="edu-title">
   <div class="container section__grid">
     <header class="section__head">
-      <span class="section__num">05</span>
+      <span class="section__num">05<span class="pro-only section__of" aria-hidden="true">/ 06</span></span>
       <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.edu">{en['fun.edu']}</span>
       <h2 id="edu-title" class="section__title" data-i18n="edu.title">{en['edu.title']}</h2>
+      <SectionIndex
+        items={[
+          { href: '#edu-docs', key: 'edu.docs' },
+          { href: '#edu-degrees', key: 'edu.degrees' },
+          { href: '#edu-langs', key: 'edu.langs' },
+          { href: '#edu-certs', key: 'certs.title' },
+        ]}
+      />
       <div class="fun-only chest">
         <button class="chest__btn" type="button" aria-label={en['fun.chest.label']} data-i18n="fun.chest.label" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="chest-loot">
           <PixelSprite sprite={chestClosed} class="chest__closed" />
@@ -33,7 +42,7 @@ const en = translations.en;
 
     <div class="edu">
       <div class="docs">
-        <h3 class="label" data-i18n="edu.docs">{en['edu.docs']}</h3>
+        <h3 id="edu-docs" class="label" data-i18n="edu.docs">{en['edu.docs']}</h3>
         <ul class="docs__list" role="list">
           {documents.map((doc, i) => (
             <li class="doc">
@@ -62,7 +71,7 @@ const en = translations.en;
       </div>
 
       <div class="edu__col">
-        <h3 class="label" data-i18n="edu.degrees">{en['edu.degrees']}</h3>
+        <h3 id="edu-degrees" class="label" data-i18n="edu.degrees">{en['edu.degrees']}</h3>
         <ul class="edu__list" role="list">
           {education.map((e, i) => (
             <li>
@@ -75,7 +84,7 @@ const en = translations.en;
           ))}
         </ul>
 
-        <h3 class="label edu__sub" data-i18n="edu.langs">{en['edu.langs']}</h3>
+        <h3 id="edu-langs" class="label edu__sub" data-i18n="edu.langs">{en['edu.langs']}</h3>
         <ul class="edu__list" role="list">
           {languages.map((l, i) => (
             <li>
@@ -87,7 +96,7 @@ const en = translations.en;
       </div>
 
       <div class="edu__col">
-        <h3 class="label" data-i18n="certs.title">{en['certs.title']}</h3>
+        <h3 id="edu-certs" class="label" data-i18n="certs.title">{en['certs.title']}</h3>
         <table class="certs">
           <tbody>
             {certifications.map((cert, i) => (

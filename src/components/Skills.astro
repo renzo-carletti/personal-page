@@ -7,7 +7,7 @@ const en = translations.en;
 <section id="skills" class="section" aria-labelledby="skills-title">
   <div class="container section__grid">
     <header class="section__head">
-      <span class="section__num">04</span>
+      <span class="section__num">04<span class="pro-only section__of" aria-hidden="true">/ 06</span></span>
       <span class="fun-only fun-label" aria-hidden="true" data-i18n="fun.skills">{en['fun.skills']}</span>
       <h2 id="skills-title" class="section__title" data-i18n="skills.title">{en['skills.title']}</h2>
       <SolarSystem />
@@ -40,6 +40,14 @@ const en = translations.en;
     padding-bottom: var(--space-2);
     margin-bottom: var(--space-2);
     border-bottom: var(--border-1) solid var(--line);
+  }
+
+  .skills dt {
+    transition: border-color var(--dur-base) var(--ease);
+  }
+
+  :global(:root:not([data-theme='fun'])) .skills__group:hover dt {
+    border-bottom-color: var(--accent);
   }
 
   .skills dd {

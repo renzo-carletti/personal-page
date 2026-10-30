@@ -37,7 +37,8 @@ const host = (url: string) => new URL(url).host.replace(/^www\./, '');
                   alt={en[`work.${i}.shot`]}
                   data-i18n={`work.${i}.shot`}
                   data-i18n-attr="alt"
-                  formats={['avif', 'webp']}
+                  formats={['avif']}
+                  fallbackFormat="webp"
                   widths={[480, 800, 1200]}
                   sizes={p.featured ? '(min-width: 1200px) 830px, (min-width: 960px) 70vw, 100vw' : '(min-width: 1200px) 410px, (min-width: 720px) 45vw, 100vw'}
                   loading="lazy"

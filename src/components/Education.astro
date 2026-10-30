@@ -48,7 +48,7 @@ const en = translations.en;
             <li class="doc">
               <span class="fun-only doc__tag" aria-hidden="true" data-i18n="fun.legendary">{en['fun.legendary']}</span>
               <button class="doc__thumb" type="button" data-doc={`doc-${doc.id}`} aria-label={en[`docs.${i}.view`]} data-i18n={`docs.${i}.view`} data-i18n-attr="aria-label">
-                <Picture src={docImage(doc.image)} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(min-width: 1100px) 400px, (min-width: 720px) 45vw, 100vw" loading="lazy" decoding="async" />
+                <Picture src={docImage(doc.image)} alt="" formats={['avif']} fallbackFormat="webp" widths={[480, 800]} sizes="(min-width: 1100px) 400px, (min-width: 720px) 45vw, 100vw" loading="lazy" decoding="async" />
               </button>
               <div class="doc__info">
                 <strong data-i18n={`docs.${i}.title`}>{t(doc.title)}</strong>
@@ -62,7 +62,7 @@ const en = translations.en;
                     <Icon name="close" />
                   </button>
                 </div>
-                <Picture src={docImage(doc.image)} alt={t(doc.title)} data-i18n={`docs.${i}.title`} data-i18n-attr="alt" formats={['avif', 'webp']} widths={[1200, 2000]} sizes="min(92vw, 1100px)" loading="lazy" decoding="async" />
+                <Picture src={docImage(doc.image)} alt={t(doc.title)} data-i18n={`docs.${i}.title`} data-i18n-attr="alt" formats={['avif']} fallbackFormat="webp" widths={[1200, 2000]} sizes="min(92vw, 1100px)" loading="lazy" decoding="async" />
                 <p class="doc__note" data-i18n="edu.hidden">{en['edu.hidden']}</p>
               </dialog>
             </li>

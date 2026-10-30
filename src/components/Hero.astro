@@ -3,19 +3,30 @@ import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Icon from './Icon.astro';
 import HeroScene from './fun/HeroScene.astro';
-import { farRidge, midRidge, hill3, hillLine } from './scene.js';
+import { farRidge, midRidge, hill3, hillLine, swayFrames } from './scene.js';
 import { profile, stats, t, translations } from '../data/content.js';
 const en = translations.en;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 // Optional: the hero shows the portrait only if src/assets/portrait.jpg exists.
+// The ridges sway slowly, each at its own pace (back, accent, front).
+const ridges = [
+  { d: farRidge, amp: 5, wavelength: 260, dur: 16 },
+  { d: midRidge, amp: 7, wavelength: 200, dur: 12, accent: true },
+  { d: hillLine(hill3), amp: 3, wavelength: 320, dur: 19 },
+].map((r) => {
+  const frames = swayFrames(r.d, r.amp, r.wavelength);
+  return { ...r, d: frames[0], values: [...frames, frames[0]].join(';') };
+});
 const portrait = Object.values(import.meta.glob<{ default: ImageMetadata }>('../assets/portrait.jpg', { eager: true }))[0]?.default;
 ---
 
 <section id="top" class:list={['hero container', { 'hero--portrait': portrait }]} aria-labelledby="hero-name">
   <svg class="pro-only hero__ridges" viewBox="0 196 1440 224" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path class="hero__ridge" d={farRidge} pathLength="1" />
-    <path class="hero__ridge hero__ridge--accent" d={midRidge} pathLength="1" />
-    <path class="hero__ridge" d={hillLine(hill3)} pathLength="1" />
+    {ridges.map((r) => (
+      <path class:list={['hero__ridge', { 'hero__ridge--accent': r.accent }]} d={r.d} pathLength="1">
+        <animate attributeName="d" values={r.values} dur={`${r.dur}s`} repeatCount="indefinite" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" />
+      </path>
+    ))}
   </svg>
   {portrait && (
     <figure class="pro-only hero__portrait">
@@ -401,3 +412,25 @@ const portrait = Object.values(import.meta.glob<{ default: ImageMetadata }>('../
     }
   }
 </style>
+
+<script>
+  // Ridge sway (SMIL in the markup): runs only while the hero is on screen, in normal mode,
+  // without reduced motion.
+  const ridges = document.querySelector<SVGSVGElement>('.hero__ridges');
+  if (ridges) {
+    const root = document.documentElement;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let onScreen = true;
+    const sync = () => {
+      if (onScreen && !reduced.matches && root.dataset.theme !== 'fun') ridges.unpauseAnimations();
+      else ridges.pauseAnimations();
+    };
+    new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      sync();
+    }).observe(ridges);
+    reduced.addEventListener('change', sync);
+    document.addEventListener('theme:changed', sync);
+    sync();
+  }
+</script>

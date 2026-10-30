@@ -23,3 +23,12 @@ export function pines(count, seed, baseY, [minH, maxH]) {
     return `M${x} ${(y - height).toFixed(1)}L${(x + w).toFixed(1)} ${y.toFixed(1)}L${(x - w).toFixed(1)} ${y.toFixed(1)}Z`;
   }).join('');
 }
+
+// Normal mode hero: four shapes of one open line for a slow traveling sway (SMIL `values`). Each point
+// moves up and down by `amp · sin(x / wavelength + phase)` for phases 0, π/2, π, 3π/2, so the loop closes.
+export function swayFrames(path, amp, wavelength) {
+  const points = [...path.matchAll(/([ML])\s*(-?[\d.]+)[ ,](-?[\d.]+)/g)].map(([, cmd, x, y]) => [cmd, +x, +y]);
+  return [0, 1, 2, 3].map((k) =>
+    points.map(([cmd, x, y]) => `${cmd}${x} ${(y + amp * Math.sin(x / wavelength + (k * Math.PI) / 2)).toFixed(1)}`).join('')
+  );
+}

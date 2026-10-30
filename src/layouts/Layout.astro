@@ -86,13 +86,19 @@ const schema = {
     <script>
       import '../scripts/scroll-ui.js';
       import '../scripts/reveal.js';
-      import '../scripts/fun-play.js';
-      import '../scripts/fun-souls.js';
-      import '../scripts/fun-blackhole.js';
-      import '../scripts/fun-cheats.js';
-      import '../scripts/fun-cyber.js';
-      import '../scripts/fun-tilt.js';
+      // Kept eager: asks iOS for tilt permission on the very tap that turns fun mode on.
+      import '../scripts/fun-gyro.js';
       import '../scripts/fun-3d/index.js';
+
+      // The rest of the fun toys load the first time fun mode is on.
+      let funLoaded = false;
+      const loadFun = () => {
+        if (funLoaded) return;
+        funLoaded = true;
+        import('../scripts/fun.js');
+      };
+      if (document.documentElement.dataset.theme === 'fun') loadFun();
+      document.addEventListener('theme:changed', (e) => (e as CustomEvent).detail.fun && loadFun());
     </script>
   </body>
 </html>

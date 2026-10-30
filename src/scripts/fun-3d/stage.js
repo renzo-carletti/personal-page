@@ -1,7 +1,9 @@
-// Render loop for the fun mode 3D views. The hero has its own WebGL renderer; the small views
-// (Vivi, chocobo, airship, solar system) share one and copy their frame into a 2D canvas, so the
-// page never holds more than two WebGL contexts. Views draw only while on screen.
+// Render loop for the fun mode 3D views. The hero and the Dark Souls diorama have their own
+// antialiased WebGL renderers; the small views (Vivi, chocobo, airship, solar system) share one
+// and copy their frame into a 2D canvas, so the page holds three WebGL contexts at most. Views
+// draw only while on screen.
 import * as THREE from 'three';
+import { tilt } from '../fun-gyro.js';
 
 const dpr = () => Math.min(devicePixelRatio || 1, innerWidth < 960 ? 1.5 : 2);
 const views = new Set();
@@ -98,6 +100,7 @@ function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000 || 0);
   last = now;
   elapsed += dt;
+  followTilt();
   views.forEach((v) => v.visible && draw(v, dt));
   requestAnimationFrame(frame);
 }
@@ -113,17 +116,28 @@ export function stop() {
   running = false;
 }
 
-// Shared pointer position in viewport pixels, for models that look at the cursor.
+// Shared pointer position in viewport pixels, for models that look at the cursor. On touch
+// screens tilting the phone moves it instead (fun-gyro.js).
 export const pointer = { x: innerWidth / 2, y: innerHeight / 2, active: false };
+let mouse = false;
 addEventListener(
   'pointermove',
   (e) => {
+    mouse = e.pointerType === 'mouse';
     pointer.x = e.clientX;
     pointer.y = e.clientY;
-    pointer.active = e.pointerType === 'mouse';
+    pointer.active = mouse;
   },
   { passive: true }
 );
+
+function followTilt() {
+  if (mouse) return;
+  pointer.active = tilt.active;
+  if (!tilt.active) return;
+  pointer.x = innerWidth * (0.5 + tilt.x / 2);
+  pointer.y = innerHeight * (0.5 + tilt.y / 2);
+}
 
 // Ease a value toward a target, frame-rate independent.
 export const approach = (value, target, rate, dt) => value + (target - value) * (1 - Math.exp(-rate * dt));

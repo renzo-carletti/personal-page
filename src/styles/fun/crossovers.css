@@ -323,7 +323,7 @@
   }
 
   .sif.is-howl .sif__bubble {
-    animation: souls-in 1.8s steps(4) 1s forwards;
+    animation: souls-in 1.4s steps(4) 2.6s forwards;
   }
 
   .savepoint__hint {
@@ -407,6 +407,7 @@
     gap: var(--space-4);
     width: min(44rem, 100%);
     max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
     overflow: auto;
     padding: var(--space-5);
     background: var(--window);
@@ -517,8 +518,10 @@
     gap: var(--space-3);
   }
 
+  /* Zero basis: the input's default size would otherwise push Enter out on narrow screens. */
   .cheatbook__row input {
     flex: 1;
+    width: 0;
     min-width: 0;
     padding: var(--space-2) var(--space-3);
     font-family: var(--font-mono);
@@ -536,6 +539,67 @@
     min-height: 1.4em;
     font-size: var(--text-sm);
     color: #8fe36b;
+  }
+
+  /* Phones: the book fills the screen without growing past it. Title and input stay put, only the
+     cards scroll, and each card is one compact row with its Use button on the side. */
+  @media (max-width: 600px) {
+    .cheatbook {
+      padding: var(--space-3);
+    }
+
+    .cheatbook__window {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding: var(--space-4);
+    }
+
+    .cheatbook__title {
+      font-size: var(--text-lg);
+    }
+
+    .cheatbook__list {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2);
+      padding: 2px;
+    }
+
+    .cheatcard {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--space-3);
+      row-gap: 2px;
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .cheatcard code {
+      font-size: var(--text-md);
+    }
+
+    .cheatcard p {
+      grid-column: 1;
+      font-size: var(--text-xs);
+    }
+
+    :root[data-theme='fun'] .cheatcard .btn {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+    }
+
+    .cheatbook__form {
+      flex: none;
+      gap: var(--space-1);
+      padding-top: var(--space-2);
+    }
+
+    :root[data-theme='fun'] .cheatbook__row .btn {
+      margin-right: var(--px);
+      padding-inline: var(--space-3);
+    }
   }
 
   .cheatbook.is-wrong .cheatbook__window {
@@ -638,6 +702,8 @@
     display: grid;
     gap: var(--space-2);
     width: min(30rem, 100%);
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
     padding: var(--space-5);
     color: #d6f7ff;
     background: #0a0f14;
@@ -823,6 +889,28 @@
 
   .hud-nightcity[hidden] {
     display: none;
+  }
+
+  /* The menu copy only shows on phones, where the HUD one would squeeze out the menu toggle. */
+  .nav__nightcity {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .hud-nightcity {
+      display: none;
+    }
+
+    .nav__nightcity:not([hidden]) {
+      display: block;
+      min-height: 3rem;
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: #0a0f14;
+      background: #f3e600;
+      cursor: pointer;
+    }
   }
 
   /* ---------- Cyberpunk: scanner (hold Q) ---------- */

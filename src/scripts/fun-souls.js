@@ -41,8 +41,8 @@ document.addEventListener('fun:loop', () => {
 // ---------- Sif: sets the sword down, howls, picks it up ----------
 const sif = document.querySelector('.sif');
 sif?.addEventListener('click', () => {
-  // Drops the sword, howls, picks it up again (3.9 s; the 3D view acts it out).
-  if (!sif.classList.contains('is-howl')) play(sif, 'is-howl', 3900);
+  // Drops the sword, howls, picks it up again (6.45 s; the 3D view acts it out).
+  if (!sif.classList.contains('is-howl')) play(sif, 'is-howl', 6450);
 });
 
 // ---------- Soapstone messages: each one teaches a cheat, read once ----------

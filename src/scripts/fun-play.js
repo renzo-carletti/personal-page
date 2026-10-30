@@ -48,7 +48,11 @@ if (qmoon && spots.length) {
     current = i;
     spots[i].append(qmoon);
     qmoon.style.top = `${10 + Math.random() * 70}%`;
-    qmoon.style.left = Math.random() < 0.5 ? `${2 + Math.random() * 6}%` : `${88 + Math.random() * 6}%`;
+    // Near the left or right edge; from the right it is placed by `right`, so it never sticks out.
+    const side = Math.random() < 0.5 ? 'left' : 'right';
+    qmoon.dataset.side = side;
+    qmoon.style.left = qmoon.style.right = '';
+    qmoon.style[side] = `${2 + Math.random() * 6}%`;
     qmoon.classList.remove('is-caught');
   };
   relocate();

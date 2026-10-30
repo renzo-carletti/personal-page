@@ -27,9 +27,11 @@ const links = [
       <!-- Filled by fun-secrets.js: found secrets by name, missing ones as hints. -->
       <ol id="secrets-panel" class="hud-secrets__panel" hidden></ol>
     </div>
-    <!-- Shown while Night City mode is on (won from Breach Protocol, fun-cyber.js). -->
-    <button class="fun-only hud-nightcity" type="button" hidden data-i18n="fun.nc.off">{en['fun.nc.off']}</button>
-    <!-- Sims-style cheat bar (fun-cheats.js). Also opens with the backquote key. -->
+    <!-- Shown while Night City mode is on (won from Breach Protocol, fun-cyber.js). On phones it
+         moves into the menu (.nav__nightcity) so the menu toggle keeps its room. -->
+    <button class="fun-only hud-nightcity" type="button" hidden data-nightcity-off data-i18n="fun.nc.off">{en['fun.nc.off']}</button>
+    <!-- Sims-style cheat bar (fun-cheats.js). Also opens with the backquote key. On phones it
+         moves into the menu (.nav__cheats). -->
     <button class="fun-only hud-cheats" type="button" aria-controls="cheats" aria-expanded="false" aria-label={en['fun.cheats.open']} title={en['fun.cheats.open']} data-i18n="fun.cheats.open" data-i18n-attr="aria-label">&gt;_</button>
 
     <nav class="nav__menu" id="nav-menu" aria-label="Primary">
@@ -38,6 +40,13 @@ const links = [
           <li><a href={l.href} data-i18n={l.i18n}>{en[l.i18n]}</a></li>
         ))}
       </ul>
+
+      <button class="fun-only nav__cheats" type="button" aria-controls="cheats" aria-expanded="false">
+        <span class="nav__cheats-icon" aria-hidden="true">&gt;_</span>
+        <span data-i18n="fun.cheats.open">{en['fun.cheats.open']}</span>
+      </button>
+
+      <button class="fun-only nav__nightcity" type="button" hidden data-nightcity-off data-i18n="fun.nc.off">{en['fun.nc.off']}</button>
 
       <div class="nav__controls" role="group" aria-label="Language and appearance">
         <div class="nav__langs">
@@ -59,8 +68,8 @@ const links = [
     </nav>
 
     <button class="nav__icon nav__toggle" aria-expanded="false" aria-controls="nav-menu">
-      <Icon name="menu" class="icon-open" />
-      <Icon name="close" class="icon-close" />
+      <Icon name="menu" class="icon-open" size={28} />
+      <Icon name="close" class="icon-close" size={28} />
       <span class="visually-hidden" data-i18n="nav.menu">{en['nav.menu']}</span>
     </button>
   </div>
@@ -185,6 +194,12 @@ const links = [
 
   .nav__toggle {
     display: none;
+    flex-shrink: 0;
+  }
+
+  /* The cheat console entry lives in the phone menu; wide screens use the HUD button. */
+  .nav__cheats {
+    display: none;
   }
 
   .nav__toggle :global(.icon-close),
@@ -199,6 +214,30 @@ const links = [
   @media (max-width: 1000px) {
     .nav__toggle {
       display: grid;
+      width: 3rem;
+      height: 3rem;
+      margin-right: calc(var(--space-2) * -1);
+      color: var(--text);
+    }
+
+    :global(:root[data-theme='fun']) .nav__cheats {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 3rem;
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-pixel);
+      font-size: var(--text-md);
+      color: #8fe36b;
+      border: 2px solid #4c8c8a;
+    }
+
+    .nav__cheats-icon {
+      font-size: var(--text-lg);
+    }
+
+    :global(.hud-cheats) {
+      display: none;
     }
 
     .nav__menu {
@@ -258,7 +297,7 @@ const links = [
     menu.classList.toggle('open', open);
   }
   toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
-  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  menu.querySelectorAll('a, .nav__cheats, .nav__nightcity').forEach((a) => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
       setMenu(false);

@@ -1,6 +1,6 @@
 // Cyberpunk 2077 tribute: a locked access point in the Drupal section that opens a timed Breach
-// Protocol (winning turns on Night City mode), and a scanner (hold Q, or the `scan` cheat) that
-// tints the page and tags each section.
+// Protocol (winning turns on Night City mode), and a scanner (hold Q, hold two fingers on a touch
+// screen, or the `scan` cheat) that tints the page and tags each section.
 import { isFun, play, reducedMotion, toast, tr, trf, unlock } from './fun-secrets.js';
 
 // ---------- Breach Protocol: locked access point, timed terminal, Night City reward ----------
@@ -155,8 +155,7 @@ function decrypt(el) {
 
 function setNightCity(on) {
   root.classList.toggle('night-city', on);
-  const off = document.querySelector('.hud-nightcity');
-  if (off) off.hidden = !on;
+  document.querySelectorAll('[data-nightcity-off]').forEach((b) => (b.hidden = !on));
 }
 
 function win() {
@@ -185,7 +184,7 @@ term?.querySelector('.breach-term__close')?.addEventListener('click', closeTerm)
 term?.addEventListener('click', (e) => e.target === term && closeTerm());
 document.addEventListener('keydown', (e) => e.key === 'Escape' && term && !term.hidden && closeTerm());
 document.addEventListener('fun:breach-open', openTerm);
-document.querySelector('.hud-nightcity')?.addEventListener('click', () => setNightCity(false));
+document.querySelectorAll('[data-nightcity-off]').forEach((b) => b.addEventListener('click', () => setNightCity(false)));
 document.addEventListener('theme:changed', (e) => !e.detail.fun && (closeTerm(), setNightCity(false)));
 document.addEventListener('i18n:changed', () => !done && render());
 
@@ -222,5 +221,23 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keyup', (e) => {
   if (e.key === 'q' || e.key === 'Q') scan(false);
 });
+// Touch screens: hold two fingers on the page (a short hold, so a quick pinch doesn't flash it).
+let hold;
+document.addEventListener(
+  'touchstart',
+  (e) => {
+    if (e.touches.length !== 2 || typing(e.target)) return;
+    clearTimeout(hold);
+    hold = setTimeout(() => scan(true), 250);
+  },
+  { passive: true }
+);
+const lift = (e) => {
+  if (e.touches.length >= 2) return;
+  clearTimeout(hold);
+  if (root.classList.contains('is-scanning')) scan(false);
+};
+document.addEventListener('touchend', lift, { passive: true });
+document.addEventListener('touchcancel', lift, { passive: true });
 addEventListener('blur', () => scan(false));
 document.addEventListener('fun:scan', () => scan(!root.classList.contains('is-scanning')));
